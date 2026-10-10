@@ -1,5 +1,5 @@
 /* يحفظ ملفات التطبيق ليعمل بلا إنترنت. غيّر رقم الإصدار عند كل تحديث لتصل النسخة الجديدة. */
-const CACHE = 'study-app-v18';
+const CACHE = 'study-app-v19';
 const CORE = ['./', './index.html', './content/physics-12-c1.js', './content/physics-12-c1-more.js', './content/physics-12-c2.js', './content/physics-12-c2b.js', './content/physics-12-c2c.js', './content/physics-12-c2d.js', './content/_h.js', './content/chemistry-12-c1.js', './content/math-12-c1.js', './content/biology-12-c1.js', './content/arabic-12-u1.js', './content/islamic-12-u1.js', './content/english-12-u1.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {

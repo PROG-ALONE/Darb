@@ -399,6 +399,7 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 .opt.right{border-color:var(--ok,#2e7d32);background:color-mix(in srgb,var(--ok,#2e7d32) 14%,transparent)}.opt.wrong{border-color:#c62828;background:color-mix(in srgb,#c62828 12%,transparent)}
 .note.bad{color:#c62828}.mwin{text-align:center;border:2px solid var(--ok,#2e7d32)}.ok-t{color:var(--ok,#2e7d32)}
 .flash{animation:flashk 1.4s 1}@keyframes flashk{0%,100%{filter:none}30%{filter:drop-shadow(0 0 10px var(--acc))}}
+.yt{display:flex;align-items:center;gap:10px;margin:8px 0;padding:8px 12px;border-radius:12px;border:1px dashed color-mix(in srgb,var(--muted) 40%,transparent);color:inherit;text-decoration:none;font-size:.92em}.yt:hover{border-color:#e53935}
 </style>
 </head>
 <body>
@@ -1160,6 +1161,11 @@ function memoAct(a, el) {
 }
 function memoTopics() { const out = []; gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (t.memo && !isHidden(t.id)) out.push({ subject: y.subject, ch, t }); }))); return out; }
 
+function ytLink(t, subject, f) {
+  const g = GRADES[(+f.key.split(':')[0]) - 1], gname = g ? g.name : '';
+  const q = (subject === 'اللغة الإنكليزية' ? 'English ' + gname + ' ' + t.title + ' ' + (t.en || '') : t.title + ' ' + subject + ' ' + gname).replace(/[«»()]/g, ' ').replace(/\s+/g, ' ').trim();
+  return '<a class="yt" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="#e53935"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg><span><b>شرح على يوتيوب</b> <span class="small muted">اختياري للاستزادة · يفتح نتائج البحث عن هذا الموضوع</span></span></a>';
+}
 function vTopic() {
   const f = findTopic(S.viewTopic); if (!f) return vToday();
   const t = f.t, subject = f.key.split(':')[2];
@@ -1179,7 +1185,7 @@ function vTopic() {
   const i = segs.findIndex(s => s[0] === seg), nx = segs[i + 1];
   return topBar(f.ch.title.split(':')[0], { back: true }) + '<main class="page">' +
     '<div class="t-head"><span class="t-sec">' + bsec(t.sec) + '</span><div><h2>' + ft(t.title) + '</h2><p class="muted small">' + esc(subject) + ' · ' + esc(f.ch.title) + ' · الكتاب ص' + ar(t.page) + '</p></div></div>' +
-    '<nav class="segs" aria-label="أجزاء الموضوع">' + segs.map(s => '<button class="seg" data-act="tseg" data-v="' + s[0] + '" aria-pressed="' + (s[0] === seg) + '">' + (progOf(t.id).seen[s[0]] && s[0] !== seg ? '<i class="dot" aria-hidden="true"></i>' : '') + s[1] + '</button>').join('') + '</nav>' +
+    ytLink(t, subject, f) + '<nav class="segs" aria-label="أجزاء الموضوع">' + segs.map(s => '<button class="seg" data-act="tseg" data-v="' + s[0] + '" aria-pressed="' + (s[0] === seg) + '">' + (progOf(t.id).seen[s[0]] && s[0] !== seg ? '<i class="dot" aria-hidden="true"></i>' : '') + s[1] + '</button>').join('') + '</nav>' +
     body + segNoteHTML(t, seg) +
     (nx ? '<button class="btn" data-act="tseg" data-v="' + nx[0] + '">التالي: ' + nx[1] + '</button>' : '') +
     '<div class="grid2"><button class="btn ghost" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button><button class="btn ghost" data-act="openExport" data-lvl="tab" data-s="' + esc(subject) + '" data-t="' + t.id + '" data-seg="' + seg + '">صدّر هذا التبويب</button></div>' +

@@ -1,0 +1,29 @@
+/* يحفظ ملفات التطبيق ليعمل بلا إنترنت. غيّر رقم الإصدار عند كل تحديث لتصل النسخة الجديدة. */
+const CACHE = 'study-app-v18';
+const CORE = ['./', './index.html', './content/physics-12-c1.js', './content/physics-12-c1-more.js', './content/physics-12-c2.js', './content/physics-12-c2b.js', './content/physics-12-c2c.js', './content/physics-12-c2d.js', './content/_h.js', './content/chemistry-12-c1.js', './content/math-12-c1.js', './content/biology-12-c1.js', './content/arabic-12-u1.js', './content/islamic-12-u1.js', './content/english-12-u1.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+});
+
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  /* الخطوط: من الذاكرة أولًا ثم الشبكة */
+  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+    e.respondWith(caches.open(CACHE).then(c => c.match(req).then(hit => hit || fetch(req).then(res => { c.put(req, res.clone()); return res; }))));
+    return;
+  }
+  if (url.origin !== location.origin) return;
+  /* ملفات التطبيق: الشبكة أولًا ليصل التحديث، والذاكرة عند انقطاع الإنترنت */
+  e.respondWith(fetch(req).then(res => {
+    const copy = res.clone();
+    caches.open(CACHE).then(c => c.put(req, copy));
+    return res;
+  }).catch(() => caches.match(req).then(hit => hit || caches.match('./index.html'))));
+});

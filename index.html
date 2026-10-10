@@ -400,6 +400,9 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 .note.bad{color:#c62828}.mwin{text-align:center;border:2px solid var(--ok,#2e7d32)}.ok-t{color:var(--ok,#2e7d32)}
 .flash{animation:flashk 1.4s 1}@keyframes flashk{0%,100%{filter:none}30%{filter:drop-shadow(0 0 10px var(--acc))}}
 .yt{display:flex;align-items:center;gap:10px;margin:8px 0;padding:8px 12px;border-radius:12px;border:1px dashed color-mix(in srgb,var(--muted) 40%,transparent);color:inherit;text-decoration:none;font-size:.92em}.yt:hover{border-color:#e53935}
+.about-hero{background:#15202B;color:#F3F5F2;border:0}.about-hero h2{font-family:var(--display);font-size:1.7em;margin:0}.about-tag{font-size:1.05em;line-height:1.9;opacity:.92}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}.about-grid div{background:rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}.about-grid span{font-size:.78em;opacity:.7}
+.about-steps{counter-reset:st;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}.about-steps li{counter-increment:st;display:grid;grid-template-columns:30px 1fr;gap:4px 10px;align-items:start}.about-steps li::before{content:counter(st,arabic-indic);grid-row:span 2;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-weight:700}.about-steps span{color:var(--muted);font-size:.9em;line-height:1.8}
+.about-foot{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
 </style>
 </head>
 <body>
@@ -921,6 +924,20 @@ function vSearch() {
 const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كاملًا، ونضيف التعليلات الصعبة والأسئلة المميّزة.' : g >= 80 ? 'هدف جيد: نتقن الأساس كاملًا مع تدريب وزاري منتظم.' : 'نبدأ بالأساس حتى يثبت، ثم نرفع الهدف معًا.';
 
 const SET_TABS = [['acc', 'الحساب'], ['study', 'الدراسة'], ['look', 'المظهر'], ['data', 'البيانات'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
+const APP_UPDATED = '١٠ تشرين الأول ٢٠٢٦';
+function aboutHTML() {
+  const live = []; GRADES.forEach(g => gradeContents(g.id).forEach(y => live.push({ g: g.name, s: y.subject, n: y.c.chapters.length, t: y.c.chapters.reduce((k, c) => k + c.topics.length, 0) })));
+  const steps = [['المسار', 'لكل مادة طريق متعرّج محطاته الفصول ثم المواضيع، تمشيه خطوة بعد خطوة وترى أين وصلت.'], ['لماذا ندرسه؟', 'كل موضوع يبدأ بسبب دراسته وصلته بحياتك، قبل أي تعريف أو قانون.'], ['الشرح', 'نص الكتاب الوزاري كما هو، مع رسوم ومحاكاة تفاعلية تغني عن الفيديو.'], ['التثبيت', 'التعاريف والقوانين والتعليلات وأسئلة املأ الفراغ، كلٌّ في تبويبه.'], ['التطبيق', 'أمثلة الكتاب خطوة بخطوة، ومسائل موقوتة بحلول مقترحة.'], ['الحفظ', 'ما هو مقرر للحفظ فقط: قراءة وتكرار، إخفاء تدريجي، بطاقات، واختبار لا يُجتاز إلا بـ١٠٠٪.'], ['الاختبار', 'بعد كل موضوع اختبار، وفي آخر الفصل اختبار شامل، وكل جواب معه سببه.'], ['الدفتر', 'حلولك وملاحظاتك وأخطاؤك مرتبة لكل مادة، وتُصدَّر دفترًا أو تقريرًا.']];
+  return '<section class="card about-hero"><h2>' + APP + '</h2><p class="about-tag">طريقك من الأول الابتدائي إلى السادس الإعدادي، تفهم فيه قبل أن تحفظ.</p>' +
+      '<p class="small" style="opacity:.8;line-height:1.9">الدَّرْب: الطريق الذي يُسلك خطوة بعد خطوة. وهكذا يُبنى التطبيق: مسار لكل مادة، لا تنتقل فيه إلى محطة قبل أن تفهم التي قبلها.</p>' +
+      '<div class="about-grid"><div><span>الإصدار</span><b>' + APP_VER + '</b></div><div><span>آخر تحديث</span><b>' + APP_UPDATED + '</b></div><div><span>السعر</span><b>مجاني بالكامل</b></div><div><span>الإنترنت</span><b>يعمل بدونه بعد أول فتح</b></div></div></section>' +
+    '<section class="card"><h2>كيف تدرس فيه</h2><ol class="about-steps">' + steps.map(x => '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>').join('') + '</ol></section>' +
+    '<section class="card"><h2>المتوفر الآن</h2>' + (live.length ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>الصف</th><th>المادة</th><th>الفصول</th><th>المواضيع</th></tr></thead><tbody>' + live.map(x => '<tr><td>' + esc(x.g) + '</td><td>' + esc(x.s) + '</td><td class="num">' + ar(x.n) + '</td><td class="num">' + ar(x.t) + '</td></tr>').join('') + '</tbody></table></div>' : '<p class="muted">يُضاف المحتوى تباعًا.</p>') +
+      '<p class="small muted">يُضاف المحتوى فصلًا بعد فصل، ويصلك التحديث تلقائيًا عند فتح التطبيق.</p></section>' +
+    '<section class="card"><h2>مبادئ ' + APP + '</h2><ul class="lst"><li>المحتوى من الكتب الوزارية المعتمدة، وكل موضوع يذكر صفحته في الكتاب.</li><li>الفهم أولًا: المعدل العالي نتيجة طبيعية للفهم، لا للحفظ وحده.</li><li>بياناتك على جهازك فقط، ولا يُطلب منك حساب ولا رقم هاتف.</li><li>بلا إعلانات ولا اشتراكات.</li></ul></section>' +
+    '<section class="card about-foot"><div><span class="small muted">تصميم وتطوير</span><br><b>حيدر نصيف</b></div><a class="btn ghost" href="https://prog-alone.github.io/portfolio/" target="_blank" rel="noopener">أعمالي الأخرى</a>' +
+      '<p class="small muted" style="width:100%;border-top:1px solid var(--line);padding-top:10px;margin:0">© ' + APP + ' · الإصدار ' + APP_VER + ' · ' + APP_UPDATED + ' · تصميم وتطوير حيدر نصيف</p></section>';
+}
 function vSettings() {
   const st = me(), g = GRADES[st.grade - 1], p = DB.prefs, tab = S.setTab || 'acc';
   const themes = [['auto', 'تلقائي', '#F3F5F2', '#1E5A73', '#111A20'], ['light', 'فاتح', '#F3F5F2', '#1E5A73'], ['paper', 'ورقي', '#F4EEE1', '#7A4F12'], ['dark', 'داكن', '#111A20', '#6FB3CC'], ['night', 'ليلي', '#0A0F22', '#F2C46D']];
@@ -962,11 +979,7 @@ function vSettings() {
       '<div id="expBox" hidden class="field"><label for="expText">انسخ هذا النص واحفظه في ملاحظاتك إن لم يبدأ التنزيل</label><textarea id="expText" class="input" rows="4" readonly style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="copyExp">انسخ النص</button></div>' +
       '<div class="field"><label for="impText">أو الصق نص نسخة احتياطية</label><textarea id="impText" class="input" rows="3" style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="importText">استرجع من النص</button></div></section>';
   if (tab === 'rate') body = rateSection();
-  if (tab === 'about') body =
-    '<section class="card" style="background:#15202B;color:#F3F5F2;border:0"><h2 style="font-family:var(--display);font-size:1.5em">' + APP + '</h2>' +
-      '<p style="opacity:.88;line-height:1.95">تطبيق مجاني لكل طالب عراقي من الأول الابتدائي إلى السادس الإعدادي. هدفه أن تفهم ما تدرس ولماذا تدرسه، لأن الحفظ بلا فهم يُنسى ويُعطّل العقل، والمعدل العالي نتيجة طبيعية للفهم.</p>' +
-      '<div class="grid2"><div><span class="small" style="opacity:.7">الإصدار</span><br><b>' + APP_VER + '</b></div><div><span class="small" style="opacity:.7">تصميم وتطوير</span><br><b>حيدر نصيف</b></div></div>' +
-      '<p class="small" style="opacity:.75;border-top:1px solid rgba(255,255,255,.15);padding-top:10px">© ' + APP + ' · الإصدار ' + APP_VER + ' · تصميم وتطوير حيدر نصيف</p></section>';
+  if (tab === 'about') body = aboutHTML();
   return topBar('الإعدادات', { back: true, noTools: true }) + '<main class="page">' +
     '<div class="chips" role="tablist" aria-label="أقسام الإعدادات">' + SET_TABS.map(t => '<button class="chip" role="tab" data-act="setTab" data-v="' + t[0] + '" aria-selected="' + (tab === t[0]) + '" aria-pressed="' + (tab === t[0]) + '">' + t[1] + '</button>').join('') + '</div>' +
     body + '</main>';

@@ -90,6 +90,8 @@ a{color:var(--acc)}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 14px;border-radius:12px;background:var(--bg)}
 .bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
 .bar>span{display:block;height:100%;border-radius:999px;background:var(--ok);transition:width .4s}
+.bar.daily{height:14px;background:var(--acc-soft)}
+.bar.daily>span{background:var(--acc)}
 .note{font-size:.82em;color:var(--muted)}
 .empty{border:1.5px dashed var(--line);border-radius:18px;padding:28px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted)}
 .empty svg{width:44px;height:44px;color:var(--acc)}
@@ -101,6 +103,26 @@ details.fold>summary::after{content:"";width:10px;height:10px;border-inline-star
 details.fold[open]>summary::after{transform:rotate(135deg)}
 details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:12px}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;z-index:20;font-size:.92em;max-width:calc(100% - 32px)}
+
+/* أقسام قابلة للطي (accordion) */
+.acc{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;margin-top:8px}
+.acc-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s ease}
+.acc-h:hover{background:var(--acc-soft)}
+.acc-h .acc-ico{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--acc-soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:700;transition:transform .2s ease}
+.acc.open .acc-h .acc-ico{transform:rotate(180deg)}
+.acc-h .acc-t{flex:1;font-weight:600;font-size:.95em}
+.acc-h .acc-s{font-size:.8em;color:var(--muted)}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc.open .acc-b{max-height:2000px}
+.acc-b-in{padding:0 16px 14px}
+
+/* أشرطة تقدم ملونة */
+.bar.daily{height:14px;background:var(--acc-soft);border-radius:999px}
+.bar.daily>span{background:linear-gradient(90deg,var(--acc),var(--star))}
+.bar.weekly{height:10px;background:var(--gold-soft);border-radius:999px}
+.bar.weekly>span{background:linear-gradient(90deg,var(--gold),var(--star))}
+.bar.monthly{height:10px;background:var(--ok-soft);border-radius:999px}
+.bar.monthly>span{background:var(--ok)}
 
 /* اليوم */
 .glimpse{background:var(--acc);color:var(--acc-ink);border-radius:20px;padding:24px 26px;display:flex;flex-direction:column;gap:8px}
@@ -194,10 +216,22 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .answer ol{margin:0;padding-inline-start:22px;line-height:2}
 .math{display:inline;direction:ltr;unicode-bidi:isolate;font-family:'Times New Roman',Georgia,serif;font-size:1.1em;overflow-wrap:anywhere}
 .plist{display:flex;flex-direction:column;gap:8px}
-.pitem{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;text-align:right;width:100%}
-.pitem .st{width:30px;height:30px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:700;background:var(--soft);color:var(--muted)}
+.pitem{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;text-align:right;width:100%;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease}
+.pitem:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(21,32,43,.08);border-color:var(--acc);background:var(--acc-soft)}
+.pitem:active{transform:translateY(0);box-shadow:none}
+.pitem .st{width:30px;height:30px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:700;background:var(--soft);color:var(--muted);transition:transform .18s ease}
+.pitem:hover .st{transform:scale(1.08)}
 .pitem .st.ok{background:var(--ok-soft);color:var(--ok)}
 .pitem .st.bad{background:var(--bad-soft);color:var(--bad)}
+.card{transition:box-shadow .2s ease,border-color .2s ease}
+.card:hover{box-shadow:0 2px 10px rgba(21,32,43,.05)}
+.seg{transition:transform .15s ease,box-shadow .15s ease}
+.seg:hover{transform:translateY(-1px);box-shadow:0 2px 8px rgba(21,32,43,.06)}
+.chip{transition:transform .15s ease,background .15s ease,color .15s ease}
+.chip:hover{transform:translateY(-1px)}
+.btn{transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(21,32,43,.1)}
+.btn:active{transform:translateY(0)}
 .demo{background:var(--gold-soft);border:1px solid var(--gold-line);color:var(--ink);border-radius:14px;padding:12px 16px;font-size:.9em}
 
 
@@ -304,6 +338,18 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(233,207,143,0)}50%{box-shadow:0 0 40px 6px rgba(233,207,143,.35)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* الأقسام القابلة للطي */
+.acc{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+.acc-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s ease}
+.acc-h:hover{background:var(--acc-soft)}
+.acc-h .acc-ico{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--acc-soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:700;transition:transform .2s ease}
+.acc.open .acc-h .acc-ico{transform:rotate(180deg)}
+.acc-h .acc-t{flex:1;font-weight:600;font-size:.95em}
+.acc-h .acc-s{font-size:.8em;color:var(--muted)}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc.open .acc-b{max-height:2000px}
+.acc-b-in{padding:0 16px 14px}
 
 /* خريطة المسار */
 .map-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 14px 10px;overflow:hidden}
@@ -430,6 +476,13 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 <script src="content/chemistry-12-c7.js"></script>
 <script src="content/chemistry-12-c8.js"></script>
 <script src="content/physics-12-c3.js"></script>
+<script src="content/physics-12-c4.js"></script>
+<script src="content/physics-12-c5.js"></script>
+<script src="content/math-12-c4.js"></script>
+<script src="content/math-12-c5.js"></script>
+<script src="content/biology-12-c2.js"></script>
+<script src="content/biology-12-c4.js"></script>
+<script src="content/biology-12-c5.js"></script>
 <script>
 'use strict';
 document.documentElement.setAttribute('dir', 'rtl');
@@ -608,7 +661,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {} };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -674,25 +727,35 @@ function vToday() {
   const dayIdx = Math.floor(t / 864e5);
   const gl = GLIMPSES[((dayIdx % GLIMPSES.length) + GLIMPSES.length) % GLIMPSES.length];
   const rest = st.rest.includes(t.getDay()) || inHoliday(t, st.holidays);
+  const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60, pct = Math.min(100, Math.round(used / goal * 100));
+  const wg = weeklyGoal();
   return topBar('أهلاً، ' + st.name) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    planCard(st, ti, g, rest) +
-    problemCard(st) +
-    '<div class="grid2">' +
-      '<div class="stat"><span class="muted small">' + (g.ministerial ? 'حتى الامتحان الوزاري' : 'حتى امتحان آخر السنة') + '</span><b class="num">' + ar(ti.weeksLeft) + ' أسبوعًا</b><span class="small muted">' + fmtD(ti.exam) + ' (تقديري)</span></div>' +
-      (st.goal ? '<div class="stat"><span class="muted small">معدلك المستهدف</span><b class="num">' + ar(st.goal) + '</b><span class="small muted">' + (st.college ? esc(st.college) : 'حدّد الكلية من الإعدادات') + '</span></div>'
-               : '<div class="stat"><span class="muted small">وقتك اليومي</span><b class="num">' + ar(st.minutes) + ' دقيقة</b><span class="small muted">عدّله من الإعدادات</span></div>') +
-    '</div></main>';
+    accSec('today-plan', 'خطة اليوم', '', planCard(st, ti, g, rest), true) +
+    accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), true) +
+    accSec('today-goals', 'الأهداف', 'يومي / أسبوعي / شهري', '<div class="grid2">' +
+      '<div class="stat"><span class="muted small">الهدف اليومي</span><b class="num">' + ar(pct) + '%</b></div>' +
+      '<div class="bar daily"><span style="width:' + pct + '%"></span></div>' +
+      (wg.perWeek ? '<div class="stat"><span class="muted small">الهدف الأسبوعي</span><b class="num">' + ar(wg.perWeek) + ' ' + tWord(wg.perWeek) + '</b></div>' +
+      '<div class="bar weekly"><span style="width:' + Math.min(100, Math.round((planToday().picks.length / wg.perWeek) * 100)) + '%"></span></div>' : '') +
+      (st.goal ? '<div class="stat"><span class="muted small">معدلك المستهدف</span><b class="num">' + ar(st.goal) + '%</b></div>' : '') +
+      '<div class="stat"><span class="muted small">حتى الامتحان</span><b class="num">' + ar(ti.weeksLeft) + ' أسبوعًا</b></div>' +
+    '</div>', true) +
+    (rest ? '<p class="note">اليوم يوم راحة. استرح وعد غدًا بنشاط.</p>' : '') +
+    '</main>';
 }
 
 function problemCard(st) {
   const q = problemQueue(); if (!q.length) return '';
   const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60, pct = Math.min(100, Math.round(used / goal * 100));
+  const todaySubj = new Set(planToday().picks.map(x => x.subject));
+  const filtered = q.filter(x => todaySubj.has(x.subject));
+  const show = filtered.length ? filtered : q;
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2>وقت المسائل اليوم</h2><span class="muted small num">' + ar(used) + ' من ' + ar(goal) + ' دقيقة</span></div>' +
     '<div class="bar"><span style="width:' + pct + '%"></span></div>' +
-    '<p class="small muted">الأولوية للمواد التي فيها مسائل لم تُحل بعد:</p><div class="plist">' +
-    q.map(x => '<button class="pitem" data-act="prob" data-id="' + x.next + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1"><b>' + esc(x.subject) + '</b><br><span class="small muted num">' + ar(x.pending) + ' مسائل متبقية من ' + ar(x.total) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div></section>';
+    '<p class="small muted">' + (filtered.length ? 'مواد اليوم المجدولة — الأولوية لها:' : 'الأولوية للمواد التي فيها مسائل لم تُحل بعد:') + '</p><div class="plist">' +
+    show.map(x => '<button class="pitem" data-act="prob" data-id="' + x.next + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1"><b>' + esc(x.subject) + '</b><br><span class="small muted num">' + ar(x.pending) + ' مسائل متبقية من ' + ar(x.total) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div></section>';
 }
 function vPath() {
   const st = me(), g = GRADES[st.grade - 1];
@@ -917,14 +980,35 @@ function vReview() {
   const subjScores = Object.entries(bySubj).sort((a, b) => b[1].length - a[1].length);
   const top2 = subjScores.slice(0, 2);
   const restN = subjScores.slice(2).reduce((k, s) => k + s[1].length, 0);
+  
+  // تقسيم المراجعة إلى 3 أقسام
+  const problemsDue = over.filter(x => x.t.problems && x.t.problems.length);
+  const understandingDue = over.filter(x => x.t.explain && x.t.explain.length);
+  const memoDue = over.filter(x => x.t.memo && x.t.memo.units && x.t.memo.units.length);
+  
   let h = topBar('المراجعة') + '<main class="page">' +
     '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>' +
     '<div class="grid2"><div class="stat"><span class="muted small">بسبب اليوم</span><b class="num">' + ar(over.length) + '</b></div><div class="stat"><span class="muted small">قادمة في أيامها</span><b class="num">' + ar(items.length - over.length) + '</b></div><div class="stat"><span class="muted small">راجعت اليوم</span><b class="num">' + ar(done) + '</b></div><div class="stat"><span class="muted small">في جدول المراجعة</span><b class="num">' + ar(items.length) + '</b></div></div>';
-  if (!items.length) h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
-  else {
-    if (over.length) {
-      top2.forEach(g => h += '<section class="card"><h2 style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">' + esc(g[0]) + '<span class="small muted num">' + ar(g[1].length) + ' ' + tWord(g[1].length) + '</span></h2><div class="plist">' + g[1].map(x => revItemHTML(x)).join('') + '</div></section>');
-      if (restN) h += '<section class="card"><h2>باقي المواد</h2><p class="small muted">لا تزيد على مادتين ثقيلتين في اليوم: ' + ar(restN) + ' مراجعة من بقية موادك تنتظر غدًا وبعده.</p><div class="plist">' + subjScores.slice(2).flatMap(g => g[1]).slice(0, 4).map(x => revItemHTML(x)).join('') + '</div></section>';
+  
+  if (!items.length) {
+    h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
+  } else {
+    // قسم المسائل
+    if (problemsDue.length) {
+      h += accSec('rev-problems', 'مراجعة المسائل', ar(problemsDue.length) + ' موضوع فيه مسائل', problemsDue.map(x => revItemHTML(x)).join(''), true);
+    }
+    // قسم الفهم والشرح
+    if (understandingDue.length) {
+      h += accSec('rev-understanding', 'مراجعة الفهم والشرح', ar(understandingDue.length) + ' موضوع', understandingDue.map(x => revItemHTML(x)).join(''), false);
+    }
+    // قسم الحفظ
+    if (memoDue.length) {
+      h += accSec('rev-memo', 'مراجعة الحفظ', ar(memoDue.length) + ' موضوع فيه حفظ', memoDue.map(x => revItemHTML(x)).join(''), false);
+    }
+    // الباقي
+    const otherDue = over.filter(x => !problemsDue.includes(x) && !understandingDue.includes(x) && !memoDue.includes(x));
+    if (otherDue.length) {
+      h += accSec('rev-other', 'مراجعة عامة', ar(otherDue.length) + ' موضوع', otherDue.map(x => revItemHTML(x)).join(''), false);
     }
     if (soon.length) h += '<section class="card"><h2>قادمة في أيامها</h2><p class="small muted">ستعود إليك عندما يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div></section>';
     h += '<p class="note">أي اختبار لموضوع يقدّم موعده التالي، والنتيجة دون ٧٠٪ تعيده إلى «غدًا».</p>';
@@ -935,30 +1019,29 @@ function vTests() {
   const st = me(), pool = myStudyPool();
   const exams = (st.exams || []).slice().reverse().slice(0, 12);
   const mt = memoTopics();
-  const memoSec = mt.length ? '<section class="card"><h2>اختبارات الحفظ</h2><p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join('') + '</section>' : '';
-  let h = topBar('الاختبارات') + '<main class="page">' +
-    '<section class="card"><h2>اختباراتي</h2><p class="small muted">أسئلة عشوائية مما درسته فقط، تُخلط بين مواضيعك وموادك.</p>' +
+  const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join(''), true) : '';
+  const mySec = accSec('myTests', 'اختباراتي', ar(pool.length) + ' سؤالًا', '<p class="small muted">أسئلة عشوائية مما درسته فقط، تُخلط بين مواضيعك وموادك.</p>' +
     (pool.length >= 5 ? '<div class="grid2"><button class="btn" data-act="mixQuiz" data-n="10">اختبار سريع · ١٠</button><button class="btn ghost" data-act="mixQuiz" data-n="20">اختبار أطول · ٢٠</button></div><p class="small muted num">' + ar(pool.length) + ' سؤالًا جاهزًا مما درسته</p>'
-      : '<div class="empty">' + ico('tests', 1.4) + '<b>' + (pool.length ? 'أنهِ تهيئة موضوع أولًا' : 'ادرس موضوعًا أولًا') + '</b><p>أسئلة «اختباراتي» تأتي مما درسته فقط. ادرس أي موضوع وأكمل اختباره ثم عد لتجد أسئلته هنا.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>') +
-    '</section>' +
-    (exams.length ? '<section class="card"><h2>آخر نتائجك</h2><p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
+      : '<div class="empty">' + ico('tests', 1.4) + '<b>' + (pool.length ? 'أنهِ تهيئة موضوع أولًا' : 'ادرس موضوعًا أولًا') + '</b><p>أسئلة «اختباراتي» تأتي مما درسته فقط. ادرس أي موضوع وأكمل اختباره ثم عد لتجد أسئلته هنا.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>'), false);
+  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة', '<p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
       exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
-      '</div></section>' : '') +
-    memoSec +
-    subjectExamsListHTML(st) + '</main>';
+      '</div>', false) : '';
+  let h = topBar('الاختبارات') + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) + '</main>';
   return h;
 }
 const BOOK_SOURCES = { 12: 'https://mlazemna.com/bk6ma/' };
 function vLibrary() {
   const st = me(), subs = subjectsOf(st.grade, st.branch);
+  const libSec = gradeContents(st.grade).length ? accSec('diaries', 'دفاتري', ar(gradeContents(st.grade).length) + ' مادة', '<p class="small muted">لكل مادة فيها محتوى دفتر داخل التطبيق: حلولك وملاحظاتك وأخطاؤك مرتبة بالفصل والدرس. وتصدّرها دفترًا أو تقريرًا بالمستوى الذي تريد.</p><div class="plist">' +
+      gradeContents(st.grade).map(y => '<button class="pitem" data-act="notebook" data-s="' + esc(y.subject) + '"><span class="st">' + ico('pen') + '</span><span style="flex:1"><b>دفتر ' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصل مبني</span></span></button>').join('') + '</div>' +
+      '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر كل صفّي</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل صفوفي</button></div>', false) : '';
+  const minSec = ministerialLibraryHTML(st);
+  const minAcc = minSec ? accSec('ministerial', 'بنك الأسئلة الوزارية', '', minSec, false) : '';
   return topBar('المكتبة') + '<main class="page">' +
     '<section class="shelf" aria-label="رف ' + esc(GRADES[st.grade - 1].name) + '"><span class="lbl">جناح ' + esc(GRADES[st.grade - 1].name) + '</span><div class="books">' +
       subs.map((s, i) => '<span class="book" style="height:' + (160 + (i % 3) * 14) + 'px">' + esc(s) + '</span>').join('') +
     '</div><div class="plank" aria-hidden="true"></div></section>' +
-    (gradeContents(st.grade).length ? '<section class="card"><h2>دفاتري</h2><p class="small muted">لكل مادة فيها محتوى دفتر داخل التطبيق: حلولك وملاحظاتك وأخطاؤك مرتبة بالفصل والدرس. وتصدّرها دفترًا أو تقريرًا بالمستوى الذي تريد.</p><div class="plist">' +
-      gradeContents(st.grade).map(y => '<button class="pitem" data-act="notebook" data-s="' + esc(y.subject) + '"><span class="st">' + ico('pen') + '</span><span style="flex:1"><b>دفتر ' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصل مبني</span></span></button>').join('') + '</div>' +
-      '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر كل صفّي</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل صفوفي</button></div></section>' : '') +
-    ministerialLibraryHTML(st) +
+    libSec + minAcc +
     (BOOK_SOURCES[st.grade] ? '<section class="card"><h2>كتب ' + esc(GRADES[st.grade - 1].name) + '</h2><p class="small muted">نزّل الكتب من الموقع. وحين تُربط الكتب داخل التطبيق، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p><a class="btn" href="' + BOOK_SOURCES[st.grade] + '" target="_blank" rel="noopener">افتح موقع الكتب</a></section>'
       : '<p class="note">الكتب باهتة لأنها لم تُنزَّل بعد. حين تُربط روابط الكتب، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p>') + '</main>';
 }
@@ -1002,7 +1085,7 @@ function vSearch() {
 }
 const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كاملًا، ونضيف التعليلات الصعبة والأسئلة المميّزة.' : g >= 80 ? 'هدف جيد: نتقن الأساس كاملًا مع تدريب وزاري منتظم.' : 'نبدأ بالأساس حتى يثبت، ثم نرفع الهدف معًا.';
 
-const SET_TABS = [['acc', 'الحساب'], ['study', 'الدراسة'], ['look', 'المظهر'], ['data', 'البيانات'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
+const SET_TABS = [['acc', 'الحساب'], ['study', 'الدراسة'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٠ تشرين الأول ٢٠٢٦';
 function aboutHTML() {
   const live = []; GRADES.forEach(g => gradeContents(g.id).forEach(y => live.push({ g: g.name, s: y.subject, n: y.c.chapters.length, t: y.c.chapters.reduce((k, c) => k + c.topics.length, 0) })));
@@ -1016,6 +1099,41 @@ function aboutHTML() {
     '<section class="card"><h2>مبادئ ' + APP + '</h2><ul class="lst"><li>المحتوى من الكتب الوزارية المعتمدة، وكل موضوع يذكر صفحته في الكتاب.</li><li>الفهم أولًا: المعدل العالي نتيجة طبيعية للفهم، لا للحفظ وحده.</li><li>بياناتك على جهازك فقط، ولا يُطلب منك حساب ولا رقم هاتف.</li><li>بلا إعلانات ولا اشتراكات.</li></ul></section>' +
     '<section class="card about-foot"><div><span class="small muted">تصميم وتطوير</span><br><b>حيدر نصيف</b></div><a class="btn ghost" href="https://prog-alone.github.io/portfolio/" target="_blank" rel="noopener">أعمالي الأخرى</a>' +
       '<p class="small muted" style="width:100%;border-top:1px solid var(--line);padding-top:10px;margin:0">© ' + APP + ' · الإصدار ' + APP_VER + ' · ' + APP_UPDATED + ' · تصميم وتطوير حيدر نصيف</p></section>';
+}
+function logHTML() {
+  const st = me(), log = (st.log || []).slice().reverse().slice(0, 100);
+  if (!log.length) return '<p class="muted">لا نشاط مسجل بعد. ابدأ الدراسة أو الاختبار أو المراجعة وسيظهر هنا.</p>';
+  const types = { problem: 'مسائل', review: 'مراجعة', study: 'دراسة', quiz: 'اختبار' };
+  return '<div class="plist">' + log.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>').join('') + '</div>';
+}
+function studentDetailsHTML() {
+  const st = me(), log = (st.log || []).slice().reverse();
+  if (!log.length) return '<p class="muted">لا نشاط بعد.</p>';
+  
+  // تجميع الإحصائيات
+  const daysActive = new Set(log.map(x => x.d)).size;
+  const totalSec = log.filter(x => x.type === 'problem').reduce((a, x) => a + x.sec, 0);
+  const reviewCount = log.filter(x => x.type === 'review').length;
+  const quizCount = log.filter(x => x.type === 'quiz').length;
+  const studySec = log.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
+  
+  // أيام النشاط الأخيرة
+  const recentDays = log.slice(0, 14).map(x => x.d);
+  const dayCounts = {};
+  recentDays.forEach(d => dayCounts[d] = (dayCounts[d] || 0) + 1);
+  const activeDaysHtml = Object.entries(dayCounts).sort((a,b)=>b[0].localeCompare(a[0])).slice(0, 7).map(([d,c]) => 
+    '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('sun', 1.5) + '</span><span style="flex:1"><b>' + fmtD(parseD(d)) + '</b></span><span class="small muted num">' + ar(c) + ' نشاط</span></div>').join('');
+  
+  return '<div class="grid2">' +
+    '<div class="stat"><span class="muted small">أيام النشاط</span><b class="num">' + ar(daysActive) + '</b></div>' +
+    '<div class="stat"><span class="muted small">وقت المسائل</span><b class="num">' + ar(Math.round(totalSec / 60)) + ' د</b></div>' +
+    '<div class="stat"><span class="muted small">جلسات المراجعة</span><b class="num">' + ar(reviewCount) + '</b></div>' +
+    '<div class="stat"><span class="muted small">اختبارات</span><b class="num">' + ar(quizCount) + '</b></div>' +
+    '<div class="stat"><span class="muted small">وقت الدراسة</span><b class="num">' + ar(Math.round(studySec / 60)) + ' د</b></div>' +
+    '<div class="stat"><span class="muted small">معدل يومي</span><b class="num">' + ar(daysActive ? Math.round(totalSec / 60 / daysActive) : 0) + ' د</b></div>' +
+    '</div>' +
+    '<p class="small" style="font-weight:600;margin-top:10px">آخر ٧ أيام نشاط:</p>' +
+    '<div class="plist">' + (activeDaysHtml || '<p class="muted small">لا نشاط في الأسبوع الماضي</p>') + '</div>';
 }
 function vSettings() {
   const st = me(), g = GRADES[st.grade - 1], p = DB.prefs, tab = S.setTab || 'acc';
@@ -1056,7 +1174,21 @@ function vSettings() {
       '<div class="grid2"><button class="btn" data-act="export">صدّر نسخة احتياطية</button><label class="btn ghost" for="impFile" style="cursor:pointer">استرجع من ملف</label></div>' +
       '<input id="impFile" type="file" accept="application/json,.json" hidden>' +
       '<div id="expBox" hidden class="field"><label for="expText">انسخ هذا النص واحفظه في ملاحظاتك إن لم يبدأ التنزيل</label><textarea id="expText" class="input" rows="4" readonly style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="copyExp">انسخ النص</button></div>' +
-      '<div class="field"><label for="impText">أو الصق نص نسخة احتياطية</label><textarea id="impText" class="input" rows="3" style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="importText">استرجع من النص</button></div></section>';
+      '<div class="field"><label for="impText">أو الصق نص نسخة احتياطية</label><textarea id="impText" class="input" rows="3" style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="importText">استرجع من النص</button></div></section>' +
+    '<section class="card"><h2>سجل النشاط</h2><p class="small muted">كل ما فعلته: المسائل والوقت الذي استغرقته، والمراجعة، والاختبارات.</p>' + logHTML() + '</section>';
+  if (tab === 'reports') body =
+    '<section class="card"><h2>تقارير تقدّم الطالب</h2><p class="small muted">تقارير أسبوعية وشهرية وفصلية ونصف سنوية وسنوية لتتبّع تطورك.</p>' +
+      '<div class="grid2">' +
+        '<button class="btn" data-act="genReport" data-type="weekly"><b>تقرير أسبوعي</b><span class="small muted">هذا الأسبوع</span></button>' +
+        '<button class="btn" data-act="genReport" data-type="monthly"><b>تقرير شهري</b><span class="small muted">هذا الشهر</span></button>' +
+        '<button class="btn" data-act="genReport" data-type="quarterly"><b>تقرير فصلي</b><span class="small muted">هذا الفصل</span></button>' +
+        '<button class="btn" data-act="genReport" data-type="semiannual"><b>نصف سنوي</b><span class="small muted">نصف سنة</span></button>' +
+        '<button class="btn" data-act="genReport" data-type="yearly"><b>تقرير سنوي</b><span class="small muted">السنة كاملة</span></button>' +
+        '<button class="btn ghost" data-act="genReport" data-type="all"><b>كل الوقت</b><span class="small muted">من البداية</span></button>' +
+      '</div>' +
+      '<div id="reportOutput" class="card" style="margin-top:12px;min-height:100px"></div>' +
+    '</section>' +
+    '<section class="card"><h2>تفاصيل نشاط الطالب</h2><p class="small muted">أيام النشاط، الساعات، الإنجاز بالتفصيل.</p>' + studentDetailsHTML() + '</section>';
   if (tab === 'rate') body = rateSection();
   if (tab === 'about') body = aboutHTML();
   return topBar('الإعدادات', { back: true, noTools: true }) + '<main class="page">' +
@@ -1524,11 +1656,27 @@ function examConfig(kind, subject) { S.exam = { kind, subject, phase: 'config', 
 function startExam(kind, subject, n, perQ) {
   const pool = examPool(kind, subject);
   if (!pool.length) { toast('لا توجد أسئلة في هذا القسم بعد.'); return false; }
-  const pick = shuffle(pool).slice(0, Math.min(n || pool.length, pool.length));
+  
+  // فلترة حسب الفصول/المواضيع المختارة
+  let filtered = pool;
+  if (S.exam && S.exam.selCh && S.exam.selCh.length) {
+    filtered = filtered.filter(x => S.exam.selCh.includes(x.tid ? findTopic(x.tid).ch.id : 'general'));
+  }
+  if (S.exam && S.exam.selTopics && S.exam.selTopics.length) {
+    filtered = filtered.filter(x => S.exam.selTopics.includes(x.tid || 'general'));
+  }
+  if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
+  
+  const pick = shuffle(filtered).slice(0, Math.min(n || filtered.length, filtered.length));
+  let adaptive = false;
+  if (kind === 'ministerial' && !perQ) {
+    perQ = Math.round(180 * 60 / pick.length);
+    adaptive = true;
+  }
   S.exam = {
     kind, subject, phase: 'run', perQ: kind === 'ministerial' ? (perQ || 90) : 0,
     items: pick.map(x => ({ q: x.q, tid: x.tid, key: x.key, order: x.q.tf ? [0, 1] : shuffle(x.q.o.map((_, i) => i)) })),
-    i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0
+    i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0, adaptive
   };
   go('exam'); return true;
 }
@@ -1582,13 +1730,21 @@ function startExamClock() {
     if (!z || z.kind !== 'ministerial' || z.phase !== 'run') { clearExamClock(); return; }
     const el = document.getElementById('examClock');
     if (!el) { clearExamClock(); return; }
-    const left = Math.max(0, z.perQ - Math.floor((Date.now() - z.qAt) / 1000));
+    let perQ = z.perQ;
+    if (z.adaptive && z.items[z.i] && z.items[z.i].tid) {
+      const f = findTopic(z.items[z.i].tid);
+      if (f) {
+        const pct = topicPct(f.t);
+        perQ = Math.round(z.perQ * (pct >= 80 ? 0.7 : pct >= 60 ? 0.85 : pct >= 40 ? 1.1 : 1.3));
+      }
+    }
+    const left = Math.max(0, perQ - Math.floor((Date.now() - z.qAt) / 1000));
     el.textContent = mmss(left);
     el.classList.toggle('bad-t', left <= 10);
-    const bar = document.getElementById('examBar'); if (bar) bar.style.width = Math.round(left / z.perQ * 100) + '%';
+    const bar = document.getElementById('examBar'); if (bar) bar.style.width = Math.round(left / perQ * 100) + '%';
     if (left <= 0) {
       clearExamClock();
-      if (z.picks[z.i] == null) { z.picks[z.i] = null; z.times[z.i] = z.perQ; }
+      if (z.picks[z.i] == null) { z.picks[z.i] = null; z.times[z.i] = perQ; }
       z.i++; z.qAt = Date.now();
       if (z.i >= z.items.length) examFinish();
       render(true);
@@ -1604,10 +1760,49 @@ function examConfigView(z, title) {
         ? 'بنك الأسئلة الوزارية الكامل لهذه المادة قيد البناء من دورات ٢٠١٦–٢٠٢٦. حين يُضاف، يظهر هنا للتهيئة بوقت محسوب.'
         : 'سيبدأ الامتحان بمجرد إضافة أسئلة هذه المادة. تابع مسارك.') + '</main>';
   }
+  // تجميع الأسئلة حسب الفصل والموضوع
+  const byCh = {};
+  pool.forEach(x => { const k = x.tid ? findTopic(x.tid).ch.id : 'general'; (byCh[k] = byCh[k] || []).push(x); });
+  const chapters = Object.entries(byCh).map(([chId, qs]) => {
+    const chObj = chId !== 'general' ? findChapter(chId) : null;
+    const byTopic = {};
+    qs.forEach(x => { const t = x.tid || 'general'; (byTopic[t] = byTopic[t] || []).push(x); });
+    const topics = Object.entries(byTopic).map(([tid, tqs]) => {
+      const tObj = tid !== 'general' ? findTopic(tid) : null;
+      return { tid, title: tObj ? tObj.t.title : 'عام', count: tqs.length };
+    });
+    return { chId, title: chObj ? chObj.ch.title : 'عام', count: qs.length, topics };
+  });
+  
   const total = pool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
   let h = topBar(title, { back: true }) + '<main class="page">' +
     '<section class="card"><h2>' + esc(EXAM_KINDS[z.kind]) + '</h2><p class="small muted">' + EXAM_DESC[z.kind] + '</p>' +
-    '<p class="small muted num">عدد الأسئلة المتاحة: ' + ar(total) + '</p>';
+    '<p class="small muted num">إجمالي الأسئلة: ' + ar(total) + '</p>';
+  
+  // اختيار الفصول
+  h += '<section class="card"><h3>اختر الفصول</h3><p class="small muted">حدّد الفصول التي تريد امتحانها، أو اتركها لاختيار جميعها.</p><div class="chips">';
+  chapters.forEach(ch => {
+    h += '<label class="chip" style="flex:1;justify-content:space-between;cursor:pointer;"><span>' + esc(ch.title) + '</span>' +
+      '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '" checked style="width:18px;height:18px;accent-color:var(--acc);"><span class="small muted num">' + ar(ch.count) + ' س</span></label>';
+  });
+  h += '</div></section>';
+  
+  // اختيار المواضيع (مُجمّع)
+  h += '<section class="card"><h3>اختر المواضيع</h3><p class="small muted">يمكنك تضييق النطاق لمواضيع محددة.</p><div class="plist">';
+  chapters.forEach(ch => {
+    if (ch.topics.length <= 1) return;
+    h += '<div class="acc"><div class="acc-h" data-act="acc" data-k="exam-topics-' + esc(ch.chId) + '">' +
+      '<span class="acc-ico">▼</span><span class="acc-t">' + esc(ch.title) + '</span><span class="acc-s">' + ar(ch.topics.length) + ' موضوع</span></div>' +
+      '<div class="acc-b"><div class="acc-b-in">';
+    ch.topics.forEach(t => {
+      h += '<label class="pitem" style="cursor:pointer;"><span class="st">' + ar(t.count) + '</span>' +
+        '<span style="flex:1"><b>' + ft(t.title) + '</b></span>' +
+        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '" checked style="width:18px;height:18px;accent-color:var(--acc);"></label>';
+    });
+    h += '</div></div></div>';
+  });
+  h += '</div></section>';
+  
   if (z.kind === 'ministerial') {
     if (!ministerialHasBank(z.subject)) h += '<p class="note">بنك الدورات الوزارية الكامل لهذه المادة قيد البناء. حتى يكتمل، نستعمل أسئلة المادة نفسها بنمط وزاري موقوت لتتدرب على الجلسة.</p>';
     h += '<p class="small muted">وقت كل سؤال:</p><div class="chips">' +
@@ -1670,6 +1865,27 @@ function vExam() {
   if (z.i >= z.items.length) return (z.kind === 'ministerial' && !z.pledged) ? examPledgeView(z, title) : examDoneView(z, title);
   return examRunView(z, title);
 }
+function bankInsights(subject) {
+  const pool = ministerialPool(subject);
+  if (!pool.length) return '';
+  const byTid = {};
+  pool.forEach(x => { const k = x.tid || 'عام'; (byTid[k] = byTid[k] || []).push(x); });
+  const rows = Object.entries(byTid).map(([tid, arr]) => {
+    const f = tid !== 'عام' ? findTopic(tid) : null;
+    const tf = arr.filter(x => x.q.tf).length;
+    return { tid, title: f ? f.t.title : 'أسئلة عامة', n: arr.length, tf, pct: Math.round(tf / arr.length * 100) };
+  }).sort((a, b) => b.n - a.n);
+  const total = pool.length;
+  const tfTotal = pool.filter(x => x.q.tf).length;
+  return '<section class="card"><h2>تحليل بنك ' + esc(subject) + ' الوزاري</h2>' +
+    '<p class="small muted">أنماط الأسئلة المتكررة ومستويات الصعوبة من دورات ٢٠١٦–٢٠٢٦.</p>' +
+    '<div class="grid2">' +
+    '<div class="stat"><span class="muted small">إجمالي الأسئلة</span><b class="num">' + ar(total) + '</b></div>' +
+    '<div class="stat"><span class="muted small">أسئلة صح/خطأ</span><b class="num">' + ar(tfTotal) + ' (' + ar(Math.round(tfTotal / total * 100)) + '٪)</b></div>' +
+    '</div>' +
+    '<p class="small" style="font-weight:600;margin-top:10px">المواضيع الأكثر تكرارًا:</p>' +
+    '<div class="plist">' + rows.slice(0, 8).map(r => '<div class="pitem" style="pointer-events:none"><span class="st">' + ar(r.n) + '</span><span style="flex:1;min-width:0"><b>' + ft(r.title) + '</b><br><span class="small muted">' + ar(r.tf) + ' صح/خطأ · ' + ar(r.n - r.tf) + ' اختيار</span></span></div>').join('') + '</div></section>';
+}
 function vBank() {
   const subject = S.bankSubject, pool = ministerialPool(subject);
   if (!pool.length) return topBar('بنك الأسئلة الوزارية', { back: true }) + '<main class="page">' +
@@ -1679,7 +1895,8 @@ function vBank() {
   pool.forEach(x => { const tid = x.tid || 'عام'; (groups[tid] = groups[tid] || []).push(x); });
   let h = topBar('بنك ' + subject + ' الوزاري', { back: true }) + '<main class="page">' +
     '<div class="strip"><span>بنك الأسئلة الوزارية · يستفيد منه الطالب والنظام معًا.</span><b class="num">' + ar(pool.length) + ' سؤالًا</b></div>' +
-    '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">ابدأ تهيئة وزارية</button><button class="btn quiet" data-act="back">رجوع</button></div>';
+    '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">ابدأ تهيئة وزارية</button><button class="btn quiet" data-act="back">رجوع</button></div>' +
+    bankInsights(subject);
   Object.keys(groups).forEach(tid => {
     const f = tid !== 'عام' ? findTopic(tid) : null;
     h += '<section class="card"><h2>' + (f ? esc(f.t.title) : 'أسئلة عامة') + '</h2>' +
@@ -1692,9 +1909,12 @@ function vBank() {
 function subjectMemoHTML(subject) {
   const mt = memoTopics().filter(x => x.subject === subject);
   if (!mt.length) return '';
-  return '<section class="card"><h2>الحفظ في ' + esc(subject) + '</h2><p class="small muted">كل ما هو مقرر للحفظ في هذه المادة. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
-    mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
-      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + ft(x.t.title) + '</span></span></button>'; }).join('') + '</section>';
+  const byCh = {};
+  mt.forEach(x => { (byCh[x.ch.id] = byCh[x.ch.id] || { ch: x.ch, items: [] }).items.push(x); });
+  const body = Object.values(byCh).map(g => '<p class="small" style="font-weight:600;margin:8px 0 4px">' + esc(g.ch.title) + '</p>' +
+    g.items.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + ft(x.t.title) + '</span></span></button>'; }).join('')).join('');
+  return accSec('memo-' + subject, 'الحفظ في ' + esc(subject), ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في هذه المادة، مقسّمًا على الفصول. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' + body, true);
 }
 function subjectExamsHTML(subject, st0) {
   const bank = ministerialPool(subject).length, tests = st0.tests || {};
@@ -1771,6 +1991,15 @@ function planToday() {
   const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6);
   return { picks, reviews, left: line.length - picks.length, total: line.length };
 }
+/* الهدف الأسبوعي: عدد المواضيع التي يجب تغطيتها أسبوعيًا لإنهاء المنهج قبل الامتحان */
+function weeklyGoal() {
+  const st = me(), ti = timeInfo(st);
+  if (!ti.daysLeft || !line_count()) return { perWeek: 0, total: 0, weeksLeft: 0 };
+  const total = studyLine().length;
+  const weeksLeft = Math.max(1, Math.ceil(ti.daysLeft / 7));
+  return { perWeek: Math.ceil(total / weeksLeft), total, weeksLeft };
+}
+function line_count() { return studyLine().length; }
 function planCard(st, ti, g, rest) {
   const has = gradeContents(st.grade).length;
   if (!has) return '<section class="card"><h2>خطة اليوم</h2>' +
@@ -1781,16 +2010,27 @@ function planCard(st, ti, g, rest) {
       (revs.length ? '<p class="small muted" style="margin-top:8px">يمكنك مع ذلك المراجعة الخفيفة:</p><div class="plist">' + revs.map(x => revItemHTML(x)).join('') + '</div>' : '') + '</section>';
   }
   const { picks, reviews, left, total } = planToday();
+  const wg = weeklyGoal();
   let h = '<section class="card"><h2>خطة اليوم</h2>';
   if (!total && !reviews.length) h += '<p>أنجزت كل مواضيع صفك. راجع من تبويب المراجعة حتى الامتحان، وعدّل هدفك من الإعدادات.</p>';
   else {
-    h += '<p class="small muted">في منهجك ' + ar(total) + ' ' + tWord(total) + ' على ' + ar(ti.daysLeft) + ' يوم دراسة · بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا، بالتناوب بين المواد.</p><div class="plist">' +
+    h += '<p class="small muted">في منهجك ' + ar(total) + ' ' + tWord(total) + ' على ' + ar(ti.daysLeft) + ' يوم دراسة · بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا، بالتناوب بين المواد.</p>' +
+      (wg.perWeek ? '<p class="small num">الهدف الأسبوعي: ' + ar(wg.perWeek) + ' ' + tWord(wg.perWeek) + ' في الأسبوع (بقي ' + ar(wg.weeksLeft) + ' أسبوعًا)</p>' : '') +
+      '<div class="plist">' +
       picks.map(x => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ادرس</span></button>').join('') +
       reviews.map(x => '<button class="pitem" data-act="revQuiz" data-id="' + x.t.id + '"><span class="st" style="color:var(--acc)">' + ico('review', 2) + '</span><span style="flex:1;min-width:0"><b>مراجعة: ' + esc(x.subject) + '</b><br><span class="small muted">' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">اختبر</span></button>').join('') +
       '</div>';
     if (left) h += '<p class="small muted">' + (left === 1 ? 'بقي موضوع واحد' : 'بقي ' + ar(left) + ' مواضيع') + ' ينتظر دوره في الأيام القادمة.</p>';
   }
   return h + '</section>';
+}
+
+/* قسم قابل للطي */
+function accSec(key, title, sub, body, defOpen) {
+  const open = S.acc && S.acc[key];
+  return '<div class="acc' + (open ? ' open' : '') + '"><div class="acc-h" data-act="acc" data-k="' + key + '">' +
+    '<span class="acc-ico">▼</span><span class="acc-t">' + title + '</span>' + (sub ? '<span class="acc-s">' + sub + '</span>' : '') + '</div>' +
+    '<div class="acc-b"><div class="acc-b-in">' + body + '</div></div></div>';
 }
 
 /* =================== الدفتر داخل التطبيق =================== */
@@ -2599,6 +2839,29 @@ document.addEventListener('click', e => {
       location.href = 'mailto:' + SOCIAL.email + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
       toast('شكرًا لتقييمك.'); break;
     }
+    case 'genReport': {
+      const type = el.dataset.type, st = me();
+      const now = new Date(), d = isoD(now);
+      let fromDate, title;
+      if (type === 'weekly') { fromDate = isoD(new Date(now - 7*864e5)); title = 'تقرير أسبوعي'; }
+      else if (type === 'monthly') { fromDate = isoD(new Date(now - 30*864e5)); title = 'تقرير شهري'; }
+      else if (type === 'quarterly') { fromDate = isoD(new Date(now - 90*864e5)); title = 'تقرير فصلي'; }
+      else if (type === 'semiannual') { fromDate = isoD(new Date(now - 180*864e5)); title = 'تقرير نصف سنوي'; }
+      else if (type === 'yearly') { fromDate = isoD(new Date(now - 365*864e5)); title = 'تقرير سنوي'; }
+      else { fromDate = null; title = 'تقرير شامل'; }
+      const log = (st.log || []).filter(x => !fromDate || x.d >= fromDate);
+      const probSec = log.filter(x => x.type === 'problem').reduce((a,x)=>a+x.sec,0);
+      const studySec = log.filter(x => x.type === 'study').reduce((a,x)=>a+x.sec,0);
+      const reviewCount = log.filter(x => x.type === 'review').length;
+      const quizCount = log.filter(x => x.type === 'quiz').length;
+      const days = new Set(log.map(x=>x.d)).size;
+      const bySubj = {};
+      log.filter(x=>x.type==='problem').forEach(x=>{bySubj[x.subject]=(bySubj[x.subject]||0)+1});
+      const subjList = Object.entries(bySubj).sort((a,b)=>b[1]-a[1]).map(([s,c])=>'<li><b>'+esc(s)+'</b> '+ar(c)+' مسألة</li>').join('');
+      const out = document.getElementById('reportOutput');
+      if (out) out.innerHTML = '<h3>'+title+' ('+ar(days)+' يوم)</h3><div class="grid2"><div class="stat"><span class="muted small">وقت المسائل</span><b class="num">'+ar(Math.round(probSec/60))+' د</b></div><div class="stat"><span class="muted small">وقت الدراسة</span><b class="num">'+ar(Math.round(studySec/60))+' د</b></div><div class="stat"><span class="muted small">مراجعات</span><b class="num">'+ar(reviewCount)+'</b></div><div class="stat"><span class="muted small">اختبارات</span><b class="num">'+ar(quizCount)+'</b></div><div class="stat"><span class="muted small">أيام نشطة</span><b class="num">'+ar(days)+'</b></div><div class="stat"><span class="muted small">متوسط/يوم</span><b class="num">'+ar(days?Math.round(probSec/60/days):0)+' د</b></div></div><p class="small" style="font-weight:600;margin-top:10px">المواد:</p><ul style="margin:8px 0;padding-inline-start:22px">'+(subjList||'<li class="muted">لا مسائل في هذه الفترة</li>')+'</ul>';
+      toast('تم إنشاء '+title); break;
+    }
     case 'delPhoto': { const v = solveOf(el.dataset.id); MEDIA.del(photoKey(el.dataset.id)); v.photo = 0; save(); render(); break; }
     case 'nbFilter': S.nbFilter = el.dataset.v; render(); break;
     case 'openExport': S.exp = defaultExp(el.dataset.lvl, el.dataset.s); if (el.dataset.t) { S.exp.tid = el.dataset.t; S.exp.ch = findTopic(el.dataset.t).ch.id; } if (el.dataset.seg) S.exp.seg = el.dataset.seg; go('export'); break;
@@ -2615,6 +2878,9 @@ document.addEventListener('click', e => {
     case 'tseg': S.tseg = el.dataset.v; S.mt = null; render(true); break;
     case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; render(true); break;
+    case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
+    case 'examCh': S.exam.selCh = S.exam.selCh || []; const chId = el.dataset.ch; if (el.checked) S.exam.selCh.push(chId); else S.exam.selCh = S.exam.selCh.filter(x => x !== chId); render(); break;
+    case 'examTopic': S.exam.selTopics = S.exam.selTopics || []; const tId = el.dataset.t; if (el.checked) S.exam.selTopics.push(tId); else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId); render(); break;
     case 'open': S.open[el.dataset.k] = !S.open[el.dataset.k]; render(); break;
     case 'blankCheck': checkBlank(el.dataset.k); render(); break;
     case 'blankShow': S.blank[el.dataset.k] = Object.assign(S.blank[el.dataset.k] || {}, { shown: true }); render(); break;

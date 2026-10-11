@@ -47,3 +47,30 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
 | أحياء | c1,c2,c4,c5 | **c3** (إعادة بناء) |
 | كيمياء | c1–c8 (مكتمل) | — |
 | عربي/إسلامي/إنكليزي | u1 | — |
+
+---
+
+# 🧩 جولة ٢ — ملء النواقص (٣ محادثات متوازية)
+
+بعد مراجعة الاكتمال، تبيّن النقص التالي:
+- **الفيزياء**: `c7`/`c9` بصفر مسائل، `c6` ضعيف ← محادثة1 (`gap-physics.md`)
+- **الكيمياء** `c8` (6) · **الأحياء** `c1`/`c2` (8/12) ضعيفة ← محادثة2 (`gap-sci.md`)
+- **اللغات والإسلامية**: كلها وحدة1 فقط من5–6 ← محادثة3 (`gap-languages.md`)
+
+## 📁 ملفات السياق (جولة2)
+- `context/gap-physics.md` — فيزياء مسائل c6/c7/c9
+- `context/gap-sci.md` — كيمياء c8 + أحياء c1/c2 مسائل
+- `context/gap-languages.md` — عربية u2–u6 + إنكليزية u2–u5 + إسلامية u2+ (ملفات جديدة)
+
+## 📦 الدمج النهائي (من المحادثة الأخيرة / التطبيق فقط)
+الملفات القديمة (فيزياء c6–c9، كيمياء c8، أحياء c1/c2) لها وسوم `<script>` موجودة — تعديلها لا يحتاج إعادة وصل.
+الملفات **الجديدة** (وحدات اللغات والإسلامية) تحتاج `wire.mjs` لإضافة الوسوم و`sw.js`:
+```bash
+cd /Users/macbookair/Downloads/darb-main
+# 1) تحقق صيغة كل الملفات الجديدة/المعدّلة أولًا (node --check)
+# 2) اربط الملفات الجديدة فقط:
+node wire.mjs content/arabic-12-u2.js content/arabic-12-u3.js content/arabic-12-u4.js content/arabic-12-u5.js content/arabic-12-u6.js content/english-12-u2.js content/english-12-u3.js content/english-12-u4.js content/english-12-u5.js content/islamic-12-u2.js
+# 3) اختبار متصفح سريع (?t=Date.now() — كونسول نظيف)
+# 4) الدفع النهائي:
+git add -A && git commit -m "content: جولة2 ملء النواقص + ربط" && git push origin main
+```

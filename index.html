@@ -416,7 +416,12 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 <script src="content/physics-12-c2c.js"></script>
 <script src="content/physics-12-c2d.js"></script>
 <script src="content/chemistry-12-c1.js"></script>
+<script src="content/chemistry-12-c2.js"></script>
+<script src="content/chemistry-12-c3.js"></script>
+<script src="content/chemistry-12-c4.js"></script>
+<script src="content/chemistry-12-c5.js"></script>
 <script src="content/math-12-c1.js"></script>
+<script src="content/math-12-c2.js"></script>
 <script src="content/biology-12-c1.js"></script>
 <script src="content/arabic-12-u1.js"></script>
 <script src="content/islamic-12-u1.js"></script>
@@ -666,10 +671,7 @@ function vToday() {
   return topBar('أهلاً، ' + st.name) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    '<section class="card"><h2>خطة اليوم</h2>' +
-      (rest ? '<p>اليوم راحة في خطتك. استرح، وعُد غدًا بنشاط.</p>' :
-      empty('book', 'تظهر هنا دروسك ومراجعتك اليومية', 'حين يُضاف محتوى مواد ' + esc(g.name) + '، يوزّع التطبيق المنهج على أيامك المتبقية (' + ar(ti.daysLeft) + ' يوم دراسة) بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا.')) +
-    '</section>' +
+    planCard(st, ti, g, rest) +
     problemCard(st) +
     '<div class="grid2">' +
       '<div class="stat"><span class="muted small">' + (g.ministerial ? 'حتى الامتحان الوزاري' : 'حتى امتحان آخر السنة') + '</span><b class="num">' + ar(ti.weeksLeft) + ' أسبوعًا</b><span class="small muted">' + fmtD(ti.exam) + ' (تقديري)</span></div>' +
@@ -751,18 +753,56 @@ function pathMap(items, key) {
   });
   return h + '<span class="pin" aria-hidden="true"></span></div>';
 }
+let PATH_TIMER = null, PATH_MAP = null; /* مؤقّت حركة المسار: يُمسح عند إعادة الرسم حتى لا يبقى يعمل على عنصر منفصل */
 function playPath(btn) {
   const m = btn.closest('main').querySelector('.pmap'); if (!m) return;
   const pts = m.dataset.pts.split(';').map(s => s.split(',')), pin = m.querySelector('.pin');
-  if (m._t) { clearInterval(m._t); m._t = null; pin.classList.remove('on'); btn.querySelector('b').textContent = 'شغّل المسار'; return; }
-  let i = 0; pin.classList.add('on'); btn.querySelector('b').textContent = 'إيقاف';
-  const step = () => { pin.style.left = pts[i][0]; pin.style.top = pts[i][1]; const n = m.querySelectorAll('.pn')[i]; if (n) { n.classList.remove('hit'); void n.offsetWidth; n.classList.add('hit'); } i++;
-    if (i >= pts.length) { clearInterval(m._t); m._t = null; btn.querySelector('b').textContent = 'شغّل المسار'; setTimeout(() => pin.classList.remove('on'), 1200); } };
-  step(); m._t = setInterval(step, 420);
+  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (PATH_TIMER) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; m._play = false; pin.classList.remove('on'); btn.querySelector('b').textContent = 'شغّل المسار'; return; }
+  let i = 0; m._play = true; PATH_MAP = m; pin.classList.add('on'); btn.querySelector('b').textContent = 'إيقاف';
+  const place = k => {
+    pin.style.left = pts[k][0]; pin.style.top = pts[k][1];
+    const n = m.querySelectorAll('.pn')[k]; if (n) { n.classList.remove('hit'); void n.offsetWidth; n.classList.add('hit'); }
+    /* الدبوس ينزل فيُحرَّك الصفحة معه ليبقى ظاهرًا */
+    pin.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: smooth ? 'smooth' : 'auto' });
+  };
+  const stop = () => {
+    clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null;
+    m._play = false; btn.querySelector('b').textContent = 'شغّل المسار'; pin.classList.remove('on');
+  };
+  const step = () => {
+    if (i >= pts.length) { /* انتهى المسار → يعود للبداية ويتوقف تلقائيًا (لا يبقى يدور حتى يُضغط إيقاف) */
+      const r = m.getBoundingClientRect(); window.scrollBy({ top: Math.round(r.top - 90), behavior: smooth ? 'smooth' : 'auto' });
+      stop(); pin.style.left = pts[0][0]; pin.style.top = pts[0][1]; return;
+    }
+    place(i); i++;
+  };
+  place(0); i = 1; PATH_TIMER = setInterval(step, 460);
 }
+/* مؤشر المسار يتبع التمرير: نزول الصفحة يُقدّمه، والصعود يعيده نحو البداية.
+   حلقة setTimeout تقرأ حركة التمرير كل ١٢٠ مللي ثانية فتعمل في كل البيئات، ولا تعمل أثناء التشغيل التلقائي */
+let mapPinM = null, mapPinI = -1;
+function mapPinLoop() {
+  setTimeout(mapPinLoop, 120);
+  const m = document.querySelector('main .pmap');
+  if (!m || m._play) { if (mapPinM) { mapPinM = null; mapPinI = -1; } return; }
+  const pts = m.dataset.pts.split(';'); if (!pts.length) return;
+  const max = document.documentElement.scrollHeight - innerHeight; if (max <= 0) return;
+  const r = m.getBoundingClientRect(), pin = m.querySelector('.pin'); if (!pin) return;
+  const show = r.top < innerHeight && r.bottom > 0;
+  if (!show) { pin.classList.remove('on'); return; }
+  pin.classList.add('on');
+  if (m !== mapPinM) { mapPinM = m; mapPinI = -1; }
+  const k = Math.round(Math.min(1, Math.max(0, scrollY / max)) * (pts.length - 1));
+  if (k === mapPinI) return; mapPinI = k;
+  const p = pts[k].split(',');
+  pin.style.left = p[0]; pin.style.top = p[1];
+  const n = m.querySelectorAll('.pn')[k]; if (n) { n.classList.remove('hit'); void n.offsetWidth; n.classList.add('hit'); }
+}
+setTimeout(mapPinLoop, 200);
 const playBtn = '<button class="btn quiet play-btn" data-act="playPath">' + '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg><b>شغّل المسار</b></button>';
 function hiddenFold(topics) {
-  return topics.length ? '<details class="fold"><summary>مواضيع أخفيتها (' + ar(topics.length) + ')</summary><div class="inner">' + topics.map(t => '<div class="row"><span>' + esc(t.sec + ' ' + t.title) + '</span><button class="chip" data-act="unhideTopic" data-id="' + t.id + '">أرجعه</button></div>').join('') + '</div></details>' : '';
+  return topics.length ? '<details class="fold"><summary>مواضيع أخفيتها (' + ar(topics.length) + ')</summary><div class="inner">' + topics.map(t => '<div class="row"><span>' + esc(arSec(t.sec) + ' ' + t.title) + '</span><button class="chip" data-act="unhideTopic" data-id="' + t.id + '">أرجعه</button></div>').join('') + '</div></details>' : '';
 }
 const chPct = ch => { const ts = ch.topics.filter(t => !isHidden(t.id)); return Math.round(ts.reduce((a, t) => a + topicPct(t), 0) / Math.max(1, ts.length)); };
 
@@ -860,15 +900,49 @@ function vIntro() {
 }
 
 function vReview() {
-  return topBar('المراجعة') + '<main class="page">' +
-    empty('review', 'مراجعتك اليومية تظهر هنا', 'كل موضوع تدرسه يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر. المراجعة مجزأة حسب المواد، لا تزيد على مادتين ثقيلتين في اليوم، وتتركز على مادة الامتحان حين يقترب.') + '</main>';
+  const items = revAll();
+  const over = items.filter(x => revOver(x.r));
+  const soon = items.filter(x => !revOver(x.r)).slice(0, 8);
+  const done = revTodayCount();
+  const bySubj = {};
+  over.forEach(x => (bySubj[x.subject] = bySubj[x.subject] || []).push(x));
+  const subjScores = Object.entries(bySubj).sort((a, b) => b[1].length - a[1].length);
+  const top2 = subjScores.slice(0, 2);
+  const restN = subjScores.slice(2).reduce((k, s) => k + s[1].length, 0);
+  let h = topBar('المراجعة') + '<main class="page">' +
+    '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>' +
+    '<div class="grid2"><div class="stat"><span class="muted small">بسبب اليوم</span><b class="num">' + ar(over.length) + '</b></div><div class="stat"><span class="muted small">قادمة في أيامها</span><b class="num">' + ar(items.length - over.length) + '</b></div><div class="stat"><span class="muted small">راجعت اليوم</span><b class="num">' + ar(done) + '</b></div><div class="stat"><span class="muted small">في جدول المراجعة</span><b class="num">' + ar(items.length) + '</b></div></div>';
+  if (!items.length) h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
+  else {
+    if (over.length) {
+      top2.forEach(g => h += '<section class="card"><h2 style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">' + esc(g[0]) + '<span class="small muted num">' + ar(g[1].length) + ' ' + tWord(g[1].length) + '</span></h2><div class="plist">' + g[1].map(x => revItemHTML(x)).join('') + '</div></section>');
+      if (restN) h += '<section class="card"><h2>باقي المواد</h2><p class="small muted">لا تزيد على مادتين ثقيلتين في اليوم: ' + ar(restN) + ' مراجعة من بقية موادك تنتظر غدًا وبعده.</p><div class="plist">' + subjScores.slice(2).flatMap(g => g[1]).slice(0, 4).map(x => revItemHTML(x)).join('') + '</div></section>';
+    }
+    if (soon.length) h += '<section class="card"><h2>قادمة في أيامها</h2><p class="small muted">ستعود إليك عندما يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div></section>';
+    h += '<p class="note">أي اختبار لموضوع يقدّم موعده التالي، والنتيجة دون ٧٠٪ تعيده إلى «غدًا».</p>';
+  }
+  return h + '</main>';
 }
 function vTests() {
-  const items = [['اختباراتي', 'أسئلة عشوائية مما درسته فقط.'], ['عندي امتحان', 'اختر نوعه وموعده ومواضيعه، ونبدأ جلسة فهم.'], ['الشهري', 'نص من الكتاب وجواب مفصّل، والنمط الوزاري يزداد كل شهر.'], ['التهيئة للوزاري', 'أسئلة الدورات من ٢٠١٦ إلى ٢٠٢٦ بوقت محسوب.']];
+  const st = me(), pool = myStudyPool();
+  const exams = (st.exams || []).slice().reverse().slice(0, 12);
   const mt = memoTopics();
   const memoSec = mt.length ? '<section class="card"><h2>اختبارات الحفظ</h2><p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join('') + '</section>' : '';
-  return topBar('الاختبارات') + '<main class="page"><div class="grid2">' +
-    items.map(x => '<div class="card"><h2>' + x[0] + '</h2><p class="muted small">' + x[1] + '</p><span class="note">يعمل حين يُضاف محتوى المواد</span></div>').join('') + '</div></main>';
+  let h = topBar('الاختبارات') + '<main class="page">' +
+    '<section class="card"><h2>اختباراتي</h2><p class="small muted">أسئلة عشوائية مما درسته فقط، تُخلط بين مواضيعك وموادك.</p>' +
+    (pool.length >= 5 ? '<div class="grid2"><button class="btn" data-act="mixQuiz" data-n="10">اختبار سريع · ١٠</button><button class="btn ghost" data-act="mixQuiz" data-n="20">اختبار أطول · ٢٠</button></div><p class="small muted num">' + ar(pool.length) + ' سؤالًا جاهزًا مما درسته</p>'
+      : '<div class="empty">' + ico('tests', 1.4) + '<b>' + (pool.length ? 'أنهِ تهيئة موضوع أولًا' : 'ادرس موضوعًا أولًا') + '</b><p>أسئلة «اختباراتي» تأتي مما درسته فقط. ادرس أي موضوع وأكمل اختباره ثم عد لتجد أسئلته هنا.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>') +
+    '</section>' +
+    (exams.length ? '<section class="card"><h2>آخر نتائجك</h2><p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
+      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
+      '</div></section>' : '') +
+    memoSec +
+    '<div class="grid2">' +
+      '<div class="card"><h2>عندي امتحان</h2><p class="muted small">اختر نوعه وموعده ومواضيعه، ونبدأ جلسة فهم.</p><span class="note">يُبنى مع بقية المحتوى</span></div>' +
+      '<div class="card"><h2>الشهري</h2><p class="muted small">نص من الكتاب وجواب مفصّل، والنمط الوزاري يزداد كل شهر.</p><span class="note">يُبنى مع بقية المحتوى</span></div>' +
+      '<div class="card"><h2>التهيئة للوزاري</h2><p class="muted small">أسئلة الدورات من ٢٠١٦ إلى ٢٠٢٦ بوقت محسوب.</p><span class="note">تظهر أسئلة الوزاري حين يُبنى المحتوى</span></div>' +
+    '</div></main>';
+  return h;
 }
 const BOOK_SOURCES = { 12: 'https://mlazemna.com/bk6ma/' };
 function vLibrary() {
@@ -901,8 +975,8 @@ function searchResults() {
       subjectsOf(g.id, br).forEach(s => { if (s.includes(q) || (WHY[s] || '').includes(q)) res.push({ kind: 'مادة', title: s, where: g.name, act: 'subject:' + g.id + ':' + s });
         const c = contentOf(g.id, s); if (!c) return;
         const nq = normA(q);
-        c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const where = s + ' · ' + t.sec + ' ' + t.title, hit = x => normA(x).includes(nq);
-          if (hit(t.title)) res.push({ kind: 'موضوع', title: t.sec + ' ' + t.title, where: s + ' · ' + ch.title, act: 'topic:' + t.id + ':explain' });
+        c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const where = s + ' · ' + arSec(t.sec) + ' ' + t.title, hit = x => normA(x).includes(nq);
+          if (hit(t.title)) res.push({ kind: 'موضوع', title: arSec(t.sec) + ' ' + t.title, where: s + ' · ' + ch.title, act: 'topic:' + t.id + ':explain' });
           t.defs.forEach(d => { if (hit(d.term) || hit(d.text)) res.push({ kind: 'تعريف', title: d.term, where, act: 'topic:' + t.id + ':defs' }); });
           t.laws.forEach(l => { if (hit(l.name) || hit(l.f)) res.push({ kind: 'قانون', title: l.name + '  ' + l.f, where, act: 'topic:' + t.id + ':laws' }); });
           t.reasons.forEach(r => { if (hit(r.q)) res.push({ kind: 'تعليل', title: r.q, where, act: 'topic:' + t.id + ':reasons' }); });
@@ -1016,7 +1090,8 @@ function findProblem(id) {
 const MATH_RE = /[A-Za-zΔΦεπΩµ½√(0-9⁰¹²³⁴-⁹ωθφαβλℂ‖±][A-Za-zΔΦεπΩµ½√∝≈∥…ωθφαβλℂ‖±^⁄⁰¹²³⁴-⁹⁻⁺₀-₉0-9=×÷+\-−().²³ \/.,_{}·'°→⇌⟸<>]*[A-Za-z0-9µΩ⁰¹²³⁴-⁹₀-₉)}'°ωθφπ‖]|[A-Za-zΔΦεπΩµ0-9ωθφℂ]/g;
 const subs = s => s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>').replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>');
 /* يعزل كل معادلة أو رمز لاتيني داخل النص العربي في عنصر LTR، ويُهرّب النص قبل التغليف */
-const bsec = x => /[\u0600-\u06FF]/.test(x) ? '<bdi>' + esc(x) + '</bdi>' : '<bdi dir="ltr">' + esc(x) + '</bdi>';
+const arSec = x => /[A-Za-z]/.test(String(x)) ? String(x) : ar(String(x));
+const bsec = x => '<bdi' + (/[\u0621-\u064A]/.test(String(x)) ? '' : ' dir="ltr"') + '>' + esc(arSec(x)) + '</bdi>';
 const ft = t => /[_^=]/.test(t) ? fm(t) : esc(t).replace(/\d+(?:\s*[–\-]\s*\d+)+/g, m => '<bdi dir="ltr">' + m + '</bdi>');
 const fm = t => { t = String(t == null ? '' : t); if (!/[\u0600-\u06FF]/.test(t) && /[a-z]{2,}[\s,’'][^=]*[a-z]{2,}/i.test(t)) return '<span class="lt lt-b" dir="ltr">' + esc(t) + '</span>'; let out = '', last = 0; t.replace(MATH_RE, (m, off) => { if (!/[=+×÷√]/.test(m) && /[a-z]{3,}\s+[a-z]{2,}/i.test(m)) { out += esc(t.slice(last, off)) + '<span class="lt" dir="ltr">' + esc(m) + '</span>'; last = off + m.length; return m; } out += esc(t.slice(last, off)) + '<span class="math' + (m.length <= 28 ? ' eq' : '') + '">' + subs(esc(m)) + '</span>'; last = off + m.length; return m; }); return out + esc(t.slice(last)); };
 const fe = t => '<span class="math eq">' + subs(esc(t)) + '</span>';
@@ -1287,6 +1362,7 @@ function problemsHTML(t, subject) {
 /* المصدر: «t:رقم_الموضوع» لاختبار موضوع، أو «c:رقم_الفصل» لاختبار فصل كامل. الطالب يختار عدد الأسئلة. */
 function quizPool(src) {
   const [kind, id] = [src.slice(0, 1), src.slice(2)];
+  if (kind === 'm') return myStudyPool();
   if (kind === 't') { const t = findTopic(id).t; return t.quiz.map((q, i) => ({ q, tid: t.id, key: t.id + ':' + i })); }
   const ch = findChapter(id).ch, out = [];
   ch.topics.forEach(t => { if (!isHidden(t.id)) t.quiz.forEach((q, i) => out.push({ q, tid: t.id, key: t.id + ':' + i })); });
@@ -1308,7 +1384,7 @@ function startQuiz(src, n) {
 function quizQ(item) { const [tid, qi] = item.key.split(':'); return findTopic(tid).t.quiz[+qi]; }
 function vQuiz() {
   const z = S.quiz; if (!z) return vToday();
-  const title = z.src[0] === 't' ? 'اختبار: ' + findTopic(z.src.slice(2)).t.title : 'اختبار ' + findChapter(z.src.slice(2)).ch.title.split(':')[0];
+  const title = z.src[0] === 't' ? 'اختبار: ' + findTopic(z.src.slice(2)).t.title : z.src[0] === 'm' ? 'اختبار مما درسته' : 'اختبار ' + findChapter(z.src.slice(2)).ch.title.split(':')[0];
   if (z.i >= z.items.length) {
     const ok = z.picks.filter((p, i) => p === quizQ(z.items[i]).c).length, pct = Math.round(ok / z.items.length * 100);
     const wrong = z.items.map((it, i) => ({ it, p: z.picks[i] })).filter(x => x.p !== quizQ(x.it).c);
@@ -1328,11 +1404,132 @@ function vQuiz() {
 }
 function finishQuiz() {
   const z = S.quiz, ok = z.picks.filter((p, i) => p === quizQ(z.items[i]).c).length, pct = Math.round(ok / z.items.length * 100);
-  if (z.src[0] === 't') { const p = progOf(z.src.slice(2)); p.quiz = { best: Math.max(pct, (p.quiz || {}).best || 0), last: pct, n: z.items.length, at: Date.now() }; }
+  if (z.src[0] === 't') { const p = progOf(z.src.slice(2)); p.quiz = { best: Math.max(pct, (p.quiz || {}).best || 0), last: pct, n: z.items.length, at: Date.now() }; revDone(z.src.slice(2), pct >= 70); }
   else { const st = me(); st.tests = st.tests || {}; const prev = st.tests[z.src] || {}; st.tests[z.src] = { best: Math.max(pct, prev.best || 0), last: pct, at: Date.now() }; }
   z.items.forEach((it, i) => { const [tid, qi] = it.key.split(':'), w = wrongOf(tid); if (z.picks[i] === quizQ(it).c) delete w[qi]; else w[qi] = { n: ((w[qi] || {}).n || 0) + 1, at: Date.now() }; });
   const st = me(); st.exams = st.exams || []; st.exams.push({ src: z.src, pct, n: z.items.length, at: Date.now() }); if (st.exams.length > 500) st.exams = st.exams.slice(-500);
   save();
+}
+
+/* =================== المراجعة: تكرار متباعد يعيد لك ما درسته =================== */
+/* كل موضوع تدرسه يدخل جدول المراجعة: يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.
+   جدول كل موضوع: { at: آخر دراسة/مراجعة, level: 0..3, done: عدد المراجعات }.
+   تُزرع البذرة تلقائيًا من التقدم الحالي (نتائج اختبارات الموضوع) لتعمل المراجعة فورًا بما هو موجود. */
+const REV_GAP = [1, 3, 7, 30];
+const REV_DAYS = ['غدًا', 'بعد ٣ أيام', 'بعد أسبوع', 'بعد شهر'];
+function revDue(r) { if (!r) return null; return r.at + REV_GAP[Math.min(r.level, REV_GAP.length - 1)] * 864e5; }
+function revOver(r) { const d = revDue(r); return d != null && today0().getTime() >= d; }
+function studiedTid(tid, t) {
+  if (!t) return false;
+  const st = me(), p = (st.progress || {})[tid];
+  return !!(p && p.quiz && p.quiz.at) || topicPct(t) >= 60;
+}
+function getRev(tid) {
+  const p = progOf(tid);
+  if (!p.rev) p.rev = { at: (p.quiz && p.quiz.at) || Date.now(), level: 0, done: 0 };
+  return p.rev;
+}
+function revDone(tid, ok) {
+  const r = getRev(tid);
+  r.level = ok ? Math.min(3, r.level + 1) : 0;
+  r.at = Date.now(); r.done = (r.done || 0) + 1;
+  const st = me(); st.log = st.log || []; st.log.push({ d: isoD(new Date()), subject: 'المراجعة', sec: 0, type: 'review' });
+  if (st.log.length > 5000) st.log = st.log.slice(-5000);
+  save();
+}
+function revAll() {
+  const st = me(), out = []; let dirty = false;
+  gradeContents(st.grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+    if (isHidden(t.id)) return;
+    if (!studiedTid(t.id, t)) return;
+    const p = (st.progress || {})[t.id];
+    if (!p.rev) { p.rev = { at: (p.quiz && p.quiz.at) || Date.now(), level: 0, done: 0 }; dirty = true; }
+    out.push({ subject: y.subject, ch, t, r: p.rev, due: revDue(p.rev) });
+  })));
+  if (dirty) save();
+  return out.sort((a, b) => a.due - b.due);
+}
+function revTodayCount() { const d = isoD(new Date()); return (me().log || []).filter(x => x.d === d && x.type === 'review').length; }
+const tWord = n => n === 1 ? 'موضوع' : 'مواضيع';
+function revItemHTML(x, next) {
+  const qn = x.t.quiz ? x.t.quiz.length : 0;
+  const lab = next ? 'يعود ' + REV_DAYS[Math.min(x.r.level, REV_DAYS.length - 1)] : 'راجِعه اليوم';
+  return '<div class="pitem" style="pointer-events:none;flex-wrap:wrap">' +
+    '<span class="st"' + (next ? '' : ' style="color:var(--acc)"') + '>' + ico('review', 2) + '</span>' +
+    '<span style="flex:1;min-width:0;display:flex;flex-direction:column"><b>' + esc(x.subject) + '</b><span class="small muted">' + esc(x.ch.title) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span>' +
+    '<span class="small muted num" style="white-space:nowrap">' + lab + '</span>' +
+    '<span class="chips" style="pointer-events:auto;flex-wrap:wrap">' +
+      (qn ? '<button class="chip" data-act="revQuiz" data-id="' + x.t.id + '">اختبر نفسك</button>' : '') +
+      '<button class="chip" data-act="revDone" data-id="' + x.t.id + '">قرأتُه</button>' +
+      '<button class="chip" data-act="revOpen" data-id="' + x.t.id + '">افتح</button>' +
+    '</span></div>';
+}
+/* اختبار «مما درسته فقط»: أسئلة المواضيع التي درستها وبدأت اختبارها، مع استثناء ما أخفيته */
+function myStudyPool() {
+  const st = me(), out = [];
+  gradeContents(st.grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+    if (!isHidden(t.id) && studiedTid(t.id, t)) t.quiz.forEach((q, i) => out.push({ q, tid: t.id, key: t.id + ':' + i }));
+  })));
+  return out;
+}
+function examLabel(src) {
+  if (src[0] === 't') { const f = findTopic(src.slice(2)); return f ? 'اختبار: ' + ft(f.t.title) : src; }
+  if (src[0] === 'c') { const f = findChapter(src.slice(2)); return f ? 'اختبار ' + f.ch.title.split(':')[0] : src; }
+  if (src === 'm') return 'اختبار سريع مما درسته';
+  return src;
+}
+
+/* =================== خطة اليوم: توزيع المواضيع المتبقية على أيام الدراسة =================== */
+/* تُدمج المواضيع المتبقية لكل مادة بالتناوب (مادة، مادة، مادة…) فلا تطغى مادة على غيرها،
+   ولا يزيد نصاب اليوم على مادتين ثقيلتين، ثم تُقدَّم مراجعات اليوم المستحقة أولًا. */
+function studyLine() {
+  const st = me(), groups = [];
+  gradeContents(st.grade).forEach(y => {
+    const ts = [];
+    y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (!isHidden(t.id) && topicPct(t) < 90) ts.push({ subject: y.subject, ch, t }); }));
+    if (ts.length) groups.push({ subject: y.subject, ts });
+  });
+  if (!groups.length) return [];
+  groups.sort((a, b) => b.ts.length - a.ts.length);
+  const line = [], total = groups.reduce((k, g) => k + g.ts.length, 0);
+  for (let i = 0; line.length < total; i++) {
+    const g = groups[i % groups.length];
+    if (g.ts.length) line.push(g.ts.shift());
+  }
+  return line;
+}
+function planToday() {
+  const st = me(), line = studyLine();
+  const K = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
+  const picks = [], seen = new Set();
+  for (const it of line) {
+    if (picks.length >= K) break;
+    if (seen.size >= 2 && !seen.has(it.subject)) continue;
+    seen.add(it.subject); picks.push(it);
+  }
+  const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6);
+  return { picks, reviews, left: line.length - picks.length, total: line.length };
+}
+function planCard(st, ti, g, rest) {
+  const has = gradeContents(st.grade).length;
+  if (!has) return '<section class="card"><h2>خطة اليوم</h2>' +
+    empty('book', 'تظهر هنا دروسك ومراجعتك اليومية', 'حين يُضاف محتوى مواد ' + esc(g.name) + '، يوزّع التطبيق المنهج على أيامك المتبقية (' + ar(ti.daysLeft) + ' يوم دراسة) بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا.') + '</section>';
+  if (rest) {
+    const revs = revAll().filter(x => revOver(x.r)).slice(0, 6);
+    return '<section class="card"><h2>خطة اليوم</h2><p>اليوم راحة في خطتك. استرح، وعُد غدًا بنشاط.</p>' +
+      (revs.length ? '<p class="small muted" style="margin-top:8px">يمكنك مع ذلك المراجعة الخفيفة:</p><div class="plist">' + revs.map(x => revItemHTML(x)).join('') + '</div>' : '') + '</section>';
+  }
+  const { picks, reviews, left, total } = planToday();
+  let h = '<section class="card"><h2>خطة اليوم</h2>';
+  if (!total && !reviews.length) h += '<p>أنجزت كل مواضيع صفك. راجع من تبويب المراجعة حتى الامتحان، وعدّل هدفك من الإعدادات.</p>';
+  else {
+    h += '<p class="small muted">في منهجك ' + ar(total) + ' ' + tWord(total) + ' على ' + ar(ti.daysLeft) + ' يوم دراسة · بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا، بالتناوب بين المواد.</p><div class="plist">' +
+      picks.map(x => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ادرس</span></button>').join('') +
+      reviews.map(x => '<button class="pitem" data-act="revQuiz" data-id="' + x.t.id + '"><span class="st" style="color:var(--acc)">' + ico('review', 2) + '</span><span style="flex:1;min-width:0"><b>مراجعة: ' + esc(x.subject) + '</b><br><span class="small muted">' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">اختبر</span></button>').join('') +
+      '</div>';
+    if (left) h += '<p class="small muted">' + (left === 1 ? 'بقي موضوع واحد' : 'بقي ' + ar(left) + ' مواضيع') + ' ينتظر دوره في الأيام القادمة.</p>';
+  }
+  return h + '</section>';
 }
 
 /* =================== الدفتر داخل التطبيق =================== */
@@ -1407,7 +1604,7 @@ function scopeTopics(x) {
 const LVL = [['topic', 'درس'], ['tab', 'تبويب'], ['chapter', 'فصل'], ['subject', 'مادة'], ['grade', 'الصف'], ['all', 'كامل']];
 function scopeLabel(x) {
   const st = me();
-  if (x.lvl === 'topic' || x.lvl === 'tab') { const f = findTopic(x.tid); return f ? x.subject + ' · ' + f.t.sec + ' ' + f.t.title + (x.lvl === 'tab' ? ' · ' + NB_SEG_NAME[x.seg] : '') : ''; }
+  if (x.lvl === 'topic' || x.lvl === 'tab') { const f = findTopic(x.tid); return f ? x.subject + ' · ' + arSec(f.t.sec) + ' ' + f.t.title + (x.lvl === 'tab' ? ' · ' + NB_SEG_NAME[x.seg] : '') : ''; }
   if (x.lvl === 'chapter') { const f = findChapter(x.ch); return f ? x.subject + ' · ' + f.ch.title : ''; }
   if (x.lvl === 'subject') return x.subject + ' · ' + GRADES[st.grade - 1].name;
   if (x.lvl === 'grade') return 'كل مواد ' + GRADES[st.grade - 1].name;
@@ -1441,7 +1638,7 @@ function vNotebook() {
       if (show.wrong && e.wrong.length) h += '<div class="nb-sec"><span class="nb-tag bad">أخطائي في الاختبار</span>' + e.wrong.map(i => { const q = t.quiz[i], w = wrongOf(t.id)[i];
         return '<div class="nb-wrong"><p>' + fm(q.q) + '</p><p class="small"><b>الصحيح:</b> ' + fm(q.o[q.c]) + ' — ' + fm(q.why) + '</p><span class="small muted num">أخطأت فيه ' + ar(w.n) + ' مرة</span></div>'; }).join('') +
         '<button class="chip" data-act="quizStart" data-src="t:' + t.id + '" data-n="' + t.quiz.length + '">أعد اختبار الموضوع</button></div>';
-      if (h) chHTML += '<section class="nb-topic"><div class="nb-th-h"><span class="t-sec">' + esc(t.sec) + '</span><b>' + fm(t.title) + '</b><button class="chip" data-act="topic" data-id="' + t.id + '">افتح</button></div>' + h + '</section>';
+      if (h) chHTML += '<section class="nb-topic"><div class="nb-th-h"><span class="t-sec">' + bsec(t.sec) + '</span><b>' + fm(t.title) + '</b><button class="chip" data-act="topic" data-id="' + t.id + '">افتح</button></div>' + h + '</section>';
     });
     if (chHTML) body += '<h2 class="nb-ch">' + esc(ch.title) + '</h2>' + chHTML;
   });
@@ -1479,7 +1676,7 @@ function vExport() {
     '<section class="card"><h2>المستوى</h2><div class="chips">' + LVL.map(l => '<button class="chip" data-act="expSet" data-k="lvl" data-v="' + l[0] + '" aria-pressed="' + (x.lvl === l[0]) + '">' + l[1] + '</button>').join('') + '</div>' +
       (need.subject ? '<div class="field"><label for="expSubj">المادة</label>' + sel('expSubj', subs.map(y => [y.subject, y.subject]), x.subject) + '</div>' : '') +
       (need.ch ? '<div class="field"><label for="expCh">الفصل</label>' + sel('expCh', chs.map(y => [y.id, y.title]), x.ch) + '</div>' : '') +
-      (need.topic ? '<div class="field"><label for="expTopic">الدرس</label>' + sel('expTopic', ts.map(y => [y.id, y.sec + ' ' + y.title]), x.tid) + '</div>' : '') +
+      (need.topic ? '<div class="field"><label for="expTopic">الدرس</label>' + sel('expTopic', ts.map(y => [y.id, arSec(y.sec) + ' ' + y.title]), x.tid) + '</div>' : '') +
       (need.seg ? '<div class="field"><label for="expSeg">التبويب</label>' + sel('expSeg', segs.map(s => [s[0], s[1]]), x.seg) + '</div>' : '') +
       '<p class="small muted num">النطاق: <b>' + esc(scopeLabel(x)) + '</b> · ' + ar(n) + (n === 1 ? ' درس' : ' دروس') + '</p></section>' +
     (x.fmt === 'nb' ? '<section class="card"><h2>يشمل</h2><div class="chips">' + inc.map(i => '<button class="chip" data-act="expInc" data-v="' + i[0] + '" aria-pressed="' + !!x.inc[i[0]] + '">' + i[1] + '</button>').join('') + '</div></section>' : '') +
@@ -1541,16 +1738,16 @@ async function buildExport(x) {
         '<table><thead><tr><th>الدرس</th><th>الإنجاز</th><th>الأقسام المقروءة</th><th>أفضل اختبار</th><th>المسائل الصحيحة</th><th>الوقت</th><th>أخطاء</th></tr></thead><tbody>' +
         g.rows.map(it => { const t = it.t, p = progOf(t.id), segs = SEGS.filter(s => segHas(t, s[0])), seen = segs.filter(s => p.seen[s[0]]).length;
           const tr = t.problems.map(q => solveOf(q.id)).filter(Boolean), u = tr.reduce((a, v) => a + (v.used || 0), 0);
-          return '<tr><td>' + esc(t.sec) + ' ' + xe(t.title) + '</td><td class="n">' + ar(topicPct(t)) + '٪</td><td class="n">' + ar(seen) + '/' + ar(segs.length) + '</td><td class="n">' + (p.quiz ? ar(p.quiz.best) + '٪' : '—') + '</td><td class="n">' + (t.problems.length ? ar(tr.filter(v => v.self === 'ok').length) + '/' + ar(t.problems.length) : '—') + '</td><td class="n">' + (u ? tm(u) : '—') + '</td><td class="n">' + ar(Object.keys(wrongOf(t.id)).length) + '</td></tr>'; }).join('') + '</tbody></table>';
+          return '<tr><td>' + esc(arSec(t.sec)) + ' ' + xe(t.title) + '</td><td class="n">' + ar(topicPct(t)) + '٪</td><td class="n">' + ar(seen) + '/' + ar(segs.length) + '</td><td class="n">' + (p.quiz ? ar(p.quiz.best) + '٪' : '—') + '</td><td class="n">' + (t.problems.length ? ar(tr.filter(v => v.self === 'ok').length) + '/' + ar(t.problems.length) : '—') + '</td><td class="n">' + (u ? tm(u) : '—') + '</td><td class="n">' + ar(Object.keys(wrongOf(t.id)).length) + '</td></tr>'; }).join('') + '</tbody></table>';
     });
     const weak = list.filter(it => { const p = progOf(it.t.id); return topicPct(it.t) < 60 || (p.quiz && p.quiz.best < 70) || Object.keys(wrongOf(it.t.id)).length >= 2; });
-    h += '<h2>ابدأ مراجعتك بها</h2>' + (weak.length ? '<ol>' + weak.map(it => { const p = progOf(it.t.id), why = []; if (topicPct(it.t) < 60) why.push('الإنجاز ' + ar(topicPct(it.t)) + '٪'); if (p.quiz && p.quiz.best < 70) why.push('أفضل اختبار ' + ar(p.quiz.best) + '٪'); const w = Object.keys(wrongOf(it.t.id)).length; if (w >= 2) why.push(ar(w) + ' أخطاء معلقة'); return '<li>' + esc(it.subject) + ' · ' + esc(it.t.sec) + ' ' + xe(it.t.title) + ' <span class="muted">(' + why.join('، ') + ')</span></li>'; }).join('') + '</ol>' : '<p>لا مواضيع ضعيفة في هذا النطاق. استمر.</p>');
+    h += '<h2>ابدأ مراجعتك بها</h2>' + (weak.length ? '<ol>' + weak.map(it => { const p = progOf(it.t.id), why = []; if (topicPct(it.t) < 60) why.push('الإنجاز ' + ar(topicPct(it.t)) + '٪'); if (p.quiz && p.quiz.best < 70) why.push('أفضل اختبار ' + ar(p.quiz.best) + '٪'); const w = Object.keys(wrongOf(it.t.id)).length; if (w >= 2) why.push(ar(w) + ' أخطاء معلقة'); return '<li>' + esc(it.subject) + ' · ' + esc(arSec(it.t.sec)) + ' ' + xe(it.t.title) + ' <span class="muted">(' + why.join('، ') + ')</span></li>'; }).join('') + '</ol>' : '<p>لا مواضيع ضعيفة في هذا النطاق. استمر.</p>');
   } else {
     list.forEach(it => {
       const t = it.t;
       if (it.subject !== lastSub && x.lvl !== 'topic' && x.lvl !== 'tab' && ['grade', 'all'].includes(x.lvl)) { h += '<h1 class="pb">' + esc(it.subject) + ' <span class="muted">' + esc(GRADES[it.gid - 1].name) + '</span></h1>'; lastSub = it.subject; }
       if (it.ch.id !== lastCh) { h += '<h2' + (lastCh ? ' class="pb"' : '') + '>' + esc(it.ch.title) + '</h2>'; lastCh = it.ch.id; }
-      h += '<section class="topic"><div class="topic-h"><span class="sec">' + esc(t.sec) + '</span><h3>' + xe(t.title) + '</h3><span class="muted">الكتاب ص' + ar(t.page) + '</span></div>';
+      h += '<section class="topic"><div class="topic-h"><span class="sec">' + esc(arSec(t.sec)) + '</span><h3>' + xe(t.title) + '</h3><span class="muted">الكتاب ص' + ar(t.page) + '</span></div>';
       if (x.inc.content) h += contentBlocks(t, tab);
       if (x.inc.notes) { const ns = Object.entries(notesOf(t.id)).filter(e => e[1] && e[1].trim() && (!tab || e[0] === tab)); if (ns.length) h += '<span class="lbl">ما كتبته بيدي</span>' + ns.map(n => '<div class="muted">' + NB_SEG_NAME[n[0]] + '</div><div class="lined">' + esc(n[1]) + '</div>').join(''); }
       if (x.inc.probs && (!tab || tab === 'problems')) { const ps = t.problems.filter(p => solveOf(p.id)); if (ps.length) h += '<span class="lbl">حلولي</span>' + ps.map(p => { const v = solveOf(p.id), lbl = { ok: 'حلّي صحيح', bad: 'فيه خطأ', none: 'لم أصل للحل' }[v.self] || 'لم أقارن بعد';
@@ -1958,7 +2155,7 @@ function vProblem() {
     }
   }
   return topBar('مسألة ' + ar(idx + 1) + ' من ' + ar(f.t.problems.length), { back: true, noTools: true }) + '<main class="page">' +
-    '<p class="muted">' + esc(f.subject) + ' · ' + esc(f.t.sec + ' ' + f.t.title) + '</p>' +
+    '<p class="muted">' + esc(f.subject) + ' · ' + esc(arSec(f.t.sec) + ' ' + f.t.title) + '</p>' +
     '<span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من مسائل الكتاب · ' + esc(p.ref) + ' · الحل مقترح لأن الكتاب لا يعطي أجوبة مسائل الفصل' : 'تدريب إضافي على قوانين الموضوع') + '</span>' +
     '<section class="prob"><p class="prob-text">' + fm(p.text) + '</p>' + body + '</section></main>';
 }
@@ -2068,6 +2265,7 @@ function render(scrollTop) {
   if (S.onb) { app.innerHTML = vOnb(); const f = document.getElementById('oName'); if (f) f.focus(); return; }
   if (!me()) { startOnb('first'); render(); return; }
   app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.dialog ? vDialog() : '');
+  if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
   mountSims(); mountPhotos();
   if (scrollTop) window.scrollTo(0, 0);
   if (S.view === 'search') { const q = document.getElementById('q'); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
@@ -2166,6 +2364,11 @@ document.addEventListener('click', e => {
     case 'dlgQuiz': { const src = S.dialog.src; S.dialog = null; startQuiz(src, +el.dataset.n); break; }
     case 'quizPick': S.quiz.picks[S.quiz.i] = +el.dataset.o; render(); break;
     case 'quizNext': S.quiz.i++; if (S.quiz.i >= S.quiz.items.length) finishQuiz(); render(true); break;
+    case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
+    case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else startQuiz(src, n); break; }
+    case 'revQuiz': { const t = findTopic(el.dataset.id).t; if (!t || !t.quiz || !t.quiz.length) { toast('لا أسئلة في هذا الموضوع بعد.'); break; } startQuiz('t:' + el.dataset.id, Math.min(10, t.quiz.length)); break; }
+    case 'revDone': revDone(el.dataset.id, true); render(); toast('رُصدت مراجعتك. سيعود الموضوع في وقته.'); break;
+    case 'revOpen': go('topic', { viewTopic: el.dataset.id }); break;
     case 'hideTopic': { st.hidden = (st.hidden || []).concat(el.dataset.id); save(); back(); render(true); toast('أُخفي الموضوع. ترجعه من صفحة المادة متى شئت.'); break; }
     case 'unhideTopic': st.hidden = (st.hidden || []).filter(x => x !== el.dataset.id); save(); render(); toast('رجع الموضوع إلى مسارك.'); break;
     case 'prob': if (el.dataset.replace) { S.viewProblem = el.dataset.id; render(true); } else go('problem', { viewProblem: el.dataset.id }); break;

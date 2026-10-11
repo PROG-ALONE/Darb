@@ -90,8 +90,6 @@ a{color:var(--acc)}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:0 14px;border-radius:12px;background:var(--bg)}
 .bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
 .bar>span{display:block;height:100%;border-radius:999px;background:var(--ok);transition:width .4s}
-.bar.daily{height:14px;background:var(--acc-soft)}
-.bar.daily>span{background:var(--acc)}
 .note{font-size:.82em;color:var(--muted)}
 .empty{border:1.5px dashed var(--line);border-radius:18px;padding:28px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted)}
 .empty svg{width:44px;height:44px;color:var(--acc)}
@@ -149,6 +147,18 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .answer-actions{display:flex;gap:8px;margin-top:8px}
 .answer-actions .btn{flex:1}
 .badans{border-color:var(--bad);background:rgba(255,80,80,.06)}
+
+/* نظام المطابقة الجديد: مرحلة الترشيد ثم مرحلة المطابقة */
+.phase{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);margin-top:4px}
+.phase .n{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:flex;align-items:center;justify-content:center;font-size:.85em}
+.guide{border:1px solid var(--line);border-inline-start:5px solid var(--acc);border-radius:14px;padding:14px 18px;background:var(--card);display:flex;flex-direction:column;gap:8px}
+.guide .glbl{font-weight:700;color:var(--acc)}
+.guide ol{margin:0;padding-inline-start:22px;line-height:2}
+.masked{display:inline-block;min-width:2.1em;text-align:center;background:var(--acc-soft);color:var(--acc);border-radius:6px;font-weight:700;padding:0 4px}
+.timefx{background:var(--ok-soft);border-radius:12px;padding:12px 16px;line-height:2;font-size:.95em;color:var(--ink)}
+.timefx.late{background:var(--gold-soft)}
+.timefx b{color:var(--ink)}
+.answer-pad .dontknow{width:100%;border-style:dashed}
 
 /* إصلاح تداخل الألوان */
 .card h2,.card h3{color:var(--ink)}
@@ -377,17 +387,6 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
-/* الأقسام القابلة للطي */
-.acc{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
-.acc-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s ease}
-.acc-h:hover{background:var(--acc-soft)}
-.acc-h .acc-ico{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--acc-soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:700;transition:transform .2s ease}
-.acc.open .acc-h .acc-ico{transform:rotate(180deg)}
-.acc-h .acc-t{flex:1;font-weight:600;font-size:.95em}
-.acc-h .acc-s{font-size:.8em;color:var(--muted)}
-.acc-b{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.acc.open .acc-b{max-height:2000px}
-.acc-b-in{padding:0 16px 14px}
 
 /* خريطة المسار */
 .map-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 14px 10px;overflow:hidden}
@@ -647,7 +646,11 @@ const store = {
 function freshDB() { return { schema: SCHEMA, created: new Date().toISOString(), activeId: null, students: [], prefs: { theme: 'auto', fs: 2 }, rating: 0 }; }
 let DB = store.load();
 if (!DB || DB.schema !== SCHEMA) DB = freshDB();
-const save = () => { if (!store.save(DB)) toast('تعذّر الحفظ على هذا الجهاز. صدّر نسخة احتياطية من الإعدادات حتى لا يضيع تقدمك.'); };
+let saveTimer = null, saveFailed = false;
+function flushSave() { if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; } _tpGen++; _tpCache.clear(); if (!store.save(DB) && !saveFailed) { saveFailed = true; toast('تعذّر الحفظ على هذا الجهاز. صدّر نسخة احتياطية من الإعدادات حتى لا يضيع تقدمك.'); } }
+const save = () => { if (saveTimer) clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 400); };
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushSave(); });
+window.addEventListener('beforeunload', flushSave);
 const me = () => DB.students.find(s => s.id === DB.activeId) || null;
 
 function newStudent(o) {
@@ -746,7 +749,7 @@ function topBar(title, opts) {
   return '<header class="top">' +
     (opts.back ? '<button class="icon-btn" data-act="back" aria-label="رجوع">' + ico('back', 2) + '</button>' : '') +
     '<h1>' + esc(title) + '</h1>' +
-    (opts.noTools ? '' : '<button class="icon-btn" data-act="go" data-v="search" aria-label="البحث">' + ico('search', 2) + '</button>' +
+      (opts.noTools ? '' : (opts.log ? '<button class="icon-btn" data-act="openLog" data-v="' + opts.log + '" aria-label="السجل والتفاصيل">' + ico('review', 2) + '</button>' : '') + '<button class="icon-btn" data-act="go" data-v="search" aria-label="البحث">' + ico('search', 2) + '</button>' +
       '<button class="icon-btn" data-act="go" data-v="settings" aria-label="الإعدادات">' + ico('gear') + '</button>') +
     '</header>';
 }
@@ -771,7 +774,7 @@ function vToday() {
   const todayProbs = todayLog.filter(x => x.type === 'problem').length;
   const todayReviews = todayLog.filter(x => x.type === 'review').length;
   const todayStudy = todayLog.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
-  return topBar('أهلاً، ' + st.name) + '<main class="page">' +
+  return topBar('أهلاً، ' + st.name, { log: 'today' }) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
     accSec('today-summary', 'ملخص اليوم', todayProbs + ' مسائل · ' + todayReviews + ' مراجعة', '<div class="grid2">' +
@@ -807,7 +810,7 @@ function vPath() {
   const st = me(), g = GRADES[st.grade - 1];
   const subs = subjectsOf(st.grade, st.branch);
   const prev = GRADES.filter(x => x.id < st.grade).reverse();
-  return topBar('مساري') + '<main class="page">' +
+  return topBar('مساري', { log: 'path' }) + '<main class="page">' +
     '<section class="grade-hero"><span class="small" style="opacity:.8">صفك هذه السنة</span><h2>' + esc(g.name) + (st.branch ? ' · ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') + '</h2>' +
       '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><p style="opacity:.85">ماذا ستدرس هذه السنة، وكيف، وبماذا ستخرج منها.</p>' +
       '<button class="btn" data-act="intro" data-g="' + st.grade + '" style="background:var(--star);color:#15202B">افتح مقدمة الصف</button></div></section>' +
@@ -1032,7 +1035,7 @@ function vReview() {
   const understandingDue = over.filter(x => x.t.explain && x.t.explain.length);
   const memoDue = over.filter(x => x.t.memo && x.t.memo.units && x.t.memo.units.length);
   
-  let h = topBar('المراجعة') + '<main class="page">' +
+  let h = topBar('المراجعة', { log: 'review' }) + '<main class="page">' +
     '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>' +
     '<div class="grid2"><div class="stat"><span class="muted small">بسبب اليوم</span><b class="num">' + ar(over.length) + '</b></div><div class="stat"><span class="muted small">قادمة في أيامها</span><b class="num">' + ar(items.length - over.length) + '</b></div><div class="stat"><span class="muted small">راجعت اليوم</span><b class="num">' + ar(done) + '</b></div><div class="stat"><span class="muted small">في جدول المراجعة</span><b class="num">' + ar(items.length) + '</b></div></div>';
   
@@ -1065,14 +1068,21 @@ function vReview() {
 }
 
 function reviewLogHTML() {
-  const st = me(), log = (st.log || []).filter(x => x.type === 'review').slice().reverse();
+  const st = me(), log = (st.log || []).filter(x => x.type === 'review').slice();
   if (!log.length) return '<p class="muted">لا مراجعة مسجلة بعد.</p>';
+  const flt = S.revLog || 'month';
+  const spans = { day: 0, week: 6, month: 29, quarter: 89, half: 179, year: 364 };
+  const from = flt === 'all' ? null : isoD(new Date(Date.now() - (spans[flt] || 0) * 864e5));
+  const scoped = log.filter(x => !from || x.d >= from);
+  let h = '<div class="chips">' + [['day', 'اليوم'], ['week', 'أسبوع'], ['month', 'شهر'], ['quarter', 'فصل'], ['half', 'نصف سنة'], ['year', 'سنة'], ['all', 'الكل']].map(f => '<button class="chip" data-act="revLog" data-v="' + f[0] + '" aria-pressed="' + (flt === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
+  if (!scoped.length) return h + '<p class="muted small" style="margin-top:10px">لا مراجعة في هذه الفترة.</p>';
   const byDay = {};
-  log.forEach(x => { (byDay[x.d] = byDay[x.d] || []).push(x); });
-  const days = Object.entries(byDay).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 30);
-  return '<div class="plist">' + days.map(([d, items]) => {
-    const probs = items.filter(x => x.subject).length;
-    return '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('review', 1.5) + '</span><span style="flex:1"><b>' + fmtD(parseD(d)) + '</b><br><span class="small muted">' + ar(items.length) + ' مراجعة · ' + ar(probs) + ' موضوع</span></span></div>';
+  scoped.forEach(x => { (byDay[x.d] = byDay[x.d] || []).push(x); });
+  const days = Object.entries(byDay).sort((a, b) => b[0].localeCompare(a[0]));
+  return h + '<div class="plist" style="margin-top:10px">' + days.map(([d, list]) => {
+    const probs = list.filter(x => x.subject).length;
+    const body = '<div class="plist">' + list.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('review', 1.4) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + (x.sec ? ar(Math.round(x.sec / 60)) + ' دقيقة' : 'مراجعة') + '</span></span></div>').join('') + '</div>';
+    return accSec('revlog-d-' + d, fmtD(parseD(d)), ar(list.length) + ' مراجعة · ' + ar(probs) + ' موضوع', body, false);
   }).join('') + '</div>';
 }
 function vTests() {
@@ -1080,15 +1090,70 @@ function vTests() {
   const exams = (st.exams || []).slice().reverse().slice(0, 12);
   const mt = memoTopics();
   const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join(''), true) : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
-  const mySec = accSec('myTests', 'اختباراتي', ar(pool.length) + ' سؤالًا', '<p class="small muted">أسئلة عشوائية مما درسته فقط، تُخلط بين مواضيعك وموادك.</p>' +
-    (pool.length >= 5 ? '<div class="grid2"><button class="btn" data-act="mixQuiz" data-n="10">اختبار سريع · ١٠</button><button class="btn ghost" data-act="mixQuiz" data-n="20">اختبار أطول · ٢٠</button></div><p class="small muted num">' + ar(pool.length) + ' سؤالًا جاهزًا مما درسته</p>'
-      : '<div class="empty">' + ico('tests', 1.4) + '<b>' + (pool.length ? 'أنهِ تهيئة موضوع أولًا' : 'ادرس موضوعًا أولًا') + '</b><p>أسئلة «اختباراتي» تأتي مما درسته فقط. ادرس أي موضوع وأكمل اختباره ثم عد لتجد أسئلته هنا.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>'), false);
+  const subs = gradeContents(st.grade);
+  const mySec = accSec('myTests', 'اختباراتي', ar(subs.length) + (subs.length === 1 ? ' مادة' : ' مواد'),
+    '<p class="small muted">اختر مادة ثم فصلًا لتختبر كل مواضيعه دفعة واحدة (غير عشوائي). ويمكنك اختبار سريع مما درسته فقط للترفيه والاستعجال.</p>' +
+    subs.map(y => {
+      const chs = y.c.chapters.filter(ch => ch.topics.some(t => !isHidden(t.id)));
+      const qs = chs.reduce((k, ch) => k + ch.topics.reduce((j, t) => j + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0), 0);
+      return accSec('mytests-' + y.subject, esc(y.subject), ar(chs.length) + ' فصول · ' + ar(qs) + ' سؤالًا',
+        '<div class="plist">' + chs.map(ch => {
+          const n = ch.topics.reduce((k, t) => k + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0);
+          const tb = (st.tests || {})['c:' + ch.id];
+          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? 'ok' : '') + '">' + (tb ? ar(tb.best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا من كل مواضيعه' + (tb ? ' · أفضل ' + ar(tb.best) + '٪ · آخر ' + ar(tb.last) + '٪' : '') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
+        }).join('') + '</div>' +
+        '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="testsLog" data-s="' + esc(y.subject) + '">سجل ' + esc(y.subject) + '</button>' +
+        (pool.length >= 5 ? '<button class="btn ghost" data-act="mixQuiz" data-n="10">سريع مما درسته · ١٠</button>' : '') + '</div>',
+        false);
+    }).join(''),
+    false);
   const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة', '<p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
       exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div>', false) : '';
-  let h = topBar('الاختبارات') + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) +
+  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) +
     '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div></main>';
   return h;
+}
+function examSubj(src) { if (src[0] === 't' || src[0] === 'c') { const f = src[0] === 't' ? findTopic(src.slice(2)) : findChapter(src.slice(2)); return f ? f.key.split(':')[2] : null; } return null; }
+function vLog() {
+  const st = me(), src = S.logFor || 'today', subject = S.logSubject || null;
+  const types = { problem: 'مسألة', review: 'مراجعة', study: 'دراسة', quiz: 'اختبار' };
+  const row = x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>';
+  let title = 'السجل', body = '';
+  if (src === 'review') {
+    title = 'سجل المراجعة';
+    body = '<section class="card"><h2>سجل المراجعة</h2><p class="small muted">كل يوم ماذا راجعت، مع فلاتر حسب الفترة وفك تفاصيل كل يوم.</p>' + reviewLogHTML() + '</section>';
+  } else if (src === 'today') {
+    const d = isoD(new Date()), log = (st.log || []).filter(x => x.d === d).reverse();
+    title = 'سجل اليوم';
+    body = '<section class="card"><h2>نشاط اليوم</h2><p class="small muted">كل مسألة ومراجعة واختبار ودراسة في هذا اليوم بالتفصيل.</p>' + (log.length ? '<div class="plist">' + log.map(row).join('') + '</div>' : '<div class="empty">' + ico('sun', 1.3) + '<b>لا نشاط اليوم بعد</b><p>ابدأ بحل مسألة أو دراسة موضوع، وسيُسجَّل هنا فورًا.</p></div>') + '</section>';
+  } else if (src === 'tests') {
+    const exams = (st.exams || []).slice().reverse().filter(e => !subject || examSubj(e.src) === subject);
+    title = subject ? 'اختبارات ' + subject : 'سجل الاختبارات';
+    body = '<section class="card"><h2>' + title + '</h2>' +
+      (subject ? '<div class="chips"><button class="chip" data-act="openLog" data-v="tests">كل المواد</button><button class="chip" aria-pressed="true">' + esc(subject) + '</button></div>' : '') +
+      (exams.length ? '<div class="plist">' + exams.map(e => '<div class="pitem" style="pointer-events:none"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span></div>').join('') + '</div>' : '<div class="empty">' + ico('tests', 1.3) + '<b>لا نتائج بعد</b><p>أنهِ أي اختبار فيظهر هنا.</p></div>') + '</section>';
+  } else if (src === 'path') {
+    const subs = gradeContents(st.grade);
+    title = 'تفاصيل مساري';
+    const rows = subs.map(y => {
+      let studied = 0, best = 0;
+      y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const p = (st.progress || {})[t.id] || {}; if (p.quiz && p.quiz.at) { studied++; best = Math.max(best, p.quiz.best || 0); } }));
+      const total = y.c.chapters.reduce((k, ch) => k + ch.topics.filter(t => !isHidden(t.id)).length, 0);
+      const pct = total ? Math.round(studied / total * 100) : 0;
+      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (pct >= 70 ? 'ok' : '') + '">' + ar(pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصول · اختبرت ' + ar(studied) + ' من ' + ar(y.c.chapters.reduce((k, ch) => k + ch.topics.filter(t => !isHidden(t.id)).length, 0)) + ' موضوعًا' + '</span></span></div>';
+    }).join('');
+    const totalTopics = gradeContents(st.grade).reduce((k, y) => k + y.c.chapters.reduce((j, ch) => j + ch.topics.filter(t => !isHidden(t.id)).length, 0), 0);
+    const studiedTopics = Object.values(st.progress || {}).filter(p => p && ((p.quiz && p.quiz.at) || (p.seen && Object.keys(p.seen).some(k => p.seen[k])))).length;
+    title = 'تفاصيل مساري';
+    body = '<section class="card"><h2>تقدّمي في المواد</h2><p class="small muted">نسبة المواضيع التي اختبرتها من كل مادة، وعدد فصولها.</p><div class="plist">' + rows + '</div></section>' +
+      '<section class="card"><h2>المحصلة</h2><div class="grid2"><div class="stat"><span class="muted small">مواضيع الصف</span><b class="num">' + ar(totalTopics) + '</b></div><div class="stat"><span class="muted small">مواضيع بدأت</span><b class="num">' + ar(studiedTopics) + '</b></div></div>' + (st.targetDate ? '<p class="small num">تاريخ إتمام المنهج المتوقع: <b>' + fmtD(parseD(st.targetDate)) + '</b></p>' : '') + '</section>';
+  } else {
+    const log = (st.log || []).slice().reverse().slice(0, 200);
+    title = 'سجل النشاط';
+    body = '<section class="card"><h2>آخر ٢٠٠ نشاط</h2>' + (log.length ? '<div class="plist">' + log.map(row).join('') + '</div>' : '<p class="muted">لا نشاط بعد.</p>') + '</section>';
+  }
+  return topBar(title, { back: true, noTools: true }) + '<main class="page">' + body + '</main>';
 }
 const BOOK_SOURCES = { 12: 'https://mlazemna.com/bk6ma/' };
 function vLibrary() {
@@ -1250,6 +1315,15 @@ function vSettings() {
       '</div>' +
       '<div id="reportOutput" class="card" style="margin-top:12px;min-height:100px"></div>' +
     '</section>' +
+    '<section class="card"><h2>التصدير المجمّع</h2><p class="small muted">ملفات منفصلة جاهزة للطباعة: ملف لكل تبويب من تبويبات المواضيع (تعريفات، قوانين، أمثلة، مسائل…)، وتقرير إنجاز لكل مادة أو فصل. تُنشأ فور الضغط، وكل ملف بمعاينة وتنزيل مستقل.</p>' +
+      '<div class="grid2">' +
+        '<button class="btn" data-act="batchExport" data-k="tabs"><b>حسب التبويبات</b><span class="small muted">كل تبويب مفصول</span></button>' +
+        '<button class="btn" data-act="batchExport" data-k="subjects"><b>تقارير المواد</b><span class="small muted">تقرير لكل مادة</span></button>' +
+        '<button class="btn" data-act="batchExport" data-k="chapters"><b>تقارير الفصول</b><span class="small muted">تقرير لكل فصل</span></button>' +
+        '<button class="btn ghost" data-act="batchExport" data-k="all"><b>الكل</b><span class="small muted">التبويبات + المواد + الفصول</span></button>' +
+      '</div>' +
+      '<div id="batchOut" class="card" style="margin-top:12px;min-height:70px"></div>' +
+    '</section>' +
     '<section class="card"><h2>تفاصيل نشاط الطالب</h2><p class="small muted">أيام النشاط، الساعات، الإنجاز بالتفصيل.</p>' + studentDetailsHTML() + '</section>';
   if (tab === 'rate') body = rateSection();
   if (tab === 'about') body = aboutHTML();
@@ -1267,6 +1341,12 @@ window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
 const CONTENT = {};
 (window.CONTENT_PARTS || []).forEach(p => { (CONTENT[p.key] = CONTENT[p.key] || { chapters: [] }).chapters.push(p.chapter); });
 Object.values(CONTENT).forEach(c => c.chapters.sort((a, b) => a.no - b.no));
+/* فهرس بحث سريع O(1) يُبنى مرة واحدة بعد تجميع المحتوى، بدل المسح الخطي في كل استدعاء */
+const IDX_TOPIC = new Map(), IDX_CH = new Map(), IDX_PROB = new Map();
+Object.entries(CONTENT).forEach(([k, c]) => c.chapters.forEach(ch => {
+  IDX_CH.set(ch.id, { key: k, ch });
+  ch.topics.forEach(t => { IDX_TOPIC.set(t.id, { key: k, ch, t }); (t.problems || []).forEach(p => IDX_PROB.set(p.id, { key: k, ch, t, p, subject: k.split(':')[2] })); });
+}));
 const contentKey = (gid, branch, subject) => gid + ':' + (branch || '-') + ':' + subject;
 function contentOf(gid, subject) {
   const st = me(), g = GRADES[gid - 1];
@@ -1276,18 +1356,9 @@ function contentOf(gid, subject) {
 /* المواضيع التي أخفاها الطالب («ليس ضمن دراستي») تُستثنى من المسار والمسائل والاختبارات والبحث والتقدم */
 const isHidden = tid => { const st = me(); return !!(st && (st.hidden || []).includes(tid)); };
 function allProblems(c, withHidden) { const out = []; c.chapters.forEach(ch => ch.topics.forEach(t => { if (!withHidden && isHidden(t.id)) return; t.problems.forEach(p => out.push({ p, t, ch })); })); return out; }
-function findTopic(id) {
-  for (const k in CONTENT) for (const ch of CONTENT[k].chapters) for (const t of ch.topics) if (t.id === id) return { key: k, ch, t };
-  return null;
-}
-function findChapter(id) {
-  for (const k in CONTENT) for (const ch of CONTENT[k].chapters) if (ch.id === id) return { key: k, ch };
-  return null;
-}
-function findProblem(id) {
-  for (const k in CONTENT) for (const ch of CONTENT[k].chapters) for (const t of ch.topics) for (const p of t.problems) if (p.id === id) return { key: k, ch, t, p, subject: k.split(':')[2] };
-  return null;
-}
+function findTopic(id) { return IDX_TOPIC.get(id) || null; }
+function findChapter(id) { return IDX_CH.get(id) || null; }
+function findProblem(id) { return IDX_PROB.get(id) || null; }
 /* يعزل كل معادلة داخل النص العربي حتى لا ينقلب ترتيبها */
 const MATH_RE = /[A-Za-zΔΦεπΩµ½√(0-9⁰¹²³⁴-⁹ωθφαβλℂ‖±][A-Za-zΔΦεπΩµ½√∝≈∥…ωθφαβλℂ‖±^⁄⁰¹²³⁴-⁹⁻⁺₀-₉0-9=×÷+\-−().²³ \/.,_{}·'°→⇌⟸<>]*[A-Za-z0-9µΩ⁰¹²³⁴-⁹₀-₉)}'°ωθφπ‖]|[A-Za-zΔΦεπΩµ0-9ωθφℂ]/g;
 const subs = s => s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>').replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>');
@@ -1299,7 +1370,7 @@ const fm = t => { t = String(t == null ? '' : t); if (!/[\u0600-\u06FF]/.test(t)
 const fe = t => '<span class="math eq">' + subs(esc(t)) + '</span>';
 const mmss = s => { s = Math.max(0, Math.round(s)); return ar(String(Math.floor(s / 60)).padStart(2, '0')) + ':' + ar(String(s % 60).padStart(2, '0')); };
 
-/* حالة حل المسألة: started (بدأ العد) ← finished (أتممت الحل) ← revealed (ظهر الجواب) ← self (تقييم الطالب لحله) */
+/* حالة حل المسألة: started (بدأ العد) ← revealed (ظهر الحل بعد المطابقة أو «لا أعرف») ← self (تقييم الطالب لحله) ← used/fx (الوقت وأثره) */
 function solveOf(pid) { const st = me(); st.solves = st.solves || {}; return st.solves[pid] || null; }
 function startSolve(pid) { const st = me(); st.solves[pid] = { started: Date.now(), attempts: ((solveOf(pid) || {}).attempts || 0) + 1 }; save(); }
 function logTime(subject, sec, type) {
@@ -1345,12 +1416,15 @@ const SEGS = [['explain', 'الشرح'], ['defs', 'التعاريف'], ['laws', 
 const segHas = (t, k) => k === 'memo' ? !!t.memo : k === 'explain' || (t[k] && t[k].length) || (k === 'quiz' && t.quiz && t.quiz.length);
 function progOf(tid) { const st = me(); st.progress = st.progress || {}; return st.progress[tid] = st.progress[tid] || { seen: {}, quiz: null }; }
 function markSeen(tid, seg) { const p = progOf(tid); if (!p.seen[seg]) { p.seen[seg] = Date.now(); save(); } }
+let _tpGen = 0, _tpCache = new Map();
 function topicPct(t) {
+  const cg = _tpCache.get(t.id); if (cg && cg.g === _tpGen) return cg.v;
   const p = progOf(t.id), segs = SEGS.filter(s => segHas(t, s[0]));
   const seen = segs.filter(s => p.seen[s[0]]).length / segs.length;
   const quiz = p.quiz ? p.quiz.best / 100 : 0;
   const probs = t.problems.length ? t.problems.filter(x => (solveOf(x.id) || {}).self === 'ok').length / t.problems.length : 1;
-  return Math.round((seen * .4 + quiz * .35 + probs * .25) * 100);
+  const v = Math.round((seen * .4 + quiz * .35 + probs * .25) * 100);
+  _tpCache.set(t.id, { g: _tpGen, v }); return v;
 }
 
 
@@ -1534,7 +1608,7 @@ function blanksHTML(t) {
         (st.shown ? '' : '<div class="chips"><button class="chip" data-act="blankCheck" data-k="' + k + '">تحقق</button><button class="chip" data-act="blankShow" data-k="' + k + '">أظهر الجواب</button>' + (allOk ? '<span class="okmark">أحسنت ✓</span>' : st.res ? '<span class="badmark">راجع الفراغ الملوّن</span>' : '') + '</div>') + '</section>'; }).join('');
 }
 function blankAnswers(b, j) { const n = b.s.split(BLANK).length - 1; return n === 1 ? b.a : String(b.a[j]).split('|'); }
-const normA = s => String(s).replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
+const normA = s => String(s).replace(/[٠-٩]/g, c => '٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
   .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, c => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(c)).replace(/[₀₁₂₃₄₅₆₇₈₉]/g, c => '₀₁₂₃₄₅₆₇₈₉'.indexOf(c)).replace(/[⁻−]/g, '-').replace(/[\s^_{}×*·]/g, '').replace(/^ال/, '').toLowerCase();
 function checkBlank(k) {
   const [tid, bi] = k.split(':b'), t = findTopic(tid).t, b = t.blanks[+bi], n = b.s.split(BLANK).length - 1;
@@ -1544,19 +1618,19 @@ function checkBlank(k) {
 }
 
 function examplesHTML(t) {
-  return '<p class="small muted">أمثلة الكتاب المحلولة كما هي. اقرأ السؤال، فكّر بالخطوة التالية، ثم اكشفها خطوة خطوة.</p>' +
+  return '<p class="small muted">أمثلة الكتاب المحلولة كما هي. اقرأ السؤال، فكّر بالخطوة التالية، ثم اكشفها خطوة خطوة — أو حلّلها بنفسك بالرقم لتقيس إتقانك.</p>' +
     t.examples.map((e, i) => { const k = t.id + ':e' + i, n = S.exStep[k] || 0, all = n >= e.steps.length;
       return '<section class="example"><div class="ex-h"><b>' + esc(e.title) + '</b><span class="small muted">ص' + ar(e.page) + '</span></div><p>' + fm(e.text) + '</p>' +
         (n ? '<ol class="steps">' + e.steps.slice(0, n).map(s => '<li>' + fm(s) + '</li>').join('') + '</ol>' : '') +
-        (all ? '<p class="ex-ans"><b>الجواب:</b> ' + fm(e.ans) + '</p>' : '<div class="chips"><button class="chip" data-act="exNext" data-k="' + k + '">' + (n ? 'الخطوة التالية' : 'ابدأ الحل') + ' (' + ar(n) + ' من ' + ar(e.steps.length) + ')</button><button class="chip" data-act="exAll" data-k="' + k + '" data-n="' + e.steps.length + '">اعرض الحل كاملًا</button></div>') + '</section>'; }).join('');
+        (all ? '<p class="ex-ans"><b>الجواب:</b> ' + fm(e.ans) + '</p>' : '<div class="chips"><button class="chip" data-act="exNext" data-k="' + k + '">' + (n ? 'الخطوة التالية' : 'ابدأ الحل') + ' (' + ar(n) + ' من ' + ar(e.steps.length) + ')</button><button class="chip" data-act="exAll" data-k="' + k + '" data-n="' + e.steps.length + '">اعرض الحل كاملًا</button></div>') + (hasFinalNumber(e.ans) ? '<button class="chip" data-act="solveExample" data-t="' + t.id + '" data-i="' + i + '">حلّلها بنفسك وأدخل الجواب الرقمي</button>' : '') + '</section>'; }).join('');
 }
 function problemsHTML(t, subject) {
   if (!t.problems.length) return empty('pen', 'لا مسائل حسابية في هذا الموضوع', 'افهمه من الشرح والتعليلات، ثم اختبر نفسك.');
   const solved = t.problems.filter(p => (solveOf(p.id) || {}).self === 'ok').length;
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2>المسائل</h2><span class="muted small num">حللت ' + ar(solved) + ' من ' + ar(t.problems.length) + '</span></div>' +
-    '<p class="small muted">لكل مسألة وقت. حلّها في دفتر ' + esc(subject) + '، والجواب لا يظهر إلا بعد انتهاء وقتها وضغطك «أتممت الحل».</p>' +
+    '<p class="small muted">لكل مسألة وقت مقترح. اضغط «ابدأ الحل» فتظهر خطوات الحل مرشدةً والرقم النهائي مخفيًا (؟). حلها في دفتر ' + esc(subject) + '، ثم أدخل رقم جوابك النهائي في «المطابقة». إذا صحّ ظهر الحل المضبوط وتُسجَّل مُتقنة، وإلا أُضيف الموضوع للمراجعة.</p>' +
     '<div class="plist">' + t.problems.map((p, i) => { const v = solveOf(p.id) || {}; const cls = v.self === 'ok' ? 'ok' : (v.self === 'bad' || v.self === 'none') ? 'bad' : ''; const mark = v.self === 'ok' ? '✓' : cls ? '!' : ar(i + 1);
-      return '<button class="pitem" data-act="prob" data-id="' + p.id + '"><span class="st ' + cls + '">' + mark + '</span><span style="flex:1;min-width:0"><span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من الكتاب · ' + esc(p.ref) : 'تدريب إضافي') + '</span><br>' + fm(p.text) + '</span><span class="small muted num" style="white-space:nowrap">' + mmss(p.sec) + '</span></button>'; }).join('') + '</div></section>' +
+      return '<button class="pitem" data-act="prob" data-id="' + p.id + '"><span class="st ' + cls + '">' + mark + '</span><span style="flex:1;min-width:0"><span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من الكتاب · ' + esc(p.ref) : 'تدريب إضافي') + '</span><br>' + fm(p.text) + '</span><span class="small muted num" style="white-space:nowrap">' + mmss(suggestSec(p.steps)) + '</span></button>'; }).join('') + '</div></section>' +
     '<button class="btn ghost" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button>';
 }
 
@@ -2202,7 +2276,7 @@ function vNotebook() {
       if (show.probs && e.probs.length) h += '<div class="nb-sec"><span class="nb-tag">مسائلي</span>' + e.probs.map(p => { const v = solveOf(p.id), lbl = { ok: 'صحيح', bad: 'فيه خطأ', none: 'لم أصل' }[v.self] || (v.revealed ? 'قارن حلّك' : 'قيد الحل');
         return '<button class="nb-prob" data-act="prob" data-id="' + p.id + '"><span class="st ' + (v.self === 'ok' ? 'ok' : v.self ? 'bad' : '') + '">' + (v.self === 'ok' ? '✓' : '•') + '</span><span class="nb-pb"><span class="nb-pt">' + fm(p.text) + '</span>' +
           (v.work ? '<span class="nb-w">' + esc(v.work) + '</span>' : '') + (v.photo ? '<img data-photo="' + p.id + '" alt="صورة الحل" class="nb-th" hidden>' : '') +
-          '<span class="small muted num">' + lbl + (v.used ? ' · ' + mmss(v.used) + ' من ' + mmss(p.sec) : '') + (v.page ? ' · ص ' + ar(v.page) : '') + (v.attempts > 1 ? ' · محاولات ' + ar(v.attempts) : '') + '</span></span></button>'; }).join('') + '</div>';
+          '<span class="small muted num">' + lbl + (v.used ? ' · ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + (v.page ? ' · ص ' + ar(v.page) : '') + (v.attempts > 1 ? ' · محاولات ' + ar(v.attempts) : '') + '</span></span></button>'; }).join('') + '</div>';
       if (show.wrong && e.wrong.length) h += '<div class="nb-sec"><span class="nb-tag bad">أخطائي في الاختبار</span>' + e.wrong.map(i => { const q = t.quiz[i], w = wrongOf(t.id)[i];
         return '<div class="nb-wrong"><p>' + fm(q.q) + '</p><p class="small"><b>الصحيح:</b> ' + fm(q.o[q.c]) + ' — ' + fm(q.why) + '</p><span class="small muted num">أخطأت فيه ' + ar(w.n) + ' مرة</span></div>'; }).join('') +
         '<button class="chip" data-act="quizStart" data-src="t:' + t.id + '" data-n="' + t.quiz.length + '">أعد اختبار الموضوع</button></div>';
@@ -2224,6 +2298,28 @@ function defaultExp(lvl, subject) {
   const st = me(), c = contentOf(st.grade, subject) || (gradeContents(st.grade)[0] || {}).c, s = subject || (gradeContents(st.grade)[0] || {}).subject;
   const ch = c ? c.chapters[0] : null, t = ch ? ch.topics.find(x => !isHidden(x.id)) || ch.topics[0] : null;
   return { fmt: 'nb', lvl: lvl || 'subject', subject: s, ch: ch && ch.id, tid: t && t.id, seg: 'defs', inc: { content: 1, notes: 1, probs: 1, answers: 1, wrong: 1 } };
+}
+function batchName(x, r) { return (x.name || scopeLabel(x)).replace(/[\\/:*?"<>|·]+/g, ' ').replace(/\s+/g, '-').slice(0, 80) + '-' + isoD(new Date()) + '.html'; }
+function batchSpecs(k) {
+  const st = me(), subs = gradeContents(st.grade), specs = [];
+  if (!subs.length) return specs;
+  const chsOf = s => { const c = contentOf(st.grade, s); return c ? c.chapters : []; };
+  const report = (lvl, subject, ch, label, name) => ({ fmt: 'rep', lvl, subject, ch, seg: 'defs', inc: { content: 1, notes: 1, probs: 1, answers: 1, wrong: 1 }, label, name });
+  if (k === 'tabs' || k === 'all') {
+    SEGS.filter(s => s[0] !== 'memo').forEach(sg => {
+      const any = subs.some(y => (y.c.chapters || []).some(ch => ch.topics.some(t => segHas(t, sg[0]))));
+      if (!any) return;
+      const first = chsOf(subs[0].subject)[0];
+      specs.push({ fmt: 'nb', lvl: 'grade', subject: subs[0].subject, ch: first && first.id, tid: null, seg: sg[0], onlySeg: sg[0], inc: { content: 1, notes: 0, probs: 0, answers: 0, wrong: 0 }, label: 'تبويب «' + sg[1] + '» — كل مواد الصف', name: 'تبويب-' + sg[1] });
+    });
+  }
+  if (k === 'subjects' || k === 'all') {
+    subs.forEach(y => specs.push(report('subject', y.subject, null, 'تقرير ' + y.subject, 'تقرير-' + y.subject)));
+  }
+  if (k === 'chapters' || k === 'all') {
+    subs.forEach(y => chsOf(y.subject).forEach(ch => specs.push(report('chapter', y.subject, ch.id, 'تقرير ' + y.subject + ' — ' + ch.title.split(':')[0], 'تقرير-' + y.subject + '-' + ch.title.split(':')[0]))));
+  }
+  return specs;
 }
 function vExport() {
   const x = S.exp, st = me(), subs = gradeContents(st.grade);
@@ -2282,7 +2378,7 @@ function contentBlocks(t, seg) {
   return seg ? (parts[seg] ? parts[seg]() : '') : parts.defs() + parts.laws() + parts.reasons();
 }
 async function buildExport(x) {
-  const st = me(), list = scopeTopics(x), now = new Date(), tab = x.lvl === 'tab' ? x.seg : null;
+  const st = me(), list = scopeTopics(x), now = new Date(), tab = x.onlySeg || (x.lvl === 'tab' ? x.seg : null);
   const photos = {};
   if (x.fmt === 'nb' && x.inc.probs) for (const it of list) for (const p of it.t.problems) { const v = solveOf(p.id); if (v && v.photo) photos[p.id] = await MEDIA.get(photoKey(p.id)); }
   const title = (x.fmt === 'nb' ? 'دفتر' : 'تقرير') + ' — ' + scopeLabel(x);
@@ -2319,7 +2415,7 @@ async function buildExport(x) {
       if (x.inc.content) h += contentBlocks(t, tab);
       if (x.inc.notes) { const ns = Object.entries(notesOf(t.id)).filter(e => e[1] && e[1].trim() && (!tab || e[0] === tab)); if (ns.length) h += '<span class="lbl">ما كتبته بيدي</span>' + ns.map(n => '<div class="muted">' + NB_SEG_NAME[n[0]] + '</div><div class="lined">' + esc(n[1]) + '</div>').join(''); }
       if (x.inc.probs && (!tab || tab === 'problems')) { const ps = t.problems.filter(p => solveOf(p.id)); if (ps.length) h += '<span class="lbl">حلولي</span>' + ps.map(p => { const v = solveOf(p.id), lbl = { ok: 'حلّي صحيح', bad: 'فيه خطأ', none: 'لم أصل للحل' }[v.self] || 'لم أقارن بعد';
-        return '<div class="blk"><b class="t">المسألة:</b> ' + xe(p.text) + '<div class="muted">' + (p.src === 'book' ? 'من الكتاب ' + esc(p.ref || '') : 'تدريب إضافي') + (v.used ? ' · وقتي ' + mmss(v.used) + ' من ' + mmss(p.sec) : '') + ' · ' + lbl + (v.page ? ' · صفحة ' + ar(v.page) + ' في دفتري الورقي' : '') + '</div>' +
+        return '<div class="blk"><b class="t">المسألة:</b> ' + xe(p.text) + '<div class="muted">' + (p.src === 'book' ? 'من الكتاب ' + esc(p.ref || '') : 'تدريب إضافي') + (v.used ? ' · وقتي ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + ' · ' + lbl + (v.page ? ' · صفحة ' + ar(v.page) + ' في دفتري الورقي' : '') + '</div>' +
           (v.work ? '<div class="lined">' + esc(v.work) + '</div>' : '') + (photos[p.id] ? '<img src="' + photos[p.id] + '" alt="حلّي الورقي">' : '') +
           (x.inc.answers ? (v.revealed ? '<div class="ans' + (v.self && v.self !== 'ok' ? ' bad' : '') + '"><b>الحل النموذجي:</b> ' + xe(p.ans) + '<ol>' + p.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol></div>' : '<div class="muted">لم يُكشف الجواب بعد.</div>') : '') + '</div>'; }).join(''); }
       if (x.inc.wrong && (!tab || tab === 'quiz')) { const ws = Object.entries(wrongOf(t.id)).filter(e => t.quiz[e[0]]); if (ws.length) h += '<span class="lbl">أخطائي</span>' + ws.map(e => { const q = t.quiz[e[0]]; return '<div class="ans bad"><b>' + xe(q.q) + '</b><br>الصحيح: ' + xe(q.o[q.c]) + '<div class="muted">' + xe(q.why) + ' · أخطأت فيه ' + ar(e[1].n) + ' مرة</div></div>'; }).join(''); }
@@ -2697,95 +2793,204 @@ const SIMS = {
 };
 function mountSims() { document.querySelectorAll('[data-sim]').forEach(el => { if (!el.dataset.mounted && SIMS[el.dataset.sim]) { el.dataset.mounted = 1; SIMS[el.dataset.sim](el); } }); }
 
-function vProblem() {
-  const f = findProblem(S.viewProblem); if (!f) return vToday();
-  const p = f.p, v = solveOf(p.id);
-  const idx = f.t.problems.indexOf(p), next = f.t.problems[idx + 1];
-  let body = '';
-  if (!v) {
-    body = '<div class="timer"><span>الوقت المقترح لهذه المسألة</span><b>' + mmss(p.sec) + '</b></div>' +
-      '<p class="muted">جهّز دفتر ' + esc(f.subject) + '، واكتب رقم المسألة وتاريخ اليوم، ثم ابدأ. يبدأ العد حين تضغط «ابدأ الحل».</p>' +
-      '<button class="btn" data-act="startSolve" data-id="' + p.id + '">ابدأ الحل</button>';
-  } else {
-    const el = (Date.now() - v.started) / 1000, left = p.sec - el, over = left <= 0;
-    if (!v.revealed) {
-      body = '<div class="timer' + (over ? ' over' : '') + '" id="timerBox"><span id="timerLbl">' + (over ? 'انتهى الوقت المقترح' : 'الوقت المتبقي') + '</span><b id="timer">' + mmss(over ? el : left) + '</b></div>' +
-        '<div class="answer-pad">' +
-          '<div class="answer-display" id="answerDisplay"><span class="placeholder">أدخل إجابتك بالرقم</span></div>' +
-          '<div class="numpad">' +
-            '<button class="num" data-act="ansNum" data-v="0">٠</button>' +
-            '<button class="num" data-act="ansNum" data-v="1">١</button>' +
-            '<button class="num" data-act="ansNum" data-v="2">٢</button>' +
-            '<button class="num" data-act="ansNum" data-v="3">٣</button>' +
-            '<button class="num" data-act="ansNum" data-v="4">٤</button>' +
-            '<button class="num" data-act="ansNum" data-v="5">٥</button>' +
-            '<button class="num" data-act="ansNum" data-v="6">٦</button>' +
-            '<button class="num" data-act="ansNum" data-v="7">٧</button>' +
-            '<button class="num" data-act="ansNum" data-v="8">٨</button>' +
-            '<button class="num" data-act="ansNum" data-v="9">٩</button>' +
-            '<button class="op" data-act="ansNum" data-v=".">.</button>' +
-            '<button class="op" data-act="ansNum" data-v="/">/</button>' +
-            '<button class="op" data-act="ansNum" data-v="-">-</button>' +
-            '<button class="del" data-act="ansDel">حذف</button>' +
-            '<button class="clear" data-act="ansClear">مسح</button>' +
-          '</div>' +
-          '<div class="unit-select" id="unitSelect">' +
-            '<span class="small muted" style="width:100%">وحدة القياس (إن وجدت):</span>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="متر" aria-pressed="false">متر</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="ثانية" aria-pressed="false">ثانية</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="كجم" aria-pressed="false">كجم</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="°" aria-pressed="false">درجة</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="Ω" aria-pressed="false">أوم</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="فولت" aria-pressed="false">فولت</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="أمبير" aria-pressed="false">أمبير</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="جول" aria-pressed="false">جول</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="نيوتن" aria-pressed="false">نيوتن</button>' +
-            '<button class="unit-chip" data-act="ansUnit" data-v="بدون" aria-pressed="true">بدون وحدة</button>' +
-          '</div>' +
-          '<div class="answer-actions">' +
-            '<button class="btn" data-act="ansSubmit" data-id="' + p.id + '">تحقق من الإجابة</button>' +
-            '<button class="btn ghost" data-act="finishSolve" data-id="' + p.id + '">أتممت الحل</button>' +
-          '</div>' +
-          '<div id="ansResult"></div>' +
-        '</div>' +
-        (v.finished
-          ? '<div class="lock" id="lockMsg">' + (over ? '' : 'أحسنت. يظهر الجواب حين ينتهي وقت المسألة، راجع حلك في الدفتر حتى ذلك الحين.') + '</div>'
-          : '<div class="lock">الجواب مخفي حتى تنتهي الوقت وتضغط «أتممت الحل». حلّها في دفترك خطوة خطوة.</div>');
-    } else {
-      body = '<div class="answer"><b>الجواب: ' + fm(p.ans) + '</b><ol>' + p.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><span class="small muted num">وقتك: ' + mmss(v.used) + ' من ' + mmss(p.sec) + '</span></div>' +
-        workHTML(p, v) + '<div class="field"><span style="font-weight:600">قارن حلك في الدفتر:</span><div class="grid2">' +
-          [['ok', 'حلّي صحيح'], ['bad', 'فيه خطأ'], ['none', 'لم أصل للحل']].map(x => '<button class="chip" style="border-radius:14px;min-height:52px" data-act="selfCheck" data-id="' + p.id + '" data-v="' + x[0] + '" aria-pressed="' + (v.self === x[0]) + '">' + x[1] + '</button>').join('') + '</div></div>' +
-        (v.self && v.self !== 'ok' ? '<p class="small" style="color:var(--bad)">ستعود إليك هذه المسألة في المراجعة. راجع الخطوة التي اختلف فيها حلك.</p>' : '') +
-        '<div class="field"><label for="nbPage">رقم الصفحة في دفترك (اختياري)</label><input id="nbPage" data-id="' + p.id + '" class="input" inputmode="numeric" value="' + esc(v.page || '') + '" style="max-width:200px"></div>' +
-        '<div class="grid2"><button class="btn quiet" data-act="retrySolve" data-id="' + p.id + '">أعد حلها</button>' + (next ? '<button class="btn" data-act="prob" data-id="' + next.id + '" data-replace="1">المسألة التالية</button>' : '<button class="btn" data-act="back">رجوع للموضوع</button>') + '</div>';
+/* =================== عنصر قابل للمطابقة الرقمية (مسألة أو مثال محلول) =================== */
+function findItem(id) {
+  const s = String(id || '');
+  const em = s.match(/^(.*):e(\d+)$/);
+  if (em) {
+    const f = findTopic(em[1]);
+    if (!f) return null;
+    const e = (f.t.examples || [])[+em[2]];
+    if (!e) return null;
+    const steps = e.steps || [];
+    const sec = suggestSec(steps);
+    return { id: s, kind: 'example', ans: e.ans, steps, text: e.text, subject: f.key.split(':')[2], t: f.t, ch: f.ch, sec, e, title: e.title };
+  }
+  const f = findProblem(s);
+  if (!f) return null;
+  return { id: s, kind: 'problem', ans: f.p.ans, steps: f.p.steps || [], text: f.p.text, subject: f.subject, t: f.t, ch: f.ch, sec: suggestSec(f.p.steps), p: f.p, title: f.p.ref || '' };
+}
+
+/* أرقام الجواب النهائي: نوحّدها لأرقام لاتينية، ونمسك الرقم المميّز لإخفائه في الخطوات */
+const AR2LAT = '٠١٢٣٤٥٦٧٨٩';
+const toLat = s => String(s == null ? '' : s).replace(/[٠-٩]/g, d => AR2LAT.indexOf(d)).replace(/[×✕]/g, 'x');
+function numTokens(ans) { return (toLat(ans).match(/-?\d+(?:[.\/]\d+)?/g) || []); }
+function maskTokens(ans) {
+  const toks = numTokens(ans), strong = toks.filter(x => /[.\/]/.test(x) || x.replace(/-/g, '').length >= 3);
+  if (strong.length) return strong;
+  return toks.length === 1 ? toks : [];
+}
+function hasFinalNumber(ans) { return maskTokens(ans).length > 0; }
+const DIGC = { '0': '[0٠]', '1': '[1١]', '2': '[2٢]', '3': '[3٣]', '4': '[4٤]', '5': '[5٥]', '6': '[6٦]', '7': '[7٧]', '8': '[8٨]', '9': '[9٩]' };
+function tokRegex(tok) {
+  let r = '';
+  for (const ch of tok) {
+    if (DIGC[ch]) r += DIGC[ch];
+    else if (ch === '.') r += '[.٫]';
+    else if (ch === '/') r += '[\\/⁄]';
+    else if (ch === '-') r += '[-−]';
+    else r += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  return new RegExp(r, 'g');
+}
+function maskStep(s, ans) {
+  let html = fm(String(s == null ? '' : s));
+  maskTokens(ans).sort((a, b) => b.length - a.length).forEach(tok => { html = html.replace(tokRegex(tok), '<span class="masked">؟</span>'); });
+  return html;
+}
+function suggestSec(steps) { const n = (steps || []).length; return Math.max(90, Math.min(600, n ? n * 45 : 90)); }
+
+/* مقارنة الإجابة: توحيد عربي/لاتيني + تطابق حرفي + هامش رقمي ±٢٪ + كسور مكافئة */
+function parseNum(s) {
+  const t = toLat(s).replace(/[−–—]/g, '-').replace(/٫/g, '.');
+  let m = t.match(/-?\d+\s*\/\s*\d+/);
+  if (m) { const [p, q] = m[0].split('/').map(x => parseFloat(x)); if (q) return p / q; }
+  m = t.match(/-?\d+(?:\.\d+)?/);
+  if (!m) return null;
+  let val = parseFloat(m[0]);
+  const sm = t.match(/x\s*10\s*\^?\s*(-?\d+)/);
+  if (sm) val = val * Math.pow(10, parseInt(sm[1], 10));
+  return val;
+}
+function answerValues(exp) {
+  const t = toLat(exp).replace(/[−–—]/g, '-').replace(/٫/g, '.');
+  const tail = t.includes('=') ? t.slice(t.lastIndexOf('=') + 1) : t;
+  const grab = str => {
+    const vals = [];
+    (str.match(/-?\d+\s*\/\s*\d+/g) || []).forEach(f => { const [p, q] = f.split('/').map(x => parseFloat(x)); if (q) vals.push(p / q); });
+    (str.match(/-?\d+(?:\.\d+)?/g) || []).forEach(x => vals.push(parseFloat(x)));
+    return vals;
+  };
+  let vals = grab(tail);
+  if (!vals.length) vals = grab(t);
+  return vals;
+}
+function answerMatches(ans, unit, expected) {
+  const exp = String(expected == null ? '' : expected);
+  const cands = [String(ans || ''), unit && unit !== 'بدون' ? String(ans) + ' ' + unit : ''].filter(Boolean);
+  if (cands.some(c => normA(c) === normA(exp))) return true;
+  const want = answerValues(exp);
+  if (want.length) {
+    for (const c of cands) {
+      const a = parseNum(c);
+      if (a == null) continue;
+      for (const b of want) {
+        const tol = Math.max(Math.abs(b) * 0.02, 0.005);
+        if (Math.abs(a - b) <= tol) return true;
+      }
     }
   }
-  return topBar('مسألة ' + ar(idx + 1) + ' من ' + ar(f.t.problems.length), { back: true, noTools: true }) + '<main class="page">' +
+  return false;
+}
+
+/* يُسجّل الموضوع في جدول المراجعة عند الخطأ */
+function addToReview(f) { const p = progOf(f.t.id); p.rev = { at: Date.now(), level: 0, done: (p.rev && p.rev.done) || 0 }; }
+
+/* أثر الوقت على الهدف: يحدّث سرعة الطالب وموعد إتمام المنهج المتوقع */
+function paceFactor(st) { const p = st.pace; return p && p.sumSec ? p.sumUsed / p.sumSec : 1; }
+function projectTarget(st) {
+  const ti = timeInfo(st), total = studyLine().length;
+  if (!total || !ti.daysLeft) return null;
+  const base = Math.max(1, Math.ceil(total / Math.max(1, Math.ceil(ti.daysLeft / 7))));
+  const pf = Math.max(0.35, Math.min(2.5, paceFactor(st)));
+  const perWeek = Math.max(1, Math.round(base / pf));
+  return isoD(new Date(today0().getTime() + Math.ceil(total / perWeek) * 7 * 864e5));
+}
+function registerPace(f, used) {
+  const st = me(), before = st.targetDate || null;
+  st.pace = st.pace || { n: 0, sumSec: 0, sumUsed: 0, credit: 0 };
+  st.pace.n++; st.pace.sumSec += f.sec; st.pace.sumUsed += used; st.pace.credit += (f.sec - used);
+  const after = projectTarget(st);
+  st.targetDate = after;
+  let moved = 0;
+  if (before && after) moved = Math.round((parseD(before) - parseD(after)) / 864e5);
+  return { saved: f.sec - used, target: after, moved };
+}
+function fxHTML(v) {
+  const fx = v && v.fx; if (!fx) return '';
+  const s = fx.saved, late = s < 0;
+  const line = late ? 'أخذت وقتًا أطول من المقترح بـ ' + mmss(-s) + '.'
+    : s > 0 ? 'أسرعت عن الوقت المقترح بـ ' + mmss(s) + '.'
+    : 'أتممت في الوقت المقترح تمامًا.';
+  const extra = fx.target ? ' موعد إتمام المنهج المتوقع: ' + fmtD(parseD(fx.target)) + (fx.moved ? ' (' + (fx.moved > 0 ? 'تقدّم ' : 'تأخّر ') + ar(Math.abs(fx.moved)) + ' يومًا)' : '') + '.' : '';
+  return '<div class="timefx' + (late ? ' late' : '') + '"><b>أثر الوقت:</b> ' + line + extra + '</div>';
+}
+
+function vProblem() {
+  const f = findItem(S.viewProblem); if (!f) return vToday();
+  const v = solveOf(f.id), isProb = f.kind === 'problem';
+  const idx = isProb ? f.t.problems.indexOf(f.p) : (f.t.examples || []).indexOf(f.e);
+  const next = isProb ? f.t.problems[idx + 1] : null;
+  const padHTML = '<div class="answer-pad">' +
+    '<div class="answer-display" id="answerDisplay"><span class="placeholder">أدخل إجابتك بالرقم</span></div>' +
+    '<div class="numpad">' +
+      [['0', '٠'], ['1', '١'], ['2', '٢'], ['3', '٣'], ['4', '٤'], ['5', '٥'], ['6', '٦'], ['7', '٧'], ['8', '٨'], ['9', '٩']].map(d => '<button class="num" data-act="ansNum" data-v="' + d[0] + '">' + d[1] + '</button>').join('') +
+      '<button class="op" data-act="ansNum" data-v=".">.</button>' +
+      '<button class="op" data-act="ansNum" data-v="/">/</button>' +
+      '<button class="op" data-act="ansNum" data-v="-">-</button>' +
+      '<button class="del" data-act="ansDel">حذف</button>' +
+      '<button class="clear" data-act="ansClear">مسح</button>' +
+    '</div>' +
+    '<div class="unit-select" id="unitSelect">' +
+      '<span class="small muted" style="width:100%">وحدة القياس (إن وجدت):</span>' +
+      ['متر', 'ثانية', 'كجم', '°', 'Ω', 'فولت', 'أمبير', 'جول', 'نيوتن'].map(u => '<button class="unit-chip" data-act="ansUnit" data-v="' + u + '" aria-pressed="false">' + u + '</button>').join('') +
+      '<button class="unit-chip" data-act="ansUnit" data-v="بدون" aria-pressed="true">بدون وحدة</button>' +
+    '</div>' +
+    '<div class="answer-actions">' +
+      '<button class="btn" data-act="ansSubmit" data-id="' + f.id + '">تحقق من الإجابة</button>' +
+      '<button class="btn quiet dontknow" data-act="revealAns" data-id="' + f.id + '">لا أعرف — اكشف الحل</button>' +
+    '</div>' +
+    '<div id="ansResult"></div>' +
+  '</div>';
+  let body = '';
+  if (!v) {
+    body = '<div class="timer"><span>الوقت المقترح لهذا الحل</span><b>' + mmss(f.sec) + '</b></div>' +
+      '<p class="muted">جهّز دفتر ' + esc(f.subject) + '، واكتب ' + (isProb ? 'رقم المسألة' : 'عنوان المثال') + ' وتاريخ اليوم، ثم ابدأ. يبدأ العدّ حين تضغط «ابدأ الحل».</p>' +
+      '<button class="btn" data-act="startSolve" data-id="' + f.id + '">ابدأ الحل</button>';
+  } else if (!v.revealed) {
+    const el = (Date.now() - v.started) / 1000, left = f.sec - el, over = left <= 0;
+    body = '<div class="timer' + (over ? ' over' : '') + '" id="timerBox"><span id="timerLbl">' + (over ? 'تجاوزت الوقت المقترح' : 'الوقت المتبقي') + '</span><b id="timer">' + mmss(over ? el : left) + '</b></div>' +
+      '<p class="muted small">حلّ المسألة في دفتر ' + esc(f.subject) + ' خطوة خطوة (القوانين من ذاكرتك ومن الموضوع)، ثم أدخل <b>رقم جوابك النهائي</b> هنا للمطابقة. لا تظهر الخطوات ولا الجواب إلا بعد التحقق.</p>' +
+      padHTML;
+  } else {
+    body = '<div class="answer"><b>الجواب: ' + fm(f.ans) + '</b><ol>' + f.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><span class="small muted num">وقتك: ' + mmss(v.used) + ' من ' + mmss(f.sec) + '</span></div>' +
+      fxHTML(v) +
+      (isProb ? workHTML(f.p, v) : '') +
+      '<div class="field"><span style="font-weight:600">قارن حلك في الدفتر:</span><div class="grid2">' +
+        [['ok', 'حلّي صحيح'], ['bad', 'فيه خطأ'], ['none', 'لم أصل للحل']].map(x => '<button class="chip" style="border-radius:14px;min-height:52px" data-act="selfCheck" data-id="' + f.id + '" data-v="' + x[0] + '" aria-pressed="' + (v.self === x[0]) + '">' + x[1] + '</button>').join('') +
+      '</div></div>' +
+      (v.self && v.self !== 'ok' ? '<p class="small" style="color:var(--bad)">ستعود إليك هذه المسألة في المراجعة. راجع الخطوة التي اختلف فيها حلك.</p>' : '') +
+      (isProb ? '<div class="field"><label for="nbPage">رقم الصفحة في دفترك (اختياري)</label><input id="nbPage" data-id="' + f.id + '" class="input" inputmode="numeric" value="' + esc(v.page || '') + '" style="max-width:200px"></div>' : '') +
+      '<div class="grid2"><button class="btn quiet" data-act="retrySolve" data-id="' + f.id + '">أعد الحل</button>' + (next ? '<button class="btn" data-act="prob" data-id="' + next.id + '" data-replace="1">المسألة التالية</button>' : '<button class="btn" data-act="back">رجوع للموضوع</button>') + '</div>';
+  }
+  const title = isProb ? 'مسألة ' + ar(idx + 1) + ' من ' + ar(f.t.problems.length)
+    : 'مثال محلول ' + ar(idx + 1) + ' من ' + ar((f.t.examples || []).length);
+  return topBar(title, { back: true, noTools: true }) + '<main class="page">' +
     '<p class="muted">' + esc(f.subject) + ' · ' + esc(arSec(f.t.sec) + ' ' + f.t.title) + '</p>' +
-    '<span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من مسائل الكتاب · ' + esc(p.ref) + ' · الحل مقترح لأن الكتاب لا يعطي أجوبة مسائل الفصل' : 'تدريب إضافي على قوانين الموضوع') + '</span>' +
-    '<section class="prob"><p class="prob-text">' + fm(p.text) + '</p>' + body + '</section></main>';
+    (isProb ? '<span class="src ' + (f.p.src === 'book' ? 'bk' : '') + '">' + (f.p.src === 'book' ? 'من مسائل الكتاب · ' + esc(f.p.ref) + ' · الحل مقترح لأن الكتاب لا يعطي أجوبة مسائل الفصل' : 'تدريب إضافي على قوانين الموضوع') + '</span>'
+      : '<span class="src bk">مثال محلول من الكتاب · ' + esc(f.e.title) + ' · ص' + ar(f.e.page) + '</span>') +
+    '<section class="prob"><p class="prob-text">' + fm(f.text) + '</p>' + body + '</section></main>';
 }
 
 /* تحديث العدّاد كل ثانية دون إعادة رسم الشاشة */
 setInterval(() => {
   if (S.view !== 'problem' || S.onb) return;
-  const f = findProblem(S.viewProblem); if (!f) return;
-  const v = solveOf(f.p.id); if (!v || v.revealed) return;
-  const el = (Date.now() - v.started) / 1000, left = f.p.sec - el;
+  const f = findItem(S.viewProblem); if (!f) return;
+  const v = solveOf(f.id); if (!v || v.revealed) return;
+  const el = (Date.now() - v.started) / 1000, left = f.sec - el;
   const t = document.getElementById('timer'); if (!t) return;
   if (left > 0) t.textContent = mmss(left);
   else {
-    if (v.finished) { revealSolve(f.p.id); return; }
     t.textContent = mmss(el);
-    const box = document.getElementById('timerBox'); if (box && !box.classList.contains('over')) { box.classList.add('over'); document.getElementById('timerLbl').textContent = 'انتهى الوقت المقترح. أكمل حلك ثم اضغط «أتممت الحل»'; }
+    const box = document.getElementById('timerBox');
+    if (box && !box.classList.contains('over')) { box.classList.add('over'); document.getElementById('timerLbl').textContent = 'تجاوزت الوقت المقترح. أتمم المطابقة ثم اضغط «تحقق من الإجابة».'; }
   }
 }, 1000);
 function revealSolve(pid) {
-  const v = solveOf(pid), f = findProblem(pid);
-  v.revealed = Date.now();
-  v.used = Math.round(((v.finished || v.revealed) - v.started) / 1000);
-  logTime(f.subject, v.used, 'problem');
-  save(); render();
+  const v = solveOf(pid), f = findItem(pid); if (!v || !f) return;
+  v.revealed = Date.now(); v.self = v.self || 'none';
+  v.used = Math.round((v.revealed - v.started) / 1000);
+  addToReview(f); if (!v.timeLogged) { v.timeLogged = 1; logTime(f.subject, v.used, 'problem'); } save(); render(true);
 }
 
 /* =================== أول فتح =================== */
@@ -2864,7 +3069,7 @@ function vDialog() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank };
+const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -2975,6 +3180,24 @@ document.addEventListener('click', e => {
     case 'expPrint': expPrint(); break;
     case 'expPreview': expPreview(); break;
     case 'expSave': buildExport(S.exp).then(r => saveFile(r.name, r.html, 'text/html')); break;
+    case 'batchExport': {
+      const specs = batchSpecs(el.dataset.k); S.batch = specs;
+      const box = document.getElementById('batchOut'); if (!box) break;
+      box.innerHTML = !specs.length ? '<p class="muted">لا محتوى في هذا النطاق.</p>'
+        : '<p class="small muted num">' + ar(specs.length) + ' ملفًا جاهزًا:</p><div class="plist">' +
+          specs.map((x, i) => '<div class="pitem"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.label) + '</b><br><span class="small muted">' + esc(x.name) + '</span></span><span class="chips" style="flex-wrap:wrap"><button class="chip" data-act="batchPreview" data-i="' + i + '">معاينة</button><button class="chip" data-act="batchSave" data-i="' + i + '">نزّل</button></span></div>').join('') +
+          '</div><button class="btn" data-act="batchSaveAll">نزّل الكل (' + ar(specs.length) + ' ملفًا)</button>';
+      break;
+    }
+    case 'batchSave': { const x = (S.batch || [])[+el.dataset.i]; if (!x) break; buildExport(x).then(r => saveFile(batchName(x, r), r.html, 'text/html')); break; }
+    case 'batchSaveAll': (async () => { const specs = S.batch || []; for (let i = 0; i < specs.length; i++) { const r = await buildExport(specs[i]); saveFile(batchName(specs[i], r), r.html, 'text/html'); } toast('جرّب التنزيل: ' + ar(specs.length) + ' ملفًا.'); })(); break;
+    case 'batchPreview': {
+      const x = (S.batch || [])[+el.dataset.i]; if (!x) break;
+      const box = document.getElementById('batchOut'); if (!box) break;
+      box.innerHTML = '<p class="small muted num">معاينة: ' + esc(x.name) + '</p><iframe class="exp-frame" title="معاينة التصدير" style="width:100%;height:70vh;border:1px solid var(--line);border-radius:12px"></iframe>';
+      buildExport(x).then(r => { const f = box.querySelector('iframe'); if (f) f.srcdoc = r.html; });
+      break;
+    }
     case 'chapter': go('chapter', { viewChapter: el.dataset.id }); break;
     case 'soon': toast('يُبنى في المراحل القادمة من الكتاب الرسمي'); break;
     case 'playPath': playPath(el); break;
@@ -2984,6 +3207,10 @@ document.addEventListener('click', e => {
     case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; render(true); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
+    case 'revLog': S.revLog = el.dataset.v; render(); break;
+    case 'openLog': S.logFor = el.dataset.v; S.logSubject = null; go('log'); break;
+    case 'testsLog': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
+    case 'chapterTest': { const n = quizPool(el.dataset.src).length; if (!n) { toast('لا أسئلة في هذا الفصل بعد. عُد بعد اكتمال محتواه.'); break; } startQuiz(el.dataset.src, Math.min(+el.dataset.n || n, n)); break; }
     case 'ansNum': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); if (cur === 'أدخل إجابتك بالرقم') d.textContent = el.dataset.v; else if (cur.length < 12) d.textContent = cur + el.dataset.v; break; }
     case 'ansDel': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); d.textContent = cur.length > 1 ? cur.slice(0, -1) : 'أدخل إجابتك بالرقم'; break; }
     case 'ansClear': { const d = document.getElementById('answerDisplay'); if (d) d.textContent = 'أدخل إجابتك بالرقم'; break; }
@@ -2993,16 +3220,27 @@ document.addEventListener('click', e => {
       const ans = d.textContent.trim();
       if (!ans || ans === 'أدخل إجابتك بالرقم') { toast('أدخل إجابتك أولاً'); break; }
       const unit = (document.querySelector('#unitSelect .unit-chip[aria-pressed="true"]') || {}).dataset?.v || '';
-      const full = ans + (unit && unit !== 'بدون' ? ' ' + unit : '');
-      const f = findProblem(el.dataset.id); if (!f) break;
-      const correct = normA(ans) === normA(f.p.ans) || normA(full) === normA(f.p.ans);
-      const res = document.getElementById('ansResult');
-      if (res) res.innerHTML = correct
-        ? '<div class="answer"><b>إجابة صحيحة! ✓</b> الحل الكامل:<ol>' + f.p.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><span class="small muted num">وقتك: ' + mmss(Math.round((Date.now() - (solveOf(f.p.id).started || Date.now())) / 1000)) + ' من ' + mmss(f.p.sec) + '</span></div>'
-        : '<div class="answer badans"><b>إجابة خاطئة ✗</b> الصحيح: ' + fm(f.p.ans) + ' — أضيفت للمراجعة.</div>';
-      if (!correct && f.p.id) { const st = me(); st.progress = st.progress || {}; st.progress[f.p.id] = st.progress[f.p.id] || {}; st.progress[f.p.id].rev = { at: Date.now(), level: 0, done: 0 }; save(); }
+      const f = findItem(el.dataset.id); if (!f) break;
+      const v = solveOf(f.id); if (!v) break;
+      const correct = answerMatches(ans, unit, f.ans);
+      v.used = Math.round((Date.now() - v.started) / 1000);
+      v.revealed = Date.now(); v.tries = (v.tries || 0) + 1;
+      if (correct) { v.self = 'ok'; v.mastered = Date.now(); v.fx = registerPace(f, v.used); v.unknown = 0; toast('إجابة صحيحة ✓ — مسألة مُتقنة.'); }
+      else { v.self = 'bad'; delete v.fx; addToReview(f); toast('إجابة خاطئة ✗ — أُضيف الموضوع للمراجعة.'); }
+      if (!v.timeLogged) { v.timeLogged = 1; logTime(f.subject, v.used, 'problem'); }
+      save(); render(true);
       break;
     }
+    case 'revealAns': {
+      const f = findItem(el.dataset.id); if (!f) break;
+      const v = solveOf(f.id); if (!v) break;
+      v.used = Math.round((Date.now() - v.started) / 1000);
+      v.revealed = Date.now(); v.self = 'none'; v.unknown = 1; delete v.fx;
+      addToReview(f); if (!v.timeLogged) { v.timeLogged = 1; logTime(f.subject, v.used, 'problem'); }
+      save(); render(true); toast('ظهر الحل الكامل، وأُضيف الموضوع للمراجعة.');
+      break;
+    }
+    case 'solveExample': go('problem', { viewProblem: el.dataset.t + ':e' + el.dataset.i }); break;
     case 'examCh': S.exam.selCh = S.exam.selCh || []; const chId = el.dataset.ch; if (el.checked) S.exam.selCh.push(chId); else S.exam.selCh = S.exam.selCh.filter(x => x !== chId); render(); break;
     case 'examTopic': S.exam.selTopics = S.exam.selTopics || []; const tId = el.dataset.t; if (el.checked) S.exam.selTopics.push(tId); else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId); render(); break;
     case 'open': S.open[el.dataset.k] = !S.open[el.dataset.k]; render(); break;
@@ -3042,12 +3280,7 @@ document.addEventListener('click', e => {
     case 'prob': if (el.dataset.replace) { S.viewProblem = el.dataset.id; render(true); } else go('problem', { viewProblem: el.dataset.id }); break;
     case 'notebook': go('notebook', { viewSubject: el.dataset.s }); break;
     case 'startSolve': startSolve(el.dataset.id); render(); break;
-    case 'finishSolve': {
-      const v = solveOf(el.dataset.id), f = findProblem(el.dataset.id);
-      v.finished = Date.now(); save();
-      if ((v.finished - v.started) / 1000 >= f.p.sec) revealSolve(el.dataset.id); else render();
-      break;
-    }
+    case 'finishSolve': { const f = findItem(el.dataset.id); if (f) revealSolve(f.id); break; }
     case 'selfCheck': { const v = solveOf(el.dataset.id); v.self = el.dataset.v; save(); render(); if (v.self === 'ok') toast('أحسنت.'); break; }
     case 'retrySolve': startSolve(el.dataset.id); render(); break;
   }

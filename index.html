@@ -131,6 +131,37 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .vbar.weekly>span{background:linear-gradient(180deg,var(--star),var(--gold))}
 .vbar-label{text-align:center;font-size:.85em;font-weight:600;margin-top:4px}
 
+/* نظام إدخال الإجابة الرقمي */
+.answer-pad{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.answer-display{font-size:1.5em;text-align:center;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--bg);min-height:56px;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--ink)}
+.answer-display .placeholder{color:var(--muted);font-weight:400;font-size:.85em}
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.numpad button{min-height:48px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:1.1em;font-weight:600;cursor:pointer;color:var(--ink);transition:all .15s ease}
+.numpad button:hover{background:var(--acc-soft);border-color:var(--acc)}
+.numpad button:active{transform:scale(.95)}
+.numpad .num{color:var(--ink)}
+.numpad .op{color:var(--acc);font-size:1.2em}
+.numpad .del{color:var(--bad)}
+.numpad .clear{color:var(--muted)}
+.unit-select{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.unit-chip{min-height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);font-size:.85em;cursor:pointer;color:var(--ink)}
+.unit-chip[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.answer-actions{display:flex;gap:8px;margin-top:8px}
+.answer-actions .btn{flex:1}
+.badans{border-color:var(--bad);background:rgba(255,80,80,.06)}
+
+/* إصلاح تداخل الألوان */
+.card h2,.card h3{color:var(--ink)}
+.card p{color:var(--ink)}
+.card .muted{color:var(--muted)}
+.pitem b{color:var(--ink)}
+.pitem .small{color:var(--muted)}
+.stat span{color:var(--muted)}
+.stat b{color:var(--acc)}
+.strip{color:var(--ink)}
+.strip span{color:var(--muted)}
+.strip b{color:var(--acc)}
+
 /* اليوم */
 .glimpse{background:var(--acc);color:var(--acc-ink);border-radius:20px;padding:24px 26px;display:flex;flex-direction:column;gap:8px}
 .glimpse .q{font-family:var(--display);font-size:1.5em;line-height:1.75}
@@ -2678,10 +2709,48 @@ function vProblem() {
   } else {
     const el = (Date.now() - v.started) / 1000, left = p.sec - el, over = left <= 0;
     if (!v.revealed) {
-      body = '<div class="timer' + (over ? ' over' : '') + '" id="timerBox"><span id="timerLbl">' + (over ? 'انتهى الوقت المقترح' : 'الوقت المتبقي') + '</span><b id="timer">' + mmss(over ? el : left) + '</b></div>' + workHTML(p, v) +
+      body = '<div class="timer' + (over ? ' over' : '') + '" id="timerBox"><span id="timerLbl">' + (over ? 'انتهى الوقت المقترح' : 'الوقت المتبقي') + '</span><b id="timer">' + mmss(over ? el : left) + '</b></div>' +
+        '<div class="answer-pad">' +
+          '<div class="answer-display" id="answerDisplay"><span class="placeholder">أدخل إجابتك بالرقم</span></div>' +
+          '<div class="numpad">' +
+            '<button class="num" data-act="ansNum" data-v="0">٠</button>' +
+            '<button class="num" data-act="ansNum" data-v="1">١</button>' +
+            '<button class="num" data-act="ansNum" data-v="2">٢</button>' +
+            '<button class="num" data-act="ansNum" data-v="3">٣</button>' +
+            '<button class="num" data-act="ansNum" data-v="4">٤</button>' +
+            '<button class="num" data-act="ansNum" data-v="5">٥</button>' +
+            '<button class="num" data-act="ansNum" data-v="6">٦</button>' +
+            '<button class="num" data-act="ansNum" data-v="7">٧</button>' +
+            '<button class="num" data-act="ansNum" data-v="8">٨</button>' +
+            '<button class="num" data-act="ansNum" data-v="9">٩</button>' +
+            '<button class="op" data-act="ansNum" data-v=".">.</button>' +
+            '<button class="op" data-act="ansNum" data-v="/">/</button>' +
+            '<button class="op" data-act="ansNum" data-v="-">-</button>' +
+            '<button class="del" data-act="ansDel">حذف</button>' +
+            '<button class="clear" data-act="ansClear">مسح</button>' +
+          '</div>' +
+          '<div class="unit-select" id="unitSelect">' +
+            '<span class="small muted" style="width:100%">وحدة القياس (إن وجدت):</span>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="متر" aria-pressed="false">متر</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="ثانية" aria-pressed="false">ثانية</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="كجم" aria-pressed="false">كجم</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="°" aria-pressed="false">درجة</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="Ω" aria-pressed="false">أوم</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="فولت" aria-pressed="false">فولت</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="أمبير" aria-pressed="false">أمبير</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="جول" aria-pressed="false">جول</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="نيوتن" aria-pressed="false">نيوتن</button>' +
+            '<button class="unit-chip" data-act="ansUnit" data-v="بدون" aria-pressed="true">بدون وحدة</button>' +
+          '</div>' +
+          '<div class="answer-actions">' +
+            '<button class="btn" data-act="ansSubmit" data-id="' + p.id + '">تحقق من الإجابة</button>' +
+            '<button class="btn ghost" data-act="finishSolve" data-id="' + p.id + '">أتممت الحل</button>' +
+          '</div>' +
+          '<div id="ansResult"></div>' +
+        '</div>' +
         (v.finished
           ? '<div class="lock" id="lockMsg">' + (over ? '' : 'أحسنت. يظهر الجواب حين ينتهي وقت المسألة، راجع حلك في الدفتر حتى ذلك الحين.') + '</div>'
-          : '<div class="lock">الجواب مخفي حتى ينتهي الوقت وتضغط «أتممت الحل». حلّها في دفترك خطوة خطوة.</div><button class="btn" data-act="finishSolve" data-id="' + p.id + '">أتممت الحل</button>');
+          : '<div class="lock">الجواب مخفي حتى تنتهي الوقت وتضغط «أتممت الحل». حلّها في دفترك خطوة خطوة.</div>');
     } else {
       body = '<div class="answer"><b>الجواب: ' + fm(p.ans) + '</b><ol>' + p.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><span class="small muted num">وقتك: ' + mmss(v.used) + ' من ' + mmss(p.sec) + '</span></div>' +
         workHTML(p, v) + '<div class="field"><span style="font-weight:600">قارن حلك في الدفتر:</span><div class="grid2">' +
@@ -2915,6 +2984,25 @@ document.addEventListener('click', e => {
     case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; render(true); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
+    case 'ansNum': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); if (cur === 'أدخل إجابتك بالرقم') d.textContent = el.dataset.v; else if (cur.length < 12) d.textContent = cur + el.dataset.v; break; }
+    case 'ansDel': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); d.textContent = cur.length > 1 ? cur.slice(0, -1) : 'أدخل إجابتك بالرقم'; break; }
+    case 'ansClear': { const d = document.getElementById('answerDisplay'); if (d) d.textContent = 'أدخل إجابتك بالرقم'; break; }
+    case 'ansUnit': { const chips = document.querySelectorAll('#unitSelect .unit-chip'); chips.forEach(c => c.setAttribute('aria-pressed', 'false')); el.setAttribute('aria-pressed', 'true'); break; }
+    case 'ansSubmit': {
+      const d = document.getElementById('answerDisplay'); if (!d) break;
+      const ans = d.textContent.trim();
+      if (!ans || ans === 'أدخل إجابتك بالرقم') { toast('أدخل إجابتك أولاً'); break; }
+      const unit = (document.querySelector('#unitSelect .unit-chip[aria-pressed="true"]') || {}).dataset?.v || '';
+      const full = ans + (unit && unit !== 'بدون' ? ' ' + unit : '');
+      const f = findProblem(el.dataset.id); if (!f) break;
+      const correct = normA(ans) === normA(f.p.ans) || normA(full) === normA(f.p.ans);
+      const res = document.getElementById('ansResult');
+      if (res) res.innerHTML = correct
+        ? '<div class="answer"><b>إجابة صحيحة! ✓</b> الحل الكامل:<ol>' + f.p.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><span class="small muted num">وقتك: ' + mmss(Math.round((Date.now() - (solveOf(f.p.id).started || Date.now())) / 1000)) + ' من ' + mmss(f.p.sec) + '</span></div>'
+        : '<div class="answer badans"><b>إجابة خاطئة ✗</b> الصحيح: ' + fm(f.p.ans) + ' — أضيفت للمراجعة.</div>';
+      if (!correct && f.p.id) { const st = me(); st.progress = st.progress || {}; st.progress[f.p.id] = st.progress[f.p.id] || {}; st.progress[f.p.id].rev = { at: Date.now(), level: 0, done: 0 }; save(); }
+      break;
+    }
     case 'examCh': S.exam.selCh = S.exam.selCh || []; const chId = el.dataset.ch; if (el.checked) S.exam.selCh.push(chId); else S.exam.selCh = S.exam.selCh.filter(x => x !== chId); render(); break;
     case 'examTopic': S.exam.selTopics = S.exam.selTopics || []; const tId = el.dataset.t; if (el.checked) S.exam.selTopics.push(tId); else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId); render(); break;
     case 'open': S.open[el.dataset.k] = !S.open[el.dataset.k]; render(); break;

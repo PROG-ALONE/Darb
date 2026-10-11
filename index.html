@@ -426,6 +426,10 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 <script src="content/arabic-12-u1.js"></script>
 <script src="content/islamic-12-u1.js"></script>
 <script src="content/english-12-u1.js"></script>
+<script src="content/chemistry-12-c6.js"></script>
+<script src="content/chemistry-12-c7.js"></script>
+<script src="content/chemistry-12-c8.js"></script>
+<script src="content/physics-12-c3.js"></script>
 <script>
 'use strict';
 document.documentElement.setAttribute('dir', 'rtl');
@@ -604,7 +608,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -613,6 +617,7 @@ function go(view, opts) {
   render(true);
 }
 function back() {
+  if (S.exam && S.exam.kind === 'ministerial' && (S.exam.phase === 'run' || S.exam.phase === 'pledge')) { toast('أنهِ الامتحان أولًا.'); return true; }
   if (S.dialog) { S.dialog = null; render(); return true; }
   const prev = S.stack.pop();
   if (!prev) return false;
@@ -643,7 +648,7 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
 const TABS = [['today', 'اليوم', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
-const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path' };
+const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library' };
 
 function topBar(title, opts) {
   opts = opts || {};
@@ -655,6 +660,7 @@ function topBar(title, opts) {
     '</header>';
 }
 function tabBar() {
+  if (S.exam && S.exam.kind === 'ministerial' && (S.exam.phase === 'run' || S.exam.phase === 'pledge')) return '';
   const cur = TAB_OF[S.view];
   if (!cur) return '';
   return '<nav class="tabs" aria-label="التبويبات الرئيسية">' + TABS.map(t =>
@@ -826,7 +832,9 @@ function vSubject() {
   const hiddenAll = c ? c.chapters.flatMap(ch => ch.topics.filter(t => isHidden(t.id))) : [];
   return topBar(s, { back: true }) + '<main class="page">' +
     '<section class="card"><h2>لماذا تدرس ' + esc(s) + '؟</h2><p>' + esc(WHY[s] || '') + '</p></section>' + map +
-    (c ? hiddenFold(hiddenAll) + '<button class="btn ghost" data-act="notebook" data-s="' + esc(s) + '">دفتر ' + esc(s) + '</button>'
+    (c ? subjectMemoHTML(s) + subjectExamsHTML(s, st0) + hiddenFold(hiddenAll) +
+        '<div class="grid2"><button class="btn ghost" data-act="notebook" data-s="' + esc(s) + '">دفتر ' + esc(s) + '</button>' +
+        '<button class="btn ghost" data-act="openBank" data-s="' + esc(s) + '">بنك الأسئلة الوزارية</button></div>'
       : empty('path', 'محتوى هذه المادة لم يُضف بعد', 'يُبنى من الكتاب الرسمي فصلًا فصلًا: شرح كامل بصري، وتعاريف وتعليلات وقوانين، ومسائل موقوتة، واختبار بعد كل موضوع.')) +
     '</main>';
 }
@@ -937,11 +945,7 @@ function vTests() {
       exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div></section>' : '') +
     memoSec +
-    '<div class="grid2">' +
-      '<div class="card"><h2>عندي امتحان</h2><p class="muted small">اختر نوعه وموعده ومواضيعه، ونبدأ جلسة فهم.</p><span class="note">يُبنى مع بقية المحتوى</span></div>' +
-      '<div class="card"><h2>الشهري</h2><p class="muted small">نص من الكتاب وجواب مفصّل، والنمط الوزاري يزداد كل شهر.</p><span class="note">يُبنى مع بقية المحتوى</span></div>' +
-      '<div class="card"><h2>التهيئة للوزاري</h2><p class="muted small">أسئلة الدورات من ٢٠١٦ إلى ٢٠٢٦ بوقت محسوب.</p><span class="note">تظهر أسئلة الوزاري حين يُبنى المحتوى</span></div>' +
-    '</div></main>';
+    subjectExamsListHTML(st) + '</main>';
   return h;
 }
 const BOOK_SOURCES = { 12: 'https://mlazemna.com/bk6ma/' };
@@ -954,6 +958,7 @@ function vLibrary() {
     (gradeContents(st.grade).length ? '<section class="card"><h2>دفاتري</h2><p class="small muted">لكل مادة فيها محتوى دفتر داخل التطبيق: حلولك وملاحظاتك وأخطاؤك مرتبة بالفصل والدرس. وتصدّرها دفترًا أو تقريرًا بالمستوى الذي تريد.</p><div class="plist">' +
       gradeContents(st.grade).map(y => '<button class="pitem" data-act="notebook" data-s="' + esc(y.subject) + '"><span class="st">' + ico('pen') + '</span><span style="flex:1"><b>دفتر ' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصل مبني</span></span></button>').join('') + '</div>' +
       '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر كل صفّي</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل صفوفي</button></div></section>' : '') +
+    ministerialLibraryHTML(st) +
     (BOOK_SOURCES[st.grade] ? '<section class="card"><h2>كتب ' + esc(GRADES[st.grade - 1].name) + '</h2><p class="small muted">نزّل الكتب من الموقع. وحين تُربط الكتب داخل التطبيق، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p><a class="btn" href="' + BOOK_SOURCES[st.grade] + '" target="_blank" rel="noopener">افتح موقع الكتب</a></section>'
       : '<p class="note">الكتب باهتة لأنها لم تُنزَّل بعد. حين تُربط روابط الكتب، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p>') + '</main>';
 }
@@ -1062,6 +1067,9 @@ function vSettings() {
 /* =================== المحتوى =================== */
 /* المحتوى الحقيقي يُبنى من نص الكتاب الرسمي. المسائل أدناه نموذج مؤقت لتجربة المحرك، وتُستبدل بمسائل الكتاب. */
 /* كل فصل في ملف مستقل داخل content/ يضيف نفسه إلى CONTENT_PARTS، وهنا تُجمع الفصول حسب الصف والفرع والمادة */
+/* بنك الأسئلة الوزارية الكامل: أجزاء تُضاف من content/ministerial-*.js على شكل
+   { key: '12:sci:الفيزياء', questions: [{ q, o:[...], c, why, tid?, year? }] }، ويخدم الطالب (تصفّح وتدريب) والنظام (جلسات التهيئة الوزارية والتطور). */
+window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
 const CONTENT = {};
 (window.CONTENT_PARTS || []).forEach(p => { (CONTENT[p.key] = CONTENT[p.key] || { chapters: [] }).chapters.push(p.chapter); });
 Object.values(CONTENT).forEach(c => c.chapters.sort((a, b) => a.no - b.no));
@@ -1475,8 +1483,261 @@ function myStudyPool() {
 function examLabel(src) {
   if (src[0] === 't') { const f = findTopic(src.slice(2)); return f ? 'اختبار: ' + ft(f.t.title) : src; }
   if (src[0] === 'c') { const f = findChapter(src.slice(2)); return f ? 'اختبار ' + f.ch.title.split(':')[0] : src; }
+  if (src[0] === 'x') { const p = src.split(':'); return (EXAM_KINDS[p[2]] || 'امتحان') + ' · ' + p[1]; }
   if (src === 'm') return 'اختبار سريع مما درسته';
   return src;
+}
+
+/* =================== الامتحانات لكل مادة: عندي امتحان، الشهري، التهيئة للوزاري =================== */
+const EXAM_KINDS = { exam: 'عندي امتحان', monthly: 'الشهري', ministerial: 'التهيئة للوزاري' };
+const EXAM_DESC = {
+  exam: 'جلسة امتحان من أسئلة المادة، كل سؤال بعده سبب الجواب وتفصيله.',
+  monthly: 'امتحان شهري بتفاصيل كاملة: النتيجة، والمواضيع التي أخفقت فيها، ومسارك في المادة.',
+  ministerial: 'أسئلة الدورات الوزارية بوقت محسوب لكل سؤال. تُغلق الأسئلة ولا تُفتح حتى تضغط «أكملت الامتحان» وتؤكّد العهد، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة ليزيدها جدول المراجعة.'
+};
+function subjEntry(subject) { return gradeContents(me().grade).find(y => y.subject === subject) || null; }
+function subjTopics(subject) {
+  const y = subjEntry(subject), out = [];
+  if (y) y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (!isHidden(t.id)) out.push({ ch, t }); }));
+  return out;
+}
+function subjQuizPool(subject) {
+  const out = [];
+  subjTopics(subject).forEach(({ t }) => t.quiz.forEach((q, i) => out.push({ q, tid: t.id, key: t.id + ':' + i })));
+  return out;
+}
+function ministerialPool(subject) {
+  const key = contentKey(me().grade, me().branch, subject), out = [];
+  (window.MINISTERIAL_BANK || []).forEach(part => {
+    if (part.key !== key || !part.questions) return;
+    part.questions.forEach((q, i) => out.push({ q, tid: q.tid || null, key: 'MN:' + key + ':' + i }));
+  });
+  return out;
+}
+const ministerialHasBank = subject => ministerialPool(subject).length > 0;
+function examPool(kind, subject) { return kind === 'ministerial' ? (ministerialHasBank(subject) ? ministerialPool(subject) : subjQuizPool(subject)) : subjQuizPool(subject); }
+function ministerialAvg(subject) {
+  const arr = ((me().ministerial || {})[subject]) || [];
+  return arr.length ? Math.round(arr.reduce((k, x) => k + x.pct, 0) / arr.length) : 0;
+}
+function examConfig(kind, subject) { S.exam = { kind, subject, phase: 'config', perQ: kind === 'ministerial' ? 90 : 0 }; go('exam'); }
+function startExam(kind, subject, n, perQ) {
+  const pool = examPool(kind, subject);
+  if (!pool.length) { toast('لا توجد أسئلة في هذا القسم بعد.'); return false; }
+  const pick = shuffle(pool).slice(0, Math.min(n || pool.length, pool.length));
+  S.exam = {
+    kind, subject, phase: 'run', perQ: kind === 'ministerial' ? (perQ || 90) : 0,
+    items: pick.map(x => ({ q: x.q, tid: x.tid, key: x.key, order: x.q.tf ? [0, 1] : shuffle(x.q.o.map((_, i) => i)) })),
+    i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0
+  };
+  go('exam'); return true;
+}
+function examFinish() {
+  const z = S.exam; if (!z || z._fin) return;
+  z._fin = 1; z.endAt = Date.now();
+  const total = z.items.length;
+  const ok = z.items.reduce((k, it, i) => k + (z.picks[i] === it.q.c ? 1 : 0), 0);
+  z.ok = ok; z.pct = total ? Math.round(ok / total * 100) : 0;
+  z.timeSec = Math.round((z.endAt - z.startAt) / 1000);
+  const st = me(), src = 'x:' + z.subject + ':' + z.kind;
+  st.tests = st.tests || {};
+  const prev = st.tests[src] || {};
+  st.tests[src] = { best: Math.max(z.pct, prev.best || 0), last: z.pct, at: Date.now() };
+  st.exams = st.exams || [];
+  st.exams.push({ src, pct: z.pct, n: total, at: Date.now() });
+  if (st.exams.length > 500) st.exams = st.exams.slice(-500);
+  if (z.kind === 'ministerial') {
+    st.ministerial = st.ministerial || {};
+    const arr = st.ministerial[z.subject] = st.ministerial[z.subject] || [];
+    arr.push({ at: Date.now(), pct: z.pct, sec: z.timeSec, n: total });
+    if (arr.length > 200) st.ministerial[z.subject] = arr.slice(-200);
+    z.items.forEach((it, i) => { if (it.tid) revDone(it.tid, z.picks[i] === it.q.c); });
+  } else {
+    z.items.forEach((it, i) => {
+      if (!it.tid) return;
+      const [tid, qi] = it.key.split(':'), w = wrongOf(tid);
+      if (z.picks[i] === it.q.c) delete w[qi]; else w[qi] = { n: ((w[qi] || {}).n || 0) + 1, at: Date.now() };
+    });
+  }
+  z.phase = (z.kind === 'ministerial' && !z.pledged) ? 'pledge' : 'done';
+  save();
+}
+function weakTopicsOf(z) {
+  const map = {};
+  z.items.forEach((it, i) => {
+    if (!it.tid || z.picks[i] === it.q.c) return;
+    const f = findTopic(it.tid);
+    const o = map[it.tid] = map[it.tid] || { tid: it.tid, title: f ? f.t.title : it.tid, ch: f ? f.ch.title : '', n: 0 };
+    o.n++;
+  });
+  return Object.values(map).sort((a, b) => b.n - a.n);
+}
+/* مؤقّت التهيئة الوزارية: يُغلق النظام على الأسئلة حتى «أكملت الامتحان» */
+let EXAM_CLOCK = null;
+function clearExamClock() { if (EXAM_CLOCK) { clearInterval(EXAM_CLOCK); EXAM_CLOCK = null; } }
+function startExamClock() {
+  clearExamClock();
+  EXAM_CLOCK = setInterval(() => {
+    const z = S.exam;
+    if (!z || z.kind !== 'ministerial' || z.phase !== 'run') { clearExamClock(); return; }
+    const el = document.getElementById('examClock');
+    if (!el) { clearExamClock(); return; }
+    const left = Math.max(0, z.perQ - Math.floor((Date.now() - z.qAt) / 1000));
+    el.textContent = mmss(left);
+    el.classList.toggle('bad-t', left <= 10);
+    const bar = document.getElementById('examBar'); if (bar) bar.style.width = Math.round(left / z.perQ * 100) + '%';
+    if (left <= 0) {
+      clearExamClock();
+      if (z.picks[z.i] == null) { z.picks[z.i] = null; z.times[z.i] = z.perQ; }
+      z.i++; z.qAt = Date.now();
+      if (z.i >= z.items.length) examFinish();
+      render(true);
+      if (S.exam && S.exam.phase === 'run') startExamClock();
+    }
+  }, 300);
+}
+function examConfigView(z, title) {
+  const pool = examPool(z.kind, z.subject);
+  if (!pool.length) {
+    return topBar(title, { back: true }) + '<main class="page">' + empty('tests', 'لا أسئلة في هذا القسم بعد',
+      z.kind === 'ministerial'
+        ? 'بنك الأسئلة الوزارية الكامل لهذه المادة قيد البناء من دورات ٢٠١٦–٢٠٢٦. حين يُضاف، يظهر هنا للتهيئة بوقت محسوب.'
+        : 'سيبدأ الامتحان بمجرد إضافة أسئلة هذه المادة. تابع مسارك.') + '</main>';
+  }
+  const total = pool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
+  let h = topBar(title, { back: true }) + '<main class="page">' +
+    '<section class="card"><h2>' + esc(EXAM_KINDS[z.kind]) + '</h2><p class="small muted">' + EXAM_DESC[z.kind] + '</p>' +
+    '<p class="small muted num">عدد الأسئلة المتاحة: ' + ar(total) + '</p>';
+  if (z.kind === 'ministerial') {
+    if (!ministerialHasBank(z.subject)) h += '<p class="note">بنك الدورات الوزارية الكامل لهذه المادة قيد البناء. حتى يكتمل، نستعمل أسئلة المادة نفسها بنمط وزاري موقوت لتتدرب على الجلسة.</p>';
+    h += '<p class="small muted">وقت كل سؤال:</p><div class="chips">' +
+      [60, 90, 120, 180].map(s => '<button class="chip" data-act="examPerQ" data-s="' + s + '" aria-pressed="' + ((z.perQ || 90) === s) + '">' + ar(s) + ' ثانية</button>').join('') + '</div>' +
+      '<p class="note">يُغلق النظام على الأسئلة فقط. لا تُفتح ولا يمكن الرجوع إليها حتى تضغط «أكملت الامتحان» وتؤكّد العهد، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p>';
+  }
+  h += '<p class="small muted">اختر عدد الأسئلة وابدأ:</p><div class="chips">' +
+    counts.map(n => '<button class="chip" data-act="examGo" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ')' : ar(n) + ' أسئلة') + '</button>').join('') + '</div></section></main>';
+  return h;
+}
+function examRunView(z, title) {
+  const it = z.items[z.i], q = it.q, picked = z.picks[z.i], lock = z.kind === 'ministerial';
+  const opts = it.order.map((oi, k) => {
+    const cls = (!lock && picked != null) ? (oi === q.c ? ' ok' : oi === picked ? ' bad' : '') : '';
+    return '<button class="opt' + cls + '" data-act="examPick" data-o="' + oi + '"' + (picked != null ? ' disabled' : '') + '><span class="ol">' + 'أبجد'[k] + '</span><span>' + fm(q.o[oi]) + '</span></button>';
+  }).join('');
+  setTimeout(() => { if (lock) startExamClock(); }, 0);
+  return topBar(title, { back: !lock, noTools: true }) + '<main class="page">' +
+    '<div class="bar"><span style="width:' + Math.round(z.i / z.items.length * 100) + '%"></span></div>' +
+    '<p class="muted small num">السؤال ' + ar(z.i + 1) + ' من ' + ar(z.items.length) + (lock ? ' · <span id="examClock">' + mmss(z.perQ) + '</span>' : '') + '</p>' +
+    (lock ? '<div class="bar"><span id="examBar" style="width:100%"></span></div>' : '') +
+    '<section class="prob"><p class="prob-text">' + fm(q.q) + '</p><div class="opts">' + opts + '</div>' +
+    (!lock && picked != null ? '<div class="' + (picked === q.c ? 'answer' : 'answer badans') + '"><b>' + (picked === q.c ? 'صحيح.' : 'ليس هذا.') + '</b> ' + fm(q.why) + '</div><button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>' : '') +
+    (lock ? '<p class="note">اختر جوابًا واحدًا؛ لا يمكن الرجوع إلى السؤال، وينتقل تلقائيًا عند انتهاء الوقت.</p>' : '') +
+    '</section></main>';
+}
+function examPledgeView(z, title) {
+  const mm = mmss(z.timeSec || Math.round((Date.now() - z.startAt) / 1000));
+  return topBar(title, { noTools: true }) + '<main class="page">' +
+    '<section class="card" style="align-items:center;text-align:center"><h2>أكملت الأسئلة؟</h2>' +
+    '<p class="small muted">استغرقت حتى الآن ' + mm + '. قبل عرض النتيجة والتفاصيل، أكّد أنك أكملت امتحان ' + esc(z.subject) + ' بجهدك. لن تستطيع الرجوع إلى الأسئلة بعد التأكيد.</p>' +
+    '<button class="btn" data-act="examPledge" style="width:100%">أكملت الامتحان</button>' +
+    '<p class="note">بالتأكيد تُغلق الأسئلة، وتُسجَّل مدتك، ثم تظهر النتيجة والجواب وتفصيله، ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p></section></main>';
+}
+function examDoneView(z, title) {
+  const total = z.items.length, ok = z.ok || 0, pct = z.pct || 0, mm = mmss(z.timeSec || 0);
+  const wrong = z.items.map((it, i) => ({ it, p: z.picks[i] })).filter(x => x.p !== x.it.q.c);
+  let h = topBar(title, { back: true, noTools: z.kind === 'ministerial' }) + '<main class="page">' +
+    '<section class="result-hero"><b class="num">' + ar(pct) + '٪</b><span>' + ar(ok) + ' صحيحة من ' + ar(total) + '</span>' +
+    (z.kind === 'ministerial' ? '<p class="num">استغرقت ' + mm + ' · المعدل التراكمي في ' + esc(z.subject) + ' ' + ar(ministerialAvg(z.subject)) + '٪</p>' : '') +
+    '<p>' + (pct >= 90 ? 'فهمٌ ممتاز. ستعود إليك مواضيعه في المراجعة لتثبت.' : pct >= 70 ? 'جيد. راجع ما أخطأت فيه واقرأ سببه.' : 'لا بأس، هذا هو الغرض. ارجع إلى الشرح ثم أعد المحاولة.') + '</p></section>';
+  if (z.kind === 'ministerial') {
+    const weak = weakTopicsOf(z);
+    h += weak.length
+      ? '<section class="card"><h2>مواضيع أضعفت أداءك</h2><p class="small muted">أعادها جدول المراجعة إلى «غدًا» ليزيد تكرارها عليك.</p><div class="plist">' +
+          weak.map(w => '<button class="pitem" data-act="topic" data-id="' + w.tid + '"><span class="st bad-t">!</span><span style="flex:1;min-width:0"><b>' + ft(w.title) + '</b><br><span class="small muted">' + esc(w.ch) + ' · ' + ar(w.n) + ' خطأ</span></span><span class="small" style="color:var(--acc)">راجع</span></button>').join('') + '</div></section>'
+      : '<section class="card"><h2>أداء متوازن</h2><p class="small muted">لا مواضيع ضعيفة في هذه الجلسة. أحسنت.</p></section>';
+  }
+  h += wrong.length
+    ? '<h2 style="font-size:1.1em">راجع هذه</h2>' + wrong.map(x => { const q = x.it.q; return '<section class="qa"><p class="q">' + fm(q.q) + '</p><p class="small bad-t">جوابك: ' + (x.p == null ? 'لم تجب' : fm(q.o[x.p])) + '</p><p class="a"><b>الصحيح:</b> ' + fm(q.o[q.c]) + ' — ' + fm(q.why) + '</p>' + (x.it.tid ? '<button class="chip" data-act="topic" data-id="' + x.it.tid + '">افتح الموضوع</button>' : '') + '</section>'; }).join('')
+    : '<section class="card"><h2>كل الأجوبة صحيحة ✓</h2><p class="small muted">أداء ممتاز.</p></section>';
+  return h + '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="' + z.kind + '" data-s="' + esc(z.subject) + '">امتحان آخر</button><button class="btn quiet" data-act="back">رجوع</button></div></main>';
+}
+function vExam() {
+  const z = S.exam; if (!z) return vTests();
+  const title = EXAM_KINDS[z.kind] + ' · ' + z.subject;
+  if (z.phase === 'config') return examConfigView(z, title);
+  if (z.phase === 'pledge') return examPledgeView(z, title);
+  if (z.phase === 'done') return examDoneView(z, title);
+  if (z.i >= z.items.length) return (z.kind === 'ministerial' && !z.pledged) ? examPledgeView(z, title) : examDoneView(z, title);
+  return examRunView(z, title);
+}
+function vBank() {
+  const subject = S.bankSubject, pool = ministerialPool(subject);
+  if (!pool.length) return topBar('بنك الأسئلة الوزارية', { back: true }) + '<main class="page">' +
+    empty('library', 'بنك هذه المادة قيد البناء', 'يُبنى بنك الأسئلة الوزارية الكامل من دورات ٢٠١٦ إلى ٢٠٢٦، ويخدم الطالب (تصفّح وتدريب) والنظام (تهيئة وقياس التطور). تابع تحديثات المحتوى.') +
+    (subjQuizPool(subject).length ? '<button class="btn quiet" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">تهيئة وزارية من أسئلة المادة</button>' : '') + '</main>';
+  const groups = {};
+  pool.forEach(x => { const tid = x.tid || 'عام'; (groups[tid] = groups[tid] || []).push(x); });
+  let h = topBar('بنك ' + subject + ' الوزاري', { back: true }) + '<main class="page">' +
+    '<div class="strip"><span>بنك الأسئلة الوزارية · يستفيد منه الطالب والنظام معًا.</span><b class="num">' + ar(pool.length) + ' سؤالًا</b></div>' +
+    '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">ابدأ تهيئة وزارية</button><button class="btn quiet" data-act="back">رجوع</button></div>';
+  Object.keys(groups).forEach(tid => {
+    const f = tid !== 'عام' ? findTopic(tid) : null;
+    h += '<section class="card"><h2>' + (f ? esc(f.t.title) : 'أسئلة عامة') + '</h2>' +
+      groups[tid].map(x => { const q = x.q; return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner"><div class="opts" style="pointer-events:none">' +
+        q.o.map((o, oi) => '<div class="opt' + (oi === q.c ? ' ok' : '') + '"><span class="ol">' + 'أبجد'[oi] + '</span><span>' + fm(o) + '</span></div>').join('') +
+        '</div><p class="a"><b>السبب:</b> ' + fm(q.why || '') + '</p>' + (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>'; }).join('') + '</section>';
+  });
+  return h + '</main>';
+}
+function subjectMemoHTML(subject) {
+  const mt = memoTopics().filter(x => x.subject === subject);
+  if (!mt.length) return '';
+  return '<section class="card"><h2>الحفظ في ' + esc(subject) + '</h2><p class="small muted">كل ما هو مقرر للحفظ في هذه المادة. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
+    mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + ft(x.t.title) + '</span></span></button>'; }).join('') + '</section>';
+}
+function subjectExamsHTML(subject, st0) {
+  const bank = ministerialPool(subject).length, tests = st0.tests || {};
+  const rows = [['exam', 'عندي امتحان', 'جلسة امتحان من أسئلة المادة، كل سؤال بعده سببه.'], ['monthly', 'الشهري', 'امتحان شهري بتفاصيل كاملة.'], ['ministerial', 'التهيئة للوزاري', 'أسئلة الدورات بوقت محسوب، مع المدة والمعدل وكشف الضعف.']];
+  let h = '<section class="card"><h2>امتحانات ' + esc(subject) + '</h2><p class="small muted">لكل مادة على حدة: امتحانها، وشهريّها، وتهيئتها الوزارية.</p>' +
+    rows.map(r => { const t = tests['x:' + subject + ':' + r[0]];
+      return '<button class="pitem" data-act="examCfg" data-kind="' + r[0] + '" data-s="' + esc(subject) + '"><span class="st">' + ico(r[0] === 'ministerial' ? 'star' : 'tests', 2) + '</span><span style="flex:1;min-width:0"><b>' + r[1] + '</b><br><span class="small muted">' + r[2] + '</span></span>' + (t && t.best != null ? '<span class="small num" style="color:var(--acc)">أفضل ' + ar(t.best) + '٪</span>' : '') + '</button>'; }).join('') + '</section>';
+  const arr = ((st0.ministerial || {})[subject]) || [];
+  if (arr.length) {
+    const last = arr[arr.length - 1];
+    h += '<section class="card"><h2>تطوّرك الوزاري في ' + esc(subject) + '</h2>' +
+      '<div class="grid2"><div class="stat"><span class="muted small">المعدل التراكمي</span><b class="num">' + ar(ministerialAvg(subject)) + '٪</b></div>' +
+      '<div class="stat"><span class="muted small">آخر جلسة</span><b class="num">' + ar(last.pct) + '٪</b></div>' +
+      '<div class="stat"><span class="muted small">عدد الجلسات</span><b class="num">' + ar(arr.length) + '</b></div>' +
+      '<div class="stat"><span class="muted small">بنك الوزاري</span><b class="num">' + ar(bank) + '</b></div></div>' +
+      weakSubjectHTML(subject) + '</section>';
+  }
+  return h;
+}
+function weakSubjectHTML(subject) {
+  const ws = subjTopics(subject).filter(x => Object.keys(wrongOf(x.t.id) || {}).length);
+  if (!ws.length) return '';
+  return '<p class="small muted" style="margin-top:10px">مواضيع ظهر فيها ضعف، زادها جدول المراجعة:</p><div class="plist">' +
+    ws.slice(0, 6).map(x => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '"><span class="st" style="color:var(--acc)">!</span><span style="flex:1;min-width:0"><b>' + ft(x.t.title) + '</b><br><span class="small muted">' + esc(x.ch.title) + '</span></span><span class="small" style="color:var(--acc)">راجع</span></button>').join('') + '</div>';
+}
+function subjectExamsListHTML(st) {
+  const subs = gradeContents(st.grade).map(y => y.subject);
+  if (!subs.length) return '';
+  return '<section class="card"><h2>امتحانات المواد</h2><p class="small muted">لكل مادة على حدة: «عندي امتحان»، و«الشهري»، و«التهيئة للوزاري» بوقت محسوب. افتح المادة من «مساري» لترى تطوّرك ومعدلك.</p>' +
+    subs.map(s => { const bank = ministerialPool(s).length;
+      return '<div style="margin-top:10px"><b>' + esc(s) + '</b><div class="chips" style="margin-top:6px">' +
+        '<button class="chip" data-act="examCfg" data-kind="exam" data-s="' + esc(s) + '">عندي امتحان</button>' +
+        '<button class="chip" data-act="examCfg" data-kind="monthly" data-s="' + esc(s) + '">الشهري</button>' +
+        '<button class="chip" data-act="examCfg" data-kind="ministerial" data-s="' + esc(s) + '">التهيئة للوزاري' + (bank ? ' · ' + ar(bank) : '') + '</button>' +
+        '</div></div>'; }).join('') + '</section>';
+}
+function ministerialLibraryHTML(st) {
+  const rows = gradeContents(st.grade).map(y => ({ s: y.subject, n: ministerialPool(y.subject).length }));
+  if (!rows.length) return '';
+  const total = rows.reduce((k, r) => k + r.n, 0);
+  return '<section class="card"><h2>بنك الأسئلة الوزارية</h2><p class="small muted">بنك كامل لأسئلة الدورات الوزارية. يخدم الطالب: يتصفّح ويتدرّب؛ ويخدم النظام: يبني منه جلسات «التهيئة للوزاري» ويقيس تطورك ومعدلك ويكشف مواضيع الضعف.</p>' +
+    '<p class="small num">' + (total ? ar(total) + ' سؤالًا متوفرًا' : 'قيد البناء من دورات ٢٠١٦ إلى ٢٠٢٦') + '</p>' +
+    '<div class="plist">' + rows.map(r => '<button class="pitem" data-act="openBank" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
 }
 
 /* =================== خطة اليوم: توزيع المواضيع المتبقية على أيام الدراسة =================== */
@@ -2258,7 +2519,7 @@ function vDialog() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport };
+const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -2365,7 +2626,24 @@ document.addEventListener('click', e => {
     case 'quizPick': S.quiz.picks[S.quiz.i] = +el.dataset.o; render(); break;
     case 'quizNext': S.quiz.i++; if (S.quiz.i >= S.quiz.items.length) finishQuiz(); render(true); break;
     case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
-    case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else startQuiz(src, n); break; }
+    case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
+    case 'examCfg': examConfig(el.dataset.kind, el.dataset.s); break;
+    case 'examGo': { const z = S.exam; if (!z) break; startExam(z.kind, z.subject, +el.dataset.n, z.perQ); break; }
+    case 'examPerQ': if (S.exam && S.exam.phase === 'config') { S.exam.perQ = +el.dataset.s; render(); } break;
+    case 'examPick': {
+      const z = S.exam; if (!z || z.phase !== 'run') break;
+      z.picks[z.i] = +el.dataset.o; z.times[z.i] = Math.round((Date.now() - z.qAt) / 1000);
+      if (z.kind === 'ministerial') { z.i++; z.qAt = Date.now(); clearExamClock(); if (z.i >= z.items.length) examFinish(); render(true); }
+      else render();
+      break;
+    }
+    case 'examNext': { const z = S.exam; if (!z) break; z.i++; z.qAt = Date.now(); if (z.i >= z.items.length) examFinish(); render(true); break; }
+    case 'examPledge': {
+      const z = S.exam; if (!z) break;
+      S.dialog = { title: 'عهد', text: 'أتعهّد أنني أكملت امتحان ' + z.subject + ' بجهدي دون مساعدة، وأنني لن أعود إلى أسئلته.', ok: 'أتعهّد وأكمل', run: () => { z.pledged = true; if (!z._fin) examFinish(); z.phase = 'done'; clearExamClock(); save(); } };
+      render(); break;
+    }
+    case 'openBank': S.bankSubject = el.dataset.s; go('bank'); break;
     case 'revQuiz': { const t = findTopic(el.dataset.id).t; if (!t || !t.quiz || !t.quiz.length) { toast('لا أسئلة في هذا الموضوع بعد.'); break; } startQuiz('t:' + el.dataset.id, Math.min(10, t.quiz.length)); break; }
     case 'revDone': revDone(el.dataset.id, true); render(); toast('رُصدت مراجعتك. سيعود الموضوع في وقته.'); break;
     case 'revOpen': go('topic', { viewTopic: el.dataset.id }); break;

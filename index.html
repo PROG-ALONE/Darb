@@ -443,6 +443,8 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 .nb-photo img,.nb-th{max-width:100%;max-height:260px;border-radius:10px;border:1px solid var(--line);display:block}
 .nb-th{max-height:120px}
 .photo-in{cursor:pointer}
+.avatar{flex-shrink:0;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:var(--acc-soft);color:var(--acc);font-weight:700;border:1px solid var(--line)}
+.avatar-ph{line-height:1}
 .nb-cover{background:var(--night);color:var(--night-ink);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:4px}
 .nb-cover h1{margin:0;font-family:var(--display);color:var(--star);font-size:2em}
 .nb-ch{font-family:var(--display);font-size:1.3em;margin:10px 0 0;border-bottom:2px solid var(--acc);padding-bottom:4px}
@@ -520,6 +522,13 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 <script src="content/biology-12-c2.js"></script>
 <script src="content/biology-12-c4.js"></script>
 <script src="content/biology-12-c5.js"></script>
+<script src="content/physics-12-c6.js"></script>
+<script src="content/physics-12-c7.js"></script>
+<script src="content/physics-12-c8.js"></script>
+<script src="content/physics-12-c9.js"></script>
+<script src="content/math-12-c3.js"></script>
+<script src="content/math-12-c6.js"></script>
+<script src="content/biology-12-c3.js"></script>
 <script>
 'use strict';
 document.documentElement.setAttribute('dir', 'rtl');
@@ -747,6 +756,7 @@ const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', sub
 function topBar(title, opts) {
   opts = opts || {};
   return '<header class="top">' +
+    (opts.avatar ? avatarHTML(opts.avatar, 40) : '') +
     (opts.back ? '<button class="icon-btn" data-act="back" aria-label="رجوع">' + ico('back', 2) + '</button>' : '') +
     '<h1>' + esc(title) + '</h1>' +
       (opts.noTools ? '' : (opts.log ? '<button class="icon-btn" data-act="openLog" data-v="' + opts.log + '" aria-label="السجل والتفاصيل">' + ico('review', 2) + '</button>' : '') + '<button class="icon-btn" data-act="go" data-v="search" aria-label="البحث">' + ico('search', 2) + '</button>' +
@@ -774,7 +784,7 @@ function vToday() {
   const todayProbs = todayLog.filter(x => x.type === 'problem').length;
   const todayReviews = todayLog.filter(x => x.type === 'review').length;
   const todayStudy = todayLog.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
-  return topBar('أهلاً، ' + st.name, { log: 'today' }) + '<main class="page">' +
+  return topBar('أهلاً، ' + st.name, { log: 'today', avatar: st.id }) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
     accSec('today-summary', 'ملخص اليوم', todayProbs + ' مسائل · ' + todayReviews + ' مراجعة', '<div class="grid2">' +
@@ -1267,8 +1277,15 @@ function vSettings() {
   const themes = [['auto', 'تلقائي', '#F3F5F2', '#1E5A73', '#111A20'], ['light', 'فاتح', '#F3F5F2', '#1E5A73'], ['paper', 'ورقي', '#F4EEE1', '#7A4F12'], ['dark', 'داكن', '#111A20', '#6FB3CC'], ['night', 'ليلي', '#0A0F22', '#F2C46D']];
   let body = '';
   if (tab === 'acc') body =
+    '<section class="card"><h2>صوري الشخصية</h2>' +
+      '<div style="display:flex;align-items:center;gap:14px">' + avatarHTML(st.id, 72) +
+        '<div style="flex:1;display:flex;flex-wrap:wrap;gap:8px;align-items:center">' +
+          '<label class="chip photo-in">' + (st.photo ? 'غيّر الصورة' : 'ارفع صورتك') + '<input type="file" accept="image/*" data-avatar-in="' + st.id + '" hidden></label>' +
+          (st.photo ? '<button class="chip" data-act="delAvatar">احذف الصورة</button>' : '') +
+        '</div></div>' +
+      '<p class="note">تظهر صورتك في التحية وقائمة الطلاب، وتُحفظ على هذا الجهاز فقط.</p></section>' +
     '<section class="card"><h2>الطلاب على هذا الجهاز</h2>' +
-      DB.students.map(s => '<div class="row" style="' + (s.id === DB.activeId ? 'background:var(--acc-soft)' : '') + '"><span><b>' + esc(s.name) + '</b> <span class="small muted">· ' + esc(GRADES[s.grade - 1].name) + '</span></span>' +
+      DB.students.map(s => '<div class="row" style="' + (s.id === DB.activeId ? 'background:var(--acc-soft)' : '') + '"><span style="display:flex;align-items:center;gap:10px">' + avatarHTML(s.id, 34) + '<span><b>' + esc(s.name) + '</b> <span class="small muted">· ' + esc(GRADES[s.grade - 1].name) + '</span></span></span>' +
         (s.id === DB.activeId ? '<span class="small" style="color:var(--acc);font-weight:600">نشط الآن</span>' : '<span style="display:flex;gap:6px"><button class="btn ghost" style="min-height:40px;padding:0 14px" data-act="switch" data-id="' + s.id + '">بدّل إليه</button><button class="btn quiet" style="min-height:40px;padding:0 12px" data-act="delStudent" data-id="' + s.id + '" aria-label="احذف ' + esc(s.name) + '">حذف</button></span>') + '</div>').join('') +
       '<button class="btn quiet" data-act="addStudent">+ أضف طالبًا</button></section>' +
     '<section class="card"><h2>صفي وهدفي</h2>' +
@@ -2195,7 +2212,19 @@ function shrinkPhoto(file) {
     img.src = url;
   });
 }
-function mountPhotos() { document.querySelectorAll('img[data-photo]:not([src])').forEach(async im => { const d = await MEDIA.get(photoKey(im.dataset.photo)); if (d) { im.src = d; im.hidden = false; } }); }
+function mountPhotos() {
+  document.querySelectorAll('img[data-photo]:not([src])').forEach(async im => { const d = await MEDIA.get(photoKey(im.dataset.photo)); if (d) { im.src = d; im.hidden = false; } });
+  document.querySelectorAll('img[data-avkey]:not([src])').forEach(async im => { const d = await MEDIA.get(im.dataset.avkey + ':avatar'); if (d) { im.src = d; im.hidden = false; } });
+}
+/* صورة الطالب الشخصية: تُخزَّن في IndexedDB بالمفتاح sid:avatar، وتظهر بحرف اسمه إن لم تُرفع */
+const avKey = sid => sid + ':avatar';
+function avatarHTML(sid, px) {
+  const s = DB.students.find(x => x.id === sid) || me() || {};
+  const letter = esc(String(s.name || '؟').trim().charAt(0) || '؟');
+  return '<span class="avatar" style="width:' + px + 'px;height:' + px + 'px;font-size:' + Math.round(px * 0.42) + 'px">' +
+    (s.photo ? '<img data-avkey="' + sid + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">' : '<span class="avatar-ph">' + letter + '</span>') +
+    '</span>';
+}
 
 /* ملفات: في المعاينة على claude.ai تمر عبر قدرة التنزيل، وفي التطبيق المنشور تنزيل عادي */
 async function saveFile(name, data, mime) {
@@ -3173,6 +3202,7 @@ document.addEventListener('click', e => {
       toast('تم إنشاء '+title); break;
     }
     case 'delPhoto': { const v = solveOf(el.dataset.id); MEDIA.del(photoKey(el.dataset.id)); v.photo = 0; save(); render(); break; }
+    case 'delAvatar': { const s = me(); MEDIA.del(avKey(s.id)); s.photo = 0; save(); render(); toast('حُذفت صورتك.'); break; }
     case 'nbFilter': S.nbFilter = el.dataset.v; render(); break;
     case 'openExport': S.exp = defaultExp(el.dataset.lvl, el.dataset.s); if (el.dataset.t) { S.exp.tid = el.dataset.t; S.exp.ch = findTopic(el.dataset.t).ch.id; } if (el.dataset.seg) S.exp.seg = el.dataset.seg; go('export'); break;
     case 'expSet': S.exp[el.dataset.k] = el.dataset.v; render(); break;
@@ -3309,6 +3339,8 @@ document.addEventListener('input', e => {
 document.addEventListener('change', e => {
   const pin = e.target.dataset && e.target.dataset.photoIn;
   if (pin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(photoKey(pin), d)).then(() => { solveOf(pin).photo = 1; save(); render(); toast('أُرفقت صورة حلّك.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
+  const avin = e.target.dataset && e.target.dataset.avatarIn;
+  if (avin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(avKey(avin), d)).then(() => { const s = DB.students.find(x => x.id === avin); if (s) s.photo = 1; save(); render(); toast('حُفظت صورتك الشخصية.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
   if (S.view === 'export' && S.exp && ['expSubj', 'expCh', 'expTopic', 'expSeg'].includes(e.target.id)) {
     const x = S.exp, val = e.target.value;
     if (e.target.id === 'expSubj') { const d = defaultExp(x.lvl, val); x.subject = val; x.ch = d.ch; x.tid = d.tid; }

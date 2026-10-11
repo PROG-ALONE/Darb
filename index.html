@@ -124,6 +124,13 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .bar.monthly{height:10px;background:var(--ok-soft);border-radius:999px}
 .bar.monthly>span{background:var(--ok)}
 
+/* شريط عمودي للأهداف */
+.vbar{width:20px;height:120px;border-radius:10px;background:var(--soft);display:flex;flex-direction:column-reverse;overflow:hidden;margin:0 auto}
+.vbar>span{width:100%;border-radius:10px;transition:height .4s ease}
+.vbar.daily>span{background:linear-gradient(180deg,var(--star),var(--acc))}
+.vbar.weekly>span{background:linear-gradient(180deg,var(--star),var(--gold))}
+.vbar-label{text-align:center;font-size:.85em;font-weight:600;margin-top:4px}
+
 /* اليوم */
 .glimpse{background:var(--acc);color:var(--acc-ink);border-radius:20px;padding:24px 26px;display:flex;flex-direction:column;gap:8px}
 .glimpse .q{font-family:var(--display);font-size:1.5em;line-height:1.75}
@@ -729,20 +736,28 @@ function vToday() {
   const rest = st.rest.includes(t.getDay()) || inHoliday(t, st.holidays);
   const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60, pct = Math.min(100, Math.round(used / goal * 100));
   const wg = weeklyGoal();
+  const todayLog = (st.log || []).filter(x => x.d === isoD(t));
+  const todayProbs = todayLog.filter(x => x.type === 'problem').length;
+  const todayReviews = todayLog.filter(x => x.type === 'review').length;
+  const todayStudy = todayLog.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
   return topBar('أهلاً، ' + st.name) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    accSec('today-plan', 'خطة اليوم', '', planCard(st, ti, g, rest), true) +
-    accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), true) +
-    accSec('today-goals', 'الأهداف', 'يومي / أسبوعي / شهري', '<div class="grid2">' +
-      '<div class="stat"><span class="muted small">الهدف اليومي</span><b class="num">' + ar(pct) + '%</b></div>' +
-      '<div class="bar daily"><span style="width:' + pct + '%"></span></div>' +
-      (wg.perWeek ? '<div class="stat"><span class="muted small">الهدف الأسبوعي</span><b class="num">' + ar(wg.perWeek) + ' ' + tWord(wg.perWeek) + '</b></div>' +
-      '<div class="bar weekly"><span style="width:' + Math.min(100, Math.round((planToday().picks.length / wg.perWeek) * 100)) + '%"></span></div>' : '') +
-      (st.goal ? '<div class="stat"><span class="muted small">معدلك المستهدف</span><b class="num">' + ar(st.goal) + '%</b></div>' : '') +
+    accSec('today-summary', 'ملخص اليوم', todayProbs + ' مسائل · ' + todayReviews + ' مراجعة', '<div class="grid2">' +
+      '<div class="stat"><span class="muted small">مسائل اليوم</span><b class="num">' + ar(todayProbs) + '</b></div>' +
+      '<div class="stat"><span class="muted small">مراجعات اليوم</span><b class="num">' + ar(todayReviews) + '</b></div>' +
+      '<div class="stat"><span class="muted small">وقت الدراسة</span><b class="num">' + ar(Math.round(todayStudy / 60)) + ' د</b></div>' +
       '<div class="stat"><span class="muted small">حتى الامتحان</span><b class="num">' + ar(ti.weeksLeft) + ' أسبوعًا</b></div>' +
     '</div>', true) +
+    accSec('today-plan', 'خطة اليوم', '', planCard(st, ti, g, rest), true) +
+    accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), true) +
+    accSec('today-goals', 'الأهداف', 'يومي / أسبوعي / شهري', '<div style="display:flex;gap:16px;justify-content:center;align-items:flex-end;flex-wrap:wrap">' +
+      '<div><div class="vbar daily"><span style="height:' + pct + '%"></span></div><div class="vbar-label">يومي ' + ar(pct) + '%</div></div>' +
+      (wg.perWeek ? '<div><div class="vbar weekly"><span style="height:' + Math.min(100, Math.round((planToday().picks.length / wg.perWeek) * 100)) + '%"></span></div><div class="vbar-label">أسبوعي ' + ar(Math.min(100, Math.round((planToday().picks.length / wg.perWeek) * 100))) + '%</div></div>' : '') +
+      (st.goal ? '<div><div class="vbar" style="background:var(--ok-soft)"><span style="height:' + st.goal + '%;background:var(--ok)"></span></div><div class="vbar-label">هدفك ' + ar(st.goal) + '%</div></div>' : '') +
+    '</div>', true) +
     (rest ? '<p class="note">اليوم يوم راحة. استرح وعد غدًا بنشاط.</p>' : '') +
+    '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div>' +
     '</main>';
 }
 
@@ -1013,20 +1028,35 @@ function vReview() {
     if (soon.length) h += '<section class="card"><h2>قادمة في أيامها</h2><p class="small muted">ستعود إليك عندما يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div></section>';
     h += '<p class="note">أي اختبار لموضوع يقدّم موعده التالي، والنتيجة دون ٧٠٪ تعيده إلى «غدًا».</p>';
   }
+  h += '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر سجل المراجعة</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div>';
+  h += '<section class="card"><h2>سجل المراجعة التفصيلي</h2><p class="small muted">كل يوم منذ بدأت ماذا راجعت وأنجزت.</p>' + reviewLogHTML() + '</section>';
   return h + '</main>';
+}
+
+function reviewLogHTML() {
+  const st = me(), log = (st.log || []).filter(x => x.type === 'review').slice().reverse();
+  if (!log.length) return '<p class="muted">لا مراجعة مسجلة بعد.</p>';
+  const byDay = {};
+  log.forEach(x => { (byDay[x.d] = byDay[x.d] || []).push(x); });
+  const days = Object.entries(byDay).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 30);
+  return '<div class="plist">' + days.map(([d, items]) => {
+    const probs = items.filter(x => x.subject).length;
+    return '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('review', 1.5) + '</span><span style="flex:1"><b>' + fmtD(parseD(d)) + '</b><br><span class="small muted">' + ar(items.length) + ' مراجعة · ' + ar(probs) + ' موضوع</span></span></div>';
+  }).join('') + '</div>';
 }
 function vTests() {
   const st = me(), pool = myStudyPool();
   const exams = (st.exams || []).slice().reverse().slice(0, 12);
   const mt = memoTopics();
-  const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join(''), true) : '';
+  const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مناهجك. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + mt.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length; return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + esc(x.subject) + ' · ' + ft(x.t.title) + '</span></span></button>'; }).join(''), true) : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
   const mySec = accSec('myTests', 'اختباراتي', ar(pool.length) + ' سؤالًا', '<p class="small muted">أسئلة عشوائية مما درسته فقط، تُخلط بين مواضيعك وموادك.</p>' +
     (pool.length >= 5 ? '<div class="grid2"><button class="btn" data-act="mixQuiz" data-n="10">اختبار سريع · ١٠</button><button class="btn ghost" data-act="mixQuiz" data-n="20">اختبار أطول · ٢٠</button></div><p class="small muted num">' + ar(pool.length) + ' سؤالًا جاهزًا مما درسته</p>'
       : '<div class="empty">' + ico('tests', 1.4) + '<b>' + (pool.length ? 'أنهِ تهيئة موضوع أولًا' : 'ادرس موضوعًا أولًا') + '</b><p>أسئلة «اختباراتي» تأتي مما درسته فقط. ادرس أي موضوع وأكمل اختباره ثم عد لتجد أسئلته هنا.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>'), false);
   const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة', '<p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
       exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div>', false) : '';
-  let h = topBar('الاختبارات') + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) + '</main>';
+  let h = topBar('الاختبارات') + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) +
+    '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div></main>';
   return h;
 }
 const BOOK_SOURCES = { 12: 'https://mlazemna.com/bk6ma/' };
@@ -1042,6 +1072,7 @@ function vLibrary() {
       subs.map((s, i) => '<span class="book" style="height:' + (160 + (i % 3) * 14) + 'px">' + esc(s) + '</span>').join('') +
     '</div><div class="plank" aria-hidden="true"></div></section>' +
     libSec + minAcc +
+    '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر دفاتري</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div>' +
     (BOOK_SOURCES[st.grade] ? '<section class="card"><h2>كتب ' + esc(GRADES[st.grade - 1].name) + '</h2><p class="small muted">نزّل الكتب من الموقع. وحين تُربط الكتب داخل التطبيق، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p><a class="btn" href="' + BOOK_SOURCES[st.grade] + '" target="_blank" rel="noopener">افتح موقع الكتب</a></section>'
       : '<p class="note">الكتب باهتة لأنها لم تُنزَّل بعد. حين تُربط روابط الكتب، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p>') + '</main>';
 }
@@ -1919,9 +1950,14 @@ function subjectMemoHTML(subject) {
 function subjectExamsHTML(subject, st0) {
   const bank = ministerialPool(subject).length, tests = st0.tests || {};
   const rows = [['exam', 'عندي امتحان', 'جلسة امتحان من أسئلة المادة، كل سؤال بعده سببه.'], ['monthly', 'الشهري', 'امتحان شهري بتفاصيل كاملة.'], ['ministerial', 'التهيئة للوزاري', 'أسئلة الدورات بوقت محسوب، مع المدة والمعدل وكشف الضعف.']];
-  let h = '<section class="card"><h2>امتحانات ' + esc(subject) + '</h2><p class="small muted">لكل مادة على حدة: امتحانها، وشهريّها، وتهيئتها الوزارية.</p>' +
+  const hasData = tests['x:' + subject + ':exam'] || tests['x:' + subject + ':monthly'] || (bank > 0);
+  let h = '<section class="card"><h2>امتحانات ' + esc(subject) + '</h2>';
+  if (!hasData) {
+    h += '<p class="small muted">لم تؤخذ أي بيانات بعد. ستملأ تلقائياً كلما درست موضوعاً واجتزت اختباره.</p>';
+  }
+  h += '<div class="chips">' +
     rows.map(r => { const t = tests['x:' + subject + ':' + r[0]];
-      return '<button class="pitem" data-act="examCfg" data-kind="' + r[0] + '" data-s="' + esc(subject) + '"><span class="st">' + ico(r[0] === 'ministerial' ? 'star' : 'tests', 2) + '</span><span style="flex:1;min-width:0"><b>' + r[1] + '</b><br><span class="small muted">' + r[2] + '</span></span>' + (t && t.best != null ? '<span class="small num" style="color:var(--acc)">أفضل ' + ar(t.best) + '٪</span>' : '') + '</button>'; }).join('') + '</section>';
+      return '<button class="chip" data-act="examCfg" data-kind="' + r[0] + '" data-s="' + esc(subject) + '">' + r[1] + (t && t.best != null ? ' · أفضل ' + ar(t.best) + '٪' : '') + '</button>'; }).join('') + '</div></section>';
   const arr = ((st0.ministerial || {})[subject]) || [];
   if (arr.length) {
     const last = arr[arr.length - 1];

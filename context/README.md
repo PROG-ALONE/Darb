@@ -74,3 +74,28 @@ node wire.mjs content/arabic-12-u2.js content/arabic-12-u3.js content/arabic-12-
 # 4) الدفع النهائي:
 git add -A && git commit -m "content: جولة2 ملء النواقص + ربط" && git push origin main
 ```
+
+---
+
+## 🧩 جولة ٢ — اللغات/الدين (تقسيم ٣ محادثات)
+
+استبدال `gap-languages.md` بـ **٣ ملفات مستقلة**:
+
+| المحادثة | ملف السياق | المهمة | الملفات الجديدة |
+|---|---|---|---|
+| **٣أ** | `context/gap-arabic.md` | عربية الوحدات ٢–٦ | `arabic-12-u2.js` .. `arabic-12-u6.js` |
+| **٣ب** | `context/gap-english.md` | إنكليزية الوحدات ٢–٥ | `english-12-u2.js` .. `english-12-u5.js` |
+| **٣ج** | `context/gap-islamic.md` | إسلامية الوحدات المتبقية | `islamic-12-u2.js` .. `islamic-12-uN.js` |
+
+## 📦 الدمج النهائي (بعد انتهاء **المحادثات الست**: ١، ٢، ٣أ، ٣ب، ٣ج)
+1. تحقق صيغة **كل الملفات** (`node --check`).
+2. اربط **الملفات الجديدة فقط** (الوحدات اللغوية/الإسلامية — الفصول المعدّلة لا تحتاج وصلًا):
+```bash
+cd /Users/macbookair/Downloads/darb-main
+node wire.mjs content/arabic-12-u2.js content/arabic-12-u3.js content/arabic-12-u4.js content/arabic-12-u5.js content/arabic-12-u6.js content/english-12-u2.js content/english-12-u3.js content/english-12-u4.js content/english-12-u5.js content/islamic-12-u2.js content/islamic-12-u3.js ...
+```
+3. اختبار متصفح سريع (`?t=Date.now()` — كونسول نظيف).
+4. الدفع النهائي:
+```bash
+git add -A && git commit -m "content: جولة2 كاملة — لغات/دين + مسائل علوم" && git push origin main
+```

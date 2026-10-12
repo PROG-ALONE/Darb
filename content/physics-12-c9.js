@@ -23,7 +23,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c9t1-p1', 'Page 255', '9-1', 'Why is nuclear physics important?', 'Nuclear physics is essential for understanding nuclear energy, nuclear medicine, and the fundamental structure of matter. It enables the development of nuclear power reactors and radioactive diagnostic techniques.', ['Nuclear energy production', 'Nuclear medicine and diagnostics', 'Fundamental structure of matter'])
       ],
       quiz: [
-        Q('الفيزياء النووية تدرس:', ['نواة الذرة', 'تفاعلات النواة'])
+        Q('الفيزياء النووية تدرس:', ['نواة الذرة', 'البنية الطورية للمادة الصلبة', 'خواص أشباه الموصلات', 'قوانين الحركة على المستوى الذري'], 'موضوع هذا الفرع هو النواة ومكوناتها وتفاعلاتها كالنشاط الإشعاعي والانشطار والاندماج، لا التركيب الإلكتروني للذرة.')
       ]
     }),
     T({
@@ -51,7 +51,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c9t2-p2', 'Page 257', '9-2', 'Compare the number of protons and neutrons in a stable nucleus for light elements.', 'For light elements, the number of neutrons is approximately equal to the number of protons (N ≈ Z). The ratio N/Z increases for heavier stable nuclei.', ['N ≈ Z for light elements', 'N/Z increases for heavier nuclei', 'Ratio reaches ~1.5 for heavy stable nuclei'])
       ],
       quiz: [
-        Q('تتكون النواة من:', ['بروتونات ونيوترونات'])
+        Q('تتكون النواة من:', ['بروتونات ونيوترونات', 'بروتونات وإلكترونات', 'نيوترونات وإلكترونات', 'بروتونات ونيوترونات وإلكترونات'], 'النواة تتكون من النيوكليونات: البروتونات ذات الشحنة الموجبة والنيوترونات المتعادلة الشحنة، أما الإلكترونات فتوجد في القشرة الإلكترونية خارج النواة.')
       ]
     }),
     T({
@@ -64,7 +64,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         D('العدد الذري', 'عدد البروتونات في نواة الذرة ويرمز له بـ Z.')
       ],
       laws: [
-        L('Z = عدد البروتونات', 'العدد الذري', ' خاصية nucléus', [['Z', 'العدد الذري']])
+        L('Z = عدد البروتونات', 'العدد الذري', 'خاصية النواة', [['Z', 'العدد الذري']])
       ],
       reasons: [],
       blanks: [
@@ -78,7 +78,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c9t3-p2', 'Page 259', '9-3', 'If an element has atomic number 92, how many protons and electrons does a neutral atom have?', 'A neutral atom has equal numbers of protons and electrons. Therefore, 92 protons and 92 electrons.', ['Z = 92', 'Protons = 92', 'Electrons = 92 in neutral atom'])
       ],
       quiz: [
-        Q('العدد الذري هو:', ['عدد البروتونات في النواة'])
+        Q('العدد الذري هو:', ['عدد البروتونات في النواة', 'عدد النيوترونات في النواة', 'مجموع عدد البروتونات والنيوترونات في النواة', 'كتلة النواة معبّرة بوحدة الكتلة الذرية'], 'يعرّف العدد الذري Z هوية العنصر الكيميائي ويُكتب أسفل رمز العنصر، أما العدد الكتلي A فيعطى بالعلاقة A = Z + N حيث N عدد النيوترونات.')
       ]
     }),
     T({
@@ -103,7 +103,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c9t4-p2', 'Page 261', '9-4', 'If an element has 35 protons and 44 neutrons, and another isotope of the same element has 35 protons and 48 neutrons, compare their mass numbers.', 'First isotope: A = 35 + 44 = 79. Second isotope: A = 35 + 48 = 83. The second has a larger mass number.', ['A₁ = 79', 'A₂ = 83', 'ΔA = 4', 'Same Z, different N'])
       ],
       quiz: [
-        Q('النظائر لها:', ['نفس العدد الذري وأعداد كتلية مختلفة'])
+        Q('النظائر لها:', ['نفس العدد الذري وأعداد كتلية مختلفة', 'نفس العدد الكتلي وأعداد ذرية مختلفة', 'عدد ذري وعدد كتلي مختلفان معاً', 'نفس العدد الكتلي مع خواص كيميائية مختلفة'], 'التعريف ينص على أن النظائر نوى لعنصر واحد تتساوى في عدد البروتونات Z وتختلف في عدد النيوترونات N، فيختلف العدد الكتلي A = Z + N بينها مع بقاء خواصها الكيميائية متشابهة.')
       ]
     }),
     T({
@@ -116,7 +116,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         D('طاقة الربط النووية', 'الطاقة اللازمة لتفكيك النواة إلى مكوناتها الأساسية.')
       ],
       laws: [
-        L('E = Δm × c²', 'معادلة أينشتين', ' طاقة الربط النووية من نقص massa', [['E', 'طاقة الربط'], ['Δm', 'نقص massa'], ['c', 'سرعة الضوء']])
+        L('E = Δm × c²', 'معادلة أينشتين', 'طاقة الربط النووية محسوبة من نقص الكتلة', [['E', 'طاقة الربط'], ['Δm', 'نقص الكتلة'], ['c', 'سرعة الضوء']])
       ],
       reasons: [],
       blanks: [
@@ -130,7 +130,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c9t5-p2', 'Page 263', '9-5', 'If the total binding energy of a nucleus is 1800 MeV and it has 60 nucleons, what is the binding energy per nucleon?', 'E/A = 1800/60 = 30 MeV per nucleon', ['Total E = 1800 MeV', 'A = 60 nucleons', 'E/A = 1800/60 = 30 MeV/nucleon'])
       ],
       quiz: [
-        Q('طاقة الربط النووية هي:', ['الطاقة اللازمة لتفكيك النواة'])
+        Q('طاقة الربط النووية هي:', ['الطاقة اللازمة لتفكيك النواة إلى مكوناتها', 'الطاقة المنبعثة عن انشطار النواة', 'طاقة حركة النيوترونات داخل النواة', 'النقص الكتلي بين كتلة النواة ومجموع كتل مكوناتها'], 'الكتاب يعرّفها بأنها الطاقة المتحررة عند اتحاد البروتونات والنيوترونات لتكوين نواة معينة، أو الطاقة اللازمة لتفكيكها، وتُحسب من النقص الكتلي بعلاقة أينشتين E = Δm × c².')
       ]
     }),
     T({
@@ -143,7 +143,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         D('النشاط الإشعاعي', 'تحلل نووي تلقائي ينتج عنه انبعاث إشعاعات.')
       ],
       laws: [
-        L('Δx Δp ≥ h/4π', 'مبدأ عدم القدرة على التحديد', '原则 أساسي في ميكانيك الكم', [['Δx', 'عدم القدرة على التحديد في الموضع'], ['Δp', 'عدم القدرة على التحديد في الزخم'], ['h', 'ثابت بلانك'], ['π', 'باي']])
+        L('Δx Δp ≥ h/4π', 'مبدأ عدم القدرة على التحديد', 'مبدأ أساسي في ميكانيك الكم', [['Δx', 'عدم القدرة على التحديد في الموضع'], ['Δp', 'عدم القدرة على التحديد في الزخم'], ['h', 'ثابت بلانك'], ['π', 'باي']])
       ],
       reasons: [],
       blanks: [],
@@ -164,7 +164,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       ],
       defs: [],
       laws: [
-        L('a + X → Y + b', 'تفاعل نووي', ' تغير في خصائص النواة الهدف', [['a', 'جسيم ساقط'], ['X', 'نواة الهدف'], ['Y', 'نواة resultant'], ['b', 'جسيم resultant']])
+        L('a + X → Y + b', 'تفاعل نووي', ' تغير في خصائص النواة الهدف', [['a', 'الجسيم الساقط'], ['X', 'نواة الهدف'], ['Y', 'النواة الناتجة'], ['b', 'الجسيم الناتج']])
       ],
       reasons: [],
       blanks: [],

@@ -24,7 +24,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t1-p2', 'Page 199', '7-1', 'What is the scope of solid-state physics?', 'Solid-state physics studies the properties of solid materials and their atomic arrangement, including electrical, thermal, mechanical, and optical properties.', ['Electrical properties', 'Thermal properties', 'Mechanical properties', 'Optical properties'])
       ],
       quiz: [
-        Q('فيزياء الحالة الصلبة تدرس:', ['خصائص المواد الصلبة', 'ترتيب الذرات', 'كلا الخيارين'])
+        Q('فيزياء الحالة الصلبة تدرس:', ['خواص المواد الصلبة وترتيب ذراتها', 'ظواهر الانقسام النووي وتفاعل الجسيمات دون الذرية', 'قوانين جريان الموائع في الأنابيب والمضخات', 'حركة الأجرام السماوية في المجموعة الشمسية'], 'يهدف هذا الفرع إلى تفسير الخواص الكهربائية والحرارة للمادة الصلبة بالرجوع إلى ترتيب ذراتها وبنية حزم الطاقة فيها، ومنه نفهم لماذا تتصل حزمة التكافؤ بحزمة التوصيل في المعدن وتنفصلان في العازل.')
       ]
     }),
     T({
@@ -51,7 +51,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t2-p2', 'Page 201', '7-2', 'What is the relationship between the number of crystal networks and symmetry?', 'The 14 Bravais lattices represent all possible symmetry arrangements of points in 3D space, classified by their symmetry properties.', ['14 Bravais lattices', 'Cubic', 'Tetragonal', 'Hexagonal', 'Each has different symmetry'])
       ],
       quiz: [
-        Q('ما المقصود بالبنية البلورية؟', ['ترتيب منتظم للذرات', 'ترتيب عشوائي للذرات'])
+        Q('ما المقصود بالبنية البلورية؟', ['ترتيب منتظم للذرات', 'ترتيب عشوائي للذرات داخل المادة الصلبة', 'ترتيب خطي للذرات في اتجاه واحد فقط', 'تجمع ذرات في سلاسل منفصلة لا رابط بين ذراتها'], 'تترتب الذرات في البلورة على مواقع ثابتة يتكرر هذا الترتيب بدور منتظم في جميع الاتجاهات، فتتفاعل الذرات المتجاورة وتنقسم مستويات طاقتها المتقاربة إلى حزم، ولهذا تخضع البلورة لقانون براج في الحيود وتتميز بخواص متجانسة في جميع الاتجاهات.')
       ]
     }),
     T({
@@ -78,7 +78,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t3-p2', 'Page 203', '7-3', 'Given a cubic lattice with a = 0.5 nm, calculate the distance between (100) planes.', '1/d² = (h² + k² + l²)/a² = (1+0+0)/0.5² = 1/0.25 = 4, so d = 0.5 nm', ['h=1, k=0, l=0', 'a=0.5 nm', '1/d² = 4', 'd = 0.5 nm'])
       ],
       quiz: [
-        Q('كم عدد أنواع الشبكات البلورية؟', ['14', '7', '21', '28'])
+        Q('كم عدد أنواع الشبكات البلورية؟', ['14', '7', '21', '28'], 'تُصنَّف الشبكات البلورية إلى ١٤ نوعًا بحسب زوايا البلورة وأطوال أضلاعها: سبع شبكات ثلاثية الأبعاد (منها المكعبة وال سداسية والمثلثية) وسبع شبكات ثنائية الأبعاد.')
       ]
     }),
     T({
@@ -103,7 +103,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t4-p2', 'Page 205', '7-4', 'What happens to bond energy when the distance between ions doubles?', 'Since E ∝ 1/r, if r doubles, E halves. The bond energy decreases inversely with distance.', ['E ∝ 1/r', 'If r → 2r, then E → E/2'])
       ],
       quiz: [
-        Q('ما المقصود بالرابطة الأيونية؟', ['رابطة تنشأ بانتقال الإلكترونات'])
+        Q('ما المقصود بالرابطة الأيونية؟', ['رابطة تنشأ بانتقال الإلكترونات من ذرة إلى ذرة', 'رابطة تنشأ بتشارك زوج من الإلكترونات بين ذرتين متكافئتين', 'رابطة تنشأ بوجود بحر من الإلكترونات الحرة حول أيونات موجبة', 'رابطة تنشأ بقوى التجاذب الضعيفة بين جزيئات غير مشحونة'], 'حين تفقد الذرة إلكترونات تكافؤها تصير أيونًا موجبًا، وحين تكتسبها ذرة أخرى تصير أيونًا سالبًا، فيتجاذبان كهربائيًا؛ ويظهر ذلك في أشباه الموصلات المطعّمة حين تتبرع الذرة المانحة مثل الأنتيمون إلكترونها أو تقبله الذرة القابلة مثل البورون.')
       ]
     }),
     T({
@@ -130,7 +130,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t5-p2', 'Page 207', '7-5', 'How does binding energy change if the distance between atoms triples?', 'Since E ∝ 1/r, if r triples, E becomes one-third. The binding energy decreases by factor of 3.', ['E ∝ 1/r', 'If r → 3r, then E → E/3'])
       ],
       quiz: [
-        Q('ما المقصود بطاقة الرابطة؟', ['الطاقة اللازمة لكسر رابطة كيميائية'])
+        Q('ما المقصود بطاقة الرابطة؟', ['الطاقة اللازمة لكسر رابطة كيميائية بين ذرتين', 'الطاقة الحركية المتوسطة لذرات البلورة عند درجة حرارة الغرفة', 'طاقة دالة شغل سطح المعدن اللازمة لتحرير إلكترون منه', 'مقدار الفجوة الطاقية بين الحزمة التكافوية وحزمة التوصيل'], 'طاقة الرابطة هي الشغل الذي يلزم لكسر الرابطة بين ذرتين، وتتناسب طرديًا مع حاصل شحنتَي الأيونات وعكسيًا مع المسافة بينهما وفق E = kq₁q₂/r، لذلك تنقص بتباعد الذرات وتزداد بتقاربهن.')
       ]
     }),
     T({
@@ -157,7 +157,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t6-p2', 'Page 209', '7-6', 'If the band gap of a material is 3.5 eV, what type of material is it?', 'A material with E_g > 3 eV is typically an insulator, while 0 < E_g < 3 eV is a semiconductor. 3.5 eV indicates an insulator.', ['E_g = 3.5 eV', 'Material type: insulator'])
       ],
       quiz: [
-        Q('ما المقصود بالحزمة التكافؤية؟', ['أعلى حزمة طاقة ممتلئة بالإلكترونات'])
+        Q('ما المقصود بالحزمة التكافؤية؟', ['أعلى حزمة طاقة ممتلئة بالإلكترونات', 'الحزمة التي تنتقل منها الإلكترونات إلى حزمة التوصيل مباشرة دون طاقة', 'أدنى حزمة طاقة في الذرة المنفردة قبل تداخل الذرات معًا', 'الفاصل المحظور بين الحزمتين الذي لا يسمح بوجود مستويات طاقة فيه'], 'إلكترونات التكافؤ مرتبطة بالنواة ارتباطًا وثيقًا فلا تنتقل بين الذرات المتجاورة، فتشغل أعلى مستويات الطاقة المسموح بها في المادة وهي الحزمة التكافوية؛ فلا يعبر إلكترون منها إلى حزمة التوصيل إلا إذا كسب طاقة لا تقل عن مقدار ثغرة الطاقة المحظورة.')
       ]
     }),
     T({
@@ -182,7 +182,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t7-p2', 'Page 211', '7-7', 'Differentiate between intrinsic and extrinsic semiconductors.', 'Intrinsic: pure semiconductor. Extrinsic: doped semiconductor with added impurities to enhance conductivity.', ['Intrinsic: pure', 'Extrinsic: doped with impurities'])
       ],
       quiz: [
-        Q('ما هي أشباه الموصلات؟', ['مواد لها توصيلية بين الموصلات والعوائل'])
+        Q('ما هي أشباه الموصلات؟', ['مواد لها توصيلية كهربائية بين الموصلات والعوازل', 'مواد معدنية تسمح بانسياب التيار الكهربائي دون مقاومة تُذكر', 'مواد لا تسمح بانسياب التيار الكهربائي تحت أي ظرف من الظروف', 'مواد توصيليتها لا تتغير إلا بتغير التوتر الكهربائي المسلط عليها'], 'تقع المقاومة النوعية لأشباه الموصلات بين المقاومة النوعية للموصلات والعوازل، وتنقص بارتفاع حرارتها لأن الطاقة الحرارية تكسر أواصر تساهمية فتنشأ أزواج إلكترون–فجوة، وتجعل التطعيم بالشوائب توصيليتها أعلى بزيادة عدد حاملات الشحنة.')
       ]
     }),
     T({
@@ -205,7 +205,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t8-p2', 'Page 211', '7-8', 'Explain the forward bias condition for a p-n junction.', 'In forward bias, the p-side is connected to positive voltage and n-side to negative, reducing the barrier and allowing current flow.', ['P-side positive', 'N-side negative', 'Barrier reduced', 'Current flows'])
       ],
       quiz: [
-        Q('الثنائي pn ينتج من', ['تطعم بلورة Semi موصل نقية'])
+        Q('الثنائي pn ينتج من', ['تلاصق بلورتين من شبه الموصل من نوعي p و n', 'تطعيم بلورة شبه موصل نقية بشوائب خماسية التكافؤ وحدها', 'تطعيم بلورة شبه موصل نقية بشوائب ثلاثية التكافؤ وحدها', 'وصل معدنين مختلفين بموصل كهربائي بينهما'], 'تنتشر الإلكترونات من منطقة n إلى منطقة p والفجوات الموجبة من p إلى n، فيتكون بين المنطقتين ملتقى تفصلهما منطقة رقيقة خالية من حاملات الشحنة اسمها منطقة الاستنزاف، ويتولد فيها حاجز جهد يوقف الانتشار عند حالة التوازن.')
       ]
     }),
     T({
@@ -247,7 +247,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c7t10-p2', 'Page 217', '7-10', 'Explain the difference between NPN and PNP transistors.', 'NPN has electron majority carriers; PNP has hole majority carriers. Current directions are opposite in the two types.', ['NPN: electrons', 'PNP: holes', 'Opposite current directions'])
       ],
       quiz: [
-        Q('الترانزستور consists of', ['ثلاث مناطق Semi موصل'])
+        Q('الترانزستور يتكوّن من', ['ثلاث مناطق شبه موصلة: الباعث والقاعدة والجامع', 'منطقتين شبه موصلتين تفصلهما طبقة عازلة رقيقة', 'أربع مناطق شبه موصلية متتابعة يفصل بينها ثلاثة ملتقيات', 'منطقة واحدة سميكة من شبه الموصل دون تقسيم إلى مناطق'], 'يفصل بين المناطق الثلاث ملتقيان، وتُطعَّم منطقة الباعث بنسبة عالية من الشوائب والقاعدة بنسبة قليلة والجامع بنسبة متوسطة؛ للباعث أن يجهّز حاملات الشحنة فيُحيَّز انحيازًا أماميًا، ولجامع أن يجذبها فيُحيَّز انحيازًا عكسيًا، فيكفي تيار صغير في القاعدة لتسيير تيار كبير في الجامع وهي وظيفة التضخيم.')
       ]
     })
   ];

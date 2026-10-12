@@ -17,7 +17,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('الفيزياء moderna تشمل:', ['ميكانيك الكم والنظرية النسبية', 'الميكانيك الكلاسيكي فقط', 'الديناميكا الحرارية فقط', 'الكهرومغناطيسية فقط'], 'أركان الفيزياء moderna: Theory الكم والنظرية النسبية.'),
+        Q('الفيزياء الحديثة تشمل:', ['ميكانيك الكم والنظرية النسبية', 'الميكانيك الكلاسيكي فقط', 'الديناميكا الحرارية فقط', 'الكهرومغناطيسية فقط'], 'بدأت الفيزياء الحديثة من ميكانيك الكم والنظرية النسبية، فهما اللذان فسّرا ظواهر كإشعاع الجسم الأسود والظاهرة الكهروضوئية التي لم تخضع لقوانين الفيزياء الكلاسيكية.'),
         Q('فرضية بلانك تنص على أن الطاقة:', ['مكماة (توجد على شكل حزم منفصلة)', 'مستمرة', 'تتناسب مع التردد فقط', 'تتناسب مع الطول الموجي فقط'], 'الطاقة تُبعث/تُمتص على شكل كمات E = hf.')
       ]
     }),
@@ -42,7 +42,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Modern physics includes:', ['Quantum mechanics and relativity', 'Only classical mechanics', 'Only thermodynamics', 'Only electromagnetism'], 'Axes of modern physics: Quantum mechanics and relativity.')
+        Q('Modern physics includes:', ['Quantum mechanics and relativity', 'Only classical mechanics', 'Only thermodynamics', 'Only electromagnetism'], 'أركان الفيزياء الحديثة هما ميكانيك الكم والنظرية النسبية.')
       ]
     }),
     T({
@@ -66,7 +66,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('The phenomenon that proves the particle nature of light:', ['Photoelectric effect', 'Light interference', 'Light diffraction', 'Light polarization'], 'Einstein explained it with photon hypothesis in 1905.')
+        Q('The phenomenon that proves the particle nature of light:', ['Photoelectric effect', 'Light interference', 'Light diffraction', 'Light polarization'], 'في هذه الظاهرة تُمتص طاقة الضوء على شكل فوتونات تطلق الإلكترونات لحظيًا، ففسّرها اينشتين سنة ١٩٠٥ بفرضية الفوتون، وهي الدليل القاطع على السلوك الجسيمى للضوء.')
       ]
     }),
     T({
@@ -88,7 +88,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Einstein\'s equation for the photoelectric effect is:', ['E_k = hf - W', 'E_k = hf + W', 'E_k = W - hf', 'E_k = hf × W'], 'Mathematical expression of the photoelectric effect.')
+        Q('Einstein\'s equation for the photoelectric effect is:', ['E_k = hf - W', 'E_k = hf + W', 'E_k = W - hf', 'E_k = hf × W'], 'الطاقة الحركية العظمى للإلكترون المنبعث تساوي طاقة الفوتون الساقط ناقص دالة شغل المعدن، فتنقص W من مقدار hf.')
       ]
     }),
     T({
@@ -112,8 +112,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Duality means particles show:', ['Wave properties in some experiments and particle properties in other experiments', 'Only wave properties', 'Only particle properties', 'No specific properties']),
-        Q('Who provided the probabilistic interpretation of the de Broglie wave?', ['Max Born'])
+        Q('Duality means particles show:', ['Wave properties in some experiments and particle properties in other experiments', 'Only wave properties', 'Only particle properties', 'No specific properties'], 'السلوك الثنائي يعني أن الجسيم يظهر الخواص الموجية في تجربة والخواص الجسيمية في أخرى، فلا تظهر الصفتان معًا في التجربة نفسها.'),
+        Q('Who provided the probabilistic interpretation of the de Broglie wave?', ['Max Born', 'Louis de Broglie', 'Erwin Schrödinger', 'Niels Bohr'], 'فسر بورن عام ١٩٢٧ دالة الموجة تفسيرًا احتماليًا: مربع مقدارها |Ψ|² يعطي كثافة احتمال إيجاد الجسيم، وهو ما يميز الميكانيك الكم عن الكلاسيكي الذي يؤكد النتائج بدل أن يعطي احتمالاتها.')
       ]
     }),
     T({
@@ -140,8 +140,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         B('p12c6t6-p2', 'Page 190', '6-6', 'Explain how Davisson and Germer confirmed de Broglie\'s hypothesis experimentally in 1927.', 'Through electron diffraction experiment on a nickel crystal', [['Confirmed by', 'electron diffraction on nickel crystal in 1927']])
       ],
       quiz: [
-        Q('de Broglie wavelength for a particle is given by:', ['λ = h/p', 'λ = hp', 'λ = h/m', 'λ = mv/h']),
-        Q('Davisson and Germer confirmed de Broglie\'s hypothesis experimentally in:', ['1927'])
+        Q('de Broglie wavelength for a particle is given by:', ['λ = h/p', 'λ = hp', 'λ = h/m', 'λ = mv/h'], 'بحسب فرضية دي برولي يرافق الجسيم ذا الزخم p موجة طولها الموجي ثابت بلانك مقسومًا على زخمه، أي أنه يتناسب عكسيًا مع الزخم.'),
+        Q('Davisson and Germer confirmed de Broglie\'s hypothesis experimentally in:', ['1927', '1924', '1905', '1923'], 'أجرى دافيسون وغيرمر سنة ١٩٢٧ تجربة حيود إلكترونات على بلورة النيكل، فلاحظا نمط تداخل يشبه نمط حيود الضوء، فكان ذلك برهانًا تجريبيًا على فرضية دي برولي في الموجات المادية.')
       ]
     }),
     T({
@@ -159,8 +159,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Quantum mechanics describes:', 'The behavior of matter and energy at the atomic and subatomic level'),
-        Q('In quantum mechanics, the outcome of a measurement cannot be predicted with absolute certainty.', true)
+        Q('Quantum mechanics describes:', ['The behavior of matter and energy at the atomic and subatomic level', 'The motion of macroscopic bodies under the action of forces', 'The transfer of heat between bodies in thermal equilibrium', 'The attraction and repulsion between magnetic poles'], 'الميكانيك الكم هو الفرع المخصص لدراسة حركة الأشياء التي تأتي بحزم صغيرة جدًّا (كمات)، ويجيب بالاحتمالات لا بالتأكيد كما يفعل الميكانيك الكلاسيكي؛ ولذلك يُعطى نصف قطر بور بوصفه القيمة الأكثر احتمالًا لا مدارًا ثابتًا.'),
+        TF('In quantum mechanics, the outcome of a measurement cannot be predicted with absolute certainty.', true, 'لأن الميكانيك الكم يصف النتيجة واحتمالها، فلا يحدد موضع الجسيم بدقة مطلقة بل يعطي احتمال وجوده في المكان والزمان المعينين.')
       ]
     }),
     T({
@@ -178,8 +178,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('The wave function Ψ(r,t) describes:', 'The quantum state of a physical system'),
-        Q('Square of the wave function magnitude |Ψ|² gives:', 'Probability density for finding the particle.')
+        Q('The wave function Ψ(r,t) describes:', ['The quantum state of a physical system', 'The temperature of a body per unit volume', 'The gravitational field between two masses', 'The resistance of a conductor to an electric current'], 'دالة الموجة هي الكمية التي تغيراتها تشكل الموجات المادية المرافقة للجسيم، فقيمتها في نقطة وزمن معينين تحدد احتمالية إيجاد الجسيم فيهما.'),
+        Q('Square of the wave function magnitude |Ψ|² gives:', ['Probability density for finding the particle', 'The total energy carried by the particle', 'The work function of the illuminated metal', 'The wavelength of the matter wave accompanying the particle'], 'يرتبط مربع مقدار دالة الموجة |Ψ|² بكثافة احتمال إيجاد الجسيم في وحدة الحجم عند نقطة وزمن معينين، وقد قدّم هذا التفسير بورن سنة ١٩٢٧.')
       ]
     }),
     T({
@@ -203,8 +203,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Heisenberg uncertainty principle was proposed by:', ['Heisenberg']),
-        Q('It is impossible to determine position and momentum with arbitrary precision at the same time.', true)
+        Q('Heisenberg uncertainty principle was proposed by:', ['Heisenberg', 'Max Planck', 'Albert Einstein', 'Louis de Broglie'], 'قدّم هايزنبرك هذا المبدأ سنة ١٩٢٧، ونصّه على استحالة قياس موضع الجسيم وزخمه الخطي معًا وبدقة مطلقة: Δx × Δp ≥ h/4π، وهذه حدود تفرضها الطبيعة نفسها لا ضعف أجهزة القياس.'),
+        TF('It is impossible to determine position and momentum with arbitrary precision at the same time.', true, 'هذا نص مبدأ اللادقة: كلما صغُرت اللادقة Δx في الموضع صارت اللادقة Δp في الزخم أكبر، فحاصل ضربهما لا ينزل عن h/4π.')
       ]
     }),
     T({
@@ -229,8 +229,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Special relativity is based on:', 'Two fundamental principles'),
-        Q('Speed of light in a vacuum:', 'Is constant and does not depend on the motion of the source or the observer')
+        Q('Special relativity is based on:', ['Two principles: the laws of physics are the same in all inertial frames, and the speed of light in a vacuum is constant', 'The ether theory of light', 'Absolute time in all reference frames', 'The classical laws of mechanics only'], 'تعتمد النظرية النسبية الخاصة على فرضيتين: أن قوانين الفيزياء واحدة في جميع أطر الإسناد القصورية، وأن سرعة الضوء في الفراغ ثابتة في جميع هذه الأطر، وقد دعمهما تجربة مايكلسون ومورلي سنة ١٨٨٧.'),
+        Q('Speed of light in a vacuum:', ['Is constant and does not depend on the motion of the source or the observer', 'Increases when the source moves toward the observer', 'Depends on the refractive index of the medium it passes through', 'Is equal to the velocity of the source of light'], 'هذه فرضية اينشتين الثانية في النسبية الخاصة: c = 3×10⁸ m/s في جميع أطر الإسناد القصورية، وقد أثبت ثباتها تجربة مايكلسون ومورلي سنة ١٨٨٧ فأسقطت نظرية الأثير.')
       ]
     }),
     T({
@@ -256,8 +256,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Lorentz factor γ = 1/√(1−v²/c²) determines:', 'The magnitude of relativistic effects'),
-        Q('When velocities are low (v << c), Lorentz transformations approach:', 'Galilean transformations')
+        Q('Lorentz factor γ = 1/√(1−v²/c²) determines:', ['The magnitude of relativistic effects between two inertial frames', 'The speed of light in a vacuum', 'The de Broglie wavelength accompanying a moving particle', 'The work function of the metal surface'], 'معامل لورنتز هو العامل التصحيحي الذي اعتمده لورنتز لربط إحداثيات إطارَي إسناد متحركين؛ وقيمته تقارب الواحد عند السرعات القليلة، ثم تمضي في الزيادة لتصبح ما لا نهاية عند الاقتراب من سرعة الضوء، بمقدار تأثيرات النسبية.'),
+        Q('When velocities are low (v << c), Lorentz transformations approach:', ['Galilean transformations', 'Lorentz transformations remain exactly the same', 'The equations of the photoelectric effect', 'The laws of blackbody radiation'], 'لأن معامل لورنتز يقارب الواحد عند السرعات الصغيرة جدًّا، فتختفي الحدود النسبية في المعادلات وتتحول إلى تحويلات غاليلي.')
       ]
     }),
     T({
@@ -282,8 +282,8 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       examples: [],
       problems: [],
       quiz: [
-        Q('Einstein\'s equation is:', ['E = mc²']),
-        Q('Mass-energy equivalence explains why:', 'The energy necessary to accelerate an object increases without bound as its speed approaches the speed of light.')
+        Q('Einstein\'s equation is:', ['E = mc²', 'E = mc', 'E = m/c²', 'E = m²c²'], 'ينص تكافؤ الكتلة والطاقة على أن الطاقة الناتجة من كتلة معينة تساوي حاصل ضرب هذه الكتلة في مربع سرعة الضوء، وقد فُسّرت بها طاقة النجوم وعمرها الطويل، وهي مبدأ عمل المفاعلات النووية.'),
+        Q('Mass-energy equivalence explains why:', ['The energy necessary to accelerate an object increases without bound as its speed approaches the speed of light', 'The length of a moving object increases with its speed', 'The mass of a heated object decreases steadily', 'The clock of a moving observer runs faster than a stationary one'], 'لأن كتلة الجسم المتحرك تزداد بزيادة سرعته وفق m = γm₀، فكلما اقترب الجسم من سرعة الضوء احتاج طاقة أكبر إلى ما لا نهاية، من غير أن يبلغها أبدًا.')
       ]
     })
   ];

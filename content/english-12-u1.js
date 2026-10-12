@@ -15,11 +15,11 @@
       defs: [D('dizzy', 'feeling that everything is spinning — دائخ'), D('sprain', 'to injure a joint (wrist/ankle) by twisting it suddenly — يلوي/يلتوي'), D('fracture', 'to break a bone — يكسر عظمًا'), D('swollen', 'bigger than normal because of injury — متورم'), D('painkiller', 'medicine that reduces pain — مسكّن'), D('sneeze', 'to blow air out of your nose suddenly — يعطس')],
       blanks: [F('I ____ my ankle playing football.', 'twisted'), F('I’ve got a sore ____. It hurts so much that I can’t swallow.', 'throat'), F('I feel ____. I need to lie down.', 'dizzy'), F('I’ve got a terrible headache. Can I have some ____?', 'painkillers')],
       quiz: [
-        Q('“I can’t stop sneezing.” The person probably has:', ['a bad cold', 'a broken leg', 'a sprained wrist', 'a burnt finger'], ''),
-        Q('“It hurts so much that I can’t swallow.” — the problem is a sore:', ['throat', 'knee', 'ankle', 'shoulder'], ''),
-        Q('Choose the correct word: I ____ my wrist lifting weights in the gym.', ['sprained', 'burnt', 'bled', 'sneezed'], ''),
-        Q('Which is the most serious?', ['a fractured leg', 'dry lips', 'a cold', 'a headache'], ''),
-        TF('“Swollen” means smaller than normal.', false, 'Swollen = bigger than normal (متورم).')] }),
+        Q('“I can’t stop sneezing.” The person probably has:', ['a bad cold', 'a broken leg', 'a sprained wrist', 'a burnt finger'], 'العطاس المتواصل من أعراض الزكام البارد (a bad cold) كما في جدول المحادثات، بينما الكسر والالتواء وحرق الإصبع لا تُسبِّب عطاسًا.'),
+        Q('“It hurts so much that I can’t swallow.” — the problem is a sore:', ['throat', 'knee', 'ankle', 'shoulder'], 'البلع يمرّ عبر الحلق، لذلك وجع الحلق (a sore throat) هو ما يمنع البلع ويجعل المضغ مؤلمًا، وهي العبارة نفسها في المحادثة عن التهاب الحلق.'),
+        Q('Choose the correct word: I ____ my wrist lifting weights in the gym.', ['sprained', 'burnt', 'bled', 'sneezed'], 'الالتواء (to sprain) هو إصابة المفصل بالالتواء، وقد ورد في الجدول: I sprained it lifting weights in the gym، أما burn وbleed وsneeze فلا تُستعمل مع my wrist في هذا السياق.'),
+        Q('Which is the most serious?', ['a fractured leg', 'dry lips', 'a cold', 'a headache'], 'الكسر (fracture) إصابة عظمية تحتاج أشعة ثم جبسًا ستة أسابيع حسب حوار الطبيب، أما الزكام والصداع وجفاف الشفاه فمشاكل بسيطة تزول من تلقاء نفسها.'),
+        TF('“Swollen” means smaller than normal.', false, 'كلمة swollen تعني أكبر من الحجم الطبيعي (متورّم) بسبب الإصابة، ومعنى «أصغر من الطبيعي» يناقضها.')] }),
 
     T({ id: 'e12u1t2', sec: 'Lesson 2', page: '7, 88', title: 'I was ice skating, and I fell over', en: 'Past simple vs past continuous',
       why: 'أهم قاعدة في الوحدة: حدث طويل في الماضي (was/were + ing) قطعه حدث قصير (past simple).',
@@ -35,11 +35,11 @@
       blanks: [F('I ____ (cycle) to school when a car nearly ____ (hit) me.', ['was cycling', 'hit']), F('Samira got hurt because she ____ (not wear) a seat belt.', ['wasn’t wearing', 'was not wearing']), F('My parents ____ (sit) next to me when I woke up.', 'were sitting')],
       problems: [X('e12u1p1', 120, 'Join with when/while: 1) I was playing football. I twisted my ankle. 2) My mother was cooking. My father was reading.', '1) I was playing football when I twisted my ankle. 2) While my mother was cooking, my father was reading.', ['Long + short → past continuous + when + past simple.', 'Two long actions together → while + past continuous, past continuous.'])],
       quiz: [
-        Q('I ____ ice skating when I fell over.', ['was', 'were', 'am', 'did'], ''),
-        Q('While he ____ to me, I was thinking.', ['was talking', 'talked', 'talks', 'has talked'], ''),
-        Q('They ____ dinner when the lights went out.', ['were having', 'had', 'was having', 'have'], ''),
-        Q('Which sentence is correct?', ['She was reading when the phone rang.', 'She read when the phone was ringing.', 'She was read when the phone rang.', 'She reading when the phone rang.'], ''),
-        TF('We use “while” with the past continuous for actions happening at the same time.', true, '')] }),
+        Q('I ____ ice skating when I fell over.', ['was', 'were', 'am', 'did'], 'مع الضمير I في الماضي يكون الفعل المساعد was؛ وwas ice skating حدث مستمر في الماضي قطعه حدث قصير في الماضي البسيط هو fell over.'),
+        Q('While he ____ to me, I was thinking.', ['was talking', 'talked', 'talks', 'has talked'], 'while تربط في الكتاب حدثين مستمرين في الماضي في اللحظة نفسها، لذلك يأخذ كل منهما was/were + verb-ing لا الماضي البسيط.'),
+        Q('They ____ dinner when the lights went out.', ['were having', 'had', 'was having', 'have'], 'الضمير they يستلزم were لا was، والحدث المستمر يُبنى بـ have + ing ثم يقطعه حدث قصير في الماضي البسيط هو went out.'),
+        Q('Which sentence is correct?', ['She was reading when the phone rang.', 'She read when the phone was ringing.', 'She was read when the phone rang.', 'She reading when the phone rang.'], 'المواضع النحوية الصحيحة هي was + المصدر (was reading) للحدث المستمر مع when + الماضي البسيط (the phone rang)، أما was read وreading بلا فعل مساعد فغير مقبولين.'),
+        TF('We use “while” with the past continuous for actions happening at the same time.', true, 'while تُستعمل لربط حدثين مستمرين في الماضي معًا، مثل جملة النص: While my father was talking to me, I was thinking.')] }),
 
     T({ id: 'e12u1t3', sec: 'Lesson 3', page: '8', title: 'My friends were all watching, so I didn’t want to give up', en: 'Reading: Ammar’s blog',
       why: 'قطعة القراءة الأولى — قصة عمّار وتقنية الهيكل الخارجي (exoskeleton). أسئلة الفهم تأتي منها مباشرة.',
@@ -55,11 +55,11 @@
       reasons: [R('Why did Ammar jump although he was scared?', 'Because his friends were all watching, so he didn’t want to give up.'), R('Why did Ammar hurt his back?', 'Because the river wasn’t deep enough and he hit the bottom when he dived.'), R('Why was Ammar upset during physical therapy?', 'Because he wasn’t making enough progress.')],
       blanks: [F('Ammar was ____ years old when the accident happened.', ['16', 'sixteen']), F('The doctors said he ____ not walk again.', 'might'), F('After nearly ____ months, he was walking again.', ['six', '6'])],
       quiz: [
-        Q('The best title for the blog is:', ['How health technology changed my life', 'Be very careful when swimming in rivers', 'How I made it into the basketball team', 'New technologies making a difference in medicine'], ''),
-        Q('What is an exoskeleton?', ['a machine you wear that helps you stand and walk', 'a type of wheelchair', 'a medicine for back pain', 'a basketball training device'], ''),
-        Q('Who was sitting next to Ammar when he woke up?', ['his parents', 'his friends', 'his coach', 'a doctor'], ''),
-        Q('What do the doctors believe about exoskeletons?', ['They will replace wheelchairs completely one day.', 'They are dangerous.', 'They are too expensive.', 'They only help athletes.'], ''),
-        TF('Ammar is now back to playing basketball.', true, '')] }),
+        Q('The best title for the blog is:', ['How health technology changed my life', 'Be very careful when swimming in rivers', 'How I made it into the basketball team', 'New technologies making a difference in medicine'], 'المدونة كلها عن أثر تقنية طبية بعينها (الهيكل الخارجي) في حياة الكاتب، أما العنوان عن السباحة أو كرة السلة أو الطب عمومًا فلا يغطي محتواها.'),
+        Q('What is an exoskeleton?', ['a machine you wear that helps you stand and walk', 'a type of wheelchair', 'a medicine for back pain', 'a basketball training device'], 'يعرّف الكتاب الهيكل الخارجي بأنه آلة تُلبس على الجسم فتساعد على الوقوف والمشي، وهذا تعريفه لا تعريف الكرسي المتحرك أو الدواء.'),
+        Q('Who was sitting next to Ammar when he woke up?', ['his parents', 'his friends', 'his coach', 'a doctor'], 'النص ينص على ذلك حرفيًا: I woke up in hospital. My parents were sitting next to me.'),
+        Q('What do the doctors believe about exoskeletons?', ['They will replace wheelchairs completely one day.', 'They are dangerous.', 'They are too expensive.', 'They only help athletes.'], 'خاتمة المدونة تذكر توقع الأطباء مباشرة: They believe one day exoskeletons will replace wheelchairs completely.'),
+        TF('Ammar is now back to playing basketball.', true, 'النص ينتهي بعبارة: And yes, I’m back to playing basketball.')] }),
 
     T({ id: 'e12u1t4', sec: 'Lesson 4', page: '9', title: 'Most smokers take it up as teenagers', en: 'Phrasal verbs; smoking facts',
       why: 'الأفعال المركبة (phrasal verbs) تغيّر المعنى كليًا: give = يعطي لكن give up = يترك.',
@@ -72,11 +72,11 @@
       defs: [D('take up', 'start a habit or hobby — يبدأ عادة'), D('give up', 'stop doing something — يترك/يقلع عن'), D('pick up', 'collect someone by car — يقلّ أحدًا'), D('go off', 'explode — ينفجر'), D('vaping', 'using e-cigarettes — التدخين الإلكتروني')],
       blanks: [F('He gave ____ smoking when he got ill.', 'up'), F('More than ____ of smokers take up the habit when they are teenagers.', ['80%', '80']), F('I’ll pick you ____ at half past seven.', 'up')],
       quiz: [
-        Q('“take up a habit” means:', ['start it', 'stop it', 'hide it', 'enjoy it'], ''),
-        Q('You should really ____ vaping. It’s a terrible habit!', ['give up', 'take up', 'pick up', 'set off'], ''),
-        Q('People who smoke a packet a day die on average ____ years earlier.', ['7', '9', '25', '3'], ''),
-        Q('Which phrasal verb has a very different meaning from its main verb?', ['give up', 'pick up', 'stand up', 'sit down'], ''),
-        TF('It is legal in the UK to sell e-cigarettes to 15-year-olds.', false, 'Illegal under 18.')] }),
+        Q('“take up a habit” means:', ['start it', 'stop it', 'hide it', 'enjoy it'], 'take up تعني بدايةَ عادة أو هواية، ودليل الكتاب جملة: Most smokers take up the habit when they are young.'),
+        Q('You should really ____ vaping. It’s a terrible habit!', ['give up', 'take up', 'pick up', 'set off'], 'give up تعني التوقف عن شيء والامتناع عنه، وهي نقيض take up التي تعني البدء به، ودليل الكتاب: He gave up smoking when he got ill.'),
+        Q('People who smoke a packet a day die on average ____ years earlier.', ['7', '9', '25', '3'], 'الرقم ٧ هو المتوسّط المذكور في مربع أرقام نص التدخين، أما ٩ و٢٥ و٣٪ فعناصر أخرى في المربع نفسه: واحد من تسعة، والفئة العمرية ٢٥–٣٤، ونسبة المدخنين المراهقين.'),
+        Q('Which phrasal verb has a very different meaning from its main verb?', ['give up', 'pick up', 'stand up', 'sit down'], 'الكتاب يذكر صراحةً أن pick up قريب في المعنى من pick، أما give up (يترك) فيبتعد كليًا عن give (يعطي).'),
+        TF('It is legal in the UK to sell e-cigarettes to 15-year-olds.', false, 'القانون يمنع بيع السجائر أو السجائر الإلكترونية لمن هم دون الثامنة عشرة، والخمس عشرة تقع تحت هذا الحد.')] }),
 
     T({ id: 'e12u1t5', sec: 'Lesson 5', page: '10', title: 'Take some exercise every day', en: 'Health tips (imperatives)',
       why: 'نصائح صحية بصيغة الأمر (Imperative) — مفيدة لسؤال الإنشاء «Write health tips».',
@@ -86,10 +86,10 @@
       defs: [D('balanced diet', 'healthy mix of different foods — نظام غذائي متوازن'), D('check-up', 'a regular medical examination — فحص دوري'), D('vaccination', 'تلقيح'), D('excessive', 'too much — مفرط')],
       blanks: [F('An average of ____ hours a night is about right.', ['eight', '8']), F('Drink at least a litre and a ____ of water every day.', 'half'), F('____ smoke. If you do, ask a doctor for help with giving it up.', 'Don’t')],
       quiz: [
-        Q('“It’s the most important meal of the day.” matches:', ['Never miss breakfast', 'Get enough sleep', 'Don’t smoke', 'Drink plenty of water'], ''),
-        Q('Get your eyes tested:', ['once a year', 'three times a week', 'every day', 'every month'], ''),
-        Q('According to the tips, tea is better for your:', ['heart', 'eyes', 'teeth', 'skin'], ''),
-        TF('Tea, coffee and soft drinks count as water.', false, 'They are NOT water.')] }),
+        Q('“It’s the most important meal of the day.” matches:', ['Never miss breakfast', 'Get enough sleep', 'Don’t smoke', 'Drink plenty of water'], 'هذه العبارة تصف وجبة الإفطار لأنها أكثر وجبات اليوم أهمية، والنصيحة المقابلة لها هي تحذير الطالب من تفويتها.'),
+        Q('Get your eyes tested:', ['once a year', 'three times a week', 'every day', 'every month'], 'نصيحة العناية بالعينين تنص على فحصهما مرة واحدة في السنة، وهي الفقرة التاسعة من قائمة النصائح.'),
+        Q('According to the tips, tea is better for your:', ['heart', 'eyes', 'teeth', 'skin'], 'النص يقول إن الشاي أفضل للقلب ويمكن حتى خفض ضغط الدم، وهذه فائدة مذكورة في نصيحة عدم الإفراط في القهوة.'),
+        TF('Tea, coffee and soft drinks count as water.', false, 'تنص النصيحة الخامسة صراحةً على أن الشاي والقهوة والمشروبات الغازية ليست ماءً، فالماء وحده هو ما يُحتسب.')] }),
 
     T({ id: 'e12u1t6', sec: 'Lesson 6', page: '11, 88', title: 'Life used to be different', en: 'used to / didn’t use to',
       why: 'used to للعادات الماضية التي انتهت — يتكرر في الامتحان مع النفي والسؤال.',
@@ -102,12 +102,12 @@
         TH('Talk about how life has changed: schools.', 'Schools used to be small, and students didn’t use to have computers. Now most schools have computer labs.')],
       defs: [D('used to', 'كان يفعل (عادة في الماضي انتهت)'), D('poverty', 'فقر'), D('freedom', 'حرية')],
       blanks: [F('Students didn’t ____ to have desks.', 'use'), F('Films ____ to be black and white.', 'used'), F('____ you use to live in Basra?', 'Did')],
-      problems: [X('e12u1p2', 90, 'Rewrite using used to / didn’t use to: 1) My grandfather walked to school every day, but he doesn’t now. 2) There weren’t many cars in the past.', '1) My grandfather used to walk to school every day. 2) There didn’t use to be many cars.', [])],
+      problems: [X('e12u1p2', 90, 'Rewrite using used to / didn’t use to: 1) My grandfather walked to school every day, but he doesn’t now. 2) There weren’t many cars in the past.', '1) My grandfather used to walk to school every day. 2) There didn’t use to be many cars.', ['Sentence 1: the action was true in the past and is not true now → subject + used to + base verb (used to walk).', 'Sentence 2: something did not exist in the past → there + didn’t use to + be + noun (there didn’t use to be many cars).', 'Check both against the book rule: used to + verb is for things which were true in the past but are not true now, and after didn’t we write use with no d.'])],
       quiz: [
-        Q('People ____ travel by donkey cart.', ['used to', 'use to', 'were used to', 'using to'], ''),
-        Q('She ____ like this band, but now it’s her favourite.', ['didn’t use to', 'didn’t used to', 'not used to', 'wasn’t use to'], ''),
-        Q('____ you use to live near the river?', ['Did', 'Were', 'Do', 'Used'], ''),
-        TF('“used to” describes something that is still true now.', false, 'True in the past but not now.')] }),
+        Q('People ____ travel by donkey cart.', ['used to', 'use to', 'were used to', 'using to'], 'used to + verb تُستعمل لما كان صحيحًا في الماضي وليس صحيحًا الآن، وهي تصحب الفعل المصدر مباشرة بلا to إضافية بعد use.'),
+        Q('She ____ like this band, but now it’s her favourite.', ['didn’t use to', 'didn’t used to', 'not used to', 'wasn’t use to'], 'صيغة النفي في الكتاب هي didn’t use to + verb، وبعد didn’t تُكتب use بلا حرف d.'),
+        Q('____ you use to live near the river?', ['Did', 'Were', 'Do', 'Used'], 'في السؤال تسبق used to فعلًا مساعدًا في الماضي هو Did، فتصير: Did you use to…؟ والجواب Yes, I did.'),
+        TF('“used to” describes something that is still true now.', false, 'used to تعني حالة كانت واقعة في الماضي وانتهت الآن، مثل جملة الكتاب: Films used to be black and white.')] }),
 
     T({ id: 'e12u1t7', sec: 'Lesson 7', page: '12', title: 'Let’s start with diet', en: 'Linking words and phrases',
       why: 'أدوات الربط ترفع درجة الإنشاء: In my opinion, Firstly, Furthermore, As a result...',
@@ -120,10 +120,10 @@
       defs: [D('diabetic', 'person with diabetes — مصاب بالسكري'), D('overweight', 'too heavy — وزن زائد'), D('responsibility', 'مسؤولية')],
       blanks: [F('Smoking damages the lungs and heart, and smokers ____ need more medical attention than non-smokers.', 'generally'), F('60% of British people are overweight and, ____, at risk of becoming diabetic.', 'therefore')],
       quiz: [
-        Q('Which phrase gives an opinion?', ['Personally, I think …', 'Consequently, …', 'Firstly, …', 'Because of …'], ''),
-        Q('Which phrase talks about a result?', ['As a result, …', 'In my opinion, …', 'Let’s start with …', 'One reason is that …'], ''),
-        Q('Which phrase is used for the last point?', ['Last but not least, …', 'In the first place, …', 'Secondly, …', 'Generally speaking, …'], ''),
-        TF('“Furthermore” is used to add another point.', true, '')] }),
+        Q('Which phrase gives an opinion?', ['Personally, I think …', 'Consequently, …', 'Firstly, …', 'Because of …'], 'الكتاب يضع «Personally, I think …» ضمن خانة Giving opinions، بينما البقية أدوات ترتيب أو سبب أو نتيجة.'),
+        Q('Which phrase talks about a result?', ['As a result, …', 'In my opinion, …', 'Let’s start with …', 'One reason is that …'], 'As a result تُدرَج في خانة «الحديث عن النتائج» (Talking about results)، أي تُستعمل لربط السبب بنتيجته.'),
+        Q('Which phrase is used for the last point?', ['Last but not least, …', 'In the first place, …', 'Secondly, …', 'Generally speaking, …'], 'أدوات الترتيب تنتهي بـ Finally أو Lastly أو Last but not least، أما In the first place وSecondly فتدخلان في البداية وعند النقطة الثانية على التوالي.'),
+        TF('“Furthermore” is used to add another point.', true, 'Furthermore مدرجة في قائمة «Listing points»، أي تضيف نقطة جديدة إلى ما ذُكر قبلها.')] }),
 
     T({ id: 'e12u1t8', sec: 'Lesson 8', page: '13', title: 'Using your phone behind the wheel', en: 'Two essays: for and against',
       why: 'نموذج مقال رأي (for/against) — تعلّم كيف يبني الكاتب حجته ويستخدم أدوات الربط.',
@@ -137,10 +137,10 @@
       reasons: [R('Why does writer A think map apps reduce accidents?', 'Because they help people drive in areas they don’t know well, so they are less likely to cause an accident as a result of not knowing where they are going.'), R('Why does writer B think hands-free phones are not a solution?', 'Because many accidents are caused by lack of attention, and even if you’re not holding your phone, you’re still distracted.')],
       blanks: [F('Those who are caught texting while driving should be ____ banned from driving.', 'permanently'), F('Even navigation ____ are risky.', 'apps')],
       quiz: [
-        Q('Which statement about the essays is correct?', ['They both think talking on the phone can be distracting.', 'They agree on using hands-free phones.', 'They both like navigation apps.', 'They agree on the penalty.'], ''),
-        Q('Writer A’s penalty for texting while driving:', ['losing their licence', 'a small fine', 'nothing', 'prison'], ''),
-        Q('“prone to” means:', ['likely to', 'against', 'far from', 'afraid of'], ''),
-        TF('Writer B is in favour of hands-free phones.', false, '')] }),
+        Q('Which statement about the essays is correct?', ['They both think talking on the phone can be distracting.', 'They agree on using hands-free phones.', 'They both like navigation apps.', 'They agree on the penalty.'], 'المقالتان تتفقان على أن التحدث بالهاتف أثناء القيادة يشتّت السائق، بينما تختلفان في الحكم على الهاتف الحر وتطبيقات الملاحة ووسيلة العقوبة.'),
+        Q('Writer A’s penalty for texting while driving:', ['losing their licence', 'a small fine', 'nothing', 'prison'], 'المقالة A تنص على أن من يكتب الرسائل أثناء القيادة يجب أن يعاقب حتى بفقدان رخصته: punished, even by losing their licence.'),
+        Q('“prone to” means:', ['likely to', 'against', 'far from', 'afraid of'], 'prone to + اسم أو مصدر تعني عُرضة لـ، أي likely to، وقد وردت في مقالة الكاتب B في سياق أن السائق معرّض للحوادث.'),
+        TF('Writer B is in favour of hands-free phones.', false, 'الكاتب B يرفض حل الهاتف الحر ويقرر أن السائق يبقى مشتتًا حتى وإن لم يمسك هاتفه بيده، فهو ضد استعماله أثناء القيادة.')] }),
 
     T({ id: 'e12u1t9', sec: 'Lesson 9 + Round up', page: '14–15', title: 'Against all odds — Najla Imad Lafta', en: 'Reading & Unit revision',
       why: 'قصة البطلة العراقية نجلة عماد — قطعة امتحانية محتملة؛ ومراجعة الوحدة كاملة.',
@@ -160,11 +160,11 @@
       reasons: [R('Why did Najla have to train her left hand?', 'Because she lost much of her right arm (she was born right-handed).'), R('Why were the prostheses useful for her?', 'Because she was able to play standing, which made a big difference to her game.')],
       blanks: [F('Najla discovered table tennis at the age of ____.', ['ten', '10']), F('She beat Maryna Lytovchenko by three sets to ____.', ['one', '1']), F('‘Never stop, nothing is ____.’', 'impossible')],
       quiz: [
-        Q('The best title is:', ['An incredible story of Paralympic determination', 'How to win a gold medal at the Paralympics', 'Following dreams at all costs', 'A bomb attack in Iraq'], ''),
-        Q('How old was Najla when she joined the Iraqi Paralympic team?', ['12', '10', '16', '19'], ''),
-        Q('Where did Najla win her Paralympic gold medal?', ['Paris 2024', 'Tokyo 2020', 'the 2022 Asian Para Games', 'London 2012'], 'She won gold at the Asian Para Games 2022 too, but her Paralympic gold was Paris 2024.'),
-        Q('“went off” in “a bomb ... went off” means:', ['exploded', 'left', 'stopped', 'was found'], ''),
-        TF('Najla was born left-handed.', false, 'She was born right-handed.')] })
+        Q('The best title is:', ['An incredible story of Paralympic determination', 'How to win a gold medal at the Paralympics', 'Following dreams at all costs', 'A bomb attack in Iraq'], 'النص يروي ملحمة عزيمة نجلاء من عمر ثلاث سنوات حتى فازت بذهبية باريس ٢٠٢٤، أما العنوان عن كيفية الفوز بوسام أو عن الحلم وحده فلا يلائم هذا السرد.'),
+        Q('How old was Najla when she joined the Iraqi Paralympic team?', ['12', '10', '16', '19'], 'النص يذكر أنها التحقت بالمنتخب البارالمبي عند سن الثانية عشرة (١٢)، بينما كانت في العاشرة (١٠) حين اكتشفت تنس الطاولة.'),
+        Q('Where did Najla win her Paralympic gold medal?', ['Paris 2024', 'Tokyo 2020', 'the 2022 Asian Para Games', 'London 2012'], 'فازت بالذهبية البارالمبية في باريس ٢٠٢٤؛ أما ذهب عام ٢٠٢٢ فكان في الألعاب الآسيوية للرياضيين ذوي الإعاقة، وهي مسابقة أخرى لا أولمبية بارالمبية.'),
+        Q('“went off” in “a bomb ... went off” means:', ['exploded', 'left', 'stopped', 'was found'], 'الفعل المركّب go off يعني ينفجر، وقد ورد في نص الدرس الرابع هكذا: a bomb … went off (= exploded)، أما left وstop وfound فتحتفظ بمعناها الأساسي.'),
+        TF('Najla was born left-handed.', false, 'النص يذكر أنها وُلدت يمناوية (right-handed)، ولهذا درّبت يدها اليسرى على مضرب التنس بعد فقدانها جزءًا من ذراعها اليمنى.')] })
   ];
   window.H.push(['12:sci:اللغة الإنكليزية', '12:lit:اللغة الإنكليزية'], { id: 'e12u1', no: 1, title: 'Unit 1: Health', en: 'Health', pages: 'SB 5–15',
     goals: ['Talk about minor health problems.', 'Tell a story using the past simple and past continuous.', 'Use phrasal verbs.', 'Talk about past habits using used to.', 'Organize ideas using linking phrases.'],

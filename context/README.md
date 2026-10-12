@@ -4,10 +4,10 @@
 > الهدف: إنهاء المشروع بأقل كلفة (أقل tokens لكل محادثة) وبالتوازي.
 
 ## 📁 الملفات
-- `context/physics.md` — الفيزياء (فصول ٦-٩ ناقصة)
-- `context/math.md` — الرياضيات (فصول ٣، ٦ ناقصة)
-- `context/biology.md` — الأحياء (فصل ٣ إعادة بناء)
-- `context/chemistry.md` — الكيمياء (مكتمل — للتوسعة فقط)
+- `context/physics.md` — الفيزياء (٩ فصول مكتملة)
+- `context/math.md` — الرياضيات (٦ فصول مكتملة)
+- `context/biology.md` — الأحياء (٥ فصول مكتملة)
+- `context/chemistry.md` — الكيمياء (٨ فصول مكتملة)
 - `context/app.md` — ميزات التطبيق (index.html) — **للوكيل الوحيد الذي يلمس index.html**
 
 ## ⚠️ القاعدة الذهبية للعمل المتزامن (تجنب التعارض)
@@ -42,60 +42,28 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
 ## 📊 حالة الإنجاز (حدّث بعد كل فصل)
 | المادة | المكتمل | الناقص |
 |---|---|---|
-| فيزياء | c1,c2,c2b,c2c,c3,c4,c5 | **c6,c7,c8,c9** |
-| رياضيات | c1,c2,c4,c5 | **c3,c6** |
-| أحياء | c1,c2,c4,c5 | **c3** (إعادة بناء) |
+| فيزياء | c1–c9 (مكتمل) | — |
+| رياضيات | c1–c6 (مكتمل) | — |
+| أحياء | c1–c5 (مكتمل) | — |
 | كيمياء | c1–c8 (مكتمل) | — |
-| عربي/إسلامي/إنكليزي | u1 | — |
+| عربي | u1–u6 (مكتمل) | — |
+| إسلامي | الوحدات كاملة | — |
+| إنكليزي | u1–u5 (مكتمل) | — |
+| بنك الوزاري | فيزياء 26 · كيمياء 20 · أحياء 18 · رياضيات 22 (86 سؤالًا) | — |
+
+> حالة 2026-10-12: كل مواد السادس العلمي والمشترك مكتملة، وبنك الأسئلة الوزاري الأربعة مترابط بالمسار (`content/ministerial-*.js`).
 
 ---
 
-# 🧩 جولة ٢ — ملء النواقص (٣ محادثات متوازية)
+# 🧩 سجل الجولات (مكتمل)
 
-بعد مراجعة الاكتمال، تبيّن النقص التالي:
-- **الفيزياء**: `c7`/`c9` بصفر مسائل، `c6` ضعيف ← محادثة1 (`gap-physics.md`)
-- **الكيمياء** `c8` (6) · **الأحياء** `c1`/`c2` (8/12) ضعيفة ← محادثة2 (`gap-sci.md`)
-- **اللغات والإسلامية**: كلها وحدة1 فقط من5–6 ← محادثة3 (`gap-languages.md`)
+- **جولة ١:** الفصل الأول من كل مادة (فيزياء c1، كيمياء c1، رياضيات c1، أحياء c1، لغات u1).
+- **جولة ٢:** ملء النواقص — فيزياء c6/c7/c9 مسائل، كيمياء c8، أحياء c1/c2، عربية u2–u6، إنكليزية u2–u5، إسلامية بقية الوحدات. **منتهية** (كل الفصول والوحدات مكتملة).
+- **جولة ٣:** بنك الأسئلة الوزاري `content/ministerial-{الفيزياء،الكيمياء،الأحياء،الرياضيات}.js` — 86 سؤالًا (26/20/18/22) مترابطًا بالمسار عبر `startExam`/`examConfigView` (راجع `MINISTERIAL_BANK.md`). **منتهية.**
 
-## 📁 ملفات السياق (جولة2)
-- `context/gap-physics.md` — فيزياء مسائل c6/c7/c9
-- `context/gap-sci.md` — كيمياء c8 + أحياء c1/c2 مسائل
-- `context/gap-languages.md` — عربية u2–u6 + إنكليزية u2–u5 + إسلامية u2+ (ملفات جديدة)
-
-## 📦 الدمج النهائي (من المحادثة الأخيرة / التطبيق فقط)
-الملفات القديمة (فيزياء c6–c9، كيمياء c8، أحياء c1/c2) لها وسوم `<script>` موجودة — تعديلها لا يحتاج إعادة وصل.
-الملفات **الجديدة** (وحدات اللغات والإسلامية) تحتاج `wire.mjs` لإضافة الوسوم و`sw.js`:
+الدفع النهائي (من جلسة واحدة):
 ```bash
 cd /Users/macbookair/Downloads/darb-main
-# 1) تحقق صيغة كل الملفات الجديدة/المعدّلة أولًا (node --check)
-# 2) اربط الملفات الجديدة فقط:
-node wire.mjs content/arabic-12-u2.js content/arabic-12-u3.js content/arabic-12-u4.js content/arabic-12-u5.js content/arabic-12-u6.js content/english-12-u2.js content/english-12-u3.js content/english-12-u4.js content/english-12-u5.js content/islamic-12-u2.js
-# 3) اختبار متصفح سريع (?t=Date.now() — كونسول نظيف)
-# 4) الدفع النهائي:
-git add -A && git commit -m "content: جولة2 ملء النواقص + ربط" && git push origin main
-```
-
----
-
-## 🧩 جولة ٢ — اللغات/الدين (تقسيم ٣ محادثات)
-
-استبدال `gap-languages.md` بـ **٣ ملفات مستقلة**:
-
-| المحادثة | ملف السياق | المهمة | الملفات الجديدة |
-|---|---|---|---|
-| **٣أ** | `context/gap-arabic.md` | عربية الوحدات ٢–٦ | `arabic-12-u2.js` .. `arabic-12-u6.js` |
-| **٣ب** | `context/gap-english.md` | إنكليزية الوحدات ٢–٥ | `english-12-u2.js` .. `english-12-u5.js` |
-| **٣ج** | `context/gap-islamic.md` | إسلامية الوحدات المتبقية | `islamic-12-u2.js` .. `islamic-12-uN.js` |
-
-## 📦 الدمج النهائي (بعد انتهاء **المحادثات الست**: ١، ٢، ٣أ، ٣ب، ٣ج)
-1. تحقق صيغة **كل الملفات** (`node --check`).
-2. اربط **الملفات الجديدة فقط** (الوحدات اللغوية/الإسلامية — الفصول المعدّلة لا تحتاج وصلًا):
-```bash
-cd /Users/macbookair/Downloads/darb-main
-node wire.mjs content/arabic-12-u2.js content/arabic-12-u3.js content/arabic-12-u4.js content/arabic-12-u5.js content/arabic-12-u6.js content/english-12-u2.js content/english-12-u3.js content/english-12-u4.js content/english-12-u5.js content/islamic-12-u2.js content/islamic-12-u3.js ...
-```
-3. اختبار متصفح سريع (`?t=Date.now()` — كونسول نظيف).
-4. الدفع النهائي:
-```bash
-git add -A && git commit -m "content: جولة2 كاملة — لغات/دين + مسائل علوم" && git push origin main
+node --check content/*.js
+git add -A && git commit -m "..." && git push origin main
 ```

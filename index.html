@@ -845,7 +845,7 @@ function vPath() {
       subs.map(s => { const c = contentOf(st.grade, s); let pct = 0, line = 'لم يُضف المحتوى بعد';
         if (c) { const all = allProblems(c), ok = all.filter(x => (solveOf(x.p.id) || {}).self === 'ok').length; pct = Math.round(ok / Math.max(1, all.length) * 100); line = (c.demo ? 'نموذج للتجربة · ' : '') + 'حللت ' + ar(ok) + ' من ' + ar(all.length) + ' مسائل'; }
         return '<button class="subject" data-act="subject" data-g="' + st.grade + '" data-s="' + esc(s) + '"' + (c ? ' style="border-color:var(--acc)"' : '') + '><b>' + esc(s) + '</b><span class="small muted">' + line + '</span><span class="bar"><span style="width:' + pct + '%"></span></span></button>'; }).join('') +
-    '</div><p class="note">قائمة المواد أولية، وتُطابَق مع منهج وزارة التربية لهذه السنة عند بناء المحتوى.</p></section>' +
+    '</div><p class="note">قائمة المواد أولية، وتُطابَق مع منهج وزارة التربية لهذه السنة عند بناء المحتوى.</p></section>' + memoProgressHTML() +
     (prev.length ? '<section style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:1.15em">الصفوف السابقة <span class="small muted" style="font-weight:400">ارجع لأساس أي موضوع</span></h2><div class="chips">' +
       prev.map(x => '<button class="chip" data-act="grade" data-g="' + x.id + '">' + esc(x.name) + '</button>').join('') + '</div></section>' : '') +
     '</main>';
@@ -1149,7 +1149,7 @@ function vTests() {
   const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة', '<p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
       exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div>', false) : '';
-  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + subjectExamsListHTML(st) +
+  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + ministerialExamCard(st) + resSec + memoSec + subjectExamsListHTML(st) +
     '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div></main>';
   return h;
 }
@@ -1570,6 +1570,25 @@ function memoAct(a, el) {
   const y = window.scrollY; render(false); if (a !== 'mmode' && a !== 'mtest') window.scrollTo(0, y);
 }
 function memoTopics() { const out = []; gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (t.memo && !isHidden(t.id)) out.push({ subject: y.subject, ch, t }); }))); return out; }
+/* بطاقة «تقدم الحفظ» على مساري: لكل مادة ما حفظتَ من مقرراتها، وما اجتزتَ اختبارَ حفظها (١٠٠٪ فقط) */
+function memoProgressHTML() {
+  const mt = memoTopics();
+  if (!mt.length) return '';
+  const bySub = {};
+  mt.forEach(x => {
+    const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
+    const b = bySub[x.subject] = bySub[x.subject] || { n: 0, units: 0, ok: 0, pass: 0 };
+    b.n++; b.units += U; b.ok += Math.min(ok, U); if (m.passed) b.pass++;
+  });
+  const rows = Object.entries(bySub);
+  const units = rows.reduce((a, b) => a + b[1].units, 0), done = rows.reduce((a, b) => a + b[1].ok, 0);
+  return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2 style="font-size:1.15em">تقدم الحفظ</h2>' +
+    '<span class="small muted num">حفظت ' + ar(done) + ' من ' + ar(units) + ' مقطعًا · ' + ar(units ? Math.round(done / units * 100) : 0) + '٪</span></div>' +
+    '<p class="small muted">ما هو مقرر للحفظ في مواد صفك، حسب كل مادة. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
+    '<div class="plist">' + rows.map(([s, b]) => '<button class="pitem" data-act="tab" data-v="tests"><span class="st">' + (b.pass ? '✓' : ar(b.units ? Math.round(b.ok / b.units * 100) : 0) + '٪') + '</span>' +
+      '<span style="flex:1;min-width:0"><b>' + esc(s) + '</b><br><span class="small muted">' + ar(b.n) + ' موضوع · حفظت ' + ar(b.ok) + ' من ' + ar(b.units) + (b.pass ? ' · اجتزت اختباره ✓' : '') + '</span></span>' +
+      '<span class="small" style="color:var(--acc);font-weight:600">اختبر حفظك</span></button>').join('') + '</div></section>';
+}
 
 function ytLink(t, subject, f) {
   const g = GRADES[(+f.key.split(':')[0]) - 1], gname = g ? g.name : '';
@@ -1841,10 +1860,10 @@ function startExam(kind, subject, n, perQ) {
   
   // فلترة حسب الفصول/المواضيع المختارة
   let filtered = pool;
-  if (S.exam && S.exam.selCh && S.exam.selCh.length) {
+  if (S.exam && Array.isArray(S.exam.selCh)) {
     filtered = filtered.filter(x => S.exam.selCh.includes(x.tid ? findTopic(x.tid).ch.id : 'general'));
   }
-  if (S.exam && S.exam.selTopics && S.exam.selTopics.length) {
+  if (S.exam && Array.isArray(S.exam.selTopics)) {
     filtered = filtered.filter(x => S.exam.selTopics.includes(x.tid || 'general'));
   }
   if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
@@ -1956,7 +1975,11 @@ function examConfigView(z, title) {
     return { chId, title: chObj ? chObj.ch.title : 'عام', count: qs.length, topics };
   });
   
-  const total = pool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
+  // الفلترة المجرّبة: تظهر الأعداد حسب النطاق المحدّد (فصول/مواضيع)
+  let fpool = pool;
+  if (S.exam && Array.isArray(S.exam.selCh)) fpool = fpool.filter(x => S.exam.selCh.includes(x.tid ? findTopic(x.tid).ch.id : 'general'));
+  if (S.exam && Array.isArray(S.exam.selTopics)) fpool = fpool.filter(x => S.exam.selTopics.includes(x.tid || 'general'));
+  const total = fpool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
   let h = topBar(title, { back: true }) + '<main class="page">' +
     '<section class="card"><h2>' + esc(EXAM_KINDS[z.kind]) + '</h2><p class="small muted">' + EXAM_DESC[z.kind] + '</p>' +
     '<p class="small muted num">إجمالي الأسئلة: ' + ar(total) + '</p>';
@@ -1964,8 +1987,9 @@ function examConfigView(z, title) {
   // اختيار الفصول
   h += '<section class="card"><h3>اختر الفصول</h3><p class="small muted">حدّد الفصول التي تريد امتحانها، أو اتركها لاختيار جميعها.</p><div class="chips">';
   chapters.forEach(ch => {
+    const chOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.includes(ch.chId);
     h += '<label class="chip" style="flex:1;justify-content:space-between;cursor:pointer;"><span>' + esc(ch.title) + '</span>' +
-      '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '" checked style="width:18px;height:18px;accent-color:var(--acc);"><span class="small muted num">' + ar(ch.count) + ' س</span></label>';
+      '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '"' + (chOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);"><span class="small muted num">' + ar(ch.count) + ' س</span></label>';
   });
   h += '</div></section>';
   
@@ -1977,9 +2001,10 @@ function examConfigView(z, title) {
       '<span class="acc-ico">▼</span><span class="acc-t">' + esc(ch.title) + '</span><span class="acc-s">' + ar(ch.topics.length) + ' موضوع</span></div>' +
       '<div class="acc-b"><div class="acc-b-in">';
     ch.topics.forEach(t => {
+      const tOn = !(S.exam && S.exam.selTopics != null) || S.exam.selTopics.includes(t.tid);
       h += '<label class="pitem" style="cursor:pointer;"><span class="st">' + ar(t.count) + '</span>' +
         '<span style="flex:1"><b>' + ft(t.title) + '</b></span>' +
-        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '" checked style="width:18px;height:18px;accent-color:var(--acc);"></label>';
+        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '"' + (tOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);"></label>';
     });
     h += '</div></div></div>';
   });
@@ -2138,13 +2163,25 @@ function subjectExamsListHTML(st) {
         '<button class="chip" data-act="examCfg" data-kind="ministerial" data-s="' + esc(s) + '">التهيئة للوزاري' + (bank ? ' · ' + ar(bank) : '') + '</button>' +
         '</div></div>'; }).join('') + '</section>';
 }
+/* بطاقة «الامتحان الوزاري» في تبويب الاختبارات: جلسة وزاري كاملة بوقت محسوب (٣ ساعات) لكل مادة لديها بنك */
+function ministerialExamCard(st) {
+  const rows = gradeContents(st.grade).map(y => ({ s: y.subject, n: ministerialPool(y.subject).length, avg: ministerialAvg(y.subject) })).filter(r => r.n > 0);
+  if (!rows.length) return '';
+  return accSec('milExam', 'الامتحان الوزاري', ar(rows.reduce((k, r) => k + r.n, 0)) + ' سؤالًا',
+    '<p class="small muted">جلسة وزارية كاملة لكل مادة من أسئلة الدورات، بوقت محسوب (٣ ساعات على الامتحان كلّه). الأسئلة تُغلق ولا يمكن الرجوع إليها حتى «أكملت الامتحان»، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p>' +
+    '<div class="plist">' + rows.map(r => '<button class="pitem" data-act="ministerialFull" data-s="' + esc(r.s) + '"><span class="st">' + ar(r.n) + '</span>' +
+      '<span style="flex:1;min-width:0"><b>الوزاري الكامل · ' + esc(r.s) + '</b><br><span class="small muted">' + ar(r.n) + ' سؤالًا من الدورات الوزارية' + (r.avg ? ' · معدلك ' + ar(r.avg) + '٪' : '') + '</span></span>' +
+      '<span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div>', false);
+}
 function ministerialLibraryHTML(st) {
-  const rows = gradeContents(st.grade).map(y => ({ s: y.subject, n: ministerialPool(y.subject).length }));
+  const rows = gradeContents(st.grade).map(y => ({ s: y.subject, n: ministerialPool(y.subject).length, avg: ministerialAvg(y.subject) }));
   if (!rows.length) return '';
   const total = rows.reduce((k, r) => k + r.n, 0);
-  return '<section class="card"><h2>بنك الأسئلة الوزارية</h2><p class="small muted">بنك كامل لأسئلة الدورات الوزارية. يخدم الطالب: يتصفّح ويتدرّب؛ ويخدم النظام: يبني منه جلسات «التهيئة للوزاري» ويقيس تطورك ومعدلك ويكشف مواضيع الضعف.</p>' +
+  const have = rows.filter(r => r.n > 0);
+  return '<section class="card"><h2>بنك الأسئلة الوزارية</h2><p class="small muted">بنك كامل لأسئلة الدورات الوزارية. يخدم الطالب: يتصفّح ويتدرّب؛ ويخدم النظام: يبني منه جلسات «التهيئة للوزاري» والامتحان الوزاري الكامل، ويقيس تطورك ومعدلك ويكشف مواضيع الضعف.</p>' +
     '<p class="small num">' + (total ? ar(total) + ' سؤالًا متوفرًا' : 'قيد البناء من دورات ٢٠١٦ إلى ٢٠٢٦') + '</p>' +
-    '<div class="plist">' + rows.map(r => '<button class="pitem" data-act="openBank" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
+    (have.length ? '<div class="grid2">' + have.map(r => '<button class="btn" data-act="ministerialFull" data-s="' + esc(r.s) + '">الامتحان الوزاري الكامل · ' + esc(r.s) + (r.avg ? ' · معدلك ' + ar(r.avg) + '٪' : '') + '</button>').join('') + '</div>' : '') +
+    '<div class="plist" style="margin-top:10px">' + rows.map(r => '<button class="pitem" data-act="openBank" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
 }
 
 /* =================== خطة اليوم: توزيع المواضيع المتبقية على أيام الدراسة =================== */
@@ -3300,8 +3337,22 @@ document.addEventListener('click', e => {
       break;
     }
     case 'solveExample': go('problem', { viewProblem: el.dataset.t + ':e' + el.dataset.i }); break;
-    case 'examCh': S.exam.selCh = S.exam.selCh || []; const chId = el.dataset.ch; if (el.checked) S.exam.selCh.push(chId); else S.exam.selCh = S.exam.selCh.filter(x => x !== chId); render(); break;
-    case 'examTopic': S.exam.selTopics = S.exam.selTopics || []; const tId = el.dataset.t; if (el.checked) S.exam.selTopics.push(tId); else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId); render(); break;
+    case 'examCh': {
+      const z = S.exam; if (!z) break;
+      const chId = el.dataset.ch;
+      if (S.exam.selCh == null) S.exam.selCh = examPool(z.kind, z.subject).map(x => x.tid ? findTopic(x.tid).ch.id : 'general');
+      if (el.checked) { if (!S.exam.selCh.includes(chId)) S.exam.selCh.push(chId); }
+      else S.exam.selCh = S.exam.selCh.filter(x => x !== chId);
+      render(); break;
+    }
+    case 'examTopic': {
+      const z = S.exam; if (!z) break;
+      const tId = el.dataset.t;
+      if (S.exam.selTopics == null) S.exam.selTopics = examPool(z.kind, z.subject).map(x => x.tid || 'general');
+      if (el.checked) { if (!S.exam.selTopics.includes(tId)) S.exam.selTopics.push(tId); }
+      else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId);
+      render(); break;
+    }
     case 'open': S.open[el.dataset.k] = !S.open[el.dataset.k]; render(); break;
     case 'blankCheck': checkBlank(el.dataset.k); render(); break;
     case 'blankShow': S.blank[el.dataset.k] = Object.assign(S.blank[el.dataset.k] || {}, { shown: true }); render(); break;
@@ -3315,6 +3366,14 @@ document.addEventListener('click', e => {
     case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
     case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
     case 'examCfg': examConfig(el.dataset.kind, el.dataset.s); break;
+    case 'ministerialFull': {
+      const s = el.dataset.s;
+      const pool = ministerialPool(s);
+      if (!pool.length) { toast('بنك ' + esc(s) + ' الوزاري قيد البناء.'); break; }
+      if (S.exam) { S.exam.selCh = null; S.exam.selTopics = null; }
+      startExam('ministerial', s, pool.length, 0);
+      break;
+    }
     case 'examGo': { const z = S.exam; if (!z) break; startExam(z.kind, z.subject, +el.dataset.n, z.perQ); break; }
     case 'examPerQ': if (S.exam && S.exam.phase === 'config') { S.exam.perQ = +el.dataset.s; render(); } break;
     case 'examPick': {

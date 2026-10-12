@@ -965,7 +965,19 @@ function vSubject() {
       const stt = done ? 'done' : curSet ? 'next' : (curSet = true, 'cur');
       return { k: 'big', st: stt, mark: done ? '✓' : ar(i + 1), name: 'الفصل ' + ARN[i] + ': ' + esc(o[0]), sub: (stt === 'cur' ? 'أنت هنا · ' : '') + ar(ch.topics.filter(t => !isHidden(t.id)).length) + ' مواضيع · ' + ar(pct) + '٪', attrs: 'data-act="chapter" data-id="' + ch.id + '"' };
     });
-    items.push({ k: 'star', st: 'lock', mark: '★', name: 'الوزاري', sub: 'أسئلة الوزاري من ٢٠١٦ فما بعد · قريبًا', attrs: 'data-act="soon"' });
+    /* محطة «الوزاري» في نهاية المسار: تعرض عدد أسئلة البنك реальًا وتفتحه */
+    const mN = ministerialPool(s).length;
+    const mT = (st0.tests || {})['x:' + s + ':ministerial'];
+    const chDone = c && c.chapters.length && c.chapters.every(ch => {
+      const ts = ch.topics.filter(t => !isHidden(t.id));
+      return ts.length && chPct(ch) >= 90 && (st0.tests || {})['c:' + ch.id];
+    });
+    const starSt = (mT && mT.best != null && mT.best >= 60) ? 'done' : (mN && chDone ? 'next' : 'lock');
+    const starSub = mN
+      ? ar(mN) + ' سؤالًا · ' + (mT && mT.best != null ? 'أفضل ' + ar(mT.best) + '٪' : (starSt === 'next' ? 'ابدأ تهيئتك' : 'من الدورات السابقة'))
+      : 'قيد البناء';
+    items.push({ k: 'star', st: starSt, mark: starSt === 'done' ? '✓' : '★', name: 'الوزاري', sub: starSub,
+      attrs: mN ? 'data-act="openBank" data-s="' + esc(s) + '"' : 'data-act="soon"' });
     map = '<section class="map-card"><div class="map-h"><div><span class="small muted">' + esc(g.name) + '</span><h2>مسار ' + esc(s) + '</h2></div>' + playBtn + '</div>' + pathMap(items, 's:' + key) + '</section>';
   }
   const hiddenAll = c ? c.chapters.flatMap(ch => ch.topics.filter(t => isHidden(t.id))) : [];

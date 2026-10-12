@@ -4,7 +4,7 @@
 window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
 window.MINISTERIAL_BANK.push({
   "key": "12:sci:الأحياء",
-  "totalQuestions": 464,
+  "totalQuestions": 9,
   "byChapter": {
     "b12c1": 50,
     "b12c2": 30,

@@ -4,7 +4,7 @@
 window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
 window.MINISTERIAL_BANK.push({
   "key": "12:sci:الرياضيات",
-  "totalQuestions": 464,
+  "totalQuestions": 9,
   "byChapter": {
     "a12c1": 12,
     "a12c2": 11,

@@ -17,7 +17,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Introduction to Nuclear Physics', '255', 'Introduce the branch of physics that studies the nucleus and its interactions.', ['Studies nucleus', 'Covers nuclear interactions', 'Important for energy applications'], 'Nuclear physics is the branch of physics that deals with the study of the atomic nucleus and its constituent particles and interactions.')
+        E('Introduction to Nuclear Physics', '255', 'Introduce the branch of physics that studies the nucleus and its interactions.', ['Studies nucleus', 'Covers nuclear interactions', 'Important for energy applications'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Nuclear physics is the branch of physics that deals with the study of the atomic nucleus and its constituent particles and interactions.')
       ],
       problems: [
         B('p12c9t1-p1', 'Page 255', '9-1', 'Why is nuclear physics important?', 'Nuclear physics is essential for understanding nuclear energy, nuclear medicine, and the fundamental structure of matter. It enables the development of nuclear power reactors and radioactive diagnostic techniques.', ['Nuclear energy production', 'Nuclear medicine and diagnostics', 'Fundamental structure of matter'])
@@ -44,7 +48,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('تتكون نواة الذرة من بروتونات و', 'نيوترونات')
       ],
       examples: [
-        E('Nuclear Composition', '257', 'Explain the composition of the atomic nucleus.', ['Protons and neutrons', 'Nucleons', 'Defines element identity'], 'The atomic nucleus consists of protons and neutrons, collectively called nucleons. The number of protons defines the element.')
+        E('Nuclear Composition', '257', 'Explain the composition of the atomic nucleus.', ['Protons and neutrons', 'Nucleons', 'Defines element identity'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'The atomic nucleus consists of protons and neutrons, collectively called nucleons. The number of protons defines the element.')
       ],
       problems: [
         B('p12c9t2-p1', 'Page 257', '9-2', 'If a nucleus has 26 protons and 30 neutrons, what is its mass number and element?', 'A = Z + N = 26 + 30 = 56, Element: Iron (Fe)', ['Z = 26', 'N = 30', 'A = 56', 'Iron (Fe)']),
@@ -71,7 +79,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('العدد الذري هو عدد', 'البروتونات')
       ],
       examples: [
-        E('Atomic Number', '259', 'Explain the concept of atomic number and its significance.', ['Z = number of protons', 'Identifies the element', 'Determines chemical properties'], 'The atomic number Z equals the number of protons in the nucleus, which uniquely identifies the chemical element and determines its chemical properties.')
+        E('Atomic Number', '259', 'Explain the concept of atomic number and its significance.', ['Z = number of protons', 'Identifies the element', 'Determines chemical properties'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'The atomic number Z equals the number of protons in the nucleus, which uniquely identifies the chemical element and determines its chemical properties.')
       ],
       problems: [
         B('p12c9t3-p1', 'Page 259', '9-3', 'How many protons are in the nucleus of a carbon-14 atom?', 'Carbon has Z = 6, so a carbon-14 atom has 6 protons. The mass number 14 includes 6 protons and 8 neutrons.', ['Z = 6 for carbon', 'Carbon-14 has 6 protons and 8 neutrons', 'N = 14 - 6 = 8']),
@@ -96,7 +108,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('النظائر هي ذرات لنفس العنصر لها نفس', 'العدد الذري')
       ],
       examples: [
-        E('Isotopes', '261', 'Explain the concept of isotopes and their significance.', ['Same Z, different A', 'Same element, different mass', 'Different physical properties'], 'Isotopes are atoms of the same element (same number of protons) but with different numbers of neutrons, resulting in different mass numbers. They have nearly identical chemical properties but different physical properties.')
+        E('Isotopes', '261', 'Explain the concept of isotopes and their significance.', ['Same Z, different A', 'Same element, different mass', 'Different physical properties'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Isotopes are atoms of the same element (same number of protons) but with different numbers of neutrons, resulting in different mass numbers. They have nearly identical chemical properties but different physical properties.')
       ],
       problems: [
         B('p12c9t4-p1', 'Page 261', '9-4', 'Uranium has atomic number 92. Name two isotopes of uranium and their mass numbers.', 'Uranium-235 and Uranium-238, both have Z = 92 but A = 235 and A = 238 respectively.', ['U-235: Z=92, A=235', 'U-238: Z=92, A=238', 'Same protons, different neutrons']),
@@ -123,7 +139,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('طاقة الربط النووية هي الطاقة اللازمة لـ', 'تفكيك النواة')
       ],
       examples: [
-        E('Nuclear Binding Energy', '263', 'Calculate the binding energy given the mass defect.', ['E = Δm × c²', 'Mass defect → energy', 'MeV to joules conversion'], 'The nuclear binding energy is calculated using Einstein\'s equation E = Δm × c², where Δm is the mass defect (difference between the mass of individual nucleons and the actual nucleus mass).')
+        E('Nuclear Binding Energy', '263', 'Calculate the binding energy given the mass defect.', ['E = Δm × c²', 'Mass defect → energy', 'MeV to joules conversion'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'The nuclear binding energy is calculated using Einstein\'s equation E = Δm × c², where Δm is the mass defect (difference between the mass of individual nucleons and the actual nucleus mass).')
       ],
       problems: [
         B('p12c9t5-p1', 'Page 263', '9-5', 'Calculate the binding energy per nucleon for a nucleus with mass defect Δm = 0.008 u.', 'E = Δm × c² = 0.008 × (931.5 MeV/u) = 7.452 MeV per nucleon', ['Δm = 0.008 u', '1 u = 931.5 MeV/c²', 'E = 0.008 × 931.5 = 7.452 MeV']),
@@ -148,7 +168,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Radioactive Activity', '265', 'Explain the concept of radioactive activity and its measurement.', ['Spontaneous decay', 'Emits radiation', 'Measured in Becquerel'], 'Radioactive activity is the spontaneous nuclear decay that emits radiation. It is measured in becquerel (Bq), where 1 Bq = 1 decay per second.')
+        E('Radioactive Activity', '265', 'Explain the concept of radioactive activity and its measurement.', ['Spontaneous decay', 'Emits radiation', 'Measured in Becquerel'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Radioactive activity is the spontaneous nuclear decay that emits radiation. It is measured in becquerel (Bq), where 1 Bq = 1 decay per second.')
       ],
       problems: [
         B('p12c9t6-p1', 'Page 265', '9-6', 'If a source has an activity of 500 Bq, how many decays occur in 10 seconds?', 'Decays = activity × time = 500 × 10 = 5000 decays', ['A = 500 Bq', 't = 10 s', 'Decays = 500 × 10 = 5000']),
@@ -169,7 +193,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Nuclear Reaction', '269', 'Explain a nuclear reaction with an example.', ['Reactants → Products', 'Conservation of mass number and charge', 'Example: alpha decay'], 'A nuclear reaction involves changes in the nucleus composition, where the number of nucleons and charge are conserved. Example: alpha decay where a nucleus emits an alpha particle.')
+        E('Nuclear Reaction', '269', 'Explain a nuclear reaction with an example.', ['Reactants → Products', 'Conservation of mass number and charge', 'Example: alpha decay'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'A nuclear reaction involves changes in the nucleus composition, where the number of nucleons and charge are conserved. Example: alpha decay where a nucleus emits an alpha particle.')
       ],
       problems: [
         B('p12c9t7-p1', 'Page 269', '9-7', 'Complete the nuclear reaction: ^{238}_{92}U + ^{1}_{0}n → ^{239}_{92}U → ?', '^{239}_{92}U → ^{235}_{90}Th + ^{4}_{2}He (alpha decay)', ['^{238}_{92}U captures neutron', '^{239}_{92}U', 'Alpha decay to ^{235}_{90}Th + alpha particle']),
@@ -190,7 +218,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Nuclear Fission', '271', 'Explain the nuclear fission process.', ['Heavy nucleus + neutron → fission products + neutrons + energy', 'U-235 example'], 'Nuclear fission is the process where a heavy nucleus (like U-235) splits into two medium-mass nuclei when bombarded by a slow neutron, releasing additional neutrons and large amounts of energy.')
+        E('Nuclear Fission', '271', 'Explain the nuclear fission process.', ['Heavy nucleus + neutron → fission products + neutrons + energy', 'U-235 example'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Nuclear fission is the process where a heavy nucleus (like U-235) splits into two medium-mass nuclei when bombarded by a slow neutron, releasing additional neutrons and large amounts of energy.')
       ],
       problems: [
         B('p12c9t8-p1', 'Page 271', '9-8', 'If a U-235 nucleus captures a neutron and fissions into Ba-141 and Kr-92, how many neutrons are released?', 'U-236 → Ba-141 + Kr-92 + 3n, so 3 neutrons are released', ['^{236}_{92}U', '^{141}_{56}Ba', '^{92}_{36}Kr', '3 neutrons released', '236 = 141 + 92 + 3 × 1']),
@@ -211,7 +243,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Nuclear Fusion', '273', 'Explain the nuclear fusion process.', ['Light nuclei → heavier nucleus + energy', 'Sun example: proton-proton chain'], 'Nuclear fusion is the process where two light nuclei combine to form a heavier nucleus, releasing large amounts of energy. This is the process that powers the Sun (proton-proton chain reaction).')
+        E('Nuclear Fusion', '273', 'Explain the nuclear fusion process.', ['Light nuclei → heavier nucleus + energy', 'Sun example: proton-proton chain'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Nuclear fusion is the process where two light nuclei combine to form a heavier nucleus, releasing large amounts of energy. This is the process that powers the Sun (proton-proton chain reaction).')
       ],
       problems: [
         B('p12c9t9-p1', 'Page 273', '9-9', 'In the Sun\'s proton-proton chain, four protons fuse to form helium-2. If 10^38 fusions occur per second, what is the total energy released per second?', 'Energy per fusion ≈ 26.7 MeV. Total power = 10^38 × 26.7 MeV/s ≈ 4.27×10^{39} MeV/s ≈ 6.8×10^{26} W', ['10^38 fusions/s', '≈26.7 MeV per fusion', '≈6.8×10^{26} W (solar luminosity)']),
@@ -229,7 +265,11 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       laws: [],
       blanks: [],
       examples: [
-        E('Radiation Hazards and Benefits', '275', 'Explain the dual nature of nuclear radiation.', ['Benefits: medicine, energy', 'Risks: cancer, environmental damage'], 'Nuclear radiation has dual nature: significant benefits in medicine (diagnosis and treatment), energy production, and industry, but also risks including increased cancer risk, genetic damage, and environmental contamination if not properly managed.')
+        E('Radiation Hazards and Benefits', '275', 'Explain the dual nature of nuclear radiation.', ['Benefits: medicine, energy', 'Risks: cancer, environmental damage'],
+      problems: [
+        B('physics-12-c9-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
+        X('physics-12-c9-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
+      ], 'Nuclear radiation has dual nature: significant benefits in medicine (diagnosis and treatment), energy production, and industry, but also risks including increased cancer risk, genetic damage, and environmental contamination if not properly managed.')
       ],
       problems: [
         B('p12c9t10-p1', 'Page 275', '9-10', 'What are the main sources of natural background radiation?', 'Main sources: cosmic radiation from space, terrestrial radiation from soil and rocks (especially radon), and internal radiation from potassium-40 in the body.', ['Cosmic radiation', 'Radon gas from soil', 'Potassium-40 in body', 'Internal radiation']),

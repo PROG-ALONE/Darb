@@ -10,3 +10,9 @@ _ocr/
 الثالث المتوسط/
 السادس الابتدائي/
 *.pdf
+
+# استثناء: ملفات حلول أرشيف الوزاري (PDF ننشرها عمدًا داخل official-exams)
+!official-exams/
+!official-exams/solutions/
+!official-exams/solutions/**
+!official-exams/solutions/**/*.pdf

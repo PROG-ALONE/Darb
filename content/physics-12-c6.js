@@ -15,10 +15,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('الفيزياء moderna تشمل:', ['ميكانيك الكم والنظرية النسبية', 'الميكانيك الكلاسيكي فقط', 'الديناميكا الحرارية فقط', 'الكهرومغناطيسية فقط'], 'أركان الفيزياء moderna: Theory الكم والنظرية النسبية.'),
         Q('فرضية بلانك تنص على أن الطاقة:', ['مكماة (توجد على شكل حزم منفصلة)', 'مستمرة', 'تتناسب مع التردد فقط', 'تتناسب مع الطول الموجي فقط'], 'الطاقة تُبعث/تُمتص على شكل كمات E = hf.')
@@ -43,10 +40,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('The world who proposed energy quantization hypothesis in 1900 is ____.', ['Planck', 'Max Planck', 'Max Planck'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Modern physics includes:', ['Quantum mechanics and relativity', 'Only classical mechanics', 'Only thermodynamics', 'Only electromagnetism'], 'Axes of modern physics: Quantum mechanics and relativity.')
       ]
@@ -70,10 +64,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('The world who explained the photoelectric effect is ____.', ['Albert Einstein'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('The phenomenon that proves the particle nature of light:', ['Photoelectric effect', 'Light interference', 'Light diffraction', 'Light polarization'], 'Einstein explained it with photon hypothesis in 1905.')
       ]
@@ -95,10 +86,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('Einstein\'s equation is E_k = hf - ____.', ['W'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Einstein\'s equation for the photoelectric effect is:', ['E_k = hf - W', 'E_k = hf + W', 'E_k = W - hf', 'E_k = hf × W'], 'Mathematical expression of the photoelectric effect.')
       ]
@@ -122,10 +110,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('de Broglie wavelength is calculated from the relation λ = ____.', ['h/p'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Duality means particles show:', ['Wave properties in some experiments and particle properties in other experiments', 'Only wave properties', 'Only particle properties', 'No specific properties']),
         Q('Who provided the probabilistic interpretation of the de Broglie wave?', ['Max Born'])
@@ -172,10 +157,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Quantum mechanics describes:', 'The behavior of matter and energy at the atomic and subatomic level'),
         Q('In quantum mechanics, the outcome of a measurement cannot be predicted with absolute certainty.', true)
@@ -194,10 +176,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('The wave function Ψ(r,t) describes:', 'The quantum state of a physical system'),
         Q('Square of the wave function magnitude |Ψ|² gives:', 'Probability density for finding the particle.')
@@ -222,10 +201,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('Heisenberg uncertainty principle was proposed by ____.', ['Heisenberg'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Heisenberg uncertainty principle was proposed by:', ['Heisenberg']),
         Q('It is impossible to determine position and momentum with arbitrary precision at the same time.', true)
@@ -251,10 +227,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('Speed of light in a vacuum is ____.', ['3×10⁸ m/s'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Special relativity is based on:', 'Two fundamental principles'),
         Q('Speed of light in a vacuum:', 'Is constant and does not depend on the motion of the source or the observer')
@@ -281,10 +254,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('Lorentz transformations are named after ____.', ['Hendrik Lorentz'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Lorentz factor γ = 1/√(1−v²/c²) determines:', 'The magnitude of relativistic effects'),
         Q('When velocities are low (v << c), Lorentz transformations approach:', 'Galilean transformations')
@@ -310,10 +280,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('Einstein\'s equation is: E = ____.', ['mc²'])
       ],
       examples: [],
-      problems: [
-        B('physics-12-c6-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c6-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ],
+      problems: [],
       quiz: [
         Q('Einstein\'s equation is:', ['E = mc²']),
         Q('Mass-energy equivalence explains why:', 'The energy necessary to accelerate an object increases without bound as its speed approaches the speed of light.')

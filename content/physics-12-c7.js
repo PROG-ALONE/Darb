@@ -17,11 +17,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Introduction to Solid-State Physics', '199', 'Introduce the branch of physics that studies properties of solid materials and their atomic arrangement.', ['Physics of solids studies properties of materials', 'Examines atomic arrangement in solids', 'Important in modern technology'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'Solid-state physics is the branch of physics that deals with properties of solid materials and their atomic arrangement, crucial for modern technology.')
+        E('Introduction to Solid-State Physics', '199', 'Introduce the branch of physics that studies properties of solid materials and their atomic arrangement.', ['Physics of solids studies properties of materials', 'Examines atomic arrangement in solids', 'Important in modern technology'], 'Solid-state physics is the branch of physics that deals with properties of solid materials and their atomic arrangement, crucial for modern technology.')
       ],
       problems: [
         B('p12c7t1-p1', 'Page 199', '7-1', 'Explain why solid-state physics is important in modern technology, giving two examples.', 'Solid-state physics is crucial for modern technology as it enables the understanding and development of semiconductors, transistors, and other electronic devices that form the basis of computers and communication systems.', ['Enables development of semiconductors', 'Foundation for transistors and integrated circuits', 'Essential for computers and communication systems']),
@@ -48,11 +44,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('البنية البلورية هي ترتيب', 'منتظم للذرات')
       ],
       examples: [
-        E('Crystal Structure', '201', 'Explain the regular arrangement of atoms in crystalline solids.', ['Atoms arranged regularly in all directions', 'Crystals have repeating structure', 'Defines crystal lattice'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'Crystalline solids have atoms arranged in a regular, repeating pattern in all directions, forming a crystal lattice.')
+        E('Crystal Structure', '201', 'Explain the regular arrangement of atoms in crystalline solids.', ['Atoms arranged regularly in all directions', 'Crystals have repeating structure', 'Defines crystal lattice'], 'Crystalline solids have atoms arranged in a regular, repeating pattern in all directions, forming a crystal lattice.')
       ],
       problems: [
         B('p12c7t2-p1', 'Page 201', '7-2', 'Calculate the distance between crystal planes given n=1, λ=1.54 Å, and θ=15° using Bragg\'s law.', 'd = nλ/(2 sin θ) = 1×1.54/(2 sin 15°) = 1×1.54/(2×0.259) = 2.97 Å', ['n=1', 'λ=1.54 Å', 'θ=15°', 'd = 2.97 Å']),
@@ -79,11 +71,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('تُصنف الشبكات البلورية إلى', '14 نوعًا')
       ],
       examples: [
-        E('Crystal Lattice', '203', 'Explain the geometric arrangement of points in space representing atomic positions in a crystal.', ['Crystal lattice is a geometric arrangement of points in space', 'Represents atomic positions in the crystal', 'Types of cubic networks'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'A crystal lattice is a geometric arrangement of points in space that represents the positions of atoms in the crystal, classified into 14 types of cubic networks.')
+        E('Crystal Lattice', '203', 'Explain the geometric arrangement of points in space representing atomic positions in a crystal.', ['Crystal lattice is a geometric arrangement of points in space', 'Represents atomic positions in the crystal', 'Types of cubic networks'], 'A crystal lattice is a geometric arrangement of points in space that represents the positions of atoms in the crystal, classified into 14 types of cubic networks.')
       ],
       problems: [
         B('p12c7t3-p1', 'Page 203', '7-3', 'How many types of cubic crystal networks are there?', 'There are 3 types of cubic networks: simple cubic, body-centered cubic (BCC), and face-centered cubic (FCC).', ['Simple cubic', 'Body-centered cubic', 'Face-centered cubic']),
@@ -108,11 +96,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Ionic Bond Energy', '205', 'Calculate the energy of an ionic bond using Coulomb\'s law.', ['Energy depends on charges and distance', 'E = kq₁q₂/r', 'Units: joules'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'The energy of an ionic bond is given by E = kq₁q₂/r, where it depends on the charges of the atoms and the distance between them.')
+        E('Ionic Bond Energy', '205', 'Calculate the energy of an ionic bond using Coulomb\'s law.', ['Energy depends on charges and distance', 'E = kq₁q₂/r', 'Units: joules'], 'The energy of an ionic bond is given by E = kq₁q₂/r, where it depends on the charges of the atoms and the distance between them.')
       ],
       problems: [
         B('p12c7t4-p1', 'Page 205', '7-4', 'Calculate the ionic bond energy given q₁ = 1.6×10⁻¹⁹ C, q₂ = -1.6×10⁻¹⁹ C, r = 0.5 nm, and k = 9×10⁹ N·m²/C².', 'E = kq₁q₂/r = (9×10⁹)(1.6×10⁻¹⁹)(-1.6×10⁻¹⁹)/(0.5×10⁻⁹) = -4.61×10⁻¹⁹ J', ['k=9×10⁹', 'q₁=1.6×10⁻¹⁹ C', 'q₂=-1.6×10⁻¹⁹ C', 'r=0.5 nm', 'E = -4.61×10⁻¹⁹ J']),
@@ -139,11 +123,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('طاقة الرابطة هي الطاقة اللازمة لـ', 'كسر رابطة كيميائية')
       ],
       examples: [
-        E('Binding Energy Calculation', '207', 'Calculate the binding energy between two charged particles.', ['E = kq₁q₂/r', 'Depends on charge and distance', 'Units: joules'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'Binding energy between two charges is calculated using Coulomb\'s law E = kq₁q₂/r, showing it depends on the magnitude of charges and inversely on the distance between them.')
+        E('Binding Energy Calculation', '207', 'Calculate the binding energy between two charged particles.', ['E = kq₁q₂/r', 'Depends on charge and distance', 'Units: joules'], 'Binding energy between two charges is calculated using Coulomb\'s law E = kq₁q₂/r, showing it depends on the magnitude of charges and inversely on the distance between them.')
       ],
       problems: [
         B('p12c7t5-p1', 'Page 207', '7-5', 'Calculate the binding energy between two protons separated by 1 fm (1×10⁻¹⁵ m) using Coulomb\'s law.', 'E = kqq/r = (9×10⁹)(1.6×10⁻¹⁹)²/(1×10⁻¹⁵) = 2.3×10⁻¹⁴ J', ['k=9×10⁹', 'q=1.6×10⁻¹⁹ C', 'r=1 fm=1×10⁻¹⁵ m', 'E = 2.3×10⁻¹⁴ J']),
@@ -170,11 +150,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('الحزمة التكافؤية هي', 'أعلى حزمة طاقة ممتلئة بالإلكترونات')
       ],
       examples: [
-        E('Band Gap Calculation', '209', 'Calculate the band gap energy given conduction and valence band energies.', ['E_g = E_c - E_v', 'Typical values: 0.1-15 eV', 'Determines material properties'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'The band gap energy is calculated as E_g = E_c - E_v, where E_c is the conduction band minimum and E_v is the valence band maximum. It determines whether a material is a conductor, semiconductor, or insulator.')
+        E('Band Gap Calculation', '209', 'Calculate the band gap energy given conduction and valence band energies.', ['E_g = E_c - E_v', 'Typical values: 0.1-15 eV', 'Determines material properties'], 'The band gap energy is calculated as E_g = E_c - E_v, where E_c is the conduction band minimum and E_v is the valence band maximum. It determines whether a material is a conductor, semiconductor, or insulator.')
       ],
       problems: [
         B('p12c7t6-p1', 'Page 209', '7-6', 'Calculate the band gap energy given E_c = 1.1 eV and E_v = -0.5 eV.', 'E_g = E_c - E_v = 1.1 - (-0.5) = 1.6 eV', ['E_c = 1.1 eV', 'E_v = -0.5 eV', 'E_g = 1.6 eV']),
@@ -199,11 +175,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
         F('أشباه الموصلات هي مواد لها', 'توصيلية بين الموصلات والعوازل')
       ],
       examples: [
-        E('Semiconductor Properties', '211', 'Explain the conductivity range of semiconductors compared to conductors and insulators.', ['Conductivity between conductors and insulators', 'Can be modified by doping', 'Temperature dependent'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'Semiconductors have electrical conductivity between that of conductors and insulators, and their conductivity can be modified by doping and is temperature dependent.')
+        E('Semiconductor Properties', '211', 'Explain the conductivity range of semiconductors compared to conductors and insulators.', ['Conductivity between conductors and insulators', 'Can be modified by doping', 'Temperature dependent'], 'Semiconductors have electrical conductivity between that of conductors and insulators, and their conductivity can be modified by doping and is temperature dependent.')
       ],
       problems: [
         B('p12c7t7-p1', 'Page 211', '7-7', 'What happens to the conductivity of a semiconductor when it is heated?', 'Conductivity increases with temperature because more electrons gain enough energy to jump from the valence band to the conduction band.', ['Temperature increases', 'More electrons excitable', 'Conductivity increases']),
@@ -226,11 +198,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('PN Junction', '211', 'Explain how a p-n junction is formed and its basic properties.', ['Doping silicon with impurities', 'P-type and N-type regions', 'Depletion layer formation'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'A p-n junction is obtained by doping a pure semiconductor crystal (silicon or germanium) with trivalent impurities (like boron) to get a P-type region, and with pentavalent impurities (like antimony) to get an N-type region.')
+        E('PN Junction', '211', 'Explain how a p-n junction is formed and its basic properties.', ['Doping silicon with impurities', 'P-type and N-type regions', 'Depletion layer formation'], 'A p-n junction is obtained by doping a pure semiconductor crystal (silicon or germanium) with trivalent impurities (like boron) to get a P-type region, and with pentavalent impurities (like antimony) to get an N-type region.')
       ],
       problems: [
         B('p12c7t8-p1', 'Page 211', '7-8', 'What is the depletion region in a p-n junction?', 'The depletion region is an area around the p-n junction where mobile charge carriers have been eliminated, creating an electric field that prevents further diffusion.', ['Electric field', 'No mobile carriers', 'Forms at junction']),
@@ -251,11 +219,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Diode Types', '214', 'Explain the different types of diodes used in electronic devices.', ['PN junction diode', 'Zener diode', 'Light-emitting diode', 'Applications in circuits'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'We previously learned that the energy source needed to generate electron-hole pairs in semiconductors is thermal energy, and in most cases this energy is supplied by room heat.')
+        E('Diode Types', '214', 'Explain the different types of diodes used in electronic devices.', ['PN junction diode', 'Zener diode', 'Light-emitting diode', 'Applications in circuits'], 'We previously learned that the energy source needed to generate electron-hole pairs in semiconductors is thermal energy, and in most cases this energy is supplied by room heat.')
       ],
       problems: [
         B('p12c7t9-p1', 'Page 214', '7-9', 'Name three types of diodes and their applications.', '1. PN junction diode: general rectification. 2. Zener diode: voltage regulation. 3. LED: light emission.', ['PN junction', 'Zener', 'LED', 'Rectification, regulation, illumination']),
@@ -276,11 +240,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       reasons: [],
       blanks: [],
       examples: [
-        E('Transistor', '217', 'Explain the structure and operation of a bipolar junction transistor.', ['Three regions: emitter, base, collector', 'Two junctions: emitter-base and base-collector', 'Amplification and switching functions'],
-      problems: [
-        B('physics-12-c7-placeholder-1', 'صXXX', 'X-X', 'مسألة من الكتاب — أضف النص من OCR', 'الجواب', ['خطوة 1', 'خطوة 2']),
-        X('physics-12-c7-extra-1', 'X-X', 'تدريب إضافي — أضف من OCR', 'الجواب', ['خطوة'])
-      ], 'A transistor is a device consisting of three regions manufactured from semiconductor material (silicon or germanium), separated by two junctions. The three regions are: emitter (E), base (B), and collector (C).')
+        E('Transistor', '217', 'Explain the structure and operation of a bipolar junction transistor.', ['Three regions: emitter, base, collector', 'Two junctions: emitter-base and base-collector', 'Amplification and switching functions'], 'A transistor is a device consisting of three regions manufactured from semiconductor material (silicon or germanium), separated by two junctions. The three regions are: emitter (E), base (B), and collector (C).')
       ],
       problems: [
         B('p12c7t10-p1', 'Page 217', '7-10', 'What are the three regions of a transistor and their functions?', 'Emitter (E): emits charge carriers. Base (B): thin region that controls flow. Collector (C): collects carriers. Amplification occurs when small base current controls large collector current.', ['Emitter', 'Base', 'Collector', 'Current amplification']),

@@ -160,7 +160,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       problems: [],
       quiz: [
         Q('Quantum mechanics describes:', 'The behavior of matter and energy at the atomic and subatomic level'),
-        Q('In quantum mechanics, the outcome of a measurement cannot be predicted with absolute certainty.', True)
+        Q('In quantum mechanics, the outcome of a measurement cannot be predicted with absolute certainty.', true)
       ]
     }),
     T({
@@ -204,7 +204,7 @@ window.CONTENT_PARTS = window.CONTENT_PARTS || [];
       problems: [],
       quiz: [
         Q('Heisenberg uncertainty principle was proposed by:', ['Heisenberg']),
-        Q('It is impossible to determine position and momentum with arbitrary precision at the same time.', True)
+        Q('It is impossible to determine position and momentum with arbitrary precision at the same time.', true)
       ]
     }),
     T({

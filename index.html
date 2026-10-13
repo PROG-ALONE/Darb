@@ -1027,6 +1027,7 @@ function vToday() {
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
     todaySummaryHTML(st, ti, used, goal, pct, wg, todayProbs, todayReviews, todayStudy) +
     accSec('today-plan', 'خطة اليوم', '', planCard(st, ti, g, rest), true) +
+    weeklyGoalsHTML(st) +
     accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), true) +
     (rest ? '<p class="note">اليوم يوم راحة. استرح وعد غدًا بنشاط.</p>' : '') +
     '<div class="grid2"><button class="btn" data-act="openLog" data-v="stats"><b>سجلّي والتقييم</b><span class="small muted">أيامك بالرسوم: ماذا أنجزتَ وماذا حللتَ وماذا أخطأت</span></button><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button></div>' +
@@ -3110,6 +3111,90 @@ function weeklyGoal() {
   return { perWeek: Math.ceil(total / weeksLeft), total, weeksLeft };
 }
 function line_count() { return studyLine().length; }
+/* ── أهداف الأسبوع ──
+   لا رقم مكتوب يتقدّم وحده: كل هدف يُقرأ من تقدّمك الفعلي (topicPct)، فينخفض كلما
+   اجتزت اختبارًا أو أتقنت مسألة، ويعاد توزيعه على أسابيعك الباقية وحده.
+   الطالب لا يُلقى به في مئة موضوع، بل في حصص معدودة يختار ترتيبها. */
+function weeklyGoals(st) {
+  const ti = timeInfo(st);
+  const studyDays = Math.max(1, 7 - (st.rest || []).length);
+  const perDay = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
+  const weeksLeft = Math.max(1, ti.weeksLeft || Math.ceil((ti.daysLeft || 7) / 7));
+  const subjects = [];
+  let left = 0, total = 0;
+  gradeContents(st.grade).forEach(y => {
+    const c = y.c; if (!c) return;
+    const topics = [];
+    c.chapters.forEach(ch => ch.topics.forEach(t => { if (!isHidden(t.id)) topics.push({ t, ch, subject: y.subject }); }));
+    const done = topics.filter(x => topicPct(x.t) >= 90).length;
+    const lft = topics.length - done;
+    total += topics.length; left += lft;
+    subjects.push({ subject: y.subject, total: topics.length, done, left: lft, topics });
+  });
+  const perWeek = Math.ceil(left / weeksLeft);
+  const sum = subjects.reduce((a, s) => a + s.left, 0) || 1;
+  subjects.forEach(s => { s.perWeek = s.left ? Math.max(1, Math.round(perWeek * s.left / sum)) : 0; });
+  return { weeksLeft, studyDays, perDay, sessionsPerWeek: studyDays * perDay, perWeek, left, total, subjects, weekNo: ti.weekNo };
+}
+/* مواضيع الحصة القادمة: تُوزَّع بالتناوب بين المواد حسب ما بقي في كل واحدة، فلا تُهمَّل
+   مادة كاملة، ثم تُخلط في الوضع العشوائي وتبقى على ترتيب المنهج في اليدوي */
+function weeklyTopicList(st, mode) {
+  const g = weeklyGoals(st);
+  const buckets = g.subjects.filter(s => s.left > 0)
+    .map(s => ({ items: s.topics.filter(x => topicPct(x.t) < 90), share: s.left }));
+  if (!buckets.length) return [];
+  const need = Math.max(1, g.perWeek);
+  const sum = buckets.reduce((a, b) => a + b.share, 0) || 1;
+  const target = buckets.map(b => Math.max(1, Math.round(need * b.share / sum)));
+  const at = buckets.map(() => 0), out = [];
+  let guard = 0;
+  while (out.length < need && guard++ < need * 4) {
+    let moved = false;
+    for (let i = 0; i < buckets.length && out.length < need; i++) {
+      if (at[i] < target[i] && buckets[i].items[at[i]]) { out.push(buckets[i].items[at[i]]); at[i]++; moved = true; }
+    }
+    if (!moved) {
+      let bi = 0;
+      for (let i = 1; i < buckets.length; i++) if (at[i] - target[i] > at[bi] - target[bi]) bi = i;
+      if (buckets[bi].items[at[bi]]) { out.push(buckets[bi].items[at[bi]]); at[bi]++; moved = true; }
+    }
+    if (!moved) break;
+  }
+  return mode === 'random' ? shuffle(out) : out;
+}
+function weeklyGoalsHTML(st) {
+  const g = weeklyGoals(st);
+  if (!g.total) return '';
+  const mode = S.weekOrder || null;
+  const list = mode ? weeklyTopicList(st, mode) : [];
+  let h = '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h2 style="margin:0">أهداف الأسبوع ' + ar(g.weekNo) + '</h2>' +
+    '<span class="muted small num">بقي ' + ar(g.weeksLeft) + ' أسبوعًا</span></div>';
+  if (!g.left) return h + '<p>أنجزت كل مواضيع موادك. راجع من تبويب المراجعة حتى الامتحان.</p></section>';
+  h += '<p class="small muted">في منهجك <b class="num">' + ar(g.left) + '</b> موضوعًا متبقًّا على <b class="num">' + ar(g.weeksLeft) + '</b> أسبوعًا، على <b class="num">' + ar(g.studyDays) + '</b> أيام دراسة أسبوعيًا بمعدل <b class="num">' + ar(st.minutes) + '</b> دقيقة يوميًا — أي <b class="num">' + ar(g.sessionsPerWeek) + '</b> حصص في الأسبوع، في كل حصة <b class="num">' + ar(g.perDay) + '</b> مواضيع. الهدف: <b class="num">' + ar(g.perWeek) + '</b> موضوعًا.</p>';
+  h += '<div class="plist">' + g.subjects.filter(s => s.total).map(s =>
+    '<div class="pitem" style="pointer-events:none;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
+    '<span class="st' + (s.left ? '' : ' ok') + '">' + (s.left ? ar(s.left) : '✓') + '</span>' +
+    '<span style="flex:1;min-width:0"><b>' + esc(s.subject) + '</b><br><span class="small muted">أنجزت ' + ar(s.done) + ' من ' + ar(s.total) + ' · هذا الأسبوع ' + ar(s.perWeek) + ' موضوعًا</span></span>' +
+    '<span class="small muted num">' + (s.total ? Math.round(s.done / s.total * 100) : 0) + '٪</span></div>').join('') + '</div>';
+  h += '<p class="small muted" style="margin-top:12px">بأي ترتيب تبدأ الحصة؟</p>' +
+    '<div class="chips">' +
+    '<button class="chip" data-act="weekOrder" data-m="random" aria-pressed="' + (mode === 'random') + '">عشوائي</button>' +
+    '<button class="chip" data-act="weekOrder" data-m="manual" aria-pressed="' + (mode === 'manual') + '">ترتيب يدوي</button>' +
+    '</div>';
+  if (mode && list.length) {
+    h += '<p class="small" style="font-weight:600;margin:12px 0 4px">مواضيع الحصة — ' + ar(list.length) + ' بترتيب ' + (mode === 'random' ? 'عشوائي' : 'المنهج') + '</p><div class="plist">' +
+      list.map((x, i) => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '" style="align-items:flex-start;line-height:1.45;padding:11px 14px">' +
+        '<span class="st">' + ar(i + 1) + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title.replace(/^[^:]*[:：]\s*/, '')) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span>' +
+        '<span class="small" style="color:var(--acc);font-weight:600;flex-shrink:0">ادرس</span></button>').join('') + '</div>' +
+      '<button class="btn" style="width:100%;margin-top:10px" data-act="weekStart">ابدأ الحصة</button>';
+  } else if (mode) {
+    h += '<p class="note">لا مواضيع متبقّية على هذا الأسبوع.</p>';
+  }
+  return h + '</section>';
+}
+
 function planCard(st, ti, g, rest) {
   const has = gradeContents(st.grade).length;
   if (!has) return '<section class="card">' +
@@ -4317,6 +4402,16 @@ document.addEventListener('click', e => {
     case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
     case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
     case 'examCfg': S.examScope = null; examConfig(el.dataset.kind, el.dataset.s); break;
+    case 'weekOrder': S.weekOrder = el.dataset.m || null; render(); break;
+    case 'weekStart': {
+      /* يفتح أول موضوع لم يكتمل في الحصة — القائمة نفسها هي علامتك: ما بلغ ٩٠٪ يخرج منها */
+      const list = weeklyTopicList(me(), S.weekOrder || 'manual');
+      const next = list.find(x => topicPct(x.t) < 90);
+      if (!next) { toast('أنجزت كل مواضيع هذه الحصة ✓'); break; }
+      S.tseg = 'explain';
+      go('topic', { viewTopic: next.t.id });
+      break;
+    }
     case 'examScopeClear': S.examScope = null; if (S.exam) { S.exam.selCh = null; S.exam.selTopics = null; } render(); break;
     case 'chMinExam': {
       /* اختبار وزاري مقيّد بفصول هذا الفصل وحده */

@@ -2,7 +2,7 @@
 /**
  * سكربت استخراج بنك الامتحانات الوزارية من ملفات OCR
  * يقرأ كل الملفات في official-exams/solutions/ و official-exams/ocr/solutions/
- * ينتج Markdown منظم: مادة ← سنة ← دور ← أسئلة وحلول
+ * ينتج Markdown منظم: مادة ← سنة ← دور ← أسئلة وحلول منفصلة
  */
 const fs = require('fs');
 const path = require('path');
@@ -37,7 +37,6 @@ function roleFromPath(p) {
 
 function cleanHeader(s) {
   let t = s.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  // إزالة الزخرفة والعنوان
   t = t.replace(/Bot:.*?(?=\n)/g, '');
   t = t.replace(/Telegram:.*?(?=\n)/g, '');
   t = t.replace(/Website:.*?(?=\n)/g, '');
@@ -59,30 +58,69 @@ function cleanHeader(s) {
   return t.trim();
 }
 
-function extractContent(text) {
-  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-  const content = [];
-  let inContent = false;
+// فصل الأسئلة عن الحلول — أنماط محسّنة
+function separateQandA(text) {
+  const lines = text.split('\n');
+  const questions = [];
+  const solutions = [];
+  let currentQ = null;
+  let currentA = null;
+  let currentSection = null;
+
+  // أنماط بداية سؤال
+  const qPatterns = [
+    /^\s*س\s*[٠-٩\d]{1,2}\s*[-–—:)]\s*/,
+    /^\s*سؤال\s*[٠-٩\d]{1,2}\s*[-–—:)]\s*/,
+    /^\s*[٠-٩\d]{1,2}\s*[-–—:)]\s+/,
+    /^\s*[أ-ي]\s*[-–—:)]\s+/,
+  ];
+
+  // أنماط بداية حل (محسّنة)
+  const aPatterns = [
+    /^\s*الحل\s*[:：-]?\s*/,
+    /^\s*الإجابة\s*[:：-]?\s*/,
+    /^\s*الجواب\s*[:：-]?\s*/,
+    /^\s*نموذج\s+(?:الحل|الإجابة)/,
+    /^\s*الحلول\s+النموذجية/,
+    /^\s*الاجوبة\s+النموذجية/,
+    /^\s*الأجوبة\s+النموذجية/,
+    /^\s*الجوب\s+النموذجي/,
+    /^\s*اجوب\s+النموذجي/,
+  ];
 
   for (const line of lines) {
-    // بداية المحتوى: سؤال أو تعليمات أو نص عربي
-    if (/^س\s*[٠-٩\d]/.test(line) || /^\d+\s*[-–—:)]/.test(line) || /^(?:أجب|علل|عرف|ارسم|قارن|املأ|اختر|بيّن|أثبت|اشرح|احسب|جد|أوجد)/.test(line) || /^[أ-ي]\s*[-–—:)]/.test(line)) {
-      inContent = true;
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    let isQuestion = false;
+    for (const p of qPatterns) {
+      if (p.test(trimmed)) { isQuestion = true; break; }
     }
-    // نهاية المحتوى: خطوط الزخرفة أو نهاية الصفحة
-    if (/^(?:انتهى|نهاية|النهاية|إلى الصفحة)/.test(line)) {
-      continue;
+
+    let isSolution = false;
+    for (const p of aPatterns) {
+      if (p.test(trimmed)) { isSolution = true; break; }
     }
-    if (inContent) {
-      content.push(line);
+
+    if (isQuestion) {
+      if (currentQ) questions.push(currentQ);
+      currentQ = { text: trimmed };
+      currentSection = 'q';
+    } else if (isSolution) {
+      if (currentA) solutions.push(currentA);
+      currentA = { text: trimmed };
+      currentSection = 'a';
+    } else if (currentSection === 'q' && currentQ) {
+      currentQ.text += '\n' + trimmed;
+    } else if (currentSection === 'a' && currentA) {
+      currentA.text += '\n' + trimmed;
     }
   }
 
-  // إذا لم نجد بداية واضحة، خذ كل النص
-  if (content.length === 0) {
-    return lines.join('\n');
-  }
-  return content.join('\n');
+  if (currentQ) questions.push(currentQ);
+  if (currentA) solutions.push(currentA);
+
+  return { questions, solutions };
 }
 
 function main() {
@@ -98,7 +136,6 @@ function main() {
   }
   ROOTS.forEach(walk);
 
-  // إزالة التكرار
   const seen = new Set();
   const uniqueFiles = files.filter(f => {
     const key = path.basename(f) + '|' + path.basename(path.dirname(f));
@@ -109,7 +146,6 @@ function main() {
 
   console.log('📁 عدد الملفات الفريدة:', uniqueFiles.length);
 
-  // تجميع حسب المادة/السنة/الدور
   const groups = {};
   for (const f of uniqueFiles) {
     const rel = path.relative(path.resolve(__dirname), f);
@@ -121,7 +157,6 @@ function main() {
     groups[key].files.push({ rel, full: f });
   }
 
-  // ترتيب المجموعات: المادة ← السنة ← الدور
   const roleOrder = { 'الدور الأول': 1, 'الدور الثاني': 2, 'الدور الثالث': 3, 'تمهيدي': 4, 'التكميلي': 5, 'غير محدد': 6 };
   const sortedGroups = Object.values(groups).sort((a, b) => {
     if (a.subject !== b.subject) return a.subject.localeCompare(b.subject, 'ar');
@@ -129,18 +164,18 @@ function main() {
     return (roleOrder[a.role] || 6) - (roleOrder[b.role] || 6);
   });
 
-  console.log('📋 عدد المجموعات (مادة/سنة/دور):', sortedGroups.length);
+  console.log('📋 عدد المجموعات:', sortedGroups.length);
 
-  // إنشاء مجلد الإخراج
   if (!fs.existsSync(OUTDIR)) fs.mkdirSync(OUTDIR, { recursive: true });
 
-  let totalChars = 0;
+  let grandTotalChars = 0;
+  let grandTotalQuestions = 0;
+  let grandTotalSolutions = 0;
   let groupCount = 0;
 
   for (const g of sortedGroups) {
     if (g.files.length === 0) continue;
 
-    // اسم الملف: مادة-سنة-دور.md
     const subjectSafe = g.subject.replace(/\//g, '-');
     const yearStr = g.year || 'غير محدد';
     const roleStr = g.role.replace(/\s+/g, '-');
@@ -151,37 +186,73 @@ function main() {
     md += `> عدد الصفحات: ${g.files.length}\n\n`;
     md += `---\n\n`;
 
+    let groupChars = 0;
+    let groupQuestions = 0;
+    let groupSolutions = 0;
+
     for (const { rel, full } of g.files) {
       let raw;
       try { raw = fs.readFileSync(full, 'utf-8'); } catch (e) { continue; }
 
       const cleaned = cleanHeader(raw);
-      const content = extractContent(cleaned);
+      if (cleaned.length < 20) continue;
 
-      if (content.length < 20) continue;
-
-      // استخراج رقم الصفحة من اسم الملف
       const pageMatch = path.basename(full).match(/p-(\d+)/i);
       const pageNum = pageMatch ? pageMatch[1] : '';
 
-      md += `## صفحة ${pageNum || path.basename(full)}\n\n`;
-      md += content + '\n\n';
+      const { questions, solutions } = separateQandA(cleaned);
+
+      if (questions.length === 0 && solutions.length === 0) {
+        const content = cleaned.split('\n').filter(Boolean).join('\n');
+        if (content.length < 20) continue;
+        md += `## صفحة ${pageNum || path.basename(full)}\n\n`;
+        md += content + '\n\n---\n\n';
+        groupChars += content.length;
+        continue;
+      }
+
+      if (questions.length > 0) {
+        md += `## صفحة ${pageNum || path.basename(full)} — الأسئلة\n\n`;
+        for (const q of questions) {
+          md += `### ${q.text.split('\n')[0]}\n\n`;
+          if (q.text.includes('\n')) {
+            md += q.text.split('\n').slice(1).join('\n') + '\n\n';
+          }
+          groupQuestions++;
+        }
+      }
+
+      if (solutions.length > 0) {
+        md += `## صفحة ${pageNum || path.basename(full)} — الحلول\n\n`;
+        for (const a of solutions) {
+          md += `### ${a.text.split('\n')[0]}\n\n`;
+          if (a.text.includes('\n')) {
+            md += a.text.split('\n').slice(1).join('\n') + '\n\n';
+          }
+          groupSolutions++;
+        }
+      }
+
       md += '---\n\n';
-      totalChars += content.length;
+      groupChars += cleaned.length;
     }
 
-    if (totalChars > 0) {
+    if (groupChars > 0) {
       fs.writeFileSync(filepath, md, 'utf-8');
       groupCount++;
-      console.log(`  ✅ ${filename} (${g.files.length} صفحة، ${Math.round(md.length / 1024)}KB)`);
+      grandTotalChars += groupChars;
+      grandTotalQuestions += groupQuestions;
+      grandTotalSolutions += groupSolutions;
+      console.log(`  ✅ ${filename} (${g.files.length} صفحة، ${Math.round(md.length / 1024)}KB, ${groupQuestions} سؤال, ${groupSolutions} حل)`);
     }
   }
 
-  // ملخص إجمالي
   const summary = {
     totalFiles: uniqueFiles.length,
     totalGroups: groupCount,
-    totalChars: totalChars,
+    totalChars: grandTotalChars,
+    totalQuestions: grandTotalQuestions,
+    totalSolutions: grandTotalSolutions,
     groups: sortedGroups.map(g => ({
       subject: g.subject,
       year: g.year,
@@ -191,7 +262,7 @@ function main() {
   };
   fs.writeFileSync(path.join(OUTDIR, 'summary.json'), JSON.stringify(summary, null, 2), 'utf-8');
 
-  console.log(`\n✅ اكتمل! ${groupCount} مجموعة، ${Math.round(totalChars / 1024)}KB إجمالي`);
+  console.log(`\n✅ اكتمل! ${groupCount} مجموعة، ${grandTotalQuestions} سؤال، ${grandTotalSolutions} حل`);
   console.log(`📂 المجلد: ${OUTDIR}`);
 }
 

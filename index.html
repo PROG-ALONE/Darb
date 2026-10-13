@@ -725,6 +725,7 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 <script src="content/ministerial-الكيمياء.js"></script>
 <script src="content/ministerial-الأحياء.js"></script>
 <script src="content/ministerial-الرياضيات.js"></script>
+<script src="content/ministerial-extracted.js"></script>
 <script src="content/guides-all-1.js"></script>
 <script src="content/guides-all-2.js"></script>
 <script src="content/guides-all-3.js"></script>
@@ -2752,9 +2753,13 @@ function vBank() {
     Object.keys(ch.topics).forEach(tid => {
       const tObj = tid !== 'general' ? findTopic(tid) : null;
       inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + (tObj ? ft(tObj.t.title) : 'أسئلة عامة') + ' <span class="muted num">· ' + ar(ch.topics[tid].length) + ' سؤال</span></p>' +
-        ch.topics[tid].map(x => { const q = x.q; return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner"><div class="opts" style="pointer-events:none">' +
-          q.o.map((o, oi) => '<div class="opt' + (oi === q.c ? ' ok' : '') + '"><span class="ol">' + 'أبجد'[oi] + '</span><span>' + fm(o) + '</span></div>').join('') +
-          '</div><p class="a"><b>السبب:</b> ' + fm(q.why || '') + '</p>' + (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>'; }).join('');
+        ch.topics[tid].map(x => { const q = x.q; const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
+          if (isOpen) return '<details class="fold"><summary>' + fm(q.q) + (q.role && q.role !== 'غير محدد' ? ' <span class="small muted">· ' + esc(q.role) + '</span>' : '') + '</summary><div class="inner">' +
+            (q.why ? '<p class="a"><b>الحل:</b> ' + fm(q.why) + '</p>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
+            (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>';
+          return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner"><div class="opts" style="pointer-events:none">' +
+            q.o.map((o, oi) => '<div class="opt' + (oi === q.c ? ' ok' : '') + '"><span class="ol">' + 'أبجد'[oi] + '</span><span>' + fm(o) + '</span></div>').join('') +
+            '</div><p class="a"><b>السبب:</b> ' + fm(q.why || '') + '</p>' + (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>'; }).join('');
     });
     h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2>' + esc(ch.title) + '</h2><span class="muted small num">' + ar(n) + ' سؤال</span></div>' + inner + '</section>';
   });

@@ -1380,6 +1380,44 @@ function chMemoHTML(ts, subject) {
     mt.map(t => { const m = memoOf(t.id), U = t.memo.units.length, ok = Object.keys(m.ok).length;
       return '<button class="pitem" data-act="memoGo" data-id="' + t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(t.memo.title) + '</b><br><span class="small muted">' + ar(U) + (t.memo.units.some(Array.isArray) ? ' أبيات' : ' آيات') + ' · ' + (m.passed ? 'اجتزت اختبار الحفظ' : 'احفظ ثم اختبر نفسك') + '</span></span></button>'; }).join('') + '</section>';
 }
+/* أسئلة البنك الوزاري التي تخص فصلًا بعينه: إما مربوطة بموضوعاته مباشرة (tid)
+   أو مُحلّلة نصًّا إلى هذا الفصل (ch). الفصل المكتمل يفتح اختباره الوزاري */
+function bankOfChapter(subject, chId) {
+  const f = findChapter(chId); if (!f) return [];
+  const title = f.ch.title;
+  return ministerialPool(subject).filter(x => {
+    if (x.tid) { const t = findTopic(x.tid); if (t && t.ch.id === chId) return true; }
+    return !!(x.q && x.q.ch) && x.q.ch === title;
+  });
+}
+/* بطاقة المسار الوزاري للفصل: امتحان الفصل أولًا، ثم الاختبار الوزاري بأسئلته */
+function chapterMinisterialHTML(f, ch, pct, doneT, tsLen) {
+  const subject = f.key.split(':')[2];
+  const items = bankOfChapter(subject, ch.id);
+  if (!items.length) return '';
+  const withSol = items.filter(x => x.q.why && x.q.why.length > 8).length;
+  const years = [...new Set(items.map(x => x.q.year).filter(Boolean))].sort();
+  const studied = pct >= 60, complete = doneT === tsLen && tsLen > 0;
+  const unlock = studied || complete;
+  const lastBest = ministerialChapterBest(subject, ch.id);
+  let h = '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h2>اختبار وزاري على هذا الفصل</h2><span class="muted small num">' + ar(items.length) + ' سؤال</span></div>' +
+    '<p class="small muted">أسئلة الدورات الوزارية التي تخص ' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '').replace(/^الوحدة [^:]+:\s*/, '')) + ' وحدها — لا تخلط بفصول أخرى. كل سؤال بوقته المناسب ثم حلّه.</p>' +
+    (years.length ? '<p class="small muted num">الدورات: ' + years.map(y => ar(y)).join(' · ') + '</p>' : '') +
+    '<p class="small muted">' + ar(withSol) + ' سؤالًا منها بحل نموذجي.</p>';
+  if (lastBest) h += '<p class="small" style="color:var(--ok);font-weight:600">أفضل نتيجة لك: ' + ar(lastBest) + '٪</p>';
+  h += unlock
+    ? '<button class="btn" style="width:100%" data-act="chMinExam" data-s="' + esc(subject) + '" data-id="' + esc(ch.id) + '">ابدأ الاختبار الوزاري على الفصل</button>'
+    : '<p class="note">يُفتح الاختبار الوزاري حين تنهي الفصل: أكمل ' + ar(doneT) + ' من ' + ar(tsLen) + ' موضوعًا (٦٠٪ فأعلى).</p>' +
+      '<button class="btn quiet" style="width:100%" disabled>أكمل الفصل أولًا</button>';
+  return h + '</section>';
+}
+function ministerialChapterBest(subject, chId) {
+  const st = me(); const arr = ((st.ministerial || {})[subject]) || [];
+  const hit = arr.filter(x => x.chId === chId);
+  return hit.length ? Math.max.apply(null, hit.map(x => x.pct)) : 0;
+}
+
 function vChapter() {
   const f = findChapter(S.viewChapter); if (!f) return vSubject();
   const ch = f.ch, ts = ch.topics.filter(t => !isHidden(t.id)), pct = chPct(ch), tb = (me().tests || {})['c:' + ch.id];
@@ -1401,6 +1439,7 @@ function vChapter() {
     ((ch.terms||[]).length ? '<details class="fold"><summary>المصطلحات العلمية (عربي وإنكليزي)</summary><div class="inner"><div class="tbl-wrap"><table class="tbl"><tbody>' + (ch.terms||[]).map(x => '<tr><td>' + esc(x[0]) + '</td><td>' + fm(x[1]) + '</td></tr>').join('') + '</tbody></table></div></div></details>' : '') +
     '<section class="map-card"><div class="map-h"><h2>مواضيع الفصل</h2>' + playBtn + '</div>' + pathMap(items, 'c:' + ch.id) + '</section>' +
     chMemoHTML(ts, f.key.split(':')[2]) +
+    chapterMinisterialHTML(f, ch, pct, doneT, ts.length) +
     '<div class="grid2"><button class="btn ghost" data-act="notebook" data-s="' + esc(f.key.split(':')[2]) + '">دفتر ' + esc(f.key.split(':')[2]) + '</button><button class="btn ghost" data-act="openExport" data-lvl="chapter" data-s="' + esc(f.key.split(':')[2]) + '" data-t="' + (ts[0] || ch.topics[0]).id + '">صدّر الفصل</button></div>' +
     hiddenFold(ch.topics.filter(t => isHidden(t.id))) +
     '</main>';
@@ -2542,7 +2581,8 @@ function examFinish() {
   if (z.kind === 'ministerial') {
     st.ministerial = st.ministerial || {};
     const arr = st.ministerial[z.subject] = st.ministerial[z.subject] || [];
-    arr.push({ at: Date.now(), pct: z.pct, sec: z.timeSec, n: total });
+    /* chId يُحفظ ليرى الطالب تقدّمه في الفصل الواحد، لا في المادة كلها فقط */
+    arr.push({ at: Date.now(), pct: z.pct, sec: z.timeSec, n: total, chId: (S.examScope && S.examScope.chId) || '' });
     if (arr.length > 200) st.ministerial[z.subject] = arr.slice(-200);
     z.items.forEach((it, i) => { if (it.tid) revDone(it.tid, z.picks[i] === it.q.c); });
   } else {
@@ -4244,6 +4284,15 @@ document.addEventListener('click', e => {
     case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
     case 'examCfg': S.examScope = null; examConfig(el.dataset.kind, el.dataset.s); break;
     case 'examScopeClear': S.examScope = null; if (S.exam) { S.exam.selCh = null; S.exam.selTopics = null; } render(); break;
+    case 'chMinExam': {
+      /* اختبار وزاري مقيّد بفصول هذا الفصل وحده */
+      const subj = el.dataset.s, cid = el.dataset.id;
+      const items = bankOfChapter(subj, cid);
+      if (!items.length) { toast('لا توجد أسئلة وزارية لهذا الفصل بعد.'); break; }
+      S.examScope = { subject: subj, keys: items.map(x => x.key), label: (findChapter(cid) || { ch: {} }).ch.title || '', chId: cid };
+      examConfig('ministerial', subj);
+      break;
+    }
     case 'ministerialFull': {
       const s = el.dataset.s;
       const pool = ministerialPool(s);

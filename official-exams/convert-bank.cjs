@@ -76,6 +76,11 @@ function buildBank() {
           num: q.num || '',             // الرقم داخل الفرع
           branch: q.branch || '',
           parent: q.parent || '',
+          /* ربط الفصل والموضوع من التحليل النصي (map-chapters) — أساس تدفق الفصل */
+          chapter: q.chapter || '',
+          topic: q.topic || '',
+          topicTitle: q.topicTitle || '',
+          mapConf: q.mapConf || 'none',
           src: 'ministerial-ocr'
         });
       }

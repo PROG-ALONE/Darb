@@ -24,10 +24,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex2",
@@ -42,10 +42,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex3",
@@ -60,10 +60,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex4",
@@ -78,10 +78,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex5",
@@ -114,10 +114,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex7",
@@ -150,10 +150,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex9",
@@ -168,10 +168,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex10",
@@ -186,10 +186,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex11",
@@ -204,10 +204,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t5",
+   "tpT": "التكاثر في البدائيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex12",
@@ -240,10 +240,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex14",
@@ -258,10 +258,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex15",
@@ -294,10 +294,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex17",
@@ -312,10 +312,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex18",
@@ -330,10 +330,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex19",
@@ -348,10 +348,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex20",
@@ -384,10 +384,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex22",
@@ -402,10 +402,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex23",
@@ -420,10 +420,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex24",
@@ -438,10 +438,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex25",
@@ -456,10 +456,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex26",
@@ -474,10 +474,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex27",
@@ -492,10 +492,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex28",
@@ -510,10 +510,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex29",
@@ -528,10 +528,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex30",
@@ -564,10 +564,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex32",
@@ -582,10 +582,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex33",
@@ -600,10 +600,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t5",
+   "tpT": "النواة والمقارنة بين الخلية النباتية والحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex34",
@@ -618,10 +618,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t5",
+   "tpT": "النواة والمقارنة بين الخلية النباتية والحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex35",
@@ -654,10 +654,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t2",
+   "tpT": "مفهوم النمو",
+   "mc": "high"
   },
   {
    "tid": "p12bioex37",
@@ -672,10 +672,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t3",
+   "tpT": "أنواع التكاثر",
+   "mc": "high"
   },
   {
    "tid": "p12bioex38",
@@ -690,10 +690,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t2",
+   "tpT": "مفهوم النمو",
+   "mc": "high"
   },
   {
    "tid": "p12bioex39",
@@ -708,10 +708,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex40",
@@ -726,10 +726,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex41",
@@ -744,10 +744,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex42",
@@ -762,10 +762,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex43",
@@ -780,10 +780,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex44",
@@ -798,10 +798,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex45",
@@ -816,10 +816,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex46",
@@ -834,10 +834,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex47",
@@ -852,10 +852,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex48",
@@ -888,10 +888,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex50",
@@ -906,10 +906,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex51",
@@ -924,10 +924,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex52",
@@ -942,10 +942,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex53",
@@ -978,10 +978,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex55",
@@ -996,10 +996,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex56",
@@ -1014,10 +1014,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex57",
@@ -1032,10 +1032,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex58",
@@ -1050,10 +1050,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex59",
@@ -1068,10 +1068,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex60",
@@ -1086,10 +1086,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t4",
+   "tpT": "مستويات التعضي في تعقيد الحيوان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex61",
@@ -1122,10 +1122,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex63",
@@ -1176,10 +1176,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex66",
@@ -1194,10 +1194,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex67",
@@ -1212,10 +1212,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex68",
@@ -1230,10 +1230,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex69",
@@ -1248,10 +1248,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex70",
@@ -1266,10 +1266,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex71",
@@ -1284,10 +1284,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex72",
@@ -1302,10 +1302,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex73",
@@ -1320,10 +1320,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex74",
@@ -1338,10 +1338,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex75",
@@ -1356,10 +1356,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex76",
@@ -1374,10 +1374,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex77",
@@ -1392,10 +1392,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex78",
@@ -1410,10 +1410,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex79",
@@ -1428,10 +1428,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex80",
@@ -1446,10 +1446,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t6",
+   "tpT": "التشوهات الجنينية في الإنسان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex81",
@@ -1500,10 +1500,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex84",
@@ -1536,10 +1536,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex86",
@@ -1554,10 +1554,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex87",
@@ -1590,10 +1590,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex89",
@@ -1626,10 +1626,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "هـ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex91",
@@ -1644,10 +1644,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex92",
@@ -1698,10 +1698,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex95",
@@ -1734,10 +1734,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex97",
@@ -1752,10 +1752,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex98",
@@ -1806,10 +1806,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t7",
+   "tpT": "الأيض الخلوي والتنفس",
+   "mc": "high"
   },
   {
    "tid": "p12bioex101",
@@ -1824,10 +1824,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t2",
+   "tpT": "مفهوم النمو",
+   "mc": "high"
   },
   {
    "tid": "p12bioex102",
@@ -1842,10 +1842,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: علم الوراثة",
+   "tp": "b12c5t4",
+   "tpT": "الوراثة ما بعد منديل",
+   "mc": "high"
   },
   {
    "tid": "p12bioex103",
@@ -1878,10 +1878,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t3",
+   "tpT": "أنواع التكاثر",
+   "mc": "high"
   },
   {
    "tid": "p12bioex105",
@@ -1914,10 +1914,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex107",
@@ -1932,10 +1932,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex108",
@@ -1950,10 +1950,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex109",
@@ -1968,10 +1968,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex110",
@@ -1986,10 +1986,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex111",
@@ -2004,10 +2004,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex112",
@@ -2040,10 +2040,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex114",
@@ -2058,10 +2058,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex115",
@@ -2076,10 +2076,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex116",
@@ -2094,10 +2094,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex117",
@@ -2112,10 +2112,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex118",
@@ -2130,10 +2130,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex119",
@@ -2148,10 +2148,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex120",
@@ -2166,10 +2166,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex121",
@@ -2184,10 +2184,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t6",
+   "tpT": "عبور المواد عبر الأغشية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex122",
@@ -2202,10 +2202,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex123",
@@ -2238,10 +2238,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex125",
@@ -2274,10 +2274,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t8",
+   "tpT": "الانقسام المباشر والانقسام الخيطي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex127",
@@ -2292,10 +2292,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t6",
+   "tpT": "عبور المواد عبر الأغشية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex128",
@@ -2310,10 +2310,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex129",
@@ -2328,10 +2328,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex130",
@@ -2382,10 +2382,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex133",
@@ -2400,10 +2400,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex134",
@@ -2418,10 +2418,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex135",
@@ -2436,10 +2436,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex136",
@@ -2454,10 +2454,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex137",
@@ -2508,10 +2508,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex140",
@@ -2526,10 +2526,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex141",
@@ -2544,10 +2544,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex142",
@@ -2562,10 +2562,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex143",
@@ -2580,10 +2580,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex144",
@@ -2598,10 +2598,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t2",
+   "tpT": "مفهوم النمو",
+   "mc": "high"
   },
   {
    "tid": "p12bioex145",
@@ -2616,10 +2616,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t6",
+   "tpT": "عبور المواد عبر الأغشية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex146",
@@ -2634,10 +2634,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex147",
@@ -2652,10 +2652,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex148",
@@ -2688,10 +2688,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex150",
@@ -2706,10 +2706,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex151",
@@ -2724,10 +2724,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex152",
@@ -2742,10 +2742,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex153",
@@ -2760,10 +2760,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex154",
@@ -2778,10 +2778,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex155",
@@ -2814,10 +2814,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex157",
@@ -2832,10 +2832,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex158",
@@ -2850,10 +2850,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex159",
@@ -2868,10 +2868,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex160",
@@ -2886,10 +2886,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex161",
@@ -2904,10 +2904,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex162",
@@ -2922,10 +2922,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex163",
@@ -2940,10 +2940,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex164",
@@ -2958,10 +2958,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex165",
@@ -2976,10 +2976,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex166",
@@ -2994,10 +2994,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex167",
@@ -3012,10 +3012,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex168",
@@ -3030,10 +3030,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex169",
@@ -3066,10 +3066,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex171",
@@ -3084,10 +3084,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex172",
@@ -3102,10 +3102,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex173",
@@ -3138,10 +3138,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t5",
+   "tpT": "التكاثر في البدائيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex175",
@@ -3156,10 +3156,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex176",
@@ -3174,10 +3174,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex177",
@@ -3210,10 +3210,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex179",
@@ -3228,10 +3228,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex180",
@@ -3246,10 +3246,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex181",
@@ -3264,10 +3264,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex182",
@@ -3282,10 +3282,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t4",
+   "tpT": "مستويات التعضي في تعقيد الحيوان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex183",
@@ -3300,10 +3300,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex184",
@@ -3318,10 +3318,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex185",
@@ -3336,10 +3336,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex186",
@@ -3354,10 +3354,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex187",
@@ -3372,10 +3372,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex188",
@@ -3390,10 +3390,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex189",
@@ -3408,10 +3408,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex190",
@@ -3426,10 +3426,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex191",
@@ -3498,10 +3498,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex195",
@@ -3516,10 +3516,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex196",
@@ -3534,10 +3534,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex197",
@@ -3606,10 +3606,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex201",
@@ -3624,10 +3624,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex202",
@@ -3642,10 +3642,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex203",
@@ -3660,10 +3660,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex204",
@@ -3678,10 +3678,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex205",
@@ -3696,10 +3696,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t4",
+   "tpT": "مستويات التعضي في تعقيد الحيوان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex206",
@@ -3714,10 +3714,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex207",
@@ -3732,10 +3732,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex208",
@@ -3750,10 +3750,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex209",
@@ -3768,10 +3768,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex210",
@@ -3786,10 +3786,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex211",
@@ -3822,10 +3822,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex213",
@@ -3858,10 +3858,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex215",
@@ -3876,10 +3876,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex216",
@@ -3966,10 +3966,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex221",
@@ -3984,10 +3984,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex222",
@@ -4020,10 +4020,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex224",
@@ -4038,10 +4038,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex225",
@@ -4056,10 +4056,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex226",
@@ -4074,10 +4074,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex227",
@@ -4092,10 +4092,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex228",
@@ -4128,10 +4128,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex230",
@@ -4146,10 +4146,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t11",
+   "tpT": "تقانات في علاج العقم",
+   "mc": "high"
   },
   {
    "tid": "p12bioex231",
@@ -4164,10 +4164,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex232",
@@ -4182,10 +4182,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex233",
@@ -4200,10 +4200,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex234",
@@ -4254,10 +4254,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t5",
+   "tpT": "النواة والمقارنة بين الخلية النباتية والحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex237",
@@ -4272,10 +4272,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex238",
@@ -4290,10 +4290,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex239",
@@ -4308,10 +4308,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex240",
@@ -4326,10 +4326,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex241",
@@ -4344,10 +4344,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t5",
+   "tpT": "التكاثر في البدائيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex242",
@@ -4362,10 +4362,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex243",
@@ -4380,10 +4380,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex244",
@@ -4398,10 +4398,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex245",
@@ -4416,10 +4416,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex246",
@@ -4434,10 +4434,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex247",
@@ -4452,10 +4452,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex248",
@@ -4488,10 +4488,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex250",
@@ -4506,10 +4506,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex251",
@@ -4524,10 +4524,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex252",
@@ -4560,10 +4560,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t5",
+   "tpT": "النواة والمقارنة بين الخلية النباتية والحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex254",
@@ -4578,10 +4578,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex255",
@@ -4596,10 +4596,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex256",
@@ -4614,10 +4614,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex257",
@@ -4650,10 +4650,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t4",
+   "tpT": "التكاثر في الفيروسات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex259",
@@ -4668,10 +4668,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: الأنسجة",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex260",
@@ -4686,10 +4686,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex261",
@@ -4704,10 +4704,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex262",
@@ -4722,10 +4722,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex263",
@@ -4740,10 +4740,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex264",
@@ -4758,10 +4758,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex265",
@@ -4776,10 +4776,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex266",
@@ -4794,10 +4794,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex267",
@@ -4812,10 +4812,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex268",
@@ -4830,10 +4830,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex269",
@@ -4866,10 +4866,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex271",
@@ -4884,10 +4884,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex272",
@@ -4902,10 +4902,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex273",
@@ -4920,10 +4920,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex274",
@@ -4938,10 +4938,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex275",
@@ -4956,10 +4956,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex276",
@@ -4974,10 +4974,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex277",
@@ -5010,10 +5010,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex279",
@@ -5028,10 +5028,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex280",
@@ -5046,10 +5046,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex281",
@@ -5064,10 +5064,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex282",
@@ -5118,10 +5118,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex285",
@@ -5154,10 +5154,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex287",
@@ -5190,10 +5190,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex289",
@@ -5208,10 +5208,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex290",
@@ -5226,10 +5226,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t5",
+   "tpT": "مفهوم التكوين الجنيني",
+   "mc": "high"
   },
   {
    "tid": "p12bioex291",
@@ -5244,10 +5244,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex292",
@@ -5280,10 +5280,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex294",
@@ -5298,10 +5298,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex295",
@@ -5316,10 +5316,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex296",
@@ -5334,10 +5334,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex297",
@@ -5352,10 +5352,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex298",
@@ -5388,10 +5388,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex300",
@@ -5406,10 +5406,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex301",
@@ -5424,10 +5424,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex302",
@@ -5442,10 +5442,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex303",
@@ -5478,10 +5478,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex305",
@@ -5496,10 +5496,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex306",
@@ -5514,10 +5514,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex307",
@@ -5532,10 +5532,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex308",
@@ -5550,10 +5550,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex309",
@@ -5568,10 +5568,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex310",
@@ -5604,10 +5604,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex312",
@@ -5622,10 +5622,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex313",
@@ -5640,10 +5640,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex314",
@@ -5658,10 +5658,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex315",
@@ -5676,10 +5676,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex316",
@@ -5694,10 +5694,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex317",
@@ -5712,10 +5712,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex318",
@@ -5730,10 +5730,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex319",
@@ -5766,10 +5766,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex321",
@@ -5784,10 +5784,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex322",
@@ -5802,10 +5802,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t9",
+   "tpT": "الانقسام الاختزالي",
+   "mc": "high"
   },
   {
    "tid": "p12bioex323",
@@ -5820,10 +5820,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex324",
@@ -5838,10 +5838,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex325",
@@ -5856,10 +5856,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex326",
@@ -5874,10 +5874,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t2",
+   "tpT": "مفهوم النمو",
+   "mc": "high"
   },
   {
    "tid": "p12bioex327",
@@ -5892,10 +5892,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex328",
@@ -5946,10 +5946,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex331",
@@ -5964,10 +5964,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex332",
@@ -5982,10 +5982,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex333",
@@ -6000,10 +6000,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex334",
@@ -6018,10 +6018,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex335",
@@ -6054,10 +6054,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex337",
@@ -6108,10 +6108,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex340",
@@ -6144,10 +6144,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex342",
@@ -6180,10 +6180,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex344",
@@ -6198,10 +6198,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex345",
@@ -6216,10 +6216,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex346",
@@ -6234,10 +6234,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex347",
@@ -6252,10 +6252,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t11",
+   "tpT": "تقانات في علاج العقم",
+   "mc": "high"
   },
   {
    "tid": "p12bioex348",
@@ -6414,10 +6414,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex357",
@@ -6432,10 +6432,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex358",
@@ -6450,10 +6450,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex359",
@@ -6486,10 +6486,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex361",
@@ -6504,10 +6504,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: علم الوراثة",
+   "tp": "b12c5t5",
+   "tpT": "الأساس الجزيئي للوراثة",
+   "mc": "high"
   },
   {
    "tid": "p12bioex362",
@@ -6540,10 +6540,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex364",
@@ -6558,10 +6558,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex365",
@@ -6576,10 +6576,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex366",
@@ -6594,10 +6594,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex367",
@@ -6666,10 +6666,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t2",
+   "tpT": "الأنسجة النباتية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex371",
@@ -6684,10 +6684,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t11",
+   "tpT": "تقانات في علاج العقم",
+   "mc": "high"
   },
   {
    "tid": "p12bioex372",
@@ -6702,10 +6702,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex373",
@@ -6720,10 +6720,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t1",
+   "tpT": "مقدمة، النظرية الخلوية، حجم الخلية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex374",
@@ -6738,10 +6738,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex375",
@@ -6756,10 +6756,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t9",
+   "tpT": "الخلايا الجذعية الجنينية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex376",
@@ -6774,10 +6774,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t6",
+   "tpT": "التكاثر في الطليعيات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex377",
@@ -6828,10 +6828,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex380",
@@ -6846,10 +6846,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex381",
@@ -6882,10 +6882,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex383",
@@ -6936,10 +6936,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t7",
+   "tpT": "الأيض الخلوي والتنفس",
+   "mc": "high"
   },
   {
    "tid": "p12bioex386",
@@ -6954,10 +6954,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t6",
+   "tpT": "عبور المواد عبر الأغشية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex387",
@@ -6972,10 +6972,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex388",
@@ -6990,10 +6990,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex389",
@@ -7008,10 +7008,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t4",
+   "tpT": "الجسيمات الحالة، هيكل الخلية، الجسم الحركي، الفجوات والمحتويات غير الحية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex390",
@@ -7026,10 +7026,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكوين الجنيني",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex391",
@@ -7044,10 +7044,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex392",
@@ -7062,10 +7062,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex393",
@@ -7080,10 +7080,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex394",
@@ -7116,10 +7116,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex396",
@@ -7134,10 +7134,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex397",
@@ -7170,10 +7170,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex399",
@@ -7188,10 +7188,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex400",
@@ -7206,10 +7206,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex401",
@@ -7224,10 +7224,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex402",
@@ -7242,10 +7242,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex403",
@@ -7260,10 +7260,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex404",
@@ -7278,10 +7278,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex405",
@@ -7314,10 +7314,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t7",
+   "tpT": "الأيض الخلوي والتنفس",
+   "mc": "high"
   },
   {
    "tid": "p12bioex407",
@@ -7368,10 +7368,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t5",
+   "tpT": "مفهوم التكوين الجنيني",
+   "mc": "high"
   },
   {
    "tid": "p12bioex410",
@@ -7386,10 +7386,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex411",
@@ -7404,10 +7404,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t9",
+   "tpT": "الخلايا الجذعية الجنينية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex412",
@@ -7422,10 +7422,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex413",
@@ -7458,10 +7458,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex415",
@@ -7476,10 +7476,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex416",
@@ -7494,10 +7494,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex417",
@@ -7530,10 +7530,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex419",
@@ -7566,10 +7566,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "٣",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t5",
+   "tpT": "مفهوم التكوين الجنيني",
+   "mc": "high"
   },
   {
    "tid": "p12bioex421",
@@ -7584,10 +7584,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex422",
@@ -7620,10 +7620,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex424",
@@ -7638,10 +7638,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex425",
@@ -7656,10 +7656,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex426",
@@ -7710,10 +7710,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex429",
@@ -7728,10 +7728,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t9",
+   "tpT": "الخلايا الجذعية الجنينية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex430",
@@ -7746,10 +7746,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t9",
+   "tpT": "التكاثر في الحيوانات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex431",
@@ -7782,10 +7782,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex433",
@@ -7818,10 +7818,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex435",
@@ -7836,10 +7836,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex436",
@@ -7854,10 +7854,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex437",
@@ -7872,10 +7872,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t11",
+   "tpT": "تقانات في علاج العقم",
+   "mc": "high"
   },
   {
    "tid": "p12bioex438",
@@ -7890,10 +7890,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex439",
@@ -7908,10 +7908,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t6",
+   "tpT": "التشوهات الجنينية في الإنسان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex440",
@@ -7926,10 +7926,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex441",
@@ -7962,10 +7962,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الخلية",
+   "tp": "b12c1t3",
+   "tpT": "العضيات: الشبكة البلازمية، كولجي، المايتوكوندريا، البلاستيدات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex443",
@@ -7980,10 +7980,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الأول: الخلية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex444",
@@ -8016,10 +8016,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex446",
@@ -8052,10 +8052,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الخامس: علم الوراثة",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex448",
@@ -8070,10 +8070,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: علم الوراثة",
+   "tp": "b12c5t4",
+   "tpT": "الوراثة ما بعد منديل",
+   "mc": "high"
   },
   {
    "tid": "p12bioex449",
@@ -8088,10 +8088,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex450",
@@ -8142,10 +8142,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الأنسجة",
+   "tp": "b12c2t3",
+   "tpT": "الأنسجة الحيوانية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex453",
@@ -8160,10 +8160,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12bioex454",
@@ -8178,10 +8178,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التكاثر",
+   "tp": "b12c3t8",
+   "tpT": "التكاثر في النباتات",
+   "mc": "high"
   },
   {
    "tid": "p12bioex455",
@@ -8196,10 +8196,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: التكوين الجنيني",
+   "tp": "b12c4t6",
+   "tpT": "التشوهات الجنينية في الإنسان",
+   "mc": "high"
   },
   {
    "tid": "p12bioex456",
@@ -8214,10 +8214,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: علم الوراثة",
+   "tp": "b12c5t1",
+   "tpT": "مقدمة ونبذة تاريخية",
+   "mc": "high"
   },
   {
    "tid": "p12bioex457",
@@ -8250,10 +8250,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التكاثر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   }
  ]
 });
@@ -8276,10 +8276,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex2",
@@ -8294,10 +8294,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex3",
@@ -8312,10 +8312,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex4",
@@ -8384,10 +8384,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex8",
@@ -8456,10 +8456,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex12",
@@ -8492,10 +8492,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex14",
@@ -8528,10 +8528,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex16",
@@ -8564,10 +8564,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex18",
@@ -8582,10 +8582,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex19",
@@ -8600,10 +8600,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex20",
@@ -8618,10 +8618,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex21",
@@ -8654,10 +8654,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex23",
@@ -8672,10 +8672,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex24",
@@ -8726,10 +8726,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex27",
@@ -8744,10 +8744,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex28",
@@ -8780,10 +8780,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t9",
+   "tpT": "التعبير وخلاصة الوحدة",
+   "mc": "high"
   },
   {
    "tid": "p12arex30",
@@ -8816,10 +8816,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex32",
@@ -8834,10 +8834,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex33",
@@ -8870,10 +8870,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex35",
@@ -8906,10 +8906,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex37",
@@ -8924,10 +8924,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex38",
@@ -8942,10 +8942,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex39",
@@ -8960,10 +8960,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t7",
+   "tpT": "كم الاستفهامية والخبرية، وأيّ للحدث، والاستفهام المجازي",
+   "mc": "high"
   },
   {
    "tid": "p12arex40",
@@ -8978,10 +8978,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex41",
@@ -8996,10 +8996,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex42",
@@ -9014,10 +9014,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t7",
+   "tpT": "كم الاستفهامية والخبرية، وأيّ للحدث، والاستفهام المجازي",
+   "mc": "high"
   },
   {
    "tid": "p12arex43",
@@ -9032,10 +9032,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex44",
@@ -9050,10 +9050,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex45",
@@ -9068,10 +9068,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex46",
@@ -9104,10 +9104,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t7",
+   "tpT": "كم الاستفهامية والخبرية، وأيّ للحدث، والاستفهام المجازي",
+   "mc": "high"
   },
   {
    "tid": "p12arex48",
@@ -9140,10 +9140,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex50",
@@ -9176,10 +9176,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t5",
+   "tpT": "تقديم المفعول به على فعله: الموضعان الأول والثاني",
+   "mc": "high"
   },
   {
    "tid": "p12arex52",
@@ -9194,10 +9194,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex53",
@@ -9212,10 +9212,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex54",
@@ -9230,10 +9230,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex55",
@@ -9248,10 +9248,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex56",
@@ -9320,10 +9320,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex60",
@@ -9338,10 +9338,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex61",
@@ -9356,10 +9356,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex62",
@@ -9392,10 +9392,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex64",
@@ -9410,10 +9410,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex65",
@@ -9428,10 +9428,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex66",
@@ -9464,10 +9464,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex68",
@@ -9482,10 +9482,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex69",
@@ -9500,10 +9500,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex70",
@@ -9518,10 +9518,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex71",
@@ -9572,10 +9572,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex74",
@@ -9590,10 +9590,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex75",
@@ -9626,10 +9626,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex77",
@@ -9662,10 +9662,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex79",
@@ -9698,10 +9698,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex81",
@@ -9716,10 +9716,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex82",
@@ -9734,10 +9734,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex83",
@@ -9752,10 +9752,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex84",
@@ -9806,10 +9806,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex87",
@@ -9860,10 +9860,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex90",
@@ -9896,10 +9896,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex92",
@@ -10004,10 +10004,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex98",
@@ -10022,10 +10022,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex99",
@@ -10058,10 +10058,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex101",
@@ -10076,10 +10076,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex102",
@@ -10094,10 +10094,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex103",
@@ -10112,10 +10112,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex104",
@@ -10130,10 +10130,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex105",
@@ -10148,10 +10148,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex106",
@@ -10166,10 +10166,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex107",
@@ -10184,10 +10184,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex108",
@@ -10202,10 +10202,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex109",
@@ -10256,10 +10256,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t3",
+   "tpT": "التوكيد المعنوي وألفاظه",
+   "mc": "high"
   },
   {
    "tid": "p12arex112",
@@ -10274,10 +10274,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex113",
@@ -10346,10 +10346,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex117",
@@ -10364,10 +10364,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex118",
@@ -10400,10 +10400,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex120",
@@ -10418,10 +10418,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex121",
@@ -10436,10 +10436,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex122",
@@ -10454,10 +10454,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex123",
@@ -10508,10 +10508,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex126",
@@ -10544,10 +10544,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex128",
@@ -10580,10 +10580,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex130",
@@ -10616,10 +10616,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex132",
@@ -10634,10 +10634,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex133",
@@ -10652,10 +10652,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex134",
@@ -10706,10 +10706,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex137",
@@ -10724,10 +10724,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex138",
@@ -10760,10 +10760,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex140",
@@ -10778,10 +10778,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "د",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex141",
@@ -10850,10 +10850,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex145",
@@ -10868,10 +10868,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t9",
+   "tpT": "التعبير وخلاصة الوحدة",
+   "mc": "high"
   },
   {
    "tid": "p12arex146",
@@ -10904,10 +10904,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex148",
@@ -10922,10 +10922,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex149",
@@ -10976,10 +10976,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex152",
@@ -11030,10 +11030,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex155",
@@ -11048,10 +11048,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex156",
@@ -11066,10 +11066,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex157",
@@ -11084,10 +11084,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex158",
@@ -11102,10 +11102,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex159",
@@ -11192,10 +11192,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex164",
@@ -11246,10 +11246,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex167",
@@ -11282,10 +11282,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex169",
@@ -11300,10 +11300,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex170",
@@ -11318,10 +11318,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex171",
@@ -11426,10 +11426,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex177",
@@ -11444,10 +11444,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex178",
@@ -11462,10 +11462,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex179",
@@ -11516,10 +11516,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t9",
+   "tpT": "التعبير وخلاصة الوحدة",
+   "mc": "high"
   },
   {
    "tid": "p12arex182",
@@ -11534,10 +11534,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex183",
@@ -11552,10 +11552,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex184",
@@ -11570,10 +11570,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex185",
@@ -11606,10 +11606,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex187",
@@ -11624,10 +11624,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex188",
@@ -11642,10 +11642,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex189",
@@ -11660,10 +11660,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex190",
@@ -11696,10 +11696,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex192",
@@ -11714,10 +11714,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex193",
@@ -11732,10 +11732,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex194",
@@ -11750,10 +11750,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex195",
@@ -11768,10 +11768,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex196",
@@ -11786,10 +11786,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t1",
+   "tpT": "المطالعة: بغدادُ حاضرةُ الدُّنيا",
+   "mc": "high"
   },
   {
    "tid": "p12arex197",
@@ -11804,10 +11804,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex198",
@@ -11840,10 +11840,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex200",
@@ -11876,10 +11876,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex202",
@@ -11894,10 +11894,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex203",
@@ -11912,10 +11912,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex204",
@@ -11948,10 +11948,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex206",
@@ -11984,10 +11984,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex208",
@@ -12002,10 +12002,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex209",
@@ -12038,10 +12038,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex211",
@@ -12074,10 +12074,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex213",
@@ -12128,10 +12128,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex216",
@@ -12164,10 +12164,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex218",
@@ -12182,10 +12182,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex219",
@@ -12218,10 +12218,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex221",
@@ -12236,10 +12236,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex222",
@@ -12254,10 +12254,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex223",
@@ -12272,10 +12272,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex224",
@@ -12290,10 +12290,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex225",
@@ -12308,10 +12308,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex226",
@@ -12362,10 +12362,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex229",
@@ -12380,10 +12380,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex230",
@@ -12398,10 +12398,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex231",
@@ -12470,10 +12470,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex235",
@@ -12488,10 +12488,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t10",
+   "tpT": "التعبير: التعبير الشفهي والتعبير التحري",
+   "mc": "high"
   },
   {
    "tid": "p12arex236",
@@ -12506,10 +12506,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex237",
@@ -12524,10 +12524,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex238",
@@ -12542,10 +12542,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex239",
@@ -12578,10 +12578,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex241",
@@ -12596,10 +12596,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t8",
+   "tpT": "قصيدة (رؤيا) لأدونيس — نصّ للحفظ",
+   "mc": "high"
   },
   {
    "tid": "p12arex242",
@@ -12668,10 +12668,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex246",
@@ -12686,10 +12686,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex247",
@@ -12704,10 +12704,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex248",
@@ -12740,10 +12740,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex250",
@@ -12758,10 +12758,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex251",
@@ -12776,10 +12776,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex252",
@@ -12866,10 +12866,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex257",
@@ -12884,10 +12884,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex258",
@@ -12902,10 +12902,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex259",
@@ -12938,10 +12938,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t10",
+   "tpT": "التعبير: التعبير الشفهي والتعبير التحري",
+   "mc": "high"
   },
   {
    "tid": "p12arex261",
@@ -12974,10 +12974,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex263",
@@ -12992,10 +12992,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex264",
@@ -13046,10 +13046,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex267",
@@ -13064,10 +13064,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex268",
@@ -13082,10 +13082,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t4",
+   "tpT": "أسماء الاستفهام ودلالاتها",
+   "mc": "high"
   },
   {
    "tid": "p12arex269",
@@ -13100,10 +13100,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex270",
@@ -13118,10 +13118,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex271",
@@ -13136,10 +13136,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex272",
@@ -13172,10 +13172,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex274",
@@ -13190,10 +13190,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex275",
@@ -13226,10 +13226,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex277",
@@ -13244,10 +13244,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t3",
+   "tpT": "التوكيد المعنوي وألفاظه",
+   "mc": "high"
   },
   {
    "tid": "p12arex278",
@@ -13262,10 +13262,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex279",
@@ -13280,10 +13280,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex280",
@@ -13298,10 +13298,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex281",
@@ -13316,10 +13316,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex282",
@@ -13370,10 +13370,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex285",
@@ -13388,10 +13388,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex286",
@@ -13406,10 +13406,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex287",
@@ -13442,10 +13442,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex289",
@@ -13460,10 +13460,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex290",
@@ -13478,10 +13478,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex291",
@@ -13514,10 +13514,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex293",
@@ -13550,10 +13550,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex295",
@@ -13604,10 +13604,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t3",
+   "tpT": "التوكيد المعنوي وألفاظه",
+   "mc": "high"
   },
   {
    "tid": "p12arex298",
@@ -13694,10 +13694,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex303",
@@ -13712,10 +13712,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex304",
@@ -13730,10 +13730,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex305",
@@ -13766,10 +13766,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex307",
@@ -13784,10 +13784,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t1",
+   "tpT": "المطالعة: نِعمةُ المطر",
+   "mc": "high"
   },
   {
    "tid": "p12arex308",
@@ -13802,10 +13802,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t1",
+   "tpT": "المطالعة: بغدادُ حاضرةُ الدُّنيا",
+   "mc": "high"
   },
   {
    "tid": "p12arex309",
@@ -13820,10 +13820,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t8",
+   "tpT": "خلاصة القواعد وتحويل الجمل إلى استفهام",
+   "mc": "high"
   },
   {
    "tid": "p12arex310",
@@ -13856,10 +13856,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex312",
@@ -13892,10 +13892,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex314",
@@ -13910,10 +13910,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "د",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex315",
@@ -13928,10 +13928,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ه",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex316",
@@ -13946,10 +13946,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex317",
@@ -13964,10 +13964,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex318",
@@ -13982,10 +13982,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex319",
@@ -14018,10 +14018,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex321",
@@ -14054,10 +14054,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex323",
@@ -14072,10 +14072,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex324",
@@ -14090,10 +14090,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex325",
@@ -14108,10 +14108,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex326",
@@ -14126,10 +14126,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex327",
@@ -14144,10 +14144,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex328",
@@ -14162,10 +14162,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex329",
@@ -14180,10 +14180,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex330",
@@ -14198,10 +14198,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex331",
@@ -14234,10 +14234,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t11",
+   "tpT": "علي الشرقي — قصيدة «السيف والقلم»",
+   "mc": "high"
   },
   {
    "tid": "p12arex333",
@@ -14252,10 +14252,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex334",
@@ -14306,10 +14306,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex337",
@@ -14342,10 +14342,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "tp": "r12u6t5",
+   "tpT": "موضوع تعبير/كتابة",
+   "mc": "high"
   },
   {
    "tid": "p12arex339",
@@ -14450,10 +14450,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex345",
@@ -14486,10 +14486,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex347",
@@ -14522,10 +14522,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex349",
@@ -14540,10 +14540,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex350",
@@ -14576,10 +14576,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex352",
@@ -14594,10 +14594,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t8",
+   "tpT": "قصيدة (رؤيا) لأدونيس — نصّ للحفظ",
+   "mc": "high"
   },
   {
    "tid": "p12arex353",
@@ -14612,10 +14612,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex354",
@@ -14630,10 +14630,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex355",
@@ -14684,10 +14684,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex358",
@@ -14720,10 +14720,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex360",
@@ -14774,10 +14774,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t5",
+   "tpT": "إعراب أسماء الاستفهام الدالة على الذات (مَن، ما، ماذا، أيّ)",
+   "mc": "high"
   },
   {
    "tid": "p12arex363",
@@ -14828,10 +14828,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex366",
@@ -14846,10 +14846,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex367",
@@ -14864,10 +14864,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex368",
@@ -14918,10 +14918,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex371",
@@ -14972,10 +14972,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex374",
@@ -14990,10 +14990,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex375",
@@ -15008,10 +15008,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex376",
@@ -15044,10 +15044,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t1",
+   "tpT": "المطالعة: بغدادُ حاضرةُ الدُّنيا",
+   "mc": "high"
   },
   {
    "tid": "p12arex378",
@@ -15062,10 +15062,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex379",
@@ -15098,10 +15098,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex381",
@@ -15152,10 +15152,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex384",
@@ -15206,10 +15206,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex387",
@@ -15224,10 +15224,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex388",
@@ -15278,10 +15278,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex391",
@@ -15296,10 +15296,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex392",
@@ -15332,10 +15332,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex394",
@@ -15350,10 +15350,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex395",
@@ -15368,10 +15368,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex396",
@@ -15404,10 +15404,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex398",
@@ -15422,10 +15422,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex399",
@@ -15440,10 +15440,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex400",
@@ -15512,10 +15512,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex404",
@@ -15530,10 +15530,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex405",
@@ -15566,10 +15566,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex407",
@@ -15620,10 +15620,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex410",
@@ -15638,10 +15638,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex411",
@@ -15692,10 +15692,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex414",
@@ -15710,10 +15710,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex415",
@@ -15728,10 +15728,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex416",
@@ -15746,10 +15746,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex417",
@@ -15764,10 +15764,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex418",
@@ -15782,10 +15782,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex419",
@@ -15818,10 +15818,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex421",
@@ -15836,10 +15836,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t8",
+   "tpT": "قصيدة (رؤيا) لأدونيس — نصّ للحفظ",
+   "mc": "high"
   },
   {
    "tid": "p12arex422",
@@ -15872,10 +15872,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex424",
@@ -15890,10 +15890,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex425",
@@ -15908,10 +15908,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex426",
@@ -15944,10 +15944,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex428",
@@ -15962,10 +15962,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex429",
@@ -16016,10 +16016,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex432",
@@ -16088,10 +16088,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex436",
@@ -16124,10 +16124,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t7",
+   "tpT": "كم الاستفهامية والخبرية، وأيّ للحدث، والاستفهام المجازي",
+   "mc": "high"
   },
   {
    "tid": "p12arex438",
@@ -16142,10 +16142,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex439",
@@ -16178,10 +16178,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex441",
@@ -16250,10 +16250,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex445",
@@ -16286,10 +16286,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex447",
@@ -16322,10 +16322,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex449",
@@ -16394,10 +16394,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex453",
@@ -16448,10 +16448,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t3",
+   "tpT": "حرفا الاستفهام: الهمزة وهل",
+   "mc": "high"
   },
   {
    "tid": "p12arex456",
@@ -16466,10 +16466,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex457",
@@ -16502,10 +16502,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex459",
@@ -16520,10 +16520,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex460",
@@ -16538,10 +16538,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex461",
@@ -16556,10 +16556,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex462",
@@ -16574,10 +16574,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex463",
@@ -16592,10 +16592,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex464",
@@ -16610,10 +16610,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex465",
@@ -16628,10 +16628,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex466",
@@ -16646,10 +16646,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex467",
@@ -16664,10 +16664,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "٢",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex468",
@@ -16682,10 +16682,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex469",
@@ -16700,10 +16700,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex470",
@@ -16718,10 +16718,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex471",
@@ -16736,10 +16736,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex472",
@@ -16790,10 +16790,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex475",
@@ -16826,10 +16826,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex477",
@@ -16862,10 +16862,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ج",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex479",
@@ -16880,10 +16880,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "أ",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t1",
+   "tpT": "المطالعة: بغدادُ حاضرةُ الدُّنيا",
+   "mc": "high"
   },
   {
    "tid": "p12arex480",
@@ -16952,10 +16952,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex484",
@@ -16970,10 +16970,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex485",
@@ -17042,10 +17042,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t3",
+   "tpT": "وجوب تقديم الخبر: الموضعان الأول والثاني",
+   "mc": "high"
   },
   {
    "tid": "p12arex489",
@@ -17060,10 +17060,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex490",
@@ -17096,10 +17096,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex492",
@@ -17114,10 +17114,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t1",
+   "tpT": "المطالعة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex493",
@@ -17150,10 +17150,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex495",
@@ -17204,10 +17204,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex498",
@@ -17222,10 +17222,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t9",
+   "tpT": "الأدب الحديث، الشعر الحديث، مدرسة الإحياء",
+   "mc": "high"
   },
   {
    "tid": "p12arex499",
@@ -17240,10 +17240,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex500",
@@ -17366,10 +17366,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex507",
@@ -17384,10 +17384,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex508",
@@ -17402,10 +17402,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex509",
@@ -17420,10 +17420,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex510",
@@ -17438,10 +17438,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex511",
@@ -17456,10 +17456,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex512",
@@ -17510,10 +17510,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex515",
@@ -17528,10 +17528,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t2",
+   "tpT": "أسلوب الاستفهام ونوعاه من حيث الجواب",
+   "mc": "high"
   },
   {
    "tid": "p12arex516",
@@ -17564,10 +17564,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex518",
@@ -17582,10 +17582,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex519",
@@ -17636,10 +17636,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex522",
@@ -17690,10 +17690,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex525",
@@ -17708,10 +17708,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "١",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex526",
@@ -17744,10 +17744,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex528",
@@ -17762,10 +17762,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t7",
+   "tpT": "الأدب: مدرسة الشعر الحرّ",
+   "mc": "high"
   },
   {
    "tid": "p12arex529",
@@ -17834,10 +17834,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex533",
@@ -17852,10 +17852,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t5",
+   "tpT": "التعجب: صيغتاه القياسيتان",
+   "mc": "high"
   },
   {
    "tid": "p12arex534",
@@ -17870,10 +17870,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex535",
@@ -17906,10 +17906,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t9",
+   "tpT": "التعبير وخلاصة الوحدة",
+   "mc": "high"
   },
   {
    "tid": "p12arex537",
@@ -17942,10 +17942,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex539",
@@ -18014,10 +18014,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex543",
@@ -18032,10 +18032,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex544",
@@ -18050,10 +18050,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t6",
+   "tpT": "إعراب أسماء الزمان والمكان والحال (متى، أيّان، أين، أنّى، كيف)",
+   "mc": "high"
   },
   {
    "tid": "p12arex545",
@@ -18068,10 +18068,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex546",
@@ -18086,10 +18086,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "tp": "r12u1t10",
+   "tpT": "محمد سعيد الحبوبي — موشحة «يا غزال الكرخ»",
+   "mc": "high"
   },
   {
    "tid": "p12arex547",
@@ -18104,10 +18104,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex548",
@@ -18140,10 +18140,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex550",
@@ -18158,10 +18158,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex551",
@@ -18176,10 +18176,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t11",
+   "tpT": "خلاصة الوحدة: الأمل مفتاح النجاح",
+   "mc": "high"
   },
   {
    "tid": "p12arex552",
@@ -18194,10 +18194,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex553",
@@ -18230,10 +18230,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex555",
@@ -18248,10 +18248,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
+   "tp": "r12u3t7",
+   "tpT": "مراجعة شاملة: تقويم اللسان والتمارين المحلولة",
+   "mc": "high"
   },
   {
    "tid": "p12arex556",
@@ -18266,10 +18266,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الوحدة 4: نِعمة المطر",
+   "tp": "r12u4t6",
+   "tpT": "التوكيد بالنعت وبالمصدر (المفعول المطلق)",
+   "mc": "high"
   },
   {
    "tid": "p12arex557",
@@ -18284,10 +18284,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 4: نِعمة المطر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex558",
@@ -18302,10 +18302,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex559",
@@ -18356,10 +18356,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة 3: الأمل مفتاح النجاح",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12arex562",
@@ -18374,10 +18374,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الوحدة الأولى: بغداد حاضرة الدنيا",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   }
  ]
 });
@@ -18418,10 +18418,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex3",
@@ -18436,10 +18436,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "tp": "m12c5t3",
+   "tpT": "الحل الخاص والعام للمعادلة التفاضلية الاعتيادية",
+   "mc": "high"
   },
   {
    "tid": "p12mathex4",
@@ -18454,10 +18454,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
+   "tp": "m12c3t8",
+   "tpT": "تطبيقات عملية على القيم العظمى أو الصغرى",
+   "mc": "high"
   },
   {
    "tid": "p12mathex5",
@@ -18472,10 +18472,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: الأعداد المركبة",
+   "tp": "m12c1t3",
+   "tpT": "مرافق العدد المركب",
+   "mc": "high"
   },
   {
    "tid": "p12mathex6",
@@ -18490,10 +18490,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: القطوع المخروطية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex7",
@@ -18544,10 +18544,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex10",
@@ -18634,10 +18634,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: التكامل",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex15",
@@ -18652,10 +18652,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex16",
@@ -18670,10 +18670,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: القطوع المخروطية",
+   "tp": "m12c2t1",
+   "tpT": "القطع المخروطي",
+   "mc": "high"
   },
   {
    "tid": "p12mathex17",
@@ -18688,10 +18688,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
+   "tp": "m12c3t8",
+   "tpT": "تطبيقات عملية على القيم العظمى أو الصغرى",
+   "mc": "high"
   },
   {
    "tid": "p12mathex18",
@@ -18742,10 +18742,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "tp": "m12c5t3",
+   "tpT": "الحل الخاص والعام للمعادلة التفاضلية الاعتيادية",
+   "mc": "high"
   },
   {
    "tid": "p12mathex21",
@@ -18760,10 +18760,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل السادس: الهندسة الفضائية",
+   "tp": "m12c6t2",
+   "tpT": "الزاوية الزوجية والمستويات المتعامدة",
+   "mc": "high"
   },
   {
    "tid": "p12mathex22",
@@ -18778,10 +18778,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: القطوع المخروطية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12mathex23",
@@ -18832,10 +18832,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: تطبيقات التفاضل",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   }
  ]
 });
@@ -18876,10 +18876,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "ب",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل السادس: الفيزياء الحديثة",
+   "tp": "p12c6t9",
+   "tpT": "Heisenberg uncertainty principle",
+   "mc": "high"
   },
   {
    "tid": "p12phyex3",
@@ -18930,10 +18930,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: المتسعات",
+   "tp": "p12c1t10",
+   "tpT": "بعض التطبيقات العملية للمتسعة",
+   "mc": "high"
   },
   {
    "tid": "p12phyex6",
@@ -18948,10 +18948,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثامن: الأطياف الذرية والليزر",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex7",
@@ -18966,10 +18966,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex8",
@@ -19038,10 +19038,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل السابع: إلكترونيات الحالة الصلبة",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex12",
@@ -19056,10 +19056,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "tp": "p12c7t7",
+   "tpT": "أشباه الموصلات",
+   "mc": "high"
   },
   {
    "tid": "p12phyex13",
@@ -19074,10 +19074,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex14",
@@ -19092,10 +19092,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "tp": "p12c4t9",
+   "tpT": "انتشار الموجات الكهرومغناطيسية",
+   "mc": "high"
   },
   {
    "tid": "p12phyex15",
@@ -19146,10 +19146,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: البصريات الفيزيانية",
+   "tp": "p12c5t4",
+   "tpT": "التداخل في الأغشية الرقيقة",
+   "mc": "high"
   },
   {
    "tid": "p12phyex18",
@@ -19164,10 +19164,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: الموجات الكهرومغناطيسية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex19",
@@ -19182,10 +19182,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التيار المتناوب",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex20",
@@ -19200,10 +19200,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "tp": "p12c2t12",
+   "tpT": "المولدات الكهربائية",
+   "mc": "high"
   },
   {
    "tid": "p12phyex21",
@@ -19218,10 +19218,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثالث: التيار المتناوب",
+   "tp": "p12c3t5",
+   "tpT": "المقدار المؤثر للتيار المتناوب",
+   "mc": "high"
   },
   {
    "tid": "p12phyex22",
@@ -19236,10 +19236,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "tp": "p12c2t9",
+   "tpT": "قانون فراداي",
+   "mc": "high"
   },
   {
    "tid": "p12phyex23",
@@ -19254,10 +19254,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: الموجات الكهرومغناطيسية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex24",
@@ -19272,10 +19272,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثامن: الأطياف الذرية والليزر",
+   "tp": "p12c8t3",
+   "tpT": "نموذج بور",
+   "mc": "high"
   },
   {
    "tid": "p12phyex25",
@@ -19290,10 +19290,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "tp": "p12c4t4",
+   "tpT": "مبادئ الإرسال والتسلم للموجات الكهرومغناطيسية",
+   "mc": "high"
   },
   {
    "tid": "p12phyex26",
@@ -19308,10 +19308,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التيار المتناوب",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex27",
@@ -19326,10 +19326,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex28",
@@ -19344,10 +19344,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الرابع: الموجات الكهرومغناطيسية",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex29",
@@ -19398,10 +19398,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الخامس: البصريات الفيزيانية",
+   "tp": "p12c5t2",
+   "tpT": "تداخل الموجات الضوئية",
+   "mc": "high"
   },
   {
    "tid": "p12phyex32",
@@ -19416,10 +19416,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: المتسعات",
+   "tp": "p12c1t4",
+   "tpT": "العازل الكهربائي",
+   "mc": "high"
   },
   {
    "tid": "p12phyex33",
@@ -19434,10 +19434,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "tp": "p12c2t2",
+   "tpT": "تأثير كل من المجالين الكهربائي والمغناطيسي في الجسيمات المشحونة المتحركة خلاله",
+   "mc": "high"
   },
   {
    "tid": "p12phyex34",
@@ -19452,10 +19452,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثالث: التيار المتناوب",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex35",
@@ -19470,10 +19470,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
+   "ch": "الفصل الثاني: الحث الكهرومغناطيسي",
    "tp": "",
    "tpT": "",
-   "mc": "none"
+   "mc": "chapter"
   },
   {
    "tid": "p12phyex36",
@@ -19524,10 +19524,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل الأول: المتسعات",
+   "tp": "p12c1t9",
+   "tpT": "دائرة تيار مستمر تتألف من مقاومة ومتسعة",
+   "mc": "high"
   },
   {
    "tid": "p12phyex39",
@@ -19542,10 +19542,10 @@ window.MINISTERIAL_BANK.push({
    "letter": "",
    "num": "",
    "src": "ministerial-ocr",
-   "ch": "",
-   "tp": "",
-   "tpT": "",
-   "mc": "none"
+   "ch": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "tp": "p12c7t6",
+   "tpT": "الحزمة التكافؤية والحزمة الناقلة",
+   "mc": "high"
   },
   {
    "tid": "p12phyex40",

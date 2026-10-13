@@ -2575,18 +2575,7 @@ function startExamClock() {
     if (!z || z.phase !== 'run' || !(z.kind === 'ministerial' || z.perQ > 0)) { clearExamClock(); return; }
     const el = document.getElementById('examClock');
     if (!el) { clearExamClock(); return; }
-    let perQ = z.perQ;
-    const it0 = z.items[z.i];
-    const openNow = it0 && (!it0.q.o || !it0.q.o.length) && (it0.q.c == null || it0.q.c < 0);
-    /* التكيّف: يمدد الوقت في مواضيعك الضعيفة فقط، وبقيمة مدوّرة (١٥ث) حتى لا يظهر وقت غريب */
-    if (z.adaptive && !openNow && it0 && it0.tid) {
-      const f = findTopic(it0.tid);
-      if (f) {
-        const pct = topicPct(f.t);
-        const m = pct >= 80 ? 0.75 : pct >= 60 ? 1 : pct >= 40 ? 1.25 : 1.5;
-        perQ = Math.max(30, Math.round(z.perQ * m / 15) * 15);
-      }
-    }
+    const perQ = perQOf(z, z.i);
     const left = Math.max(0, perQ - Math.floor((Date.now() - z.qAt) / 1000));
     el.textContent = mmss(left);
     el.classList.toggle('bad-t', left <= 10);
@@ -2723,6 +2712,32 @@ function beginExam() {
   if (z.kind === 'ministerial') startExamClock();
   render(true);
 }
+/* زمن السؤال: مدة نوعه إن عُرفت (علّل أطول من اختيار) وإلا زمن الجلسة، ثم تكيّف مع مستواك
+   — فالوقت يُحسب لكل سؤال على حدة بدل زمن واحد لكل الورقة */
+function perQOf(z, i) {
+  const it = z.items[i];
+  if (!it) return z.perQ || 90;
+  let sec = it.q.time || z.perQ || 90;
+  const open = (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
+  if (z.adaptive && !open && it.tid) {
+    const f = findTopic(it.tid);
+    if (f) {
+      const pct = topicPct(f.t);
+      const m = pct >= 80 ? 0.75 : pct >= 60 ? 1 : pct >= 40 ? 1.25 : 1.5;
+      sec = Math.max(30, Math.round(sec * m / 15) * 15);
+    }
+  }
+  return sec;
+}
+/* وسم نوع السؤال: من بيانات البنك المستخرج، وإلا من صورته */
+function examTypeChip(q) {
+  let t = q.type;
+  if (!t) {
+    const open = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
+    t = open ? 'سؤال مفتوح' : 'اختيار من متعدد';
+  }
+  return '<span class="chip" style="pointer-events:none;padding:2px 9px;font-size:12px">' + esc(t) + '</span>';
+}
 function examRunView(z, title) {
   const it = z.items[z.i], q = it.q, picked = z.picks[z.i], lock = z.kind === 'ministerial', timed = lock || z.perQ > 0;
   const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
@@ -2747,10 +2762,21 @@ function examRunView(z, title) {
       '</section>';
   }
   setTimeout(() => { if (timed) startExamClock(); }, 0);
+  /* بيانات مصدر السؤال إن كان من البنك الوزاري: أي دورة ودور */
+  const msrc = (z.kind === 'ministerial' && (q.year || q.type || q.letter))
+    ? '<p class="small muted" style="margin:0 0 6px">' +
+      (q.year ? 'دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' · ' + esc(q.role) : '') : 'من إعداد المنهج') +
+      (q.letter ? ' · فرع ' + esc(q.letter) + (q.num ? ' رقم ' + ar(q.num) : '') : '') + '</p>'
+    : '';
   return topBar(title, { back: !lock, noTools: true }) + '<main class="page">' +
     '<div class="bar"><span style="width:' + Math.round(z.i / z.items.length * 100) + '%"></span></div>' +
-    '<p class="muted small num">السؤال ' + ar(z.i + 1) + ' من ' + ar(z.items.length) + (timed ? ' · <span id="examClock">' + mmss(z.perQ) + '</span>' : '') + '</p>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0">' +
+      '<p class="muted small num" style="margin:0">السؤال ' + ar(z.i + 1) + ' من ' + ar(z.items.length) + '</p>' +
+      examTypeChip(q) +
+      (timed ? '<span class="small muted num" style="white-space:nowrap">⏱ <span id="examClock">' + mmss(perQOf(z, z.i)) + '</span></span>' : '') +
+    '</div>' +
     (timed ? '<div class="bar"><span id="examBar" style="width:100%"></span></div>' : '') +
+    msrc +
     body +
     (lock && !isOpen ? '<p class="note">اختر جوابًا واحدًا؛ لا يمكن الرجوع إلى السؤال، وينتقل تلقائيًا عند انتهاء الوقت.</p>' : '') +
     (lock && isOpen ? '<p class="note">اقرأ السؤال جيدًا، ثم اضغط «أظهر الحل» لقياس إجابتك. لا يمكن الرجوع إلى السؤال.</p>' : '') +

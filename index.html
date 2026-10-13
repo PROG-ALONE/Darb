@@ -2,11 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>دَرْب</title>
+<meta name="description" content="دَرْب: تطبيق دراسي مجاني من الأول الابتدائي إلى السادس الإعدادي، أساسه الفهم لا الحفظ: مسائل الكتاب مع حلولها النموذجية، اختبارات، مراجعة، حفظ، وتصحيح الحل بالصورة.">
 <meta name="theme-color" content="#4B46E0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="دَرْب">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -559,6 +563,110 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 .about-hero{background:linear-gradient(135deg,#171C3E,#4B46E0 78%);color:#F3F5F2;border:0}.about-hero h2{font-family:var(--deco);font-size:2.4em;margin:0}.about-tag{font-size:1.05em;line-height:1.9;opacity:.92}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}.about-grid div{background:rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}.about-grid span{font-size:.78em;opacity:.7}
 .about-steps{counter-reset:st;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}.about-steps li{counter-increment:st;display:grid;grid-template-columns:30px 1fr;gap:4px 10px;align-items:start}.about-steps li::before{content:counter(st,arabic-indic);grid-row:span 2;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-weight:700}.about-steps span{color:var(--muted);font-size:.9em;line-height:1.8}
 .about-foot{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+
+/* =================== شاشة الجهاز: سلوك التطبيق المثبّت ===================
+   الهدف: عند التثبيت على الآيباد أو الهاتف يعمل كتطبيق — لا تحريك أفقي، ولا تكبير باللمس،
+   ولا تمدّد يتجاوز عرض الشاشة، مع استجابة كاملة لكل المقاسات والأوضاع. */
+
+/* ١) منع التحريك الأفقي وتمدّد الصفحة، ومنع تكبير النص تلقائيًا في iOS */
+html,body{height:100%;max-width:100%;overflow-x:hidden}
+body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none;overflow-wrap:anywhere}
+/* معامل الاستجابة: يُضرب في --fs (حجم الخط الذي يختاره الطالب من الإعدادات) */
+body{font-size:calc(var(--fs) * var(--fsk,1))}
+img,svg,video,canvas,iframe{max-width:100%}
+img,video,canvas{height:auto}
+
+/* ٢) لمس مريح + منع التكبير بالنقر المزدوج */
+button,.btn,.tab,.icon-btn,.chip,.seg,.play-btn,summary,a{touch-action:manipulation}
+summary{min-height:48px}
+@media (pointer:coarse){
+  .icon-btn{width:48px;height:48px}
+  .tab{min-height:60px}
+  .numpad button{min-height:52px}
+  .chip{min-height:42px}
+}
+
+/* ٣) عناصر مرنة بلا حدّ أدنى — أكثر سبب للتحريك يمينًا ويسارًا */
+.page>*,.card>*,.grid2>*,.grid4>*,.grid3>*,.row>*,.tabs>*,.metrics>*{min-width:0}
+pre,code,.eq,.math{overflow-wrap:anywhere}
+
+/* ٤) ما يحتاج تمريرًا يمرّر داخليًا فقط، ولا يدفع الصفحة */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;overscroll-behavior-x:contain}
+.tbl td .math.eq{white-space:normal}
+.dchart,.shelf{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.dchart{min-height:150px}
+
+/* ٥) وضع التطبيق المثبّت: ارتفاع كامل واحترام المنطقة الآمنة */
+@media (display-mode:standalone),(display-mode:fullscreen),(display-mode:minimal-ui){
+  #app{min-height:100vh;min-height:100dvh}
+  .page{padding-block-end:max(132px,calc(104px + env(safe-area-inset-bottom,0px)))}
+  .tabs{padding-block-end:calc(8px + env(safe-area-inset-bottom,0px))}
+  .toast{bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+  .onb{padding-block-start:calc(30px + env(safe-area-inset-top,0px))}
+}
+
+/* ٦) الهاتف — عمودي */
+@media (max-width:640px){
+  :root{--fsk:.95}
+  .page{padding-inline:14px;gap:12px;padding-block-end:max(126px,calc(100px + env(safe-area-inset-bottom,0px)))}
+  .top{padding:12px 14px 8px;gap:8px}
+  .top h1{font-size:1.3em}
+  .card{padding:16px 14px;border-radius:16px;gap:10px}
+  .grid2,.grid4{gap:10px}
+  .grid4{grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr))}
+  .glimpse,.grade-hero,.result-hero{padding:18px 16px;border-radius:18px}
+  .result-hero b{font-size:2.3em}
+  .about-grid{grid-template-columns:1fr}
+  .about-hero h2{font-size:2em}
+  .activity,.defcard,.guide{padding:14px 13px}
+  .metrics{grid-template-columns:repeat(auto-fit,minmax(min(100%,104px),1fr))}
+  .tabs{padding-inline:4px}
+  .tab{font-size:.72em}
+}
+@media (max-width:390px){
+  :root{--fsk:.9}
+  .page{padding-inline:12px}
+  .card{padding:14px 12px}
+  .numpad{gap:4px}
+  .tab{font-size:.68em;min-height:52px}
+  .tab svg{width:21px;height:21px}
+  .icon-btn{width:42px;height:42px}
+  .top h1{font-size:1.18em}
+}
+/* الهاتف — أفقي (شريط علوي صغير، محتوى أكثر) */
+@media (orientation:landscape) and (max-height:560px){
+  :root{--fsk:.92}
+  .top{padding:8px 14px 6px}
+  .top h1{font-size:1.15em}
+  .page{gap:10px;padding-block:2px max(104px,calc(84px + env(safe-area-inset-bottom,0px)))}
+  .tab{min-height:46px;font-size:.66em;gap:0}
+  .tab svg{width:19px;height:19px}
+  .card{padding:12px 14px;gap:8px}
+  .numpad button{min-height:40px}
+  .vbar{height:84px}
+  .dchart{min-height:120px}
+}
+/* ٧) الآيباد والشاشات الكبيرة — عمودان حيث يفيد، ونص أكبر */
+@media (min-width:700px) and (max-width:1023px){
+  :root{--fsk:1.03}
+  .page{max-width:960px;gap:18px}
+  .top h1{font-size:1.7em}
+  .about-grid{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1024px){
+  :root{--fsk:1.06}
+  .page{max-width:1040px}
+  .top{padding-block:18px 12px}
+}
+@media (min-width:1440px){
+  :root{--fsk:1.1}
+  .page{max-width:1120px}
+}
+/* ٨) شاشات عالية (iPad Pro مقاس 12.9) — لا نمدّد السطر أكثر من اللازم */
+@media (min-width:1200px) and (pointer:coarse){:root{--fsk:1.08}}
+/* ٩) تباين النص الباهت داخل الأزرار الملوّنة */
+.btn .muted,.btn .small.muted,.seg .muted{color:color-mix(in srgb,var(--acc-ink) 82%,transparent)}
+.btn.quiet .muted,.btn.ghost .muted,.btn.quiet,.btn.ghost{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -617,8 +725,45 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
 <script src="content/ministerial-الكيمياء.js"></script>
 <script src="content/ministerial-الأحياء.js"></script>
 <script src="content/ministerial-الرياضيات.js"></script>
+<script src="content/guides-all-1.js"></script>
+<script src="content/guides-all-2.js"></script>
+<script src="content/guides-all-3.js"></script>
+<script src="content/guides-all-4.js"></script>
+<script src="content/guides-all-5.js"></script>
+<script src="content/guides-all-6.js"></script>
 <script>
 'use strict';
+/* ===== behaves like an installed app: block zoom + horizontal drift =====
+   iOS في وضع التطبيق المثبّت يتجاهل user-scalable، فنمنع إيماءات التكبير مباشرة.
+   على الحاسوب (فأرة) لا نمنع شيء: النص يبقى قابلًا للتحديد بالنقر المزدوج. */
+(function () {
+  const root = document.documentElement;
+  const standalone = matchMedia('(display-mode:standalone)').matches || matchMedia('(display-mode:fullscreen)').matches;
+  const touch = matchMedia('(pointer:coarse)').matches;
+  root.classList.toggle('installed', standalone);
+  const stop = e => { e.preventDefault(); };
+  /* إيماءات قرص iOS (تكبير/تصغير بالإصبعين) */
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(ev => document.addEventListener(ev, stop, { passive: false }));
+  document.addEventListener('touchmove', e => { if (e.touches.length > 1) stop(e); }, { passive: false });
+  if (touch || standalone) {
+    document.addEventListener('dblclick', stop, { passive: false });
+    let last = 0;
+    document.addEventListener('touchend', e => {
+      if (e.touches.length) return;
+      const now = Date.now();
+      if (now - last < 320) stop(e);   /* نقر مزدوج = تكبير في iOS */
+      last = now;
+    }, { passive: false });
+  }
+  /* أي انزلاق أفقي غير مقصود يُعاد إلى الصفر (سلوك التطبيقات) */
+  let guard = 0;
+  addEventListener('scroll', () => {
+    if (root.scrollLeft > 0) root.scrollLeft = 0;
+    const sc = document.scrollingElement;
+    if (sc && sc.scrollLeft > 0 && ++guard < 6) sc.scrollLeft = 0;
+  }, { passive: true });
+  addEventListener('orientationchange', () => setTimeout(() => { scrollTo(0, 0); root.scrollLeft = 0; }, 120));
+})();
 document.documentElement.setAttribute('dir', 'rtl');
 document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
@@ -740,7 +885,10 @@ const store = {
   load() { try { const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } },
   save(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); return true; } catch (e) { return false; } }
 };
-function freshDB() { return { schema: SCHEMA, created: new Date().toISOString(), activeId: null, students: [], prefs: { theme: 'auto', fs: 2 }, rating: 0 }; }
+const AI_DEF = { on: false, provider: '', model: '', key: '', base: '', consent: false };
+function freshDB() { return { schema: SCHEMA, created: new Date().toISOString(), activeId: null, students: [], prefs: { theme: 'auto', fs: 2, ai: Object.assign({}, AI_DEF) }, rating: 0 }; }
+/* إعدادات التصحيح الذكي (لا تُلمس بقية الخصائص). المفتاح يُحفظ محليًا ويدخل في النسخة الاحتياطية مع بقية الإعدادات. */
+function aiPref() { const p = DB.prefs; p.ai = Object.assign({}, AI_DEF, p.ai || {}); return p.ai; }
 let DB = store.load();
 if (!DB || DB.schema !== SCHEMA) DB = freshDB();
 let saveTimer = null, saveFailed = false;
@@ -1523,7 +1671,7 @@ function vSearch() {
 }
 const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كاملًا، ونضيف التعليلات الصعبة والأسئلة المميّزة.' : g >= 80 ? 'هدف جيد: نتقن الأساس كاملًا مع تدريب وزاري منتظم.' : 'نبدأ بالأساس حتى يثبت، ثم نرفع الهدف معًا.';
 
-const SET_TABS = [['acc', 'الحساب'], ['study', 'الدراسة'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
+const SET_TABS = [['acc', 'الحساب'], ['study', 'الدراسة'], ['ai', 'الذكاء الاصطناعي'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٢ تشرين الأول ٢٠٢٦';
 function aboutHTML() {
   const live = []; GRADES.forEach(g => gradeContents(g.id).forEach(y => live.push({ g: g.name, s: y.subject, n: y.c.chapters.length, t: y.c.chapters.reduce((k, c) => k + c.topics.length, 0) })));
@@ -1598,7 +1746,8 @@ function vSettings() {
     '<section class="card"><h2>المسائل</h2><div class="field"><label for="sProb">وقت المسائل اليومي: <span class="num">' + ar(st.probMinutes || 60) + '</span> دقيقة</label><input id="sProb" type="range" min="15" max="180" step="15" value="' + (st.probMinutes || 60) + '" style="accent-color:var(--acc);min-height:44px"><span class="note">جزء من وقتك اليومي يُخصَّص لحل المسائل في دفتر كل مادة، والأولوية للمواد التي فيها مسائل لم تُحل.</span></div></section>' +
     '<section class="card"><h2>العطل</h2>' + st.holidays.map((h, i) => '<div class="row"><span class="small">' + esc(h.name) + '، ' + fmtD(parseD(h.from)) + ' – ' + fmtD(parseD(h.to)) + '</span><button class="btn quiet" style="min-height:40px;padding:0 12px" data-act="delHoliday" data-i="' + i + '">حذف</button></div>').join('') +
       '<div class="grid2"><input id="hFrom" class="input" type="date" aria-label="بداية العطلة"><input id="hTo" class="input" type="date" aria-label="نهاية العطلة"></div><input id="hName" class="input" placeholder="اسم العطلة، مثلًا: عيد الفطر"><button class="btn quiet" data-act="addHoliday">أضف عطلة</button></section>' +
-    '<section class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2>مدرّس الذكاء الاصطناعي</h2><span class="small muted">قريبًا</span></div><p class="small muted">مدرّس يحاورك ويجيب عن أي سؤال في الموضوع. سيُفعَّل لاحقًا خيارًا إضافيًا، والتطبيق يعمل كاملًا بدونه.</p></section>';
+    '<section class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2>الذكاء الاصطناعي</h2><span class="small muted">اختياري</span></div><p class="small muted">تصحيح حلّك بالصورة (الناتج والخطوات والقوانين) عبر مفتاحك الخاص. يحتاج إنترنت، وحكمه إرشادي لا يُحتسب.</p><button class="btn quiet" data-act="go" data-v="settings" data-t="ai">افتح إعدادات الذكاء الاصطناعي</button></section>';
+  if (tab === 'ai') body = aiSection();
   if (tab === 'look') body =
     '<section class="card"><h2>نمط التطبيق</h2><div class="grid4" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">' +
       themes.map(t => '<button class="chip" data-act="theme" data-v="' + t[0] + '" aria-pressed="' + (p.theme === t[0]) + '" style="min-height:96px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">' +
@@ -1610,6 +1759,7 @@ function vSettings() {
   if (tab === 'data') body =
     '<section class="card"><h2>النسخ الاحتياطي والاسترجاع</h2>' +
       '<p class="small muted">النسخة تحفظ كل الطلاب وتقدمهم ودفاترهم وإعداداتهم. احفظها قبل تغيير الجهاز أو مسح بيانات المتصفح.</p>' +
+      '<p class="note">تنبيه: إن فعّلت التصحيح الذكي، فإن <b>مفتاح الذكاء الاصطناعي</b> يدخل ضمن هذه النسخة. لا تشارك ملف النسخة مع أحد إن كنت لا تريد كشف مفتاحك.</p>' +
       '<div class="grid2"><button class="btn" data-act="export">صدّر نسخة احتياطية</button><label class="btn ghost" for="impFile" style="cursor:pointer">استرجع من ملف</label></div>' +
       '<input id="impFile" type="file" accept="application/json,.json" hidden>' +
       '<div id="expBox" hidden class="field"><label for="expText">انسخ هذا النص واحفظه في ملاحظاتك إن لم يبدأ التنزيل</label><textarea id="expText" class="input" rows="4" readonly style="padding:12px;font-family:monospace;direction:ltr"></textarea><button class="btn quiet" data-act="copyExp">انسخ النص</button></div>' +
@@ -1722,6 +1872,181 @@ const SOCIAL = { instagram: 'https://www.instagram.com/h.nj2', linkedin: 'https:
 const IC_IG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>';
 const IC_LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>';
 const IC_EM = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+
+/* =================== التصحيح الذكي بالصورة (اختياري · يحتاج إنترنت) =================== */
+/* المطابقة الرقمية أعلاه تعمل دون إنترنت وتبقى الافتراضية. هذه ميزة إضافية إرشادية فقط. */
+const AI_PROVIDERS = {
+  gemini: { name: 'Gemini (Google)', model: 'gemini-2.5-flash', keyUrl: 'https://aistudio.google.com/app/apikey' },
+  openai: { name: 'OpenAI', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+  openrouter: { name: 'OpenRouter', model: 'google/gemini-2.5-flash', keyUrl: 'https://openrouter.ai/keys' },
+  custom: { name: 'مزوّد مخصّص (صيغة OpenAI)', model: '', keyUrl: '' }
+};
+const AI_KEY_STEPS = {
+  gemini: ['افتح Google AI Studio عبر الرابط أدناه وسجّل بحسابك.', 'اضغط «Create API key» ثم «Create API key in new project».', 'انسخ المفتاح الذي يبدأ بـ AIza والصقه في حقل المفتاح.'],
+  openai: ['افتح منصة OpenAI عبر الرابط أدناه وسجّل.', 'من قسم «API keys» اضغط «Create new secret key».', 'انسخ المفتاح (يبدأ بـ sk-) والصقه، ولا تشاركه مع أحد.'],
+  openrouter: ['افتح OpenRouter عبر الرابط أدناه وسجّل.', 'من قسم «Keys» اضغط «Create Key».', 'انسخ المفتاح (يبدأ بـ sk-or-) والصقه.'],
+  custom: ['اختر مزوّدًا يدعم الرؤية بصيغة OpenAI.', 'ضع رابط الخدمة في حقل «الرابط» واسم النموذج والمفتاح.']
+};
+function aiReady() { const a = aiPref(); return !!(a.on && a.provider && a.key && a.consent); }
+
+function aiSection() {
+  const a = aiPref();
+  const chips = Object.keys(AI_PROVIDERS).map(k =>
+    '<button class="chip" data-act="aiPick" data-v="' + k + '" aria-pressed="' + (a.provider === k) + '">' + esc(AI_PROVIDERS[k].name) + '</button>').join('');
+  const steps = (AI_KEY_STEPS[a.provider] || []).map(x => '<li>' + esc(x) + '</li>').join('');
+  const keyUrl = (AI_PROVIDERS[a.provider] || {}).keyUrl || '';
+  return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2>صحّح حلي بالصورة</h2>' +
+      '<label class="chip" style="cursor:pointer"><input type="checkbox" data-ai-toggle ' + (a.on ? 'checked' : '') + ' style="margin-inline-end:6px">' + (a.on ? 'مُفعَّل' : 'معطّل') + '</label></div>' +
+      '<p class="small muted">ارفع صورة حلّك الورقي فيراجع الذكاء الاصطناعي <b>الناتج والخطوات والقوانين</b>. الحكم <b>إرشادي</b> ولا يُحتسب كدرجة. يحتاج <b>إنترنت</b> ومفتاحًا خاصًّا بك.</p></section>' +
+    '<section class="card"><h2>المزوّد</h2><div class="chips">' + chips + '</div>' +
+      (a.provider === 'custom' ? '<div class="field" style="margin-top:10px"><label for="aiBase">رابط الخدمة</label><input id="aiBase" class="input" dir="ltr" value="' + esc(a.base) + '" placeholder="https://example.com/v1"></div>' : '') +
+      '<div class="field" style="margin-top:10px"><label for="aiModel">النموذج</label><input id="aiModel" class="input" dir="ltr" value="' + esc(a.model) + '" placeholder="' + esc((AI_PROVIDERS[a.provider] || {}).model || '') + '"></div></section>' +
+    '<section class="card"><h2>مفتاحك الخاص</h2>' +
+      '<div class="field"><label for="aiKey">المفتاح (يُحفظ على جهازك فقط)</label><input id="aiKey" class="input" dir="ltr" type="password" value="' + esc(a.key) + '" placeholder="الصق المفتاح هنا"></div>' +
+      '<div class="grid2"><button class="btn quiet" data-act="aiTest">اختبر المفتاح</button><button class="btn quiet" data-act="aiDelKey"' + (a.key ? '' : ' disabled') + '>احذف المفتاح</button></div>' +
+      '<div id="aiTestOut" class="small"></div></section>' +
+    '<section class="card"><h2>كيف أحصل على مفتاحي؟</h2><ol class="small" style="line-height:2;padding-inline-start:20px">' + steps + '</ol>' +
+      (keyUrl ? '<p class="small"><a href="' + keyUrl + '" target="_blank" rel="noopener" dir="ltr">' + keyUrl + '</a></p>' : '') + '</section>' +
+    '<section class="card"><h2>الخصوصية</h2>' +
+      '<label class="row" style="align-items:flex-start;gap:10px"><input type="checkbox" data-ai-consent ' + (a.consent ? 'checked' : '') + ' style="margin-top:4px"><span class="small">أوافق على إرسال <b>صورة حلي</b> ونص السؤال إلى مزوّد الذكاء الاصطناعي الذي اخترته. تُستخدم للتصحيح فقط ولا تُخزَّن عندنا.</span></label>' +
+      '<p class="note">المفتاح يُحفظ في هذا الجهاز، ويدخل ضمن نسخة الاسترجاع مع بقية الإعدادات.</p></section>';
+}
+
+function aiPrompt(f) {
+  const steps = (f.steps || []).map((s, i) => (i + 1) + ') ' + s).join('\n');
+  const g = (window.SOLUTION_GUIDES || {})[f.id] || null;
+  const chk = (g && g.checks) ? g.checks.join('، ') : 'صحة القانون، التعويض، الوحدات، الناتج النهائي';
+  const watch = (g && g.watch && g.watch.length) ? 'أخطاء شائعة يجب رصدها: ' + g.watch.join('؛ ') + '.\n' : '';
+  return 'أنت مصحّح امتحانات عراقي للسادس العلمي. راجع صورة حلّ الطالب المكتوب بخط اليد مقابل الحل النموذجي.\n' +
+    'المادة: ' + f.subject + '\n' +
+    'نص السؤال: ' + (f.text || '') + '\n' +
+    'الناتج النموذجي: ' + (f.ans || '') + '\n' +
+    (steps ? 'خطوات الحل النموذجي:\n' + steps + '\n' : '') +
+    'تحقق من: ' + chk + '.\n' +
+    watch +
+    'كن متسامحًا مع طرق الحل البديلة الصحيحة، وشدّد على الأخطاء الحقيقية فقط.\n' +
+    'أعد ردًّا بصيغة JSON فقط بلا أي نص آخر، بالمفاتيح: verdict (نص عربي قصير)، final_ok، steps_ok، units_ok (منطقية)، laws (مصفوفة)، errors (مصفوفة)، advice (نص قصير)، confidence (رقم بين 0 و1).';
+}
+
+function aiParseJSON(txt) {
+  if (!txt) return null;
+  const s = String(txt).replace(/```json|```/g, '').trim();
+  try { return JSON.parse(s); } catch (e) {}
+  const m = s.match(/\{[\s\S]*\}/);
+  if (m) { try { return JSON.parse(m[0]); } catch (e) {} }
+  return null;
+}
+
+async function aiRequest(imgDataUrl, f) {
+  const a = aiPref();
+  if (!a.key) throw new Error('لا يوجد مفتاح.');
+  const prompt = aiPrompt(f);
+  let res;
+  if (a.provider === 'gemini') {
+    const model = a.model || 'gemini-2.5-flash';
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(a.key);
+    res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: imgDataUrl.split(',')[1] } }] }],
+      generationConfig: { temperature: 0, response_mime_type: 'application/json' }
+    }) });
+    if (!res.ok) throw new Error('رفض المزوّد الطلب (' + res.status + '). تحقق من المفتاح والنموذج.');
+    const j = await res.json();
+    const parts = ((((j.candidates || [])[0] || {}).content || {}).parts) || [];
+    const out = aiParseJSON(parts.map(p => p.text || '').join(''));
+    if (!out) throw new Error('ردّ غير مفهوم من المزوّد.');
+    return out;
+  }
+  const base = a.provider === 'openai' ? 'https://api.openai.com/v1'
+    : a.provider === 'openrouter' ? 'https://openrouter.ai/api/v1'
+    : String(a.base || '').replace(/\/+$/, '');
+  if (!base) throw new Error('أدخل رابط الخدمة.');
+  res = await fetch(base + '/chat/completions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + a.key }, body: JSON.stringify({
+    model: a.model || 'gpt-4o-mini', temperature: 0,
+    messages: [{ role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image_url', image_url: { url: imgDataUrl } }] }]
+  }) });
+  if (!res.ok) throw new Error('رفض المزوّد الطلب (' + res.status + '). تحقق من المفتاح والنموذج.');
+  const j = await res.json();
+  const out = aiParseJSON((((j.choices || [])[0] || {}).message || {}).content);
+  if (!out) throw new Error('ردّ غير مفهوم من المزوّد.');
+  return out;
+}
+
+function aiMark(b) { return b ? '<span style="color:#1a7f37">✅</span>' : '<span style="color:var(--bad)">⛔</span>'; }
+function aiResultHTML(r) {
+  const conf = Math.round((+r.confidence || 0) * 100);
+  return '<div class="card" style="text-align:start;margin-top:10px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center"><b>حكم إرشادي</b><span class="small muted">ثقة ' + ar(conf) + '٪</span></div>' +
+    (r.verdict ? '<p>' + esc(r.verdict) + '</p>' : '') +
+    '<p class="small">' + aiMark(r.final_ok) + ' الناتج · ' + aiMark(r.steps_ok) + ' الخطوات · ' + aiMark(r.units_ok) + ' الوحدات</p>' +
+    (r.laws && r.laws.length ? '<p class="small muted">قوانين رصدها: ' + esc(r.laws.join('، ')) + '</p>' : '') +
+    (r.errors && r.errors.length ? '<ul class="small" style="padding-inline-start:20px;line-height:1.8">' + r.errors.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
+    (r.advice ? '<p class="small">' + esc(r.advice) + '</p>' : '') +
+    '<p class="note">رأي آلي إرشادي — لا يُحتسب، وقارنه دائمًا بالحل النموذجي.</p></div>';
+}
+
+async function aiCorrect(id, file) {
+  const f = findItem(id), box = document.getElementById('aiResult');
+  if (!f || !box) return;
+  box.innerHTML = '<p class="small muted">جارٍ إرسال الصورة وتصحيحها…</p>';
+  try {
+    const img = await shrinkPhoto(file);
+    const r = await aiRequest(img, f);
+    box.innerHTML = aiResultHTML(r);
+  } catch (e) {
+    box.innerHTML = '<p class="small" style="color:var(--bad)">تعذّر التصحيح: ' + esc(e && e.message ? e.message : 'خطأ') + ' — تحقق من الإنترنت والمفتاح في الإعدادات.</p>';
+  }
+}
+
+async function aiTest() {
+  const out = document.getElementById('aiTestOut'), a = aiPref();
+  if (!out) return;
+  if (!a.key) { out.textContent = 'أدخل المفتاح أولًا.'; return; }
+  out.textContent = 'جارٍ الاختبار…';
+  try {
+    let res;
+    if (a.provider === 'gemini') {
+      const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(a.model || 'gemini-2.5-flash') + ':generateContent?key=' + encodeURIComponent(a.key);
+      res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'قل: تم' }] }] }) });
+    } else {
+      const base = a.provider === 'openai' ? 'https://api.openai.com/v1' : a.provider === 'openrouter' ? 'https://openrouter.ai/api/v1' : String(a.base || '').replace(/\/+$/, '');
+      if (!base) { out.textContent = 'أدخل رابط الخدمة أولًا.'; return; }
+      res = await fetch(base + '/chat/completions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + a.key }, body: JSON.stringify({ model: a.model || 'gpt-4o-mini', messages: [{ role: 'user', content: 'قل: تم' }], max_tokens: 5 }) });
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    out.innerHTML = '<span style="color:#1a7f37">المفتاح يعمل ✓</span>';
+  } catch (e) { out.innerHTML = '<span style="color:var(--bad)">فشل الاختبار (' + esc(e && e.message ? e.message : 'خطأ') + ')</span>'; }
+}
+
+/* الدليل الاسترشادي لكل سؤال (من content/guides-12.js)، مع قالب عام عند غيابه */
+function guideHTML(f) {
+  const g = (window.SOLUTION_GUIDES || {})[f.id] || null;
+  /* كل سطر رياضي معزول الاتجاه (dir=auto) حتى لا تنقلب الأرقام والعمليات داخل الصفحة العربية */
+  const eq = s => '<div dir="auto" style="unicode-bidi:isolate;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.95;margin:1px 0">' + esc(s) + '</div>';
+  const L = arr => (arr || []).map(eq).join('');
+  const hdr = t => '<b class="small">' + t + '</b>';
+  const ul = (title, arr) => '<b class="small">' + title + ':</b><ul class="small" style="line-height:1.9;padding-inline-start:20px">' + (arr || []).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>';
+  const photo = (g && g.photo && g.photo.length) ? g.photo : ['صوّر الورقة كاملةً عموديًا.', 'إضاءة جيدة بلا ظلّ ولا ميل.', 'خط واضح يُظهر كل خطوات الحل.', 'رجّم كل خطوة، وضع الناتج النهائي في مستطيل مع وحدته.'];
+  const checks = (g && g.checks && g.checks.length) ? g.checks : ['صحة القانون', 'التعويض', 'الوحدات', 'الناتج النهائي'];
+  let body = '';
+  if (g && g.setup) {
+    body =
+      '<p class="small muted">اكتب في ورقتك بالترتيب: رقم الخطوة، ثم المعطيات، ثم (؟) للمطلوب، ثم القانون، ثم التعويض والتبسيط (على أكثر من سطر)، ثم الناتج مع وحدته.</p>' +
+      hdr('١ · المعطيات') + L(g.setup) +
+      (g.find ? hdr('٢ · المطلوب') + eq(g.find) : '') +
+      (g.law ? hdr('٣ · القانون') + eq(g.law) : '') +
+      (g.work && g.work.length ? hdr('٤ · التعويض والتبسيط') + L(g.work) : '') +
+      (g.result ? hdr('٥ · الناتج مع الوحدة') + eq(g.result) : '');
+  } else if (g && g.how) {
+    body = '<b class="small">كيف تُحلّ:</b><ol class="small" style="line-height:1.9;padding-inline-start:20px">' + g.how.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol>';
+  } else {
+    body = '<p class="small muted">اكتب في ورقتك بالترتيب: المعطيات، ثم (؟) للمطلوب، ثم القانون، ثم التعويض والتبسيط على أكثر من سطر، ثم الناتج مع وحدته، ورتّب الكتابة بترقيم واضح.</p>';
+  }
+  return '<details class="fold"><summary>دليل الحل وطريقة كتابته في الورقة</summary><div class="inner">' + body +
+    (g && g.watch && g.watch.length ? ul('أخطاء شائعة يجب تجنّبها', g.watch) : '') +
+    ul('معايير صورة الحل', photo) +
+    hdr('ما يتحقق منه التصحيح') + '<p class="small muted">' + checks.map(esc).join(' · ') + '</p>' +
+    '</div></details>';
+}
 
 /* =================== الموضوع =================== */
 /* الموضوع مقسم إلى أجزاء كما يُدرس: الشرح أولًا، ثم ما يُفهم ويُختبر */
@@ -3398,6 +3723,12 @@ function vProblem() {
       '<button class="btn quiet dontknow" data-act="revealAns" data-id="' + f.id + '">لا أعرف — اكشف الحل</button>' +
     '</div>' +
     '<div id="ansResult"></div>' +
+    '<div class="ai-zone" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">' +
+      (aiReady()
+        ? '<label class="chip" style="cursor:pointer;align-self:flex-start">صحّح حلي بالصورة <span class="small" style="color:var(--acc)">· يحتاج إنترنت</span><input type="file" accept="image/*" capture="environment" data-ai-in="' + f.id + '" hidden></label>'
+        : '<button class="chip" style="align-self:flex-start" data-act="go" data-v="settings" data-t="ai">صحّح حلي بالصورة — فعّل الذكاء الاصطناعي</button>') +
+      '<div id="aiResult"></div>' +
+    '</div>' +
   '</div>';
   let body = '';
   if (!v) {
@@ -3408,7 +3739,7 @@ function vProblem() {
     const el = (Date.now() - v.started) / 1000, left = f.sec - el, over = left <= 0;
     body = '<div class="timer' + (over ? ' over' : '') + '" id="timerBox"><span id="timerLbl">' + (over ? 'تجاوزت الوقت المقترح' : 'الوقت المتبقي') + '</span><b id="timer">' + mmss(over ? el : left) + '</b></div>' +
       '<p class="muted small">حلّ المسألة في دفتر ' + esc(f.subject) + ' خطوة خطوة (القوانين من ذاكرتك ومن الموضوع)، ثم أدخل <b>رقم جوابك النهائي</b> هنا للمطابقة. لا تظهر الخطوات ولا الجواب إلا بعد التحقق.</p>' +
-      padHTML;
+      guideHTML(f) + padHTML;
   } else {
     body = solutionHTML(f, v) +
       fxHTML(v) +
@@ -3597,6 +3928,9 @@ document.addEventListener('click', e => {
     }
     case 'importText': doImport(document.getElementById('impText').value); break;
     case 'setTab': S.setTab = el.dataset.v; render(true); break;
+    case 'aiPick': { const a = aiPref(); a.provider = el.dataset.v; if (!a.model) a.model = (AI_PROVIDERS[el.dataset.v] || {}).model || ''; save(); render(); break; }
+    case 'aiTest': aiTest(); break;
+    case 'aiDelKey': { aiPref().key = ''; save(); render(); toast('حُذف المفتاح من هذا الجهاز.'); break; }
     case 'rate': DB.rating = +el.dataset.i; save(); render(); break;
     case 'sendRev': {
       if (!DB.rating) { toast('اختر عدد النجوم أولًا.'); break; }
@@ -3792,8 +4126,15 @@ document.addEventListener('input', e => {
   if (id === 'nbPage') { const sv = solveOf(e.target.dataset.id); if (sv) { sv.page = v.replace(/[^0-9٠-٩]/g, ''); save(); } }
   if (id === 'sMin') { st.minutes = +v; save(); e.target.previousElementSibling.querySelector('span').textContent = ar(v); }
   if (id === 'sCollege') { st.college = v; save(); }
+  if (id === 'aiKey') { aiPref().key = v.trim(); save(); }
+  if (id === 'aiModel') { aiPref().model = v.trim(); save(); }
+  if (id === 'aiBase') { aiPref().base = v.trim(); save(); }
 });
 document.addEventListener('change', e => {
+  const aiin = e.target.dataset && e.target.dataset.aiIn;
+  if (aiin && e.target.files && e.target.files[0]) { aiCorrect(aiin, e.target.files[0]); return; }
+  if (e.target.hasAttribute && e.target.hasAttribute('data-ai-toggle')) { aiPref().on = e.target.checked; save(); render(); return; }
+  if (e.target.hasAttribute && e.target.hasAttribute('data-ai-consent')) { aiPref().consent = e.target.checked; save(); return; }
   const pin = e.target.dataset && e.target.dataset.photoIn;
   if (pin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(photoKey(pin), d)).then(() => { solveOf(pin).photo = 1; save(); render(); toast('أُرفقت صورة حلّك.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
   const avin = e.target.dataset && e.target.dataset.avatarIn;

@@ -336,6 +336,44 @@ T('vReview/إحصائي', () => {
   return true;
 });
 
+/* ٧-و) النطاق الموحّد والزمن المشتقّ من الصعوبة (لا وقت سؤال ثابت) */
+T('النطاق الموحّد + الزمن الذكي', () => {
+  const out = run(`(function(){ try {
+    const st = me();
+    const y = gradeContents(st.grade).find(g => subjQuizPool(g.subject).length >= 6) || gradeContents(st.grade)[0];
+    if (!y) return { __fail: 'لا مواد' };
+    examConfig('monthly', y.subject);
+    if (!S.exam || S.exam.phase !== 'config') return { __fail: 'لم تُفتح شاشة الضبط' };
+    const h = examConfigView(S.exam, 'اختبار');
+    if (h.indexOf('\u0627\u062e\u062a\u0631 \u0627\u0644\u0645\u0648\u0636\u0627\u0621') >= 0) return { __fail: '\u0628\u0642\u064a \u0627\u0644\u062a\u0628\u0648\u064a\u0628\u0627\u0646 \u0645\u0646\u0641\u0637\u0644\u064a\u0646' };
+    if (h.indexOf('exam-scope-') < 0) return { __fail: 'لا مواضيع داخل الفصول' };
+    if (h.indexOf('\u0632\u0645\u0646 \u0627\u0644\u0627\u0645\u062a\u062d\u0627\u0646') < 0) return { __fail: '\u0644\u0627 \u0642\u0633\u0645 \u0632\u0645\u0646 \u0627\u0644\u0627\u0645\u062a\u062d\u0627\u0646' };
+    if (h.indexOf('\u0632\u0645\u0646 \u0623\u0633\u0626\u0644\u0629 \u0627\u0644\u0646\u0637\u0627\u0642') < 0) return { __fail: '\u0627\u0644\u0632\u0645\u0646 \u0644\u0627 \u064a\u062d\u0633\u0628 \u0645\u0646 \u0627\u0644\u0646\u0637\u0627\u0642' };
+    if (h.indexOf('data-act="examPerQ"') >= 0) return { __fail: '\u0628\u0642\u064a \u0637\u0628\u0642 \u0648\u0642\u062a \u0627\u0644\u0633\u0624\u0627\u0644 \u0627\u0644\u062b\u0627\u0628\u062a' };
+    /* qSec: وزاريه ٥ دقائق وكتاب ٣ دقائق، والاختيار من متعدد أقصر */
+    const mcq = { o: ['أ','ب','ج','د'], c: 1 }, open = { o: [], c: -1 };
+    const b1 = qSec(mcq, 'monthly'), b2 = qSec(open, 'monthly');
+    const m1 = qSec(mcq, 'ministerial'), m2 = qSec(open, 'ministerial');
+    if (m2 <= b2) return { __fail: 'السؤال الوزاري ليس أطول من سؤال الكتاب' };
+    if (b1 >= b2) return { __fail: 'الاختيار من متعدد ليس أقصر من المفتوح' };
+    if (b2 > 600) return { __fail: 'وقت سؤال الكتاب يتجاوز ١٠ دقائق' };
+    if (m2 > 900) return { __fail: 'وقت السؤال الوزاري يتجاوز ١٥ دقيقة' };
+    /* وقت الامتحان = مجموع أزمنة الأسئلة */
+    const pool = examPool('monthly', y.subject);
+    const tot = scopeTotalSec(S.exam, pool);
+    if (!tot || tot !== pool.reduce((a, x) => a + qSec(x.q, 'monthly'), 0)) return { __fail: 'زمن الامتحان غير مشتقّ من النطاق' };
+    /* الزمن الفعلي يُرجّح الأوقات إن وُجد */
+    Object.keys(st.solves || {}).forEach(k => { st.solves[k].used = 300; });
+    const p = studyPaceSec();
+    if (p != null && qSec(open, 'monthly') <= b2 && p > 200) return { __fail: 'زمنك الفعلي لم يُرجّح وقت السؤال' };
+    S.exam = null;
+    return { pace: p, b2: b2, m2: m2, tot: tot };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

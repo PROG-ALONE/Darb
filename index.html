@@ -96,6 +96,11 @@ a{color:var(--acc)}
 .hp-hint{margin:0;padding:9px 12px;border-radius:12px;border:1px dashed var(--line);background:var(--soft);color:var(--muted);font-size:.87em;line-height:1.75;min-height:2.4em;animation:hpIn .18s ease}
 @keyframes hpIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
 .hp-hint b{color:var(--acc);font-weight:700}
+/* صندوق «لماذا يوجد هذا القسم؟» — يُستعمل في كل مكان يشرح فيه النظام فائدة زرّ */
+.hint-purpose{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:12px;border:1px dashed var(--gold-line);background:var(--gold-soft);color:var(--gold);line-height:1.7}
+.hint-purpose b{color:var(--gold)}
+.hint-purpose .small{color:var(--muted)}
+.hint-purpose svg{flex-shrink:0;margin-top:3px}
 /* ── رفوف اليوم في خطة الأسبوع ──
    كل يوم دراسة رفٌّ بمواضيعه: رفوف فارغة يملؤها الطالب من الخطة المقسّمة أمامه.
    لا نظام يملأها عنه؛ وهو يضغط الرفّ فيأخذ أول موضوع متبقٍّ ثم يرتبه كما يشاء. */
@@ -1730,28 +1735,55 @@ function vTests() {
   const mt = memoTopics();
   const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مواد صفك — بحسب المادة ثم الفصل ثم الموضوع. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + gradeContents(st.grade).map(y => subjectMemoHTML(y.subject)).filter(Boolean).join(''), true) : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
   const subs = gradeContents(st.grade);
+  /* ٧-أ: «اختباراتي» قائمة منسدلة أجمل — كل مادة فصلها ودرجتها فوقها */
   const mySec = accSec('myTests', 'اختباراتي', ar(subs.length) + (subs.length === 1 ? ' مادة' : ' مواد'),
-    '<p class="small muted">اختر مادة ثم فصلًا لتختبر كل مواضيعه دفعة واحدة (غير عشوائي). ويمكنك اختبار سريع مما درسته فقط للترفيه والاستعجال.</p>' +
+    '<p class="small muted">اختر مادة ← اختر فصلًا ← اختبر كل مواضيعه دفعة واحدة. أو اختبر سريعًا مما درسته فقط.</p>' +
     subs.map(y => {
       const chs = y.c.chapters.filter(ch => ch.topics.some(t => !isHidden(t.id)));
       const qs = chs.reduce((k, ch) => k + ch.topics.reduce((j, t) => j + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0), 0);
-      return accSec('mytests-' + y.subject, esc(y.subject), ar(chs.length) + ' فصول · ' + ar(qs) + ' سؤالًا',
+      /* معدّل المادة: أعلى نتيجة لكل فصل مُختبَر */
+      const bs = chs.map(ch => (st.tests || {})['c:' + ch.id]).filter(Boolean);
+      const avg = bs.length ? Math.round(bs.reduce((a, b) => a + b.best, 0) / bs.length) : null;
+      const tested = bs.length, cover = chs.length ? Math.round(tested / chs.length * 100) : 0;
+      return accSec('mytests-' + y.subject, esc(y.subject), avg == null ? ar(chs.length) + ' فصول' : 'معدّلك ' + ar(avg) + '٪ · غطية ' + ar(cover) + '٪',
+        '<div class="srows" style="margin-bottom:10px">' +
+          pctBar('نسبة الفصول التي اختبرتها', cover, cover >= 80 ? 'good' : cover >= 40 ? 'gold' : 'bad') +
+          (avg != null ? pctBar('معدّل نتائجك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') : '') +
+        '</div>' +
         '<div class="plist">' + chs.map(ch => {
           const n = ch.topics.reduce((k, t) => k + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0);
           const tb = (st.tests || {})['c:' + ch.id];
-          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? 'ok' : '') + '">' + (tb ? ar(tb.best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا من كل مواضيعه' + (tb ? ' · أفضل ' + ar(tb.best) + '٪ · آخر ' + ar(tb.last) + '٪' : '') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
+          const last = tb ? tb.last : null, best = tb ? tb.best : null;
+          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? (best >= 70 ? 'ok' : 'bad') : '') + '">' + (tb ? ar(best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا' + (tb ? ' · أفضل ' + ar(best) + '٪ · آخر ' + ar(last) + '٪ · ' + ar(Math.max(0, best - last)) + '٪ تحسّن' : ' · لم تختره بعد') + '</span>' + (tb ? '<span class="pbar"><i style="width:' + Math.min(100, best) + '%"></i></span>' : '') + '</span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
         }).join('') + '</div>' +
-        '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="testsLog" data-s="' + esc(y.subject) + '">سجل ' + esc(y.subject) + '</button>' +
+        '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="testsLog" data-s="' + esc(y.subject) + '">سجل ' + esc(y.subject) + ' التفصيلي</button>' +
         (pool.length >= 5 ? '<button class="btn ghost" data-act="mixQuiz" data-n="10">سريع مما درسته · ١٠</button>' : '') + '</div>',
         false);
     }).join(''),
     false);
-  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة', '<p class="small muted">اضغط أي نتيجة لإعادة الاختبار نفسه.</p><div class="plist">' +
-      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
+  /* ٧-ج: «آخر نتائجك» له سبب: يشرح أين أنت الآن وماذا يعني كل رقم */
+  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة · ' + (exams[0] ? ar(exams[0].pct) + '٪ الأخيرة' : ''),
+    '<div class="hint-purpose">' + ico('star', 1.6) +
+    '<span><b>لماذا هذا القسم موجود؟</b><br><span class="small">يعرض آخر ١٢ نتيجة لك حتى تعرف اتجاهك: النتائج المتقاربة فوق ٧٠٪ تعني أنك أتقنت ما اختبرته، وما دون ذلك يعني أن الموضع يحتاج عودة. اضغط أي نتيجة لإعادة الاختبار نفسه فورًا.</span></span></div>' +
+    '<div class="srows" style="margin:10px 0">' + (() => {
+      const last5 = exams.slice(0, 5);
+      if (last5.length < 2) return '';
+      const dir = last5[0].pct - last5[last5.length - 1].pct;
+      return pctBar('متوسط آخر ٥ نتائج', last5.reduce((a, b) => a + b.pct, 0) / last5.length, dir > 5 ? 'good' : dir < -5 ? 'bad' : 'gold') +
+        pctBar('نِسَبك فوق ٧٠٪', Math.round(exams.filter(e => e.pct >= 70).length / exams.length * 100), 'acc') +
+        '<p class="small muted">' + (dir > 5 ? 'أنت في تحسّن مستمر — واصِل.' : dir < -5 ? 'نتائجك تنخفض — أعد مراجعة المواضيع التي أخطأت فيها.' : 'نتائجك ثابتة — تحتاج تنويعًا في المصادر لتتجاوز ٧٠٪.') + '</p>';
+    })() + '</div>' +
+    '<div class="plist">' +
+      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة · ' + (e.pct >= 70 ? 'ناجح' : 'يحتاج مراجعة') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div>', false) : '';
-  const examSecs = '<section class="card"><h2>امتحانات المواد</h2><p class="small muted">ادخل من أحد الزرين لتجد كل المواد، ولكل مادة تفاصيل امتحانها: امتحان مفاجئ أو كوز، والشهري، والتهيئة للوزاري بمحاكاة كاملة (٣ ساعات) بفصل أو فصول أو المادة كاملة.</p>' +
-    '<div class="grid2"><button class="btn" data-act="subExams"><b>امتحانات المواد</b><span class="small muted">المفاجئ والكوز والشهري لكل مادة</span></button>' +
-    '<button class="btn" data-act="minPrep"><b>التهيئة للوزاري</b><span class="small muted">محاكاة ٣ ساعات · فصل أو المادة كلها</span></button></div></section>';
+  /* ٧-هـ: زرّان فقط + شرح فائدته أسفلهما — النمط نفسه يُطبَّق في كل النظام */
+  const examSecs = '<section class="card"><h2>امتحانات المواد</h2>' +
+    hintBox([
+      { label: 'امتحانات المواد', attrs: ' data-act="subExams"', ico: 'tests',
+        hint: 'تختار فيها مادة ثم نوع امتحانها: المفاجئ أو الكوز أو الشهري — مع الوقت وعدد الأسئلة قبل البدء، فتدخل وأنت تعرف ما ينتظرك.' },
+      { label: 'التهيئة للوزاري', cls: 'ghost', attrs: ' data-act="minPrep"', ico: 'star',
+        hint: 'تجري جلسة محاكاة ثلاث ساعات من أسئلة الدورات الوزارية الحقيقية: فصل واحد أو عدة فصول أو المادة كلها، والوقت يُحسب لك من الفصول والمواضيع لا من رأسك.' }
+    ], 'tests-exams') + '</section>';
   let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + examSecs +
     '<div class="grid2"><button class="btn quiet" data-act="expTests">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div></main>';
   return h;
@@ -2214,6 +2246,8 @@ const ft = t => /[_^=]/.test(t) ? fm(t) : esc(t).replace(/\d+(?:\s*[–\-]\s*\d+
 const fm = t => { t = String(t == null ? '' : t); if (!/[\u0600-\u06FF]/.test(t) && /[a-z]{2,}[\s,’'][^=]*[a-z]{2,}/i.test(t)) return '<span class="lt lt-b" dir="ltr">' + esc(t) + '</span>'; let out = '', last = 0; t.replace(MATH_RE, (m, off) => { if (!/[=+×÷√]/.test(m) && /[a-z]{3,}\s+[a-z]{2,}/i.test(m)) { out += esc(t.slice(last, off)) + '<span class="lt" dir="ltr">' + esc(m) + '</span>'; last = off + m.length; return m; } out += esc(t.slice(last, off)) + '<span class="math' + (m.length <= 28 ? ' eq' : '') + '">' + subs(esc(m)) + '</span>'; last = off + m.length; return m; }); return out + esc(t.slice(last)); };
 const fe = t => '<span class="math eq">' + subs(esc(t)) + '</span>';
 const mmss = s => { s = Math.max(0, Math.round(s)); return ar(String(Math.floor(s / 60)).padStart(2, '0')) + ':' + ar(String(s % 60).padStart(2, '0')); };
+/* مدة بالساعات والدقائق تُقرأ («ساعة و٢٥ دقيقة») بدل أرقام خام */
+const fmtDur = s => { s = Math.max(0, Math.round(s || 0)); const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60); if (h && m) return ar(h) + ' س ' + ar(m) + ' د'; if (h) return ar(h) + ' ساعة'; return ar(Math.max(1, m)) + ' دقيقة'; };
 
 /* حالة حل المسألة: started (بدأ العد) ← revealed (ظهر الحل بعد المطابقة أو «لا أعرف») ← self (تقييم الطالب لحله) ← used/fx (الوقت وأثره) */
 function solveOf(pid) { const st = me(); st.solves = st.solves || {}; return st.solves[pid] || null; }
@@ -2859,10 +2893,9 @@ function ministerialAvg(subject) {
   return arr.length ? Math.round(arr.reduce((k, x) => k + x.pct, 0) / arr.length) : 0;
 }
 function examConfig(kind, subject) {
-  /* وقت مناسب: الاختيار من متعدد 60 ثانية، المفتوح 120 ثانية */
+  /* الوقت لا يُضبط برقمه: يُشتقّ من صعوبة أسئلة المادة ومن زمنك الفعلي في المسائل */
   const pool = examPool(kind, subject);
-  const openRatio = pool.length ? pool.filter(x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0)).length / pool.length : 0;
-  const defaultPerQ = kind === 'ministerial' ? (openRatio > 0.5 ? 120 : 90) : (openRatio > 0.5 ? 60 : 45);
+  const defaultPerQ = pool.length ? Math.round(pool.reduce((a, x) => a + qSec(x.q, kind), 0) / pool.length) : (kind === 'ministerial' ? 180 : 90);
   S.exam = { kind, subject, phase: 'config', perQ: defaultPerQ, prep: 0 }; go('exam');
 }
 function startExam(kind, subject, n, perQ) {
@@ -2884,10 +2917,10 @@ function startExam(kind, subject, n, perQ) {
   if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
   
   const pick = shuffle(filtered).slice(0, Math.min(n || filtered.length, filtered.length));
-  /* وقت مناسب لسؤال: اختيار من متعدد ٩٠ث · مفتوح ١٨٠ث (يحتاج قراءة وكتابة) */
+  /* الوقت لا يُختار برقمه: مشتقّ من صعوبة كل سؤال ومن زمنك الفعلي، ثم يُرجَّح حسب أخطائك */
   const isOpenQ = x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0);
   const openN = pick.filter(isOpenQ).length;
-  if (!perQ) perQ = kind === 'ministerial' ? (openN === pick.length ? 180 : openN ? 120 : 90) : (openN ? 90 : 45);
+  if (!perQ) perQ = Math.round(pick.reduce((a, x) => a + qSec(x.q, kind), 0) / (pick.length || 1));
   const adaptive = kind === 'ministerial'; /* يزيد الوقت قليلًا في مواضيعك الضعيفة */
   S.exam = {
     kind, subject, phase: 'run', perQ,
@@ -2982,6 +3015,33 @@ function startExamClock() {
     }
   }, 300);
 }
+/* ٧-و) الزمن الفعلي للطالب: الوسيط من ثواني المسائل التي استغرقها أثناء الحلّ.
+   أساس «وقت الامتحان الذكي» — من أخذ ٣ دقائق في المسائل لا يُعطى نصف دقيقة. */
+function studyPaceSec() {
+  const st = me(), arr = [];
+  Object.keys(st.solves || {}).forEach(k => {
+    const v = st.solves[k];
+    if (v && v.used >= 15 && v.used <= 3600) arr.push(v.used);
+  });
+  if (arr.length < 3) return null;
+  arr.sort((a, b) => a - b);
+  return arr[Math.floor(arr.length / 2)];
+}
+/* ٧-ح) وقت السؤال يُشتقّ من صعوبته لا من رقمه: سؤال الكتاب ٣ دقائق، والسؤال الوزاري ٥ دقائق،
+   ثم يُرجَّح بزمنك الفعلي إن وُجد. لا وقت ثابت لأي سؤال. */
+function qSec(q, kind) {
+  const open = (!q || !q.o || !q.o.length) && (!q || q.c == null || q.c < 0);
+  let sec = kind === 'ministerial' ? 300 : 180;              /* الصعوبة: وزاري ٥ د · كتاب ٣ د */
+  const pace = studyPaceSec();
+  if (pace) sec = Math.round(sec * Math.max(.5, Math.min(1.6, pace / 180)) / 15) * 15;
+  if (!open) sec = Math.round(sec * .55 / 15) * 15;          /* الاختيار من متعدد أسرع */
+  return Math.max(30, Math.min(900, sec));
+}
+/* زمن الامتحان كاملاً من الفصول والمواضيع المختارة: مجموع أزمنة أسئلتها */
+function scopeTotalSec(z, pool) {
+  const arr = (pool || []).map(x => qSec(x.q, z.kind));
+  return arr.reduce((a, b) => a + b, 0);
+}
 function examConfigView(z, title) {
   const pool = examPool(z.kind, z.subject);
   if (!pool.length) {
@@ -3013,68 +3073,68 @@ function examConfigView(z, title) {
       ? '<p class="note">النطاق محصور بمجموعة اخترتها من البنك: <b>' + esc(S.examScope.label || '') + '</b> (' + ar(total) + ' سؤالًا). <button class="btn quiet" data-act="examScopeClear" style="padding:2px 8px">أزِل الحصر</button></p>'
       : '');
   
-  // اختيار الفصول — صفوف قائمة بدل حبّات مضغوطة، حتى لا ينكسر النطاق الطويل داخل صندوق ضيّق
+  // ٧-و) تبويبان متطابقان (الفصول/المواضيع) صارا فكرة واحدة: قائمة فصول كلٌّ منها يُفتح على مواضيعه
   const allOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.length === chapters.length;
+  const topicsAllOn = !(S.exam && S.exam.selTopics != null);
   h += '<section class="card">' +
     '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
-      '<h3 style="margin:0">اختر الفصول</h3>' +
-      '<span class="small muted num">' + ar(chapters.length) + ' فصلًا · ' + ar(total) + ' سؤالًا في النطاق</span></div>' +
-    '<p class="small muted">حدّد ما تريد امتحانه. ترك الكل يعني كل الفصول.</p>' +
+      '<h3 style="margin:0">نطاق الاختبار: فصول ومواضيع</h3>' +
+      '<span class="small muted num">' + ar(chapters.length) + ' فصلًا · ' + ar(total) + ' سؤالًا</span></div>' +
+    '<p class="small muted">اضغط الفصل لتفتح مواضيعه داخله — لا تبويب منفصل. اترك كل الفصول يعني الكل.</p>' +
     '<div class="chips" style="margin:10px 0">' +
-      '<button class="chip" data-act="examChAll" data-on="1" aria-pressed="' + allOn + '">تحديد الكل</button>' +
+      '<button class="chip" data-act="examChAll" data-on="1" aria-pressed="' + allOn + '">كل الفصول</button>' +
       '<button class="chip" data-act="examChAll" data-on="0" aria-pressed="' + !allOn + '">إلغاء الكل</button>' +
+      '<button class="chip" data-act="examTopicAll" data-on="1" aria-pressed="' + topicsAllOn + '">كل المواضيع</button>' +
     '</div><div class="plist">' +
     chapters.map(ch => {
       const chOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.includes(ch.chId);
-      return '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
+      const canOpen = ch.topics.length > 1;
+      let s = '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
         '<span class="st' + (chOn ? '' : ' muted') + '">' + ar(ch.count) + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + esc(ch.title) + '</b><br><span class="small muted">' + ar(ch.topics.length) + ' موضوع · ' + ar(ch.count) + ' سؤالًا</span></span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(ch.title) + '</b><br><span class="small muted">' + ar(ch.topics.length) + ' موضوع · ' + ar(ch.count) + ' سؤالًا</span>' +
+        (chOn && canOpen ? '<span class="small muted">· افتحه لتضييقه على مواضيع محددة</span>' : '') + '</span>' +
         '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '"' + (chOn ? ' checked' : '') +
         ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
+      if (canOpen) {
+        s += '<div class="acc"><div class="acc-h" data-act="acc" data-k="exam-scope-' + esc(ch.chId) + '">' +
+          '<span class="acc-ico">▼</span><span class="acc-t small">مواضيع ' + esc(ch.title.split(':')[0]) + '</span>' +
+          '<span class="acc-s num">' + ar(ch.topics.length) + '</span></div><div class="acc-b"><div class="acc-b-in">';
+        ch.topics.forEach(t => {
+          const tOn = !(S.exam && S.exam.selTopics != null) || S.exam.selTopics.includes(t.tid);
+          s += '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:10px 14px"><span class="st' + (tOn ? '' : ' muted') + '">' + ar(t.count) + '</span>' +
+            '<span style="flex:1;min-width:0"><b>' + ft(t.title) + '</b></span>' +
+            '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '"' + (tOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
+        });
+        s += '</div></div></div>';
+      }
+      return s;
     }).join('') + '</div></section>';
   
-  // اختيار المواضيع (مُجمّع) — صفوف قائمة كما في الفصول، مع تحديد سريع
-  const topicsAllOn = !(S.exam && S.exam.selTopics != null);
-  h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
-    '<h3 style="margin:0">اختر المواضيع</h3><span class="small muted num">' + ar(chapters.reduce((a, c) => a + c.topics.length, 0)) + ' موضوعًا</span></div>' +
-    '<p class="small muted">يمكنك تضييق النطاق لمواضيع محددة داخل الفصول المختارة.</p>' +
-    '<div class="chips" style="margin:10px 0">' +
-      '<button class="chip" data-act="examTopicAll" data-on="1" aria-pressed="' + topicsAllOn + '">كل المواضيع</button>' +
-      '<button class="chip" data-act="examTopicAll" data-on="0" aria-pressed="' + !topicsAllOn + '">إلغاء الكل</button>' +
-    '</div><div class="plist">';
-  chapters.forEach(ch => {
-    if (ch.topics.length <= 1) return;
-    h += '<div class="acc"><div class="acc-h" data-act="acc" data-k="exam-topics-' + esc(ch.chId) + '">' +
-      '<span class="acc-ico">▼</span><span class="acc-t">' + esc(ch.title) + '</span><span class="acc-s">' + ar(ch.topics.length) + ' موضوع</span></div>' +
-      '<div class="acc-b"><div class="acc-b-in">';
-    ch.topics.forEach(t => {
-      const tOn = !(S.exam && S.exam.selTopics != null) || S.exam.selTopics.includes(t.tid);
-      h += '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px"><span class="st' + (tOn ? '' : ' muted') + '">' + ar(t.count) + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + ft(t.title) + '</b></span>' +
-        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '"' + (tOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
-    });
-    h += '</div></div></div>';
-  });
-  h += '</div></section>';
-  
-  if (z.kind === 'ministerial') {
-    if (!ministerialHasBank(z.subject)) h += '<p class="note">بنك الدورات الوزارية الكامل لهذه المادة قيد البناء. حتى يكتمل، نستعمل أسئلة المادة نفسها بنمط وزاري موقوت لتتدرب على الجلسة.</p>';
-    /* وقت مناسب حسب نوع الأسئلة */
-    const hasOpen = pool.some(x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0));
-    const timeOpts = hasOpen ? [60, 90, 120, 180, 240, 300] : [60, 90, 120, 180];
-    h += '<p class="small muted">وقت كل سؤال:</p><div class="chips">' +
-      timeOpts.map(s => '<button class="chip" data-act="examPerQ" data-s="' + s + '" aria-pressed="' + ((z.perQ || 90) === s) + '">' + ar(s) + ' ثانية</button>').join('') + '</div>' +
-      (hasOpen ? '<p class="note">أسئلة مفتوحة: اقرأ السؤال جيدًا، فكّر في إجابتك، ثم اضغط «أظهر الحل» لمقارنتها بالحل النموذجي.</p>' : '') +
-      '<p class="note">يُغلق النظام على الأسئلة فقط. لا تُفتح ولا يمكن الرجوع إليها حتى تضغط «أكملت الامتحان» وتؤكّد العهد، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p>';
-  } else {
-    h += '<p class="small muted">وقت تحضير قبل الامتحان — تراجع فيها المواضيع المختارة (لا يُحتسب من وقت الامتحان):</p><div class="chips">' +
+  /* ٧-و) لا وقت سؤال ثابت: وقت الامتحان كاملاً يُحسب من الفصول والمواضيع المختارة،
+     ودقّته من زمنك الفعلي في المسائل. ٧-ح) وزن الصعوبة داخله: كتاب ٣ د، وزاري ٥ د. */
+  const totalSec = scopeTotalSec(z, fpool);
+  const pace = studyPaceSec();
+  h += '<section class="card"><h3 style="margin:0 0 6px">زمن الامتحان</h3>' +
+    '<p class="small muted">الوقت ليس للسؤال الواحد بل للامتحان كاملاً، ويُحسب من نطاقك المختار:</p>' +
+    '<div class="srows" style="margin-top:8px">' +
+      pctBar('زمن أسئلة النطاق (' + ar(fpool.length) + ' سؤالًا)', Math.min(100, totalSec / (180 * 60) * 100), 'acc') +
+      (pace ? pctBar('زمنك الفعلي في المسائل', Math.min(100, pace / 300 * 100), pace <= 240 ? 'good' : 'gold') : '') +
+    '</div>' +
+    '<div class="grid2" style="margin-top:10px">' +
+      '<div class="stat"><span class="muted small">زمن الامتحان المحسوب</span><b class="num">' + fmtDur(totalSec) + '</b></div>' +
+      '<div class="stat"><span class="muted small">معدّل السؤال</span><b class="num">' + ar(fpool.length ? Math.round(totalSec / fpool.length) : 0) + ' ث</b></div>' +
+    '</div>' +
+    (pace
+      ? '<p class="hint-purpose">' + ico('star', 1.5) + '<span><b>القاعدة الذكية</b><br><span class="small">أخذتَ في المسائل ' + ar(Math.round(pace / 60 * 10) / 10) + ' دقائق وسطيًّا، فالنظام يرجّح زمن كل سؤال نحو ما تؤخذه فعليًا بدل رقم ثابت. وزن الصعوبة داخل: سؤال الكتاب ٣ دقائق، والسؤال الوزاري ٥ دقائق.</span></span></p>'
+      : '<p class="hint-purpose">' + ico('star', 1.5) + '<span><b>القاعدة الذكية</b><br><span class="small">حلّ بعض المسائل وسيأخذ النظام زمنك الفعلي في احتساب وقت كل سؤال. حتى الآن: وزن الصعوبة فقط — سؤال الكتاب ٣ دقائق، والسؤال الوزاري ٥ دقائق، والاختيار من متعدد أقصر.</span></span></p>') +
+    '<p class="note">' + (z.kind === 'ministerial' ? 'يُغلق النظام على الأسئلة ولا تُفتح حتى تضغط «أكملت الامتحان» وتؤكّد العهد، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.' : 'ينتقل النظام تلقائيًا بين الأسئلة، ويُحتسب الوقت من صعوبة كل سؤال ومن نطاقك.') + '</p></section>';
+  if (z.kind !== 'ministerial') {
+    h += '<section class="card"><p class="small muted">وقت تحضير قبل الامتحان — تراجع فيها المواضيع المختارة (لا يُحتسب من وقت الامتحان):</p><div class="chips">' +
       [0, 5, 10, 15].map(m => '<button class="chip" data-act="examPrep" data-m="' + m + '" aria-pressed="' + ((z.prep || 0) === m) + '">' + (m ? ar(m) + ' دقائق' : 'بدون تحضير') + '</button>').join('') + '</div>' +
-      '<p class="small muted">وقت كل سؤال (ينتقل تلقائيًا عند انتهائه):</p><div class="chips">' +
-      [30, 45, 60, 90].map(s => '<button class="chip" data-act="examPerQ" data-s="' + s + '" aria-pressed="' + ((z.perQ || 45) === s) + '">' + ar(s) + ' ثانية</button>').join('') + '</div>' +
-      '<p class="note">إن اخترت وقت تحضير، تظهر شاشة تحضير بعدد السؤال المختار تعرض عليك المواضيع المختارة، ثم تبدأ رسميًا متى ضغطت «ابدأ الامتحان».</p>';
+      '<p class="note">إن اخترت وقت تحضير، تظهر شاشة تحضير بعدد السؤال المختار تعرض عليك المواضيع المختارة، ثم تبدأ رسميًا متى ضغطت «ابدأ الامتحان».</p></section>';
   }
-  h += '<p class="small muted">اختر عدد الأسئلة وابدأ:</p><div class="chips">' +
-    counts.map(n => '<button class="chip" data-act="examGo" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ')' : ar(n) + ' أسئلة') + '</button>').join('') + '</div></section></main>';
+  h += '<section class="card"><p class="small muted">اختر عدد الأسئلة وابدأ — عدد الأسئلة يزيد الزمن تبعًا له:</p><div class="chips">' +
+    counts.map(n => '<button class="chip" data-act="examGo" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ') · ' + fmtDur(Math.round(totalSec * n / (total || 1))) : ar(n) + ' أسئلة · ' + fmtDur(Math.round(totalSec * n / (total || 1)))) + '</button>').join('') + '</div></section></main>';
   return h;
 }
 function examPrepView(z, title) {
@@ -3115,7 +3175,8 @@ function beginExam() {
 function perQOf(z, i) {
   const it = z.items[i];
   if (!it) return z.perQ || 90;
-  let sec = it.q.time || z.perQ || 90;
+  /* الوقت مشتقّ من صعوبة السؤال نفسه لا من رقم ثابت، مع ترجيح زمنك الفعلي */
+  let sec = qSec(it.q, z.kind);
   const open = (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
   if (z.adaptive && !open && it.tid) {
     const f = findTopic(it.tid);
@@ -4902,7 +4963,6 @@ document.addEventListener('click', e => {
       break;
     }
     case 'examGo': { const z = S.exam; if (!z) break; const ok = startExam(z.kind, z.subject, +el.dataset.n, z.perQ); if (ok && S.exam && S.exam.prep > 0) { S.exam.phase = 'prep'; S.exam.prepEnd = Date.now() + S.exam.prep * 60000; } render(true); break; }
-    case 'examPerQ': if (S.exam && S.exam.phase === 'config') { S.exam.perQ = +el.dataset.s; render(); } break;
     case 'examPrep': if (S.exam && S.exam.phase === 'config') { S.exam.prep = +el.dataset.m; render(); } break;
     case 'examBeginNow': beginExam(); break;
     case 'examPick': {

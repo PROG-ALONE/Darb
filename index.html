@@ -87,6 +87,35 @@ a{color:var(--acc)}
 .btn.ghost{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
 .btn.quiet{background:var(--soft);color:var(--ink)}
 .btn.danger{background:var(--bad);color:#fff}
+/* ── زر + تلميح (الفكرة المطلوبة تطبيقها على النظام كامل) ──
+   زرّان، وتحت سطري الزرين سطر تلميح يتبدّل حسب الزر الذي تمرّ عليه أو تركّزه،
+   فيشرح فائدته. على الجوّال يعمل التركيز بدل المرور. */
+.hp{display:flex;flex-direction:column;gap:8px}
+.hp-row{display:flex;gap:10px;flex-wrap:wrap}
+.hp-row .btn{flex:1;min-width:140px}
+.hp-hint{margin:0;padding:9px 12px;border-radius:12px;border:1px dashed var(--line);background:var(--soft);color:var(--muted);font-size:.87em;line-height:1.75;min-height:2.4em;animation:hpIn .18s ease}
+@keyframes hpIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+.hp-hint b{color:var(--acc);font-weight:700}
+/* ── رفوف اليوم في خطة الأسبوع ──
+   كل يوم دراسة رفٌّ بمواضيعه: رفوف فارغة يملؤها الطالب من الخطة المقسّمة أمامه.
+   لا نظام يملأها عنه؛ وهو يضغط الرفّ فيأخذ أول موضوع متبقٍّ ثم يرتبه كما يشاء. */
+.pday{display:flex;flex-direction:column;gap:10px}
+.pday-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pday-h b{font-size:1.02em}
+.pday-h .muted{font-size:.85em}
+.pslots{display:flex;flex-direction:column;gap:8px}
+.pslot{display:flex;align-items:center;gap:10px;min-height:52px;padding:9px 12px;border-radius:13px;border:1.5px dashed var(--line);background:var(--soft);color:var(--muted);font-size:.88em;text-align:right;cursor:pointer;width:100%;font-family:inherit}
+.pslot.filled{border-style:solid;border-color:var(--acc-soft);background:var(--acc-soft);color:var(--ink)}
+.pslot .n{width:24px;height:24px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line);font-size:.8em;font-weight:700}
+.pslot.filled .n{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.pslot .t{flex:1;min-width:0}
+.pslot .x{flex-shrink:0;opacity:.6;font-size:.9em}
+.psrc{display:flex;flex-direction:column;gap:7px}
+.psrc-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:.88em;text-align:right;cursor:pointer;width:100%;font-family:inherit;transition:opacity .15s ease,transform .15s ease}
+.psrc-item:active{transform:scale(.99)}
+.psrc-item.used{opacity:.34;text-decoration:line-through;cursor:default}
+.psrc-item .m{flex-shrink:0;font-size:.8em;font-weight:700;color:var(--acc)}
+@media (max-width:520px){.pslot .t,.psrc-item .t{overflow-wrap:anywhere}}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:.92em}
@@ -972,6 +1001,30 @@ function back() {
   if (fid) requestAnimationFrame(() => { const n = document.querySelector('[data-id="' + fid + '"]'); if (n) { const r = n.getBoundingClientRect(); if (r.top < 70 || r.bottom > innerHeight - 80) n.scrollIntoView({ block: 'center' }); n.classList.add('flash'); } });
   return true;
 }
+/* ── مكوّن «زرّان + تلميح»: يشرح فائدة كل زرّ تحت الزرين ──
+   تُمرّر على أي زرّ له data-hint فيتبدّل سطر التلميح. على الجوّال يكفي التركيز. */
+function hintBox(items, key) {
+  const first = items[0];
+  return '<div class="hp" data-hp="' + (key || '') + '">' +
+    '<div class="hp-row">' + items.map((it, i) =>
+      '<button class="btn' + (it.cls ? ' ' + it.cls : '') + '"' + (it.attrs || '') +
+      ' data-hint="' + esc(it.hint) + '"' + (i === 0 ? ' data-hint-def="1"' : '') + '>' +
+      (it.ico ? ico(it.ico, 1.7) : '') + '<b>' + it.label + '</b></button>').join('') + '</div>' +
+    '<p class="hp-hint">' + esc(first.hint) + '</p></div>';
+}
+function bindHintHover(root) {
+  root.querySelectorAll('.hp').forEach(hp => {
+    const out = hp.querySelector('.hp-hint');
+    hp.addEventListener('mouseover', e => {
+      const b = e.target.closest('[data-hint]'); if (!b || !hp.contains(b)) return;
+      out.innerHTML = esc(b.dataset.hint);
+    });
+    hp.addEventListener('focusin', e => {
+      const b = e.target.closest('[data-hint]'); if (!b || !hp.contains(b)) return;
+      out.innerHTML = esc(b.dataset.hint);
+    });
+  });
+}
 function tabTo(view) { S.stack = []; S.view = view; S.viewGrade = null; S.viewSubject = null; render(true); }
 window.addEventListener('popstate', () => { back(); });
 
@@ -992,7 +1045,7 @@ function toast(msg) {
   el.textContent = msg; el.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
-const TABS = [['today', 'اليوم', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
+const TABS = [['today', 'الخطة', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
 const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library' };
 
 function topBar(title, opts) {
@@ -1026,16 +1079,28 @@ function vToday() {
   const todayProbs = todayLog.filter(x => x.type === 'problem').length;
   const todayReviews = todayLog.filter(x => x.type === 'review').length;
   const todayStudy = todayLog.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
+
+  /* ── تبويب «الخطة»: خياران منسدلان فقط — اليومية والأسبوعية ──
+     أهداف اليوم وكل ما يخصّه اختزل داخل القائمة الأولى، فلا يبقى شيء مفتوحًا أمام الطالب */
+  const planNow = planToday();
+  const dailySummary = planNow.total
+    ? ar(planNow.picks.length) + ' مواضيع اليوم · ' + ar(planNow.reviews.length) + ' مراجعة · ' + ar(pct) + '٪ من هدفك'
+    : 'لا محتوى متبقٍ';
+  const dailyBody = metricsRowHTML() + todaySummaryHTML(st, ti, used, goal, pct, wg, todayProbs, todayReviews, todayStudy) +
+    planCard(st, ti, g, rest) +
+    accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), false) +
+    (rest ? '<p class="note">اليوم يوم راحة في خطتك. استرح، وعد غدًا بنشاط — ومع ذلك يمكنك المراجعة الخفيفة.</p>' : '');
+
+  const wk = weeklyGoals(st), wkFill = weekFill(st);
+  const weekSummary = wk.left ? ar(wk.perWeek) + ' موضوعًا · ' + ar(wkFill.days.length) + ' أيام' : 'مكتمل';
+
   return topBar('أهلاً، ' + st.name, { log: 'today', avatar: st.id }) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
-    metricsRowHTML() +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    todaySummaryHTML(st, ti, used, goal, pct, wg, todayProbs, todayReviews, todayStudy) +
-    accSec('today-plan', 'خطة اليوم', '', planCard(st, ti, g, rest), true) +
-    weeklyGoalsHTML(st) +
-    accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), true) +
-    (rest ? '<p class="note">اليوم يوم راحة. استرح وعد غدًا بنشاط.</p>' : '') +
-    '<div class="grid2"><button class="btn" data-act="openLog" data-v="stats"><b>سجلّي والتقييم</b><span class="small muted">أيامك بالرسوم: ماذا أنجزتَ وماذا حللتَ وماذا أخطأت</span></button><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button></div>' +
+    accSec('plan-daily', 'الخطة اليومية', dailySummary, dailyBody, !(S.acc && S.acc['plan-week'])) +
+    accSec('plan-week', 'خطة الأسبوع', weekSummary, weeklyPlanHTML(st), !!(S.acc && S.acc['plan-week'])) +
+    '<div class="grid2"><button class="btn" data-act="openLog" data-v="stats"><b>سجلّي والتقييم</b><span class="small muted">تقويم أيامك وإحصاء كل يوم على حدة</span></button>' +
+      '<button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button></div>' +
     '<div class="grid2"><button class="btn quiet" data-act="expRevLog">صدّر سجل المراجعة</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div>' +
     '</main>';
 }
@@ -3165,39 +3230,119 @@ function weeklyTopicList(st, mode) {
     }
     if (!moved) break;
   }
-  return mode === 'random' ? shuffle(out) : out;
+  return mode === 'random' ? shuffleSeeded(out, g.weekNo) : out;
 }
-function weeklyGoalsHTML(st) {
+/* خلط ثابت ببذرة الأسبوع: لو خُلط في كل رسمة لاختلط ترتيب الطالب كلما عاد للشاشة */
+function shuffleSeeded(arr, seed) {
+  const a = arr.slice();
+  let s = (seed * 9301 + 49297) % 233280 || 7;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = s % (i + 1);
+    const t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+/* ── توزيع الأسبوع على أيام الدراسة ──
+   «عدد الأيام المختارة من الإعدادات» = أيامك غير الراحة. كل يوم له رفوف فارغة
+   بقدر مواضيعه، والطالب يملؤها من الخطة المقسّمة أمامه — لا نظام يفرض عليه ترتيبًا. */
+function studyDaysCount(st) { return Math.max(1, 7 - (st.rest || []).length); }
+function planDates(st, n) {
+  const out = [], d = today0();
+  while (out.length < n && out.length < 40) {
+    if (!st.rest.includes(d.getDay()) && !inHoliday(d, st.holidays)) out.push(new Date(d));
+    d.setDate(d.getDate() + 1);
+  }
+  return out;
+}
+function weekFill(st) {
+  const g = weeklyGoals(st), n = studyDaysCount(st);
+  const f = st.weekFill;
+  if (!f || f.weekNo !== g.weekNo || f.days.length !== n) {
+    st.weekFill = { order: (f && f.order) || null, weekNo: g.weekNo, days: Array.from({ length: n }, () => []) };
+  }
+  if (!Array.isArray(st.weekFill.days)) st.weekFill.days = Array.from({ length: n }, () => []);
+  return st.weekFill;
+}
+function weekFillUsed(f) { return f.days.reduce((a, d) => a + d.length, 0); }
+function weekFillAssign(st, tid) {
+  const f = weekFill(st);
+  if (f.days.some(d => d.includes(tid))) return false;
+  const perDay = weeklyGoals(st).perDay;
+  const target = f.days.find(d => d.length < perDay);
+  if (!target) return false;
+  target.push(tid); save(); return true;
+}
+/* ── خطة الأسبوع: ترتيب ← عدد أيامك ← رفوف فارغة يملؤها الطالب ──
+   الخطوة الأولى ترتيب الحصة (عشوائي أو بيدك)، فإذا اخترت رأيت أيام دراستك كما في
+   الإعدادات، ولكل يوم رفوفٌ فارغة، ومن الخطة المقسّمة أمامك تملأها — ولا تُملأ إلا بيدك. */
+function weeklyPlanHTML(st) {
   const g = weeklyGoals(st);
   if (!g.total) return '';
-  const mode = S.weekOrder || null;
+  const f = weekFill(st), mode = f.order || null;
   const list = mode ? weeklyTopicList(st, mode) : [];
-  let h = '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
-    '<h2 style="margin:0">أهداف الأسبوع ' + ar(g.weekNo) + '</h2>' +
-    '<span class="muted small num">بقي ' + ar(g.weeksLeft) + ' أسبوعًا</span></div>';
-  if (!g.left) return h + '<p>أنجزت كل مواضيع موادك. راجع من تبويب المراجعة حتى الامتحان.</p></section>';
-  h += '<p class="small muted">في منهجك <b class="num">' + ar(g.left) + '</b> موضوعًا متبقًّا على <b class="num">' + ar(g.weeksLeft) + '</b> أسبوعًا، على <b class="num">' + ar(g.studyDays) + '</b> أيام دراسة أسبوعيًا بمعدل <b class="num">' + ar(st.minutes) + '</b> دقيقة يوميًا — أي <b class="num">' + ar(g.sessionsPerWeek) + '</b> حصص في الأسبوع، في كل حصة <b class="num">' + ar(g.perDay) + '</b> مواضيع. الهدف: <b class="num">' + ar(g.perWeek) + '</b> موضوعًا.</p>';
-  h += '<div class="plist">' + g.subjects.filter(s => s.total).map(s =>
-    '<div class="pitem" style="pointer-events:none;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
-    '<span class="st' + (s.left ? '' : ' ok') + '">' + (s.left ? ar(s.left) : '✓') + '</span>' +
-    '<span style="flex:1;min-width:0"><b>' + esc(s.subject) + '</b><br><span class="small muted">أنجزت ' + ar(s.done) + ' من ' + ar(s.total) + ' · هذا الأسبوع ' + ar(s.perWeek) + ' موضوعًا</span></span>' +
-    '<span class="small muted num">' + (s.total ? Math.round(s.done / s.total * 100) : 0) + '٪</span></div>').join('') + '</div>';
-  h += '<p class="small muted" style="margin-top:12px">بأي ترتيب تبدأ الحصة؟</p>' +
-    '<div class="chips">' +
-    '<button class="chip" data-act="weekOrder" data-m="random" aria-pressed="' + (mode === 'random') + '">عشوائي</button>' +
-    '<button class="chip" data-act="weekOrder" data-m="manual" aria-pressed="' + (mode === 'manual') + '">ترتيب يدوي</button>' +
-    '</div>';
-  if (mode && list.length) {
-    h += '<p class="small" style="font-weight:600;margin:12px 0 4px">مواضيع الحصة — ' + ar(list.length) + ' بترتيب ' + (mode === 'random' ? 'عشوائي' : 'المنهج') + '</p><div class="plist">' +
-      list.map((x, i) => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '" style="align-items:flex-start;line-height:1.45;padding:11px 14px">' +
-        '<span class="st">' + ar(i + 1) + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title.replace(/^[^:]*[:：]\s*/, '')) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span>' +
-        '<span class="small" style="color:var(--acc);font-weight:600;flex-shrink:0">ادرس</span></button>').join('') + '</div>' +
-      '<button class="btn" style="width:100%;margin-top:10px" data-act="weekStart">ابدأ الحصة</button>';
-  } else if (mode) {
-    h += '<p class="note">لا مواضيع متبقّية على هذا الأسبوع.</p>';
-  }
-  return h + '</section>';
+  const days = planDates(st, f.days.length);
+
+  let h = '<div class="hp"><div class="hp-row">' +
+    '<button class="btn' + (mode === 'random' ? '' : ' quiet') + '" data-act="weekOrder" data-m="random"' +
+      ' data-hint="يخلط ترتيب مواضيع الحصة بالطريقة نفسها لكل أسبوع، حتى لا تدرس دائمًا بالمهج نفسه. التوزيع على أيامك يبقى كما هو — يتغير ترتيب المادة داخل اليوم لا عدد ما تُنجزه.">' +
+      (mode === 'random' ? ico('check', 2.4) : '') + '<b>عشوائي</b></button>' +
+    '<button class="btn' + (mode === 'manual' ? '' : ' quiet') + '" data-act="weekOrder" data-m="manual"' +
+      ' data-hint="يبقى الترتيب على تتابع المنهج: ما جاء في الكتاب أولًا فهو أول ما تدرسه. أنسب لك إن كنت تتابع درسًا مع معلم أو كتاب مرتّب.">' +
+      (mode === 'manual' ? ico('check', 2.4) : '') + '<b>ترتيب يدوي</b></button>' +
+    '</div><p class="hp-hint">اختر طريقة ترتيب حصتك أولًا، ثم تظهر أيام دراستك ولكل يوم رفوفٌ فارغة تملؤها أنت.</p></div>';
+
+  if (!mode) return h;
+
+  /* ── الخطة المقسّمة: تظهر قبل الأيام، فيأخذ الطالب منها ما يملأ رفوفه ── */
+  h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h3 style="margin:0">الخطة المقسّمة</h3>' +
+    '<span class="small muted num">' + ar(list.length) + ' موضوعًا · بترتيب ' + (mode === 'random' ? 'عشوائي' : 'المنهج') + '</span></div>' +
+    '<p class="small muted">هذه مواضيع حصتك. اضغط أي موضوع ليأخذ مكانه في أول رفّ فارغ — أو اضغط الرفّ ليأخذ أول موضوع متبقٍّ.</p>' +
+    (list.length
+      ? '<div class="psrc" style="margin-top:10px">' + list.map((x, i) => {
+          const used = f.days.some(d => d.includes(x.t.id));
+          return '<button class="psrc-item' + (used ? ' used' : '') + '" data-act="weekFillAdd" data-id="' + x.t.id + '"' + (used ? ' disabled' : '') + '>' +
+            '<span class="m num">' + ar(i + 1) + '</span>' +
+            '<span class="t"><b>' + esc(x.subject) + '</b> — ' + esc(x.ch.title.replace(/^[^:]*[:：]\s*/, '')) + '<br><span class="small muted">' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span></button>';
+        }).join('') + '</div>'
+      : '<p class="note">لا مواضيع متبقّية على هذا الأسبوع.</p>');
+  h += '</section>';
+
+  /* ── أيام الدراسة: رفوف فارغة بانتظارك ── */
+  const perDay = g.perDay, used = weekFillUsed(f), need = Math.min(list.length, f.days.length * perDay);
+  h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h3 style="margin:0">رفوف أيامك</h3>' +
+    '<span class="small muted num">' + ar(f.days.length) + ' يومًا · ' + ar(perDay) + ' رفوف</span></div>' +
+    '<p class="small muted">عدد أيامك هنا هو ما حددته في الإعدادات: ' + ar(g.studyDays) + ' أيام دراسة أسبوعيًا — تُحسب بطرح أيام الراحة.</p>' +
+    (used ? '<div class="chips" style="margin:10px 0"><button class="chip" data-act="weekFillClear">أفرِغ الأيام</button></div>' : '') +
+    '<div style="display:flex;flex-direction:column;gap:14px;margin-top:12px">';
+
+  f.days.forEach((slots, di) => {
+    const d = days[di];
+    h += '<div class="pday"><div class="pday-h"><b>اليوم ' + ar(di + 1) + '</b><span class="muted num">' + (d ? DAYS[d.getDay()] + ' ' + fmtD(d) : '') + '</span></div>';
+    h += '<div class="pslots">';
+    for (let i = 0; i < perDay; i++) {
+      const tid = slots[i];
+      if (tid) {
+        const x = list.find(y => y.t.id === tid);
+        h += '<button class="pslot filled" data-act="weekFillDel" data-d="' + di + '" data-i="' + i + '">' +
+          '<span class="n num">' + ar(i + 1) + '</span>' +
+          '<span class="t">' + (x ? esc(x.subject) + ' — ' + esc(x.ch.title.replace(/^[^:]*[:：]\s*/, '')) + '<br><span class="small muted">' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span>' : esc(tid)) + '</span>' +
+          '<span class="x">✕</span></button>';
+      } else {
+        h += '<button class="pslot" data-act="weekFillSlot" data-d="' + di + '" data-i="' + i + '">' +
+          '<span class="n num">' + ar(i + 1) + '</span><span class="t">رفّ فارغ — املأه من الخطة</span></button>';
+      }
+    }
+    h += '</div></div>';
+  });
+  h += '</div>';
+  h += '<p class="small muted num" style="margin-top:12px">ملأتَ ' + ar(used) + ' من ' + ar(need) + ' رفًّا.</p>';
+  if (used) h += '<button class="btn" style="width:100%;margin-top:8px" data-act="weekStart">ابدأ الحصة</button>';
+  else h += '<p class="note">املأ رفًّا واحدًا على الأقل لتبدأ حصة اليوم.</p>';
+  h += '</section>';
+  return h;
 }
 
 function planCard(st, ti, g, rest) {
@@ -4195,6 +4340,7 @@ function render(scrollTop) {
   app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.dialog ? vDialog() : '');
   if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
   mountSims(); mountPhotos();
+  bindHintHover(app);
   if (scrollTop) window.scrollTo(0, 0);
   if (S.view === 'search') { const q = document.getElementById('q'); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
 }
@@ -4407,12 +4553,58 @@ document.addEventListener('click', e => {
     case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
     case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
     case 'examCfg': S.examScope = null; examConfig(el.dataset.kind, el.dataset.s); break;
-    case 'weekOrder': S.weekOrder = el.dataset.m || null; render(); break;
+    case 'weekOrder': {
+      const m = el.dataset.m || null;
+      const st = me();
+      const f = weekFill(st);
+      /* تغيير طريقة الترتيب يعيد الخطة المقسّمة، فلا تبقى رفوفك على ترتيبٍ قديم */
+      if (f.order !== m) f.days = f.days.map(() => []);
+      f.order = m; S.weekOrder = m; save(); render();
+      break;
+    }
+    case 'weekFillAdd': {
+      /* يملأ أول رفّ فارغ من أيامك بالموضوع الذي ضغطته */
+      const st = me(), ok = weekFillAssign(st, el.dataset.id);
+      if (!ok) toast('امتلأت كل رفوف أيامك. افرِغ رفًّا أو اضغط الرفّ ليأخذ موضوعًا بدلًا منك.');
+      render();
+      break;
+    }
+    case 'weekFillSlot': {
+      /* الضغط على الرفّ الفارغ نفسه يأخذ أول موضوع متبقٍّ — اختصار لمن لا يريد لمس الخطة */
+      const st = me(), f = weekFill(st);
+      const list = weeklyTopicList(st, f.order || 'manual');
+      const next = list.find(x => !f.days.some(d => d.includes(x.t.id)));
+      if (!next) { toast('لم يبقَ موضوع من الخطة المقسّمة.'); break; }
+      const row = f.days[+el.dataset.d];
+      if (row && row.length < weeklyGoals(st).perDay) { row.push(next.t.id); save(); }
+      render();
+      break;
+    }
+    case 'weekFillDel': {
+      const st = me(), f = weekFill(st);
+      const row = f.days[+el.dataset.d];
+      if (row) row.splice(+el.dataset.i, 1);
+      save(); render();
+      break;
+    }
+    case 'weekFillClear': {
+      const st = me(), f = weekFill(st);
+      f.days = f.days.map(() => []);
+      save(); render();
+      break;
+    }
     case 'weekStart': {
-      /* يفتح أول موضوع لم يكتمل في الحصة — القائمة نفسها هي علامتك: ما بلغ ٩٠٪ يخرج منها */
-      const list = weeklyTopicList(me(), S.weekOrder || 'manual');
-      const next = list.find(x => topicPct(x.t) < 90);
-      if (!next) { toast('أنجزت كل مواضيع هذه الحصة ✓'); break; }
+      /* يفتح أول موضوع في رفوف أيامك — الترتيب الذي رتّبته أنت هو علامتك */
+      const st = me(), f = weekFill(st);
+      const ordered = [];
+      f.days.forEach(row => row.forEach(tid => ordered.push(tid)));
+      const topics = ordered.map(id => {
+        let hit = null;
+        gradeContents(st.grade).forEach(y => (y.c || { chapters: [] }).chapters.forEach(ch => ch.topics.forEach(t => { if (t.id === id) hit = { t, ch, subject: y.subject }; })));
+        return hit;
+      }).filter(Boolean);
+      const next = topics.find(x => topicPct(x.t) < 90);
+      if (!next) { toast('أنجزت كل ما في رفوف هذه الحصة ✓'); break; }
       S.tseg = 'explain';
       go('topic', { viewTopic: next.t.id });
       break;

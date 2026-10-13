@@ -4674,7 +4674,7 @@ document.addEventListener('click', e => {
     case 'tQuiz': { const t = findTopic(el.dataset.id).t, n = quizPool('t:' + t.id).length; S.dialog = { title: 'اختبار: ' + t.title, text: 'اختبار بعد الموضوع. كم سؤالًا تريد؟', choices: [5, 10].concat([n]).filter((v, i, a) => v <= n && a.indexOf(v) === i), src: 't:' + t.id }; render(); break; }
     case 'topic': S.tseg = 'explain'; go('topic', { viewTopic: el.dataset.id }); break;
     case 'tseg': S.tseg = el.dataset.v; S.mt = null; render(true); break;
-    case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
+    case 'memoTab': case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; S.mbi = el.dataset.b ? +el.dataset.b : 0; render(true); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
     case 'calYear': S.calY = +el.dataset.y; S.calM = Math.min(S.calM, 11); S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;

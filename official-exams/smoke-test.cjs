@@ -272,6 +272,36 @@ T('تغطية الحفظ', () => {
   return true;
 });
 
+/* حفظ متعدد المقاطع + التبويب بينها (النقطة ٥) */
+T('مقاطع الحفظ المتعددة', () => {
+  const out = run(`(function(){ try {
+    let n = 0;
+    gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (memosOf(t).length < 2) return; n++;
+    })));
+    if (!n) return { __fail: 'لا موضوع فيه مقطعان فأكثر للتجربة' };
+    /* افتح موضوعًا به مقطعان: التبويب يبدّل المقطع، والاختبار يخص المقطع المختار */
+    let target = null;
+    gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (!target && memosOf(t).length >= 2) target = t.id;
+    })));
+    S.viewTopic = target; S.tseg = 'memo'; S.mbi = 1; S.mmode = 'read'; S.mrev = {}; S.mt = null;
+    const a = memoAt(findTopic(target).t, 1), b = memoAt(findTopic(target).t, 0);
+    if (!a || !b || a.title === b.title) return { __fail: 'memoAt لا يبدّل المقطع' };
+    if (!memoOf(target, 1) || !memoOf(target, 0)) return { __fail: 'التقدّم غير محفوظ لكل مقطع' };
+    if (memoOf(target, 1) === memoOf(target, 0)) return { __fail: 'المقطعان يتشاركان التقدّم' };
+    const h = memoHTML(findTopic(target).t, 1);
+    if (!/memo-tabs/.test(h)) return { __fail: 'لا تبويبات في شاشة الحفظ' };
+    S.mmode = 'test'; S.mt = { tid: target, bi: 1, qs: memoBuild(findTopic(target).t, 1), i: 0, pick: null };
+    if (!S.mt.qs.length) return { __fail: 'اختبار المقطع الثاني بلا أسئلة' };
+    return { n: n, title: a.title };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  if (!out || !out.n) return { __fail: 'لا مقاطع متعددة' };
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

@@ -534,6 +534,43 @@ T('المحاكاة الكاملة', () => {
   return true;
 });
 
+/* ٧-ح) سجل «التهيئة للوزاري الشامل» المستقلّ */
+T('سجل التهيئة الشاملة', () => {
+  const out = run(`(function(){ try {
+    const st = me();
+    const y = gradeContents(st.grade)[0]; if (!y) return { __fail: 'لا مواد' };
+    const subj = y.subject;
+    st.ministerial = st.ministerial || {};
+    const chId = y.c.chapters[0].id;
+    st.ministerial[subj] = [
+      { at: Date.now() - 20 * 864e5, pct: 40, sec: 10000, n: 6, chId: chId },
+      { at: Date.now() - 8 * 864e5, pct: 68, sec: 12000, n: 6, chId: chId },
+      { at: Date.now() - 2 * 864e5, pct: 92, sec: 5000, n: 6, chId: '' }
+    ];
+    flushSave();
+    const r = minPrepRecordHTML(subj);
+    ['لماذا هذا السجل؟', 'معدّلك التراكمي', 'معدّل مدتك', 'جلساتك فوق ٨٠٪', 'كل جلسة على حدة', 'زمن جلساتك من الحدّ الرسمي'].forEach(k => {
+      if (r.indexOf(k) < 0) throw new Error('عنصر مفقود في سجل التهيئة: ' + k);
+    });
+    if (r.indexOf('معدّلك التراكمي') < 0 || !/٪/.test(r)) throw new Error('لا نِسَب');
+    const avg = Math.round((40 + 68 + 92) / 3);
+    if (r.indexOf(String(avg).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d])) < 0) throw new Error('المعدّل غير معروض: ' + avg);
+    S.minPrepSubj = subj; S.view = 'minprep';
+    const v = String(VIEWS.minprep());
+    ['سجل التهيئة الشامل', '↩ كل المواد', 'المحاكاة الكاملة', 'جلسة بفصل محدد'].forEach(k => {
+      if (v.indexOf(k) < 0) throw new Error('عنصر مفقود في شاشة التهيئة: ' + k);
+    });
+    S.minPrepSubj = null;
+    const v0 = String(VIEWS.minprep());
+    if (v0.indexOf('ماذا يفيدك كل زرّ؟') < 0) throw new Error('شرح فائدة الأزرار مفقود');
+    if (v0.indexOf('سجل وتهيئة') < 0) throw new Error('بطاقات المواد غير موجودة');
+    return { avg: avg };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

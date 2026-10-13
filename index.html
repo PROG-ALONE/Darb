@@ -1042,7 +1042,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null, minPrepSubj: null };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -1825,21 +1825,95 @@ function vSubExams() {
     subs.map(y => subjectExamsHTML(y.subject, st)).join('') + '</main>';
 }
 /* عرض «التهيئة للوزاري»: محاكاة كاملة ٣ ساعات لكل مادة، بفصل أو فصول أو المادة كاملة */
+/* ٧-ح) سجل «التهيئة للوزاري الشامل»: جلسات المادة كلها أو الفصل الواحد،
+   بالوقت والنِسَب والمواضيع الضعيفة — سجل مستقلّ لا خلاصة في شاشة أخرى. */
+function minPrepRecordHTML(subject) {
+  const st = me();
+  const arr = ((st.ministerial || {})[subject] || []).slice();
+  const bank = ministerialPool(subject).length;
+  if (!arr.length) return '<p class="note">لا جلسة وزارية بعد لهذه المادة — أول جلسة تبدأها هنا تفتح لك هذا السجل.</p>';
+  const avg = Math.round(arr.reduce((a, x) => a + x.pct, 0) / arr.length);
+  const best = Math.max.apply(null, arr.map(x => x.pct));
+  const worst = Math.min.apply(null, arr.map(x => x.pct));
+  const avgSec = Math.round(arr.reduce((a, x) => a + (x.sec || 0), 0) / arr.length);
+  const pass = arr.filter(x => x.pct >= 60).length;
+  const strong = arr.filter(x => x.pct >= 80).length;
+  const byCh = {};
+  arr.forEach(x => { if (x.chId) { const f = findChapter(x.chId); const k = f ? f.ch.title.split(':')[0] : x.chId; byCh[k] = byCh[k] || { n: 0, sum: 0 }; byCh[k].n++; byCh[k].sum += x.pct; } });
+  const chRows = Object.entries(byCh).sort((a, b) => (b[1].sum / b[1].n) - (a[1].sum / a[1].n));
+
+  let h = '<div class="hint-purpose">' + ico('star', 1.6) +
+    '<span><b>لماذا هذا السجل؟</b><br><span class="small">لأن الوزاري مادة تُبنى بالجلسة لا بالقراءة: هنا ترى معدّلك ومدتك ومواضيع ضعفك في كل جلسة، فتعرف أي فصل تحتاج جلسةً ثانية قبل الامتحان الحقيقي.</span></span></div>';
+  h += '<div class="sgrid" style="margin-top:10px">' +
+    '<div class="stat"><span class="muted small">معدّلك التراكمي</span><b class="num">' + ar(avg) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">أفضل / أضعف جلسة</span><b class="num">' + ar(best) + '٪ · ' + ar(worst) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">عدد الجلسات</span><b class="num">' + ar(arr.length) + '</b></div>' +
+    '<div class="stat"><span class="muted small">معدّل مدتك</span><b class="num">' + fmtDur(avgSec) + '</b></div></div>';
+  h += '<div class="srows" style="margin-top:12px">' +
+    pctBar('معدّلك التراكمي', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') +
+    pctBar('جلساتك فوق ٨٠٪ (جاهز للوزاري)', arr.length ? strong / arr.length * 100 : 0, 'good') +
+    pctBar('جلساتك فوق ٦٠٪ (ناجح)', arr.length ? pass / arr.length * 100 : 0, 'gold') +
+    pctBar('زمن جلساتك من الحدّ الرسمي (٣ ساعات)', Math.min(100, avgSec / 10800 * 100), 'acc') +
+    '</div>';
+  if (chRows.length) {
+    h += '<p class="small muted" style="margin-top:12px">معدّلك في كل فصل جلستَه وحده:</p>' +
+      '<div class="srows">' + chRows.slice(0, 8).map(([c, v]) => {
+        const p2 = Math.round(v.sum / v.n);
+        return '<div class="srow"><span class="slab">' + esc(c) + '<br><span class="small muted num">' + ar(v.n) + ' جلسة</span></span>' +
+          '<span class="strack"><i class="' + (p2 >= 80 ? 'good' : p2 >= 60 ? 'gold' : 'bad') + '" style="width:' + Math.max(3, p2) + '%"></i></span>' +
+          '<b class="sval num">' + ar(p2) + '٪</b></div>';
+      }).join('') + '</div>';
+  }
+  h += '<p class="small muted" style="margin-top:12px">كل جلسة على حدة:</p><div class="plist">' +
+    arr.slice().reverse().map(x => {
+      const f = x.chId ? findChapter(x.chId) : null;
+      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (x.pct >= 80 ? 'ok' : x.pct >= 60 ? '' : 'bad') + '">' + ar(x.pct) + '٪</span>' +
+        '<span style="flex:1;min-width:0"><b>' + (f ? esc(f.ch.title.split(':')[0]) : 'المادة كاملة') + '</b><br><span class="small muted num">' + fmtD(new Date(x.at)) + ' · ' + ar(x.n) + ' أسئلة · ' + fmtDur(x.sec || 0) + '</span></span></div>';
+    }).join('') + '</div>';
+  h += '<div class="grid2" style="margin-top:10px">' +
+    '<button class="btn ghost" data-act="weakOf" data-s="' + esc(subject) + '">مواضيع ضعفك</button>' +
+    '<button class="btn ghost" data-act="minRecSubj" data-s="' + esc(subject) + '">السجل الوزاري الموحّد</button></div>';
+  return h;
+}
 function vMinPrep() {
   const st = me(), subs = gradeContents(st.grade).filter(y => ministerialPool(y.subject).length || subjQuizPool(y.subject).length);
   if (!subs.length) return topBar('التهيئة للوزاري', { back: true, noTools: true }) + '<main class="page">' + empty('library', 'لا بنك وزاري بعد', 'يُبنى بنك الأسئلة الوزارية من دورات ٢٠١٦–٢٠٢٦. حين يكتمل يظهر هنا لكل مادة: محاكاة كاملة (٣ ساعات) بفصل أو فصول أو المادة كاملة.') + '</main>';
+  const cur = S.minPrepSubj && subs.some(y => y.subject === S.minPrepSubj) ? S.minPrepSubj : null;
+  if (cur) {
+    const bank = ministerialPool(cur).length, subj = subjQuizPool(cur).length, n = bank || subj;
+    return topBar('التهيئة للوزاري · ' + cur, { back: true, noTools: true }) + '<main class="page">' +
+      '<div class="chips" style="margin-bottom:10px"><button class="chip" data-act="minPrepSubj" data-s=""><b>↩ كل المواد</b></button>' +
+      '<button class="chip" data-act="back">رجوع</button></div>' +
+      '<section class="card"><h2>كيف تُحاكى الجلسة الوزارية؟</h2><p class="small muted">امتحان وزاري حقيقي ثلاث ساعات (١٨٠ دقيقة) من أسئلة الدورات، موزّعة على المنهج. تختار امتحان فصل واحد، أو فصولًا تختارها، أو المادة كاملة. يُغلق النظام على الأسئلة ولا يمكن الرجوع إليها، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيع ضعفك. زمن كل سؤال مشتقّ من صعوبته (كتاب ٣ دقائق، وزاري ٥) ومن زمنك الفعلي في المسائل.</p>' +
+      '<div class="grid2" style="margin-top:10px">' +
+        '<div class="stat"><span class="muted small">' + (bank ? 'أسئلة الوزاري' : 'أسئلة المادة') + '</span><b class="num">' + ar(n) + '</b></div>' +
+        '<div class="stat"><span class="muted small">معدّلك</span><b class="num">' + ar(ministerialAvg(cur)) + '٪</b></div></div>' +
+        '<div class="grid2" style="margin-top:10px">' +
+        '<button class="btn" data-act="ministerialFull" data-s="' + esc(cur) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة · ١٠٠ نقطة</span></button>' +
+        '<button class="btn ghost" data-act="examCfg" data-kind="ministerial" data-s="' + esc(cur) + '"><b>جلسة بفصل محدد</b><span class="small muted">اختر فصلًا أو فصولًا ومواضيع</span></button>' +
+        '</div></section>' +
+      '<section class="card"><h2>سجل التهيئة الشامل · ' + esc(cur) + '</h2>' + minPrepRecordHTML(cur) + '</section>' +
+      '</main>';
+  }
   return topBar('التهيئة للوزاري', { back: true, noTools: true }) + '<main class="page">' +
-    '<section class="card"><h2>كيف تُحاكى الجلسة الوزارية؟</h2><p class="small muted">امتحان وزاري حقيقي ثلاث ساعات (١٨٠ دقيقة) من أسئلة الدورات، موزّعة على المنهج. تختار امتحان فصل واحد، أو فصولًا تختارها، أو المادة كاملة. يُغلق النظام على الأسئلة ولا يمكن الرجوع إليها، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيع ضعفك.</p></section>' +
+    '<section class="card"><h2>كيف تُحاكى الجلسة الوزارية؟</h2><p class="small muted">امتحان وزاري حقيقي ثلاث ساعات (١٨٠ دقيقة) من أسئلة الدورات، موزّعة على المنهج. تختار امتحان فصل واحد، أو فصولًا تختارها، أو المادة كاملة. يُغلق النظام على الأسئلة ولا يمكن الرجوع إليها، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيع ضعفك. زمن كل سؤال مشتقّ من صعوبته ومن زمنك الفعلي في المسائل.</p>' +
+      '<div class="hint-purpose" style="margin-top:10px">' + ico('star', 1.6) +
+      '<span><b>ماذا يفيدك كل زرّ؟</b><br><span class="small">«المحاكاة الكاملة» خطة قصيرة ٥–٦ أسئلة تغطي المادة كلّها بمئة نقطة كما في الوزاري الحقيقي — أدقّ مرآة لمستواك. و«جلسة بفصل محدد» تكثّف على فصل واحد تحتاجه، ووقت سؤاله من صعوبته لا من رقم ثابت.</span></span></div>' +
+    '</section>' +
     subs.map(y => {
       const bank = ministerialPool(y.subject).length, subj = subjQuizPool(y.subject).length, n = bank || subj;
       const arr = (st.ministerial || {})[y.subject] || [], last = arr[arr.length - 1];
+      const avg = arr.length ? Math.round(arr.reduce((a, x) => a + x.pct, 0) / arr.length) : null;
       return '<section class="card"><h2>' + esc(y.subject) + '</h2>' +
         '<div class="grid2"><div class="stat"><span class="muted small">' + (bank ? 'أسئلة الوزاري' : 'أسئلة المادة') + '</span><b class="num">' + ar(n) + '</b></div>' +
-        '<div class="stat"><span class="muted small">معدلك</span><b class="num">' + ar(ministerialAvg(y.subject)) + '٪</b></div></div>' +
-        (last ? '<p class="small muted num">آخر جلسة: ' + ar(last.pct) + '٪ · ' + fmtD(new Date(last.at)) + ' · ' + mmss(last.sec) + '</p>' : '') +
+        '<div class="stat"><span class="muted small">معدّلك</span><b class="num">' + (avg != null ? ar(avg) + '٪' : '—') + '</b></div></div>' +
+        (arr.length ? '<div class="srows" style="margin-top:10px">' +
+          pctBar('معدّل جلساتك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') +
+          pctBar('جلساتك فوق ٨٠٪', arr.length ? arr.filter(x => x.pct >= 80).length / arr.length * 100 : 0, 'good') +
+          '</div><p class="small muted num">' + ar(arr.length) + ' جلسة' + (last ? ' · آخرها ' + ar(last.pct) + '٪ في ' + fmtD(new Date(last.at)) : '') + '</p>' : '<p class="note">لا جلسة بعد — أول جلسة تفتح لك السجل.</p>') +
         '<div class="grid2" style="margin-top:10px">' +
-        '<button class="btn" data-act="ministerialFull" data-s="' + esc(y.subject) + '"><b>المحاكاة الكاملة (' + ar(n) + ' سؤالًا)</b><span class="small muted">المادة كلها · ٣ ساعات</span></button>' +
-        '<button class="btn ghost" data-act="examCfg" data-kind="ministerial" data-s="' + esc(y.subject) + '"><b>امتحان بفصل محدد</b><span class="small muted">اختر فصلًا أو فصولًا ومواضيع</span></button>' +
+        '<button class="btn" data-act="minPrepSubj" data-s="' + esc(y.subject) + '"><b>سجل وتهيئة ' + esc(y.subject) + '</b><span class="small muted">السجل الكامل + الجلسات</span></button>' +
+        '<button class="btn ghost" data-act="ministerialFull" data-s="' + esc(y.subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة · ١٠٠ نقطة</span></button>' +
         '</div></section>';
     }).join('') + '</main>';
 }
@@ -5466,6 +5540,8 @@ document.addEventListener('click', e => {
     }
     case 'subExams': go('subexams'); break;
     case 'minPrep': go('minprep'); break;
+    case 'minPrepSubj': S.minPrepSubj = el.dataset.s || null; go('minprep'); break;
+    case 'weakOf': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     /* ٧-ز) سجل «تطوّرك الوزاري» في تبويب الاختبارات */
     case 'minRec': go('minrec'); break;
     case 'minRecSubj': S.minRecSubj = el.dataset.s || null; S.minRecTab = 'all'; render(); break;

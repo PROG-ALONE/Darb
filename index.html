@@ -223,6 +223,8 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .metric .m-val.coral{color:var(--coral)}
 .metric .m-val.amber{color:var(--amber)}
 .metric .m-sub{font-size:.75em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* على الشاشات الضيّقة يُسمح بالالتفاف بدل القصّ بعلامة (…) — فلا يضيع معنى التهنئة */
+@media(max-width:520px){.metric .m-sub,.metric .m-lbl{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35;min-height:2.7em}.metric .m-lbl{min-height:auto}}
 
 /* بطاقة الطالب */
 .student-card{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -359,7 +361,10 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 
 
 /* الموضوع */
-.segs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-inline:calc(-1 * max(16px,4vw));padding-inline:max(16px,4vw)}
+/* الامتداد إلى حافّة الشاشة مقيّد بحشو الصفحة الفعلي: كان margin ثابتًا −16px بينما
+   paddingInline يحسب max(16px,4vw)، فعندما يختلف الاثنان ب unos بكسلات يخرج nav عن
+   النافذة ويُزيح الصفحة كلها. min() يضمن ألّا يتجاوز الامتداد ما هو متاح فعليًا */
+.segs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-inline:calc(-1 * min(max(16px,4vw),(100vw - 100%) / 2));padding-inline:min(max(16px,4vw),(100vw - 100%) / 2)}
 .segs::-webkit-scrollbar{display:none}
 .seg{flex-shrink:0;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:.92em;position:relative}
 .seg[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}

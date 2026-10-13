@@ -234,6 +234,18 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .strack i{display:block;height:100%;border-radius:999px;background:var(--acc);transition:width .5s cubic-bezier(.2,.8,.3,1)}
 .strack i.good{background:var(--ok)} .strack i.gold{background:var(--gold)} .strack i.bad{background:var(--bad)} .strack i.acc{background:var(--acc)}
 .sval{font-size:.85em;font-weight:700;color:var(--ink);white-space:nowrap}
+/* تفصيل الأسئلة في سجل الاختبارات: كل سؤال رقمنًا مع إصابته وزمنه */
+.qdet{display:flex;flex-wrap:wrap;gap:6px}
+.qchip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:44px;padding:6px 4px;border-radius:10px;border:1px solid var(--line);background:var(--soft);font-size:.7em;line-height:1.25}
+.qchip b{font-size:.95em;font-weight:700;color:var(--ink)}
+.qchip i{font-style:normal;font-weight:700}
+.qchip em{font-style:normal;color:var(--muted);font-size:.92em}
+.qchip.ok{border-color:rgba(16,163,127,.45);background:rgba(16,163,127,.10)}
+.qchip.ok i{color:var(--ok)}
+.qchip.bad{border-color:rgba(214,69,69,.45);background:rgba(214,69,69,.10)}
+.qchip.bad i{color:var(--bad)}
+.qchip.mid{border-color:var(--gold-line);background:var(--gold-soft)}
+.qchip.mid i{color:var(--gold)}
 
 /* نظام إدخال الإجابة الرقمي */
 .answer-pad{display:flex;flex-direction:column;gap:8px;margin:12px 0}
@@ -1024,7 +1036,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {} };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -1733,7 +1745,9 @@ function vTests() {
   const st = me(), pool = myStudyPool();
   const exams = (st.exams || []).slice().reverse().slice(0, 12);
   const mt = memoTopics();
-  const memoSec = mt.length ? accSec('memo', 'اختبارات الحفظ', ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في مواد صفك — بحسب المادة ثم الفصل ثم الموضوع. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' + gradeContents(st.grade).map(y => subjectMemoHTML(y.subject)).filter(Boolean).join(''), true) : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
+  /* ٧-د) «اختبارات الحفظ» قائمة جميلة بمسار واضح: مادة ← فصولها ← ما فيها من حفظ ← اختر.
+     زرّ رجوع دائمًا يعيدك إلى بداية القائمة (وإلى «المدرّب» إن جئت منه). */
+  const memoSec = mt.length ? memoTestListHTML() : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
   const subs = gradeContents(st.grade);
   /* ٧-أ: «اختباراتي» قائمة منسدلة أجمل — كل مادة فصلها ودرجتها فوقها */
   const mySec = accSec('myTests', 'اختباراتي', ar(subs.length) + (subs.length === 1 ? ' مادة' : ' مواد'),
@@ -1972,9 +1986,11 @@ function vLog() {
   } else if (src === 'tests') {
     const exams = (st.exams || []).slice().reverse().filter(e => !subject || examSubj(e.src) === subject);
     title = subject ? 'اختبارات ' + subject : 'سجل الاختبارات';
-    body = '<section class="card"><h2>' + title + '</h2>' +
-      (subject ? '<div class="chips"><button class="chip" data-act="openLog" data-v="tests">كل المواد</button><button class="chip" aria-pressed="true">' + esc(subject) + '</button></div>' : '') +
-      (exams.length ? '<div class="plist">' + exams.map(e => '<div class="pitem" style="pointer-events:none"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة</span></span></div>').join('') + '</div>' : '<div class="empty">' + ico('tests', 1.3) + '<b>لا نتائج بعد</b><p>أنهِ أي اختبار فيظهر هنا.</p></div>') + '</section>';
+    body = '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+      '<h2 style="margin:0">' + title + '</h2><span class="small muted num">' + ar(exams.length) + ' نتيجة</span></div>' +
+      (subject ? '<div class="chips" style="margin-top:8px"><button class="chip" data-act="openLog" data-v="tests">كل المواد</button><button class="chip" aria-pressed="true">' + esc(subject) + '</button></div>' : '') +
+      '<p class="small muted">إحصاء كامل لكل ما اختبرته، ثم كل امتحان بتفصيل أسئلته: صواب وخطأ وزمن السؤال ودرجته.</p>' +
+      testsRecordHTML(exams, subject) + '</section>';
   } else if (src === 'path') {
     const subs = gradeContents(st.grade);
     title = 'تفاصيل مساري';
@@ -2850,6 +2866,98 @@ function myStudyPool() {
   })));
   return out;
 }
+/* يُبقي تفصيل الأسئلة على آخر ٦٠ نتيجة فقط، ويُبقي الدرجات والتاريخ دائمًا */
+function trimExamDetails(st) {
+  const arr = st.exams || [], cut = arr.length - 60;
+  arr.forEach((e, i) => { if (i < cut && e.ks) { delete e.ks; delete e.ok; delete e.times; } });
+}
+/* ٧-ب) سجل المادة: إحصاء كامل ثم تفصيل لكل امتحان سؤالًا بسؤال (صواب/خطأ/زمن/درجة) */
+function testsRecordHTML(exams, subject) {
+  if (!exams.length) return '<div class="empty">' + ico('tests', 1.3) + '<b>لا نتائج بعد</b><p>أنهِ أي اختبار فيظهر هنا بإحصائه وتفصيل أسئلته.</p></div>';
+  const st = me();
+  const withDetail = exams.filter(e => e.ks && e.ok);
+  const n = exams.length;
+  const avg = Math.round(exams.reduce((a, e) => a + e.pct, 0) / n);
+  const best = Math.max.apply(null, exams.map(e => e.pct));
+  const worst = Math.min.apply(null, exams.map(e => e.pct));
+  const pass = exams.filter(e => e.pct >= 70).length;
+  const totalQ = exams.reduce((a, e) => a + e.n, 0);
+  let okQ = 0, detQ = 0, secQ = 0, secN = 0;
+  withDetail.forEach(e => {
+    e.ok.forEach(v => { detQ++; if (v === 1 || v === 2) okQ++; });
+    (e.times || []).forEach(t => { if (t > 0) { secQ += t; secN++; } });
+  });
+  const acc = detQ ? Math.round(okQ / detQ * 100) : null;
+  const perQ = secN ? Math.round(secQ / secN) : null;
+  const band = (lo, hi) => exams.filter(e => e.pct >= lo && e.pct < hi).length;
+  const dir = n >= 2 ? exams[0].pct - exams[n - 1].pct : 0;
+
+  let h = '<div class="hint-purpose">' + ico('star', 1.6) +
+    '<span><b>لماذا هذا السجل؟</b><br><span class="small">ليست الغاية الدرجة وحدها: هنا ترى ' +
+    (acc != null ? 'دقة إجاباتك على مستوى السؤال (' + ar(acc) + '٪)، ' : '') +
+    'وما بين الامتحانات، وأي أسئلة أخذت منك وقتًا أكثر، فتعرف أين تعيد المراجعة قبل ' + esc(subject || 'الامتحان القادم') + '.</span></span></div>';
+
+  h += '<div class="sgrid" style="margin-top:10px">' +
+    '<div class="stat"><span class="muted small">معدّل نتائجك</span><b class="num">' + ar(avg) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">أفضل / أضعف نتيجة</span><b class="num">' + ar(best) + '٪ · ' + ar(worst) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">نسبة نجاحك (٧٠٪+)</span><b class="num">' + ar(Math.round(pass / n * 100)) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">عدد الأسئلة المحلولة</span><b class="num">' + ar(totalQ) + '</b></div>' +
+    '</div>';
+
+  h += '<div class="srows" style="margin-top:12px">' +
+    pctBar('معدّل نتائجك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') +
+    (acc != null ? pctBar('دقة إجاباتك سؤالًا بسؤال', acc, acc >= 85 ? 'good' : acc >= 65 ? 'gold' : 'bad') : '') +
+    pctBar('نِسَبك من الاختبارات الناجحة', Math.round(pass / n * 100), pass / n >= .7 ? 'good' : 'gold') +
+    pctBar('أسئلة أصابتها من كل ما حللته', detQ ? okQ / detQ * 100 : 0, 'acc') +
+    '</div>';
+
+  h += '<div class="srows" style="margin-top:12px">' +
+    pctBar('درجات في ٩٠٪ فأعلى', n ? band(90, 101) / n * 100 : 0, 'good') +
+    pctBar('درجات في ٧٠–٨٩٪', n ? band(70, 90) / n * 100 : 0, 'gold') +
+    pctBar('درجات دون ٧٠٪', n ? band(0, 70) / n * 100 : 0, 'bad') +
+    '</div>' +
+    (n >= 2 ? '<p class="small muted" style="margin-top:8px">' + (dir > 5 ? 'اتجاهك صاعد: ' + ar(dir) + '٪ بين أول نتيجة وآخرها.' : dir < -5 ? 'اتجاهك هابط: ' + ar(-dir) + '٪ بين أول نتيجة وآخرها — أعد مراجعة مواضيع الأخطاء.' : 'نتائجك مستقرة: الفارق ' + ar(Math.abs(dir)) + '٪ فقط.') + '</p>' : '') +
+    (perQ != null ? '<p class="small muted">معدّل زمنك في السؤال: ' + (perQ >= 60 ? fmtDur(perQ) : ar(perQ) + ' ثانية') + ' — هذا أنت، وهو ما يُرجَّح في حساب وقت امتحانك القادم.</p>' : '');
+
+  /* تفصيل كل امتحان: شريط درجته ثم أسئلته صوابًا وخطأ وزمن كل سؤال */
+  h += '<div class="plist" style="margin-top:10px">' + exams.map((e, xi) => {
+    const det = e.ks && e.ok;
+    const okN = det ? e.ok.filter(v => v === 1 || v === 2).length : Math.round(e.n * e.pct / 100);
+    const wN = e.n - okN;
+    const k = 'exdet-' + xi;
+    let s2 = '<div class="acc"><div class="acc-h" data-act="acc" data-k="' + k + '">' +
+      '<span class="acc-ico">▼</span>' +
+      '<span class="acc-t"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) +
+      ' · ' + ar(e.n) + ' سؤالًا · ' + ar(okN) + ' صواب · ' + ar(wN) + ' خطأ' +
+      (e.sec ? ' · ' + fmtDur(e.sec) : '') + '</span></span>' +
+      '<span class="acc-s num ' + (e.pct >= 70 ? 'ok' : 'bad') + '" style="font-weight:700">' + ar(e.pct) + '٪</span></div>' +
+      '<div class="acc-b"><div class="acc-b-in">' +
+      '<div class="srows">' +
+        pctBar('درجة هذا الامتحان', e.pct, e.pct >= 90 ? 'good' : e.pct >= 70 ? 'gold' : 'bad') +
+        pctBar('دقّة أسئلته', e.n ? Math.round(okN / e.n * 100) : 0, okN / e.n >= .85 ? 'good' : 'acc') +
+      '</div>';
+    if (det) {
+      s2 += '<p class="small muted" style="margin-top:8px">كل سؤال — أخضر أصاب، وأحمر أخطأ، والمدة التي أخذه:</p>' +
+        '<div class="qdet">' + e.ks.map((key, i) => {
+          const v = e.ok[i], t = (e.times || [])[i] || 0;
+          const f = key.indexOf(':') > 0 ? findTopic(key.split(':')[0]) : null;
+          const name = f ? ft(f.t.title) : key;
+          const cls = v === 1 ? 'ok' : v === 2 ? 'mid' : 'bad';
+          const word = v === 1 ? 'أصاب' : v === 2 ? 'مراجعة' : 'أخطأ';
+          return '<span class="qchip ' + cls + '" title="' + esc(name) + '">' +
+            '<b>' + ar(i + 1) + '</b><i>' + (v === 1 ? '✓' : v === 2 ? '◐' : '✕') + '</i>' +
+            '<em>' + (t ? (t >= 60 ? mmss(t) : ar(t) + 'ث') : '—') + '</em></span>';
+        }).join('') + '</div>' +
+        '<p class="small muted">أخطأت في ' + ar(wN) + ' من ' + ar(e.n) + ' — ' + (wN ? 'أعد هذه المواضيع قبل الجلسة التالية.' : 'لا شيء، واصِل.') + '</p>';
+    } else {
+      s2 += '<p class="small muted">هذا امتحان قديم حُفظت درجته فقط — تفاصيل أسئلته تُسجَّل في امتحاناتك الجديدة.</p>';
+    }
+    s2 += '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '">أعده</button>' +
+      (e.src[0] === 'x' ? '<button class="btn ghost" data-act="examCfg" data-kind="' + esc(e.src.split(':')[2]) + '" data-s="' + esc(e.src.split(':')[1]) + '">اضبطه من جديد</button>' : '') + '</div>';
+    return s2 + '</div></div></div>';
+  }).join('') + '</div>';
+  return h;
+}
 function examLabel(src) {
   if (src[0] === 't') { const f = findTopic(src.slice(2)); return f ? 'اختبار: ' + ft(f.t.title) : src; }
   if (src[0] === 'c') { const f = findChapter(src.slice(2)); return f ? 'اختبار ' + f.ch.title.split(':')[0] : src; }
@@ -2949,8 +3057,16 @@ function examFinish() {
   const prev = st.tests[src] || {};
   st.tests[src] = { best: Math.max(z.pct, prev.best || 0), last: z.pct, at: Date.now() };
   st.exams = st.exams || [];
-  st.exams.push({ src, pct: z.pct, n: total, at: Date.now() });
+  /* ٧-ب) نحفظ تفصيل كل سؤال: غلط/صح ووقته، ليصير سجل المادة إحصاءً لا قائمة درجات.
+     نحتفظ بفهرس الأسئلة الخاطئة فقط (أخفّ من نسخ كل الأجوبة). */
+  st.exams.push({ src, pct: z.pct, n: total, at: Date.now(), sec: z.timeSec,
+    /* تفصيل سؤال بسؤال: مفتاح السؤال، هل أصاب، والزمن الذي أخذه */
+    ks: z.items.map(it => it.key),
+    ok: z.items.map((it, i) => isOpenQ(it) ? (z.picks[i] === -2 ? 2 : 0) : (z.picks[i] === it.q.c ? 1 : 0)),
+    times: z.times.slice(0, total).map(v => Math.max(0, Math.round(v || 0))) });
   if (st.exams.length > 500) st.exams = st.exams.slice(-500);
+  /* التفصيل يبقى لآخر ٦٠ امتحانًا فقط حتى لا تثقل التخزين، والدرجات تبقى كلها */
+  trimExamDetails(st);
   if (z.kind === 'ministerial') {
     st.ministerial = st.ministerial || {};
     const arr = st.ministerial[z.subject] = st.ministerial[z.subject] || [];
@@ -3399,6 +3515,74 @@ function vBank() {
       inner + '</section>';
   });
   return h + '</main>';
+}
+/* ٧-د) قائمة اختبارات الحفظ: مادة ← فصول ← مقاطع. `S.memoSubj` = المادة المفتوحة الآن. */
+function memoTestListHTML() {
+  const st = me(), mt = memoTopics();
+  const bySub = {};
+  mt.forEach(x => (bySub[x.subject] = bySub[x.subject] || []).push(x));
+  const subs = Object.keys(bySub);
+  const cur = S.memoSubj && bySub[S.memoSubj] ? S.memoSubj : null;
+
+  if (!cur) {
+    /* الشاشة الأولى: بطاقات المواد — عناوين كبيرة ونسب تقدّم، لا قائمة مسطّحة */
+    const cards = subs.map(subject => {
+      const arr = bySub[subject], chs = {};
+      arr.forEach(x => (chs[x.ch.id] = x.ch));
+      let units = 0, ok = 0, pass = 0;
+      arr.forEach(x => { const s = memoStat(x.t, x.bi); units += s.U.length; ok += Math.min(s.ok, s.U.length); if (s.m.passed) pass++; });
+      const pct = units ? Math.round(ok / units * 100) : 0;
+      return '<button class="pitem" data-act="memoSubj" data-s="' + esc(subject) + '"><span class="st">' + (pass === arr.length && arr.length ? '✓' : ar(pct) + '٪') + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(subject) + '</b><br><span class="small muted">' + ar(Object.keys(chs).length) + ' فصول · ' + ar(arr.length) + ' مقطع حفظ · حفظت ' + ar(ok) + ' من ' + ar(units) + '</span>' +
+        '<span class="pbar"><i style="width:' + pct + '%"></i></span></span>' +
+        '<span class="small" style="color:var(--acc);font-weight:600">افتح</span></button>';
+    }).join('');
+    return accSec('memo', 'اختبارات الحفظ', ar(subs.length) + ' مواد · ' + ar(mt.length) + ' مقطعًا',
+      '<p class="small muted">اختر مادة ← افتح فصولها ← اختر مقطعًا لتحفظه وتحتسب فيه. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' +
+      '<div class="plist">' + cards + '</div>', true);
+  }
+
+  /* الشاشة الثانية: فصول المادة المختارة، وكل فصل يعرض مقاطعه */
+  const arr = bySub[cur];
+  const byCh = {};
+  arr.forEach(x => (byCh[x.ch.id] = byCh[x.ch.id] || { ch: x.ch, items: [] }).items.push(x));
+  const groups = Object.values(byCh);
+  let units = 0, ok = 0, pass = 0;
+  arr.forEach(x => { const s = memoStat(x.t, x.bi); units += s.U.length; ok += Math.min(s.ok, s.U.length); if (s.m.passed) pass++; });
+  const pct = units ? Math.round(ok / units * 100) : 0;
+
+  const head = '<div class="chips" style="margin-bottom:10px">' +
+    '<button class="chip" data-act="memoSubj" data-s=""><b>↩ كل المواد</b></button>' +
+    '<button class="chip" data-act="back">رجوع</button></div>' +
+    '<div class="srows" style="margin-bottom:10px">' +
+      pctBar('تقدم حفظ ' + cur, pct, pct >= 80 ? 'good' : pct >= 40 ? 'gold' : 'bad') +
+      pctBar('مقاطع اجتزت اختبارها ١٠٠٪', arr.length ? pass / arr.length * 100 : 0, 'acc') +
+    '</div>';
+
+  const body = groups.map(g => {
+    const gUnits = g.items.reduce((a, x) => a + memoStat(x.t, x.bi).U.length, 0);
+    const gOk = g.items.reduce((a, x) => { const s = memoStat(x.t, x.bi); return a + Math.min(s.ok, s.U.length); }, 0);
+    const gPass = g.items.filter(x => memoStat(x.t, x.bi).m.passed).length;
+    return '<div class="acc"><div class="acc-h" data-act="acc" data-k="memoch-' + esc(g.ch.id) + '">' +
+      '<span class="acc-ico">▼</span><span class="acc-t">' + esc(g.ch.title) + '</span>' +
+      '<span class="acc-s num">' + (gPass ? '✓ ' : '') + ar(g.items.length) + ' مقطع</span></div>' +
+      '<div class="acc-b"><div class="acc-b-in">' +
+      '<div class="srows" style="margin-bottom:8px">' + pctBar('حفظ الفصل', gUnits ? gOk / gUnits * 100 : 0, gUnits && gOk >= gUnits ? 'good' : 'gold') + '</div>' +
+      g.items.map(x => {
+        const s = memoStat(x.t, x.bi), U = s.U.length;
+        return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '">' +
+          '<span class="st">' + (s.m.passed ? '✓' : ar(s.pct) + '٪') + '</span>' +
+          '<span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ar(U) + ' مقطعًا · ' + ft(x.t.title) + '</span>' +
+          '<span class="pbar"><i style="width:' + Math.min(100, s.pct) + '%"></i></span></span>' +
+          '<span class="small" style="color:var(--acc);font-weight:600">' + (s.m.passed ? 'أعِد' : 'احفظ واختبر') + '</span></button>';
+      }).join('') + '</div></div></div>';
+  }).join('');
+
+  return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h2 style="font-size:1.1em;margin:0">اختبارات الحفظ · ' + esc(cur) + '</h2>' +
+    '<span class="small muted num">' + ar(arr.length) + ' مقطعًا · ' + ar(units ? pct : 0) + '٪</span></div>' +
+    '<p class="small muted">افتح فصلًا لترى ما فيه من حفظ (قصائد وسور وأحاديث ومعاني)، ثم اختر مقطعًا. الرجوع زرّان: إلى كل المواد أو إلى الشاشة السابقة.</p>' +
+    head + body + '</section>';
 }
 function subjectMemoHTML(subject) {
   const mt = memoTopics().filter(x => x.subject === subject);
@@ -4803,6 +4987,8 @@ document.addEventListener('click', e => {
     case 'tseg': S.tseg = el.dataset.v; S.mt = null; render(true); break;
     case 'memoTab': case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; S.mbi = el.dataset.b ? +el.dataset.b : 0; render(true); break;
+    /* ٧-د) تنقّل اختبارات الحفظ: مادة ← فصولها ← المقاطع */
+    case 'memoSubj': S.memoSubj = el.dataset.s || null; S.acc['memo'] = true; render(); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
     case 'calYear': S.calY = +el.dataset.y; S.calM = Math.min(S.calM, 11); S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;
     case 'calMonth': S.calM = +el.dataset.m; S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;

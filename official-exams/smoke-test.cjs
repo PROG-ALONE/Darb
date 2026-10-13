@@ -374,6 +374,48 @@ T('النطاق الموحّد + الزمن الذكي', () => {
   return true;
 });
 
+/* ٧-ب + ٧-د) سجل الاختبارات الإحصائي وقائمة اختبارات الحفظ بالمسار */
+T('سجل الاختبارات + مسار الحفظ', () => {
+  const out = run(`(function(){ try {
+    const st = me();
+    st.exams = [
+      { src: 'x:اللغة العربية:monthly', pct: 92, n: 20, at: Date.now() - 864e5, sec: 900,
+        ks: ['a:0','a:1','a:2','a:3'], ok: [1,1,1,0], times: [40,55,120,200] },
+      { src: 'x:اللغة العربية:exam', pct: 58, n: 20, at: Date.now() - 3600e3, sec: 600,
+        ks: ['a:0','a:1','a:2','a:3'], ok: [1,0,0,2], times: [30,90,10,0] },
+      { src: 'x:اللغة العربية:exam', pct: 75, n: 10, at: Date.now() }
+    ];
+    trimExamDetails(st);
+    const a = testsRecordHTML(st.exams.slice().reverse(), 'اللغة العربية');
+    ['معدّل نتائجك', 'دقة إجاباتك', 'qdet', 'qchip', 'نِسَبك من الاختبارات الناجحة', 'لماذا هذا السجل'].forEach(k => {
+      if (a.indexOf(k) < 0) throw new Error('عنصر مفقود في سجل الاختبارات: ' + k);
+    });
+    if (!/٪/.test(a)) throw new Error('لا نِسَب في السجل');
+    if (st.exams.length !== 3) throw new Error('trimExamDetails ضيّق الدرجات');
+    if (st.exams[2].ks) throw new Error('بقي التفصيل في امتحان قديم');
+
+    /* مسار اختبارات الحفظ: مادة ← فصول ← مقاطع */
+    S.memoSubj = null; S.acc = {};
+    const list0 = memoTestListHTML();
+    if (list0.indexOf('كل المواد') >= 0) throw new Error('لا زر رجوع في الشاشة الأولى وهو غير لازم');
+    if (!/data-act="memoSubj"/.test(list0)) throw new Error('بطاقات المواد غير موجودة');
+    const first = memoTopics()[0];
+    if (!first) return { __fail: 'لا حفظ أصلاً' };
+    S.memoSubj = first.subject; S.acc = {};
+    const list1 = memoTestListHTML();
+    ['كل المواد', 'data-act="back"', 'data-act="memoGo"', 'pbar', 'srows'].forEach(k => {
+      if (list1.indexOf(k) < 0) throw new Error('عنصر مفقود في مسار الحفظ: ' + k);
+    });
+    if (list1.indexOf('اختبارات الحفظ · ' + first.subject) < 0) throw new Error('عنوان المادة المختارة غير ظاهر');
+    S.memoSubj = null;
+    return { subs: 1, detail: st.exams.filter(e => e.ks).length };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  if (!out) return { __fail: 'لا نتيجة' };
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

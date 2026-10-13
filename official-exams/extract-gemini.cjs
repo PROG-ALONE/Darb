@@ -2,12 +2,13 @@
 /**
  * سكربت استخراج الأسئلة والحلول من OCR عبر Gemini API
  * الاستخدام: GEMINI_API_KEY=... node extract-gemini.cjs <group-number>
+ * يعيد المحاولة تلقائيًا عند 429/503 مع تصعيد زمني
  */
 const fs = require('fs');
 const path = require('path');
 
 const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL = 'gemini-2.5-pro';
+const MODEL = 'gemini-3.1-flash-lite';
 
 if (!API_KEY) {
   console.error('❌ GEMINI_API_KEY غير موجود في متغيرات البيئة');
@@ -47,15 +48,9 @@ ${text}
 {"questions":[{"n":"س١","q":"نص السؤال","a":"الحل التفصيلي"}]}`;
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
-  
-  // بناء الطلب بدون response_mimeType لتجنب مشكلة JSON
   const body = {
-    contents: [{
-      parts: [{ text: prompt }]
-    }],
-    generationConfig: {
-      temperature: 0
-    }
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0 }
   };
 
   const res = await fetch(url, {
@@ -72,22 +67,39 @@ ${text}
   const j = await res.json();
   const parts = ((((j.candidates || [])[0] || {}).content || {}).parts) || [];
   let txt = parts.map(p => p.text || '').join('');
-  
-  // استخراج JSON من النص
   txt = txt.replace(/```json|```/g, '').trim();
   const m = txt.match(/\{[\s\S]*\}/);
   if (m) txt = m[0];
   return JSON.parse(txt);
 }
 
+async function callWithRetry(text, subject, year, role, maxRetries = 5) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await callGemini(text, subject, year, role);
+    } catch (e) {
+      const msg = e.message || '';
+      if (msg.includes('429') || msg.includes('503') || msg.includes('UNAVAILABLE')) {
+        const waitSec = Math.min(10 * attempt, 60);
+        console.log(`    ⏳ محاولة ${attempt}/${maxRetries} — انتظار ${waitSec} ثانية...`);
+        await new Promise(r => setTimeout(r, waitSec * 1000));
+        continue;
+      }
+      throw e;
+    }
+  }
+  throw new Error('فشلت كل المحاولات');
+}
+
 async function main() {
   let output = `# المجموعة ${groupNum} — استخراج الأسئلة والحلول\n\n`;
   let totalQ = 0, totalA = 0;
+  let success = 0, failed = 0;
 
   for (let i = 0; i < relPaths.length; i++) {
     const rel = relPaths[i];
     const full = path.resolve(__dirname, rel);
-    
+
     const subjectMap = { 'فيزياء': 'الفيزياء', 'كيمياء': 'الكيمياء', 'رياضيات': 'الرياضيات', 'أحياء': 'الأحياء', 'عربي': 'اللغة العربية', 'فرنسي': 'الفرنسية' };
     let subject = 'غير محدد';
     for (const [k, v] of Object.entries(subjectMap)) {
@@ -113,11 +125,11 @@ async function main() {
     }
 
     process.stdout.write(`  [${i+1}/${relPaths.length}] ${rel.slice(-50)}... `);
-    
+
     try {
-      const result = await callGemini(text, subject, year, role);
+      const result = await callWithRetry(text, subject, year, role);
       const qs = result.questions || [];
-      
+
       output += `## ${subject} — ${year} — ${role}\n\n`;
       if (qs.length === 0) {
         output += `[لم تُستخرج أسئلة من الملف: ${rel}]\n\n`;
@@ -130,9 +142,11 @@ async function main() {
       }
       output += `---\n\n`;
       console.log(`✅ ${qs.length} سؤال`);
+      success++;
     } catch (e) {
       output += `## ${subject} — ${year} — ${role}\n\n[خطأ في المعالجة: ${e.message}]\n\n---\n\n`;
       console.log(`❌ ${e.message.slice(0, 100)}`);
+      failed++;
     }
 
     if ((i + 1) % 5 === 0) {
@@ -140,11 +154,12 @@ async function main() {
       console.log(`  💾 حفظ مؤقت (${i+1}/${relPaths.length})`);
     }
 
-    await new Promise(r => setTimeout(r, 300));
+    // تأخير أساسي بين الطلبات
+    await new Promise(r => setTimeout(r, 2000));
   }
 
   fs.writeFileSync(outputFile, output, 'utf-8');
-  console.log(`\n✅ اكتمل! ${totalQ} سؤال، ${totalA} حل — حُفظ في ${outputFile}`);
+  console.log(`\n✅ اكتمل! ${totalQ} سؤال، ${totalA} حل — نجح: ${success}، فشل: ${failed}`);
 }
 
 main().catch(e => { console.error('❌', e.message); process.exit(1); });

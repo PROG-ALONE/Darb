@@ -246,6 +246,12 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .qchip.bad i{color:var(--bad)}
 .qchip.mid{border-color:var(--gold-line);background:var(--gold-soft)}
 .qchip.mid i{color:var(--gold)}
+/* منحنى الجلسات الوزارية: كل جلسة عمودًا بلون حسب درجتها */
+.mincurve{display:flex;align-items:flex-end;gap:4px;height:96px;padding:8px 4px;border:1px solid var(--line);border-radius:12px;background:var(--soft);overflow-x:auto}
+.mink{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;min-width:24px;flex:1;height:100%}
+.mink i{display:block;width:100%;max-width:20px;border-radius:4px 4px 0 0;background:var(--acc);min-height:6px}
+.mink.good i{background:var(--ok)} .mink.gold i{background:var(--gold)} .mink.bad i{background:var(--bad)}
+.mink em{font-style:normal;font-size:.62em;color:var(--muted)}
 
 /* نظام إدخال الإجابة الرقمي */
 .answer-pad{display:flex;flex-direction:column;gap:8px;margin:12px 0}
@@ -1036,7 +1042,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all' };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -1100,7 +1106,7 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
 const TABS = [['today', 'الخطة', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
-const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library' };
+const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests' };
 
 function topBar(title, opts) {
   opts = opts || {};
@@ -1798,7 +1804,15 @@ function vTests() {
       { label: 'التهيئة للوزاري', cls: 'ghost', attrs: ' data-act="minPrep"', ico: 'star',
         hint: 'تجري جلسة محاكاة ثلاث ساعات من أسئلة الدورات الوزارية الحقيقية: فصل واحد أو عدة فصول أو المادة كلها، والوقت يُحسب لك من الفصول والمواضيع لا من رأسك.' }
     ], 'tests-exams') + '</section>';
-  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + examSecs +
+  /* ٧-ز) بطاقة «تطوّرك الوزاري»: سجل لكل مادة يغطي اختبارات المواضيع والشهري والوزاري */
+  const minRecSec = '<section class="card"><h2>تطوّرك الوزاري</h2>' +
+    hintBox([
+      { label: 'سجل تطوّرك الوزاري', attrs: ' data-act="minRec"', ico: 'star',
+        hint: 'لكل مادة سجل واحد يجمع كل ما اختبرته فيها: اختبارات المواضيع، والشهري، والوزاري — بنِسَبه وشرائحه، مع توقّع لمعدلك الوزاري وتقييم يومي وشهري وكلي.' },
+      { label: 'التهيئة للوزاري الشامل', cls: 'ghost', attrs: ' data-act="minPrep"', ico: 'tests',
+        hint: 'جلسة محاكاة ٣ ساعات من بنك الدورات: فصل واحد أو عدة فصول أو المادة كلها، وزمن كل سؤال مشتقّ من صعوبته ومن زمنك الفعلي — ومنها تبدأ بعد «المحاكاة الكاملة».' }
+    ], 'tests-minrec') + '</section>';
+  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + minRecSec + examSecs +
     '<div class="grid2"><button class="btn quiet" data-act="expTests">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div></main>';
   return h;
 }
@@ -2964,6 +2978,145 @@ function examLabel(src) {
   if (src[0] === 'x') { const p = src.split(':'); return (EXAM_KINDS[p[2]] || 'امتحان') + ' · ' + p[1]; }
   if (src === 'm') return 'اختبار سريع مما درسته';
   return src;
+}
+
+/* ٧-ز) سجل «تطوّرك الوزاري»: كل ما اختبرته في المادة (اختبارات المواضيع + الشهري + الوزاري)
+   في سجل واحد إحصائي على نمط wizarati، مع تبويبات «التقييم اليومي/الشهري/الكلي»
+   يتنبّأ فيه بمعدلك في الوزاري. */
+function minRecordStats(subject) {
+  const st = me();
+  const y = subjEntry(subject);
+  /* ١) اختبارات المواضيع: من st.progress */
+  const quizzes = [];
+  if (y) y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+    if (isHidden(t.id)) return;
+    const p = (st.progress || {})[t.id]; if (!p || !p.quiz || !p.quiz.at) return;
+    quizzes.push({ at: p.quiz.at, pct: p.quiz.best || 0, last: p.quiz.last || 0, title: t.title, ch: ch.title });
+  }));
+  /* ٢) الشهري: من st.exams */
+  const monthlies = (st.exams || []).filter(e => e.src === 'x:' + subject + ':monthly');
+  const quick = (st.exams || []).filter(e => e.src === 'x:' + subject + ':exam');
+  /* ٣) الوزاري: من st.ministerial */
+  const mins = ((st.ministerial || {})[subject] || []).slice();
+
+  const avg = a => a.length ? Math.round(a.reduce((k, x) => k + x.pct, 0) / a.length) : null;
+  const med = a => { if (!a.length) return null; const v = a.map(x => x.pct).sort((m, n) => m - n); return v[Math.floor(v.length / 2)]; };
+  const lastN = (a, n) => a.slice().sort((m, n2) => m.at - n2.at).slice(-n);
+  const dayStart = Date.now() - 864e5, monthStart = Date.now() - 30 * 864e5;
+  const inRange = (a, from) => a.filter(x => x.at >= from);
+
+  const quizzesAll = quizzes.map(q => ({ at: q.at, pct: q.pct }));
+  const qAvg = avg(quizzesAll), mAvg = avg(monthlies), xAvg = avg(quick), nAvg = avg(mins);
+  /* ٧-ز) توقّع معدلك الوزاري: أثقل للمواد الوزارية نفسها ثم للشهري ثم للمواضيع */
+  const w = (nAvg != null ? 5 : 0) + (mAvg != null ? 3 : 0) + (qAvg != null ? 2 : 0);
+  const predict = w ? Math.round(((nAvg || 0) * (nAvg != null ? 5 : 0) + (mAvg || 0) * (mAvg != null ? 3 : 0) + (qAvg || 0) * (qAvg != null ? 2 : 0)) / w) : null;
+  const today = { q: inRange(quizzesAll, dayStart), m: inRange(monthlies, dayStart), x: inRange(quick, dayStart), n: inRange(mins, dayStart) };
+  const month = { q: inRange(quizzesAll, monthStart), m: inRange(monthlies, monthStart), x: inRange(quick, monthStart), n: inRange(mins, monthStart) };
+  return {
+    subject, quizzes, monthlies, quick, mins, qAvg, mAvg, xAvg, nAvg, med: med(mins.concat(monthlies)),
+    predict, lastQ: lastN(quizzesAll, 5), today, month,
+    totalAll: quizzesAll.length + monthlies.length + quick.length + mins.length
+  };
+}
+/* أشرطة مقارنة: قيم ثلاث (или أكثر) مع نسبها — نمط wizarati */
+function compareBars(rows) {
+  const max = Math.max.apply(null, rows.map(r => r[1]).concat([1]));
+  return '<div class="srows">' + rows.map(r =>
+    '<div class="srow"><span class="slab">' + r[0] + '</span>' +
+    '<span class="strack"><i class="' + (r[2] || (r[1] >= 80 ? 'good' : r[1] >= 60 ? 'gold' : 'bad')) + '" style="width:' + Math.max(3, Math.round(r[1] / max * 100)) + '%"></i></span>' +
+    '<b class="sval num">' + ar(r[1]) + '٪</b></div>').join('') + '</div>';
+}
+function minRecordHTML(subject, tab) {
+  const S2 = minRecordStats(subject);
+  const bank = ministerialPool(subject).length;
+  const scope = tab === 'day' ? S2.today : tab === 'month' ? S2.month : null;
+  let h = '';
+
+  /* بطاقة التوقّع — الغاية من السجل كله */
+  h += '<section class="card"><div class="hint-purpose">' + ico('star', 1.7) +
+    '<span><b>' + (S2.predict != null ? 'معدلك المتوقّع في الوزاري: ' + ar(S2.predict) + '٪' : 'لا توقّع بعد') + '</b><br><span class="small">' +
+    (S2.predict != null
+      ? 'مبنيّ على ' + (S2.nAvg != null ? ar(S2.nAvg) + '٪ من جلساتك الوزارية (وزن ٥)، ' : '') +
+        (S2.mAvg != null ? ar(S2.mAvg) + '٪ من الشهري (وزن ٣)، ' : '') +
+        (S2.qAvg != null ? ar(S2.qAvg) + '٪ من اختبارات المواضيع (وزن ٢).' : '') +
+        ' كلما اقتربت من ٩٠٪ في الشهري ارتفع توقّعك تلقائيًا.'
+      : 'حلّ اختبارات مواضيع أو امتحان شهري أو جلسة وزارية، فيبني النظام توقّع معدلك من هذه الثلاثة بأوزان ٥/٣/٢.') +
+    '</span></span></div>';
+
+  /* التبويبات الثلاثة */
+  h += '<div class="chips" style="margin-top:10px">' +
+    [['day', 'التقييم اليومي'], ['month', 'التقييم الشهري'], ['all', 'التقييم الكلي']].map(t =>
+      '<button class="chip" data-act="minRecTab" data-s="' + esc(subject) + '" data-t="' + t[0] + '" aria-pressed="' + ((tab || 'all') === t[0]) + '">' + t[1] + '</button>').join('') +
+    '</div>';
+
+  if (scope) {
+    const lab = tab === 'day' ? 'اليوم' : 'آخر ٣٠ يومًا';
+    const rows = [];
+    if (scope.n.length) rows.push(['جلسات ' + lab + ' الوزارية', avgP(scope.n)]);
+    if (scope.m.length) rows.push(['شهري ' + lab, avgP(scope.m)]);
+    if (scope.x.length) rows.push(['امتحانات ' + lab + ' السريعة', avgP(scope.x)]);
+    if (scope.q.length) rows.push(['اختبارات ' + lab + ' للمواضيع', avgP(scope.q)]);
+    h += '<p class="small muted" style="margin-top:10px">ما أنجزته في ' + lab + ' من أنواع الاختبار الثلاثة:</p>' +
+      (rows.length ? compareBars(rows) : '<p class="note">لا شيء في ' + lab + ' — ابدأ باختبار موضوع فتُحتسب نتائجه هنا فورًا.</p>') +
+      '<p class="small muted num">' + ar(scope.q.length + scope.m.length + scope.x.length + scope.n.length) + ' نتيجة في ' + lab + '</p>';
+  } else {
+    /* التقييم الكلي: مقارنة الأنواع + منحنى الجلسات */
+    h += '<p class="small muted" style="margin-top:10px">معدّلك في كل نوع اختبار، مقارنةً ببعضها:</p>' +
+      compareBars([
+        ['الوزاري (الأخطر)', S2.nAvg != null ? S2.nAvg : 0, 'bad'],
+        ['الشهري', S2.mAvg != null ? S2.mAvg : 0, 'gold'],
+        ['اختبار سريع', S2.xAvg != null ? S2.xAvg : 0, 'acc'],
+        ['اختبارات المواضيع', S2.qAvg != null ? S2.qAvg : 0, 'good']
+      ]);
+    h += '<div class="sgrid" style="margin-top:12px">' +
+      '<div class="stat"><span class="muted small">جلسات وزارية</span><b class="num">' + ar(S2.mins.length) + '</b></div>' +
+      '<div class="stat"><span class="muted small">شهري</span><b class="num">' + ar(S2.monthlies.length) + '</b></div>' +
+      '<div class="stat"><span class="muted small">اختبارات مواضيع</span><b class="num">' + ar(S2.quizzes.length) + '</b></div>' +
+      '<div class="stat"><span class="muted small">بنك الوزاري</span><b class="num">' + ar(bank) + '</b></div></div>';
+  }
+
+  /* منحنى الجلسات الوزارية: كل جلسة رقمنًا ولونًا */
+  if (S2.mins.length) {
+    h += '<p class="small muted" style="margin-top:14px">جلساتك الوزارية، الأقدم يسارًا:</p><div class="mincurve">' +
+      S2.mins.slice(-14).map(x => '<span class="mink ' + (x.pct >= 80 ? 'good' : x.pct >= 60 ? 'gold' : 'bad') + '" title="' + fmtD(new Date(x.at)) + ' · ' + ar(x.pct) + '٪">' +
+        '<i style="height:' + Math.max(6, x.pct) + '%"></i><em class="num">' + ar(x.pct) + '</em></span>').join('') + '</div>' +
+      '<p class="small muted">أعلى جلسة: ' + ar(Math.max.apply(null, S2.mins.map(x => x.pct))) + '٪ · أدنى: ' + ar(Math.min.apply(null, S2.mins.map(x => x.pct))) + '٪ · معدّلك: ' + ar(S2.nAvg) + '٪</p>';
+  }
+
+  /* أزرار البدء: جلسة كاملة، أو بفصل محدد */
+  h += '<div class="grid2" style="margin-top:12px">' +
+    '<button class="btn" data-act="ministerialFull" data-s="' + esc(subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">المادة كلها · ٣ ساعات</span></button>' +
+    '<button class="btn ghost" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '"><b>جلسة بفصل محدد</b><span class="small muted">اختر فصولًا ومواضيع</span></button>' +
+    '</div>';
+  h += '<div class="grid2" style="margin-top:8px">' +
+    '<button class="btn ghost" data-act="testsLog" data-s="' + esc(subject) + '">سجل ' + esc(subject) + ' التفصيلي</button>' +
+    '<button class="btn ghost" data-act="examCfg" data-kind="monthly" data-s="' + esc(subject) + '">امتحان شهري جديد</button></div>';
+  h += '</section>';
+  return h;
+}
+const avgP = a => a.length ? Math.round(a.reduce((k, x) => k + x.pct, 0) / a.length) : 0;
+/* شاشة «تطوّرك الوزاري»: اختيار المادة ثم سجلّها الكامل */
+function vMinrec() {
+  const st = me(), subs = gradeContents(st.grade);
+  const cur = S.minRecSubj && subs.some(y => y.subject === S.minRecSubj) ? S.minRecSubj : null;
+  if (!cur) {
+    return topBar('تطوّرك الوزاري', { back: true, noTools: true }) + '<main class="page">' +
+      '<section class="card"><h2>سجل وزاري لكل مادة</h2><p class="small muted">اختر مادة فتُفتح لك سجلّها: كل ما اختبرته فيها من مواضيع وشهري ووزاري، بنِسَبه وشرائحه، مع توقّع لمعدلك الوزاري وتقييم يومي وشهري وكلي.</p>' +
+      '<div class="plist">' + subs.map(y => {
+        const s2 = minRecordStats(y.subject);
+        const pct = s2.predict != null ? s2.predict : (s2.mAvg != null ? s2.mAvg : 0);
+        return '<button class="pitem" data-act="minRecSubj" data-s="' + esc(y.subject) + '">' +
+          '<span class="st">' + (s2.predict != null ? ar(s2.predict) + '٪' : '!') + '</span>' +
+          '<span style="flex:1;min-width:0"><b>' + esc(y.subject) + '</b><br><span class="small muted">' +
+          ar(s2.totalAll) + ' نتيجة · ' + ar(s2.mins.length) + ' جلسة وزارية · ' + ar(ministerialPool(y.subject).length) + ' سؤالًا في البنك</span>' +
+          '<span class="pbar"><i style="width:' + Math.min(100, pct) + '%"></i></span></span>' +
+          '<span class="small" style="color:var(--acc);font-weight:600">افتح السجل</span></button>';
+      }).join('') + '</div></section></main>';
+  }
+  return topBar('تطوّرك الوزاري · ' + cur, { back: true, noTools: true }) + '<main class="page">' +
+    '<div class="chips" style="margin-bottom:10px"><button class="chip" data-act="minRecSubj" data-s=""><b>↩ كل المواد</b></button>' +
+    '<button class="chip" data-act="back">رجوع</button></div>' +
+    minRecordHTML(cur, S.minRecTab || 'all') + '</main>';
 }
 
 /* =================== الامتحانات لكل مادة: عندي امتحان، الشهري، التهيئة للوزاري =================== */
@@ -4845,7 +4998,7 @@ function vDialog() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep };
+const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -5193,6 +5346,10 @@ document.addEventListener('click', e => {
     }
     case 'subExams': go('subexams'); break;
     case 'minPrep': go('minprep'); break;
+    /* ٧-ز) سجل «تطوّرك الوزاري» في تبويب الاختبارات */
+    case 'minRec': go('minrec'); break;
+    case 'minRecSubj': S.minRecSubj = el.dataset.s || null; S.minRecTab = 'all'; render(); break;
+    case 'minRecTab': S.minRecSubj = el.dataset.s; S.minRecTab = el.dataset.t; render(); break;
     case 'expRevLog': exportLogDoc('review'); break;
     case 'expActivity': exportLogDoc('activity'); break;
     case 'expTests': exportLogDoc('tests'); break;

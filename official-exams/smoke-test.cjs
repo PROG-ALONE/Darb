@@ -416,6 +416,64 @@ T('سجل الاختبارات + مسار الحفظ', () => {
   return true;
 });
 
+/* ٧-ز) سجل «تطوّرك الوزاري»: يغطي الاختبارات الثلاثة + التوقّع والتبويبات */
+T('سجل تطوّرك الوزاري', () => {
+  const out = run(`(function(){ try {
+    const st = me();
+    const y = gradeContents(st.grade)[0]; if (!y) return { __fail: 'لا مواد' };
+    const subj = y.subject;
+    st.progress = st.progress || {};
+    let nq = 0;
+    y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (isHidden(t.id) || nq >= 5) return;
+      const p = progOf(t.id); p.seen = p.seen || {};
+      SEGS.forEach(s2 => { if (segHas(t, s2[0])) p.seen[s2[0]] = 1; });
+      p.quiz = { at: Date.now() - 864e5, best: 60 + nq * 5, last: 60 + nq * 5 };
+      nq++;
+    }));
+    st.exams = [
+      { src: 'x:' + subj + ':monthly', pct: 78, n: 10, at: Date.now() - 2 * 864e5 },
+      { src: 'x:' + subj + ':monthly', pct: 84, n: 10, at: Date.now() - 864e5 },
+      { src: 'x:' + subj + ':exam', pct: 90, n: 8, at: Date.now() - 3600e3 }
+    ];
+    st.ministerial = st.ministerial || {};
+    st.ministerial[subj] = [ { at: Date.now() - 10 * 864e5, pct: 55, sec: 1000, n: 6 },
+                             { at: Date.now() - 3 * 864e5, pct: 72, sec: 1100, n: 6 },
+                             { at: Date.now() - 864e3, pct: 88, sec: 900, n: 6 } ];
+    flushSave();
+
+    const s2 = minRecordStats(subj);
+    if (!s2.quizzes.length) return { __fail: 'اختبارات المواضيع غير محتسبة' };
+    if (s2.monthlies.length !== 2) return { __fail: 'الشهري غير محتسب' };
+    if (s2.mins.length !== 3) return { __fail: 'الوزاري غير محتسب' };
+    if (s2.predict == null) return { __fail: 'لا توقّع للمعدّل' };
+    if (s2.predict < 55 || s2.predict > 95) return { __fail: 'توقّع خارج المدى: ' + s2.predict };
+    if (s2.nAvg !== 72) return { __fail: 'معدّل الوزاري خاطئ: ' + s2.nAvg };
+
+    S.minRecSubj = subj; S.minRecTab = 'all';
+    const all = String(VIEWS.minrec());
+    ['الوزاري (الأخطر)', 'mincurve', 'المحاكاة الكاملة', 'معدلك المتوقّع', 'جلساتك الوزارية', 'srows'].forEach(k => {
+      if (all.indexOf(k) < 0) throw new Error('عنصر مفقود في السجل الكلي: ' + k);
+    });
+    S.minRecTab = 'day';
+    const day = String(VIEWS.minrec());
+    if (day.indexOf('التقييم اليومي') < 0 || day.indexOf('aria-pressed="true"') < 0) throw new Error('تبويب اليوم لا يعمل');
+    S.minRecTab = 'month';
+    const mon = String(VIEWS.minrec());
+    if (mon.indexOf('آخر ٣٠ يومًا') < 0) throw new Error('تبويب الشهر لا يعمل');
+    S.minRecSubj = null;
+    const list = String(VIEWS.minrec());
+    if (list.indexOf('سجل وزاري لكل مادة') < 0) throw new Error('شاشة اختيار المادة غير موجودة');
+    S.view = 'tests';
+    const t = String(VIEWS.tests());
+    if (t.indexOf('تطوّرك الوزاري') < 0) throw new Error('بطاقة السجل ليست في تبويب الاختبارات');
+    return { predict: s2.predict, nAvg: s2.nAvg };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

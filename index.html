@@ -1821,6 +1821,15 @@ function contentOf(gid, subject) {
 const isHidden = tid => { const st = me(); return !!(st && (st.hidden || []).includes(tid)); };
 function allProblems(c, withHidden) { const out = []; c.chapters.forEach(ch => ch.topics.forEach(t => { if (!withHidden && isHidden(t.id)) return; t.problems.forEach(p => out.push({ p, t, ch })); })); return out; }
 function findTopic(id) { return IDX_TOPIC.get(id) || null; }
+/* تجميع سؤال: مربوط بموضوعه إن أمكن، وإلا يُجمع حسب دورة الاختبار */
+function qGroup(x) {
+  const t = x.tid ? findTopic(x.tid) : null;
+  if (t) return { chId: t.ch.id, chTitle: t.ch.title, tKey: x.tid, tLabel: ft(t.t.title) };
+  const yr = x.q && x.q.year;
+  return { chId: 'bank', chTitle: 'أسئلة الدورات الوزارية', tKey: yr ? 'y' + yr : 'general', tLabel: yr ? 'دورة ' + ar(yr) : 'أسئلة عامة' };
+}
+function qChId(x) { return qGroup(x).chId; }
+function qTid(x) { return qGroup(x).tKey; }
 function findChapter(id) { return IDX_CH.get(id) || null; }
 function findProblem(id) { return IDX_PROB.get(id) || null; }
 /* يعزل كل معادلة داخل النص العربي حتى لا ينقلب ترتيبها */
@@ -2446,7 +2455,13 @@ function ministerialAvg(subject) {
   const arr = ((me().ministerial || {})[subject]) || [];
   return arr.length ? Math.round(arr.reduce((k, x) => k + x.pct, 0) / arr.length) : 0;
 }
-function examConfig(kind, subject) { S.exam = { kind, subject, phase: 'config', perQ: kind === 'ministerial' ? 90 : 45, prep: 0 }; go('exam'); }
+function examConfig(kind, subject) {
+  /* وقت مناسب: الاختيار من متعدد 60 ثانية، المفتوح 120 ثانية */
+  const pool = examPool(kind, subject);
+  const openRatio = pool.length ? pool.filter(x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0)).length / pool.length : 0;
+  const defaultPerQ = kind === 'ministerial' ? (openRatio > 0.5 ? 120 : 90) : (openRatio > 0.5 ? 60 : 45);
+  S.exam = { kind, subject, phase: 'config', perQ: defaultPerQ, prep: 0 }; go('exam');
+}
 function startExam(kind, subject, n, perQ) {
   const pool = examPool(kind, subject);
   if (!pool.length) { toast('لا توجد أسئلة في هذا القسم بعد.'); return false; }
@@ -2454,33 +2469,40 @@ function startExam(kind, subject, n, perQ) {
   // فلترة حسب الفصول/المواضيع المختارة
   let filtered = pool;
   if (S.exam && Array.isArray(S.exam.selCh)) {
-    filtered = filtered.filter(x => S.exam.selCh.includes(x.tid ? findTopic(x.tid).ch.id : 'general'));
+    filtered = filtered.filter(x => S.exam.selCh.includes(qChId(x)));
   }
   if (S.exam && Array.isArray(S.exam.selTopics)) {
-    filtered = filtered.filter(x => S.exam.selTopics.includes(x.tid || 'general'));
+    filtered = filtered.filter(x => S.exam.selTopics.includes(qTid(x)));
   }
   if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
   
   const pick = shuffle(filtered).slice(0, Math.min(n || filtered.length, filtered.length));
-  let adaptive = false;
-  if (kind === 'ministerial' && !perQ) {
-    perQ = Math.round(180 * 60 / pick.length);
-    adaptive = true;
-  }
+  /* وقت مناسب لسؤال: اختيار من متعدد ٩٠ث · مفتوح ١٨٠ث (يحتاج قراءة وكتابة) */
+  const isOpenQ = x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0);
+  const openN = pick.filter(isOpenQ).length;
+  if (!perQ) perQ = kind === 'ministerial' ? (openN === pick.length ? 180 : openN ? 120 : 90) : (openN ? 90 : 45);
+  const adaptive = kind === 'ministerial'; /* يزيد الوقت قليلًا في مواضيعك الضعيفة */
   S.exam = {
-    kind, subject, phase: 'run', perQ: kind === 'ministerial' ? (perQ || 90) : (perQ || 45),
+    kind, subject, phase: 'run', perQ,
     prep: ((S.exam && S.exam.prep) || 0),
-    items: pick.map(x => ({ q: x.q, tid: x.tid, key: x.key, order: x.q.tf ? [0, 1] : shuffle(x.q.o.map((_, i) => i)) })),
+    items: pick.map(x => ({ q: x.q, tid: x.tid, key: x.key, order: x.q.tf ? [0, 1] : (x.q.o && x.q.o.length ? shuffle(x.q.o.map((_, i) => i)) : []) })),
     i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0, adaptive
   };
+  S.examRevealed = {};
   go('exam'); return true;
 }
 function examFinish() {
   const z = S.exam; if (!z || z._fin) return;
   z._fin = 1; z.endAt = Date.now();
   const total = z.items.length;
-  const ok = z.items.reduce((k, it, i) => k + (z.picks[i] === it.q.c ? 1 : 0), 0);
-  z.ok = ok; z.pct = total ? Math.round(ok / total * 100) : 0;
+  const isOpenQ = it => (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
+  const mcTotal = z.items.filter(it => !isOpenQ(it)).length;
+  const openTotal = z.items.filter(isOpenQ).length;
+  const ok = z.items.reduce((k, it, i) => k + (!isOpenQ(it) && z.picks[i] === it.q.c ? 1 : 0), 0);
+  /* الأسئلة المفتوحة تُحتسب مراجعة ناجحة إذا عُرض الحل (picks[i] === -2) */
+  const openReviewed = z.items.reduce((k, it, i) => k + (isOpenQ(it) && z.picks[i] === -2 ? 1 : 0), 0);
+  z.ok = ok; z.openTotal = openTotal; z.openReviewed = openReviewed;
+  z.pct = mcTotal ? Math.round(ok / mcTotal * 100) : (openTotal ? Math.round(openReviewed / openTotal * 100) : 0);
   z.timeSec = Math.round((z.endAt - z.startAt) / 1000);
   const st = me(), src = 'x:' + z.subject + ':' + z.kind;
   st.tests = st.tests || {};
@@ -2526,11 +2548,15 @@ function startExamClock() {
     const el = document.getElementById('examClock');
     if (!el) { clearExamClock(); return; }
     let perQ = z.perQ;
-    if (z.adaptive && z.items[z.i] && z.items[z.i].tid) {
-      const f = findTopic(z.items[z.i].tid);
+    const it0 = z.items[z.i];
+    const openNow = it0 && (!it0.q.o || !it0.q.o.length) && (it0.q.c == null || it0.q.c < 0);
+    /* التكيّف: يمدد الوقت في مواضيعك الضعيفة فقط، وبقيمة مدوّرة (١٥ث) حتى لا يظهر وقت غريب */
+    if (z.adaptive && !openNow && it0 && it0.tid) {
+      const f = findTopic(it0.tid);
       if (f) {
         const pct = topicPct(f.t);
-        perQ = Math.round(z.perQ * (pct >= 80 ? 0.7 : pct >= 60 ? 0.85 : pct >= 40 ? 1.1 : 1.3));
+        const m = pct >= 80 ? 0.75 : pct >= 60 ? 1 : pct >= 40 ? 1.25 : 1.5;
+        perQ = Math.max(30, Math.round(z.perQ * m / 15) * 15);
       }
     }
     const left = Math.max(0, perQ - Math.floor((Date.now() - z.qAt) / 1000));
@@ -2539,7 +2565,19 @@ function startExamClock() {
     const bar = document.getElementById('examBar'); if (bar) bar.style.width = Math.round(left / perQ * 100) + '%';
     if (left <= 0) {
       clearExamClock();
-      if (z.picks[z.i] == null) { z.picks[z.i] = null; z.times[z.i] = perQ; }
+      if (z.picks[z.i] == null) {
+        const it = z.items[z.i];
+        const isOpen = (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
+        if (isOpen) {
+          /* انتهى وقت سؤال مفتوح: عُرض الحل تلقائيًا */
+          S.examRevealed = S.examRevealed || {};
+          S.examRevealed[it.key] = 1;
+          z.picks[z.i] = -2;
+        } else {
+          z.picks[z.i] = null;
+        }
+        z.times[z.i] = perQ;
+      }
       z.i++; z.qAt = Date.now();
       if (z.i >= z.items.length) examFinish();
       render(true);
@@ -2557,22 +2595,18 @@ function examConfigView(z, title) {
   }
   // تجميع الأسئلة حسب الفصل والموضوع
   const byCh = {};
-  pool.forEach(x => { const k = x.tid ? findTopic(x.tid).ch.id : 'general'; (byCh[k] = byCh[k] || []).push(x); });
-  const chapters = Object.entries(byCh).map(([chId, qs]) => {
-    const chObj = chId !== 'general' ? findChapter(chId) : null;
+  pool.forEach(x => { const g = qGroup(x); (byCh[g.chId] = byCh[g.chId] || { title: g.chTitle, items: [] }).items.push(x); });
+  const chapters = Object.entries(byCh).map(([chId, g]) => {
     const byTopic = {};
-    qs.forEach(x => { const t = x.tid || 'general'; (byTopic[t] = byTopic[t] || []).push(x); });
-    const topics = Object.entries(byTopic).map(([tid, tqs]) => {
-      const tObj = tid !== 'general' ? findTopic(tid) : null;
-      return { tid, title: tObj ? tObj.t.title : 'عام', count: tqs.length };
-    });
-    return { chId, title: chObj ? chObj.ch.title : 'عام', count: qs.length, topics };
+    g.items.forEach(x => { const k = qTid(x); (byTopic[k] = byTopic[k] || { label: qGroup(x).tLabel, items: [] }).items.push(x); });
+    const topics = Object.entries(byTopic).map(([tid, grp]) => ({ tid, title: grp.label, count: grp.items.length }));
+    return { chId, title: g.title, count: g.items.length, topics };
   });
   
   // الفلترة المجرّبة: تظهر الأعداد حسب النطاق المحدّد (فصول/مواضيع)
   let fpool = pool;
-  if (S.exam && Array.isArray(S.exam.selCh)) fpool = fpool.filter(x => S.exam.selCh.includes(x.tid ? findTopic(x.tid).ch.id : 'general'));
-  if (S.exam && Array.isArray(S.exam.selTopics)) fpool = fpool.filter(x => S.exam.selTopics.includes(x.tid || 'general'));
+  if (S.exam && Array.isArray(S.exam.selCh)) fpool = fpool.filter(x => S.exam.selCh.includes(qChId(x)));
+  if (S.exam && Array.isArray(S.exam.selTopics)) fpool = fpool.filter(x => S.exam.selTopics.includes(qTid(x)));
   const total = fpool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
   let h = topBar(title, { back: true }) + '<main class="page">' +
     '<section class="card"><h2>' + esc(EXAM_KINDS[z.kind]) + '</h2><p class="small muted">' + EXAM_DESC[z.kind] + '</p>' +
@@ -2606,8 +2640,12 @@ function examConfigView(z, title) {
   
   if (z.kind === 'ministerial') {
     if (!ministerialHasBank(z.subject)) h += '<p class="note">بنك الدورات الوزارية الكامل لهذه المادة قيد البناء. حتى يكتمل، نستعمل أسئلة المادة نفسها بنمط وزاري موقوت لتتدرب على الجلسة.</p>';
+    /* وقت مناسب حسب نوع الأسئلة */
+    const hasOpen = pool.some(x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0));
+    const timeOpts = hasOpen ? [60, 90, 120, 180, 240, 300] : [60, 90, 120, 180];
     h += '<p class="small muted">وقت كل سؤال:</p><div class="chips">' +
-      [60, 90, 120, 180].map(s => '<button class="chip" data-act="examPerQ" data-s="' + s + '" aria-pressed="' + ((z.perQ || 90) === s) + '">' + ar(s) + ' ثانية</button>').join('') + '</div>' +
+      timeOpts.map(s => '<button class="chip" data-act="examPerQ" data-s="' + s + '" aria-pressed="' + ((z.perQ || 90) === s) + '">' + ar(s) + ' ثانية</button>').join('') + '</div>' +
+      (hasOpen ? '<p class="note">أسئلة مفتوحة: اقرأ السؤال جيدًا، فكّر في إجابتك، ثم اضغط «أظهر الحل» لمقارنتها بالحل النموذجي.</p>' : '') +
       '<p class="note">يُغلق النظام على الأسئلة فقط. لا تُفتح ولا يمكن الرجوع إليها حتى تضغط «أكملت الامتحان» وتؤكّد العهد، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p>';
   } else {
     h += '<p class="small muted">وقت تحضير قبل الامتحان — تراجع فيها المواضيع المختارة (لا يُحتسب من وقت الامتحان):</p><div class="chips">' +
@@ -2655,19 +2693,36 @@ function beginExam() {
 }
 function examRunView(z, title) {
   const it = z.items[z.i], q = it.q, picked = z.picks[z.i], lock = z.kind === 'ministerial', timed = lock || z.perQ > 0;
-  const opts = it.order.map((oi, k) => {
-    const cls = (!lock && picked != null) ? (oi === q.c ? ' ok' : oi === picked ? ' bad' : '') : '';
-    return '<button class="opt' + cls + '" data-act="examPick" data-o="' + oi + '"' + (picked != null ? ' disabled' : '') + '><span class="ol">' + 'أبجد'[k] + '</span><span>' + fm(q.o[oi]) + '</span></button>';
-  }).join('');
+  const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
+  let body;
+  if (isOpen) {
+    /* سؤال مفتوح: يعرض السؤال ثم الحل عند الضغط — لا خيارات */
+    const revealed = S.examRevealed && S.examRevealed[it.key];
+    body = '<section class="prob"><p class="prob-text">' + fm(q.q) + '</p>' +
+      (revealed
+        ? '<div class="answer"><b>الحل:</b> ' + fm(q.why || 'لم يُستخرج الحل بعد.') + '</div>' +
+          '<button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>'
+        : '<p class="note">فكّر في إجابتك جيدًا، ثم اضغط «أظهر الحل» لتقارن إجابتك بالحل النموذجي.</p>' +
+          '<button class="btn" data-act="examReveal">أظهر الحل</button>') +
+      '</section>';
+  } else {
+    const opts = it.order.map((oi, k) => {
+      const cls = (!lock && picked != null) ? (oi === q.c ? ' ok' : oi === picked ? ' bad' : '') : '';
+      return '<button class="opt' + cls + '" data-act="examPick" data-o="' + oi + '"' + (picked != null ? ' disabled' : '') + '><span class="ol">' + 'أبجد'[k] + '</span><span>' + fm(q.o[oi]) + '</span></button>';
+    }).join('');
+    body = '<section class="prob"><p class="prob-text">' + fm(q.q) + '</p><div class="opts">' + opts + '</div>' +
+      (!lock && picked != null ? '<div class="' + (picked === q.c ? 'answer' : 'answer badans') + '"><b>' + (picked === q.c ? 'صحيح.' : 'ليس هذا.') + '</b> ' + fm(q.why) + '</div><button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>' : '') +
+      '</section>';
+  }
   setTimeout(() => { if (timed) startExamClock(); }, 0);
   return topBar(title, { back: !lock, noTools: true }) + '<main class="page">' +
     '<div class="bar"><span style="width:' + Math.round(z.i / z.items.length * 100) + '%"></span></div>' +
     '<p class="muted small num">السؤال ' + ar(z.i + 1) + ' من ' + ar(z.items.length) + (timed ? ' · <span id="examClock">' + mmss(z.perQ) + '</span>' : '') + '</p>' +
     (timed ? '<div class="bar"><span id="examBar" style="width:100%"></span></div>' : '') +
-    '<section class="prob"><p class="prob-text">' + fm(q.q) + '</p><div class="opts">' + opts + '</div>' +
-    (!lock && picked != null ? '<div class="' + (picked === q.c ? 'answer' : 'answer badans') + '"><b>' + (picked === q.c ? 'صحيح.' : 'ليس هذا.') + '</b> ' + fm(q.why) + '</div><button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>' : '') +
-    (lock ? '<p class="note">اختر جوابًا واحدًا؛ لا يمكن الرجوع إلى السؤال، وينتقل تلقائيًا عند انتهاء الوقت.</p>' : '') +
-    '</section></main>';
+    body +
+    (lock && !isOpen ? '<p class="note">اختر جوابًا واحدًا؛ لا يمكن الرجوع إلى السؤال، وينتقل تلقائيًا عند انتهاء الوقت.</p>' : '') +
+    (lock && isOpen ? '<p class="note">اقرأ السؤال جيدًا، ثم اضغط «أظهر الحل» لقياس إجابتك. لا يمكن الرجوع إلى السؤال.</p>' : '') +
+    '</main>';
 }
 function examPledgeView(z, title) {
   const mm = mmss(z.timeSec || Math.round((Date.now() - z.startAt) / 1000));
@@ -2679,9 +2734,13 @@ function examPledgeView(z, title) {
 }
 function examDoneView(z, title) {
   const total = z.items.length, ok = z.ok || 0, pct = z.pct || 0, mm = mmss(z.timeSec || 0);
-  const wrong = z.items.map((it, i) => ({ it, p: z.picks[i] })).filter(x => x.p !== x.it.q.c);
+  const isOpenQ = it => (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
+  const wrong = z.items.map((it, i) => ({ it, p: z.picks[i] })).filter(x => !isOpenQ(x.it) && x.p !== x.it.q.c);
+  const openItems = z.items.map((it, i) => ({ it, p: z.picks[i] })).filter(x => isOpenQ(x.it));
+  const mcTotal = total - openItems.length;
   let h = topBar(title, { back: true, noTools: z.kind === 'ministerial' }) + '<main class="page">' +
-    '<section class="result-hero"><b class="num">' + ar(pct) + '٪</b><span>' + ar(ok) + ' صحيحة من ' + ar(total) + '</span>' +
+    '<section class="result-hero"><b class="num">' + ar(pct) + '٪</b><span>' +
+    (mcTotal ? ar(ok) + ' صحيحة من ' + ar(mcTotal) : openItems.length ? 'راجعت ' + ar(z.openReviewed || 0) + ' من ' + ar(openItems.length) + ' سؤالاً' : '') + '</span>' +
     (z.kind === 'ministerial' ? '<p class="num">استغرقت ' + mm + ' · المعدل التراكمي في ' + esc(z.subject) + ' ' + ar(ministerialAvg(z.subject)) + '٪</p>' : '') +
     '<p>' + (pct >= 90 ? 'فهمٌ ممتاز. ستعود إليك مواضيعه في المراجعة لتثبت.' : pct >= 70 ? 'جيد. راجع ما أخطأت فيه واقرأ سببه.' : 'لا بأس، هذا هو الغرض. ارجع إلى الشرح ثم أعد المحاولة.') + '</p></section>';
   if (z.kind === 'ministerial') {
@@ -2693,7 +2752,16 @@ function examDoneView(z, title) {
   }
   h += wrong.length
     ? '<h2 style="font-size:1.1em">راجع هذه</h2>' + wrong.map(x => { const q = x.it.q; return '<section class="qa"><p class="q">' + fm(q.q) + '</p><p class="small bad-t">جوابك: ' + (x.p == null ? 'لم تجب' : fm(q.o[x.p])) + '</p><p class="a"><b>الصحيح:</b> ' + fm(q.o[q.c]) + ' — ' + fm(q.why) + '</p>' + (x.it.tid ? '<button class="chip" data-act="topic" data-id="' + x.it.tid + '">افتح الموضوع</button>' : '') + '</section>'; }).join('')
-    : '<section class="card"><h2>كل الأجوبة صحيحة ✓</h2><p class="small muted">أداء ممتاز.</p></section>';
+    : (mcTotal ? '<section class="card"><h2>كل الأجوبة صحيحة ✓</h2><p class="small muted">أداء ممتاز.</p></section>' : '');
+  /* عرض الأسئلة المفتوحة كمراجعات مع الحلول */
+  if (openItems.length) {
+    h += '<h2 style="font-size:1.1em;margin-top:16px">أسئلة مراجعة (' + ar(openItems.length) + ')</h2>' +
+      '<p class="small muted">هذه أسئلة وزارية مفتوحة — قارن إجابتك بالحل النموذجي:</p>' +
+      openItems.map(x => { const q = x.it.q; return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner">' +
+        (q.why ? '<p class="a"><b>الحل النموذجي:</b> ' + fm(q.why) + '</p>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
+        (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' · ' + esc(q.role) : '') + '</p>' : '') +
+        '</div></details>'; }).join('');
+  }
   return h + '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="' + z.kind + '" data-s="' + esc(z.subject) + '">امتحان آخر</button><button class="btn quiet" data-act="back">رجوع</button></div></main>';
 }
 function vExam() {
@@ -2733,13 +2801,22 @@ function vBank() {
     empty('library', 'بنك هذه المادة قيد البناء', 'يُبنى بنك الأسئلة الوزارية الكامل من دورات ٢٠١٦ إلى ٢٠٢٦، ويخدم الطالب (تصفّح وتدريب) والنظام (تهيئة وقياس التطور). تابع تحديثات المحتوى.') +
     (subs.length > 1 ? '<div class="chips">' + subs.map(s => '<button class="chip" data-act="openBank" data-s="' + esc(s) + '" aria-pressed="' + (s === subject) + '">' + esc(s) + '</button>').join('') + '</div>' : '') +
     (subjQuizPool(subject).length ? '<button class="btn quiet" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">تهيئة وزارية من أسئلة المادة</button>' : '') + '</main>';
-  // التجميع: المادة ← الفصل ← الموضوع
+  // التجميع: المادة ← الفصل ← الموضوع. غير المربوط بموضوع يُجمَّع حسب الدورة
   const byCh = {};
   pool.forEach(x => {
     const t = x.tid ? findTopic(x.tid) : null;
-    const chId = t ? t.ch.id : 'general', chTitle = t ? t.ch.title : 'أسئلة عامة';
+    let chId, chTitle, tKey, tLabel;
+    if (t) {
+      chId = t.ch.id; chTitle = t.ch.title; tKey = x.tid; tLabel = ft(t.t.title);
+    } else {
+      chId = 'bank'; chTitle = 'أسئلة الدورات الوزارية';
+      const yr = x.q && x.q.year;
+      tKey = yr ? 'y' + yr : 'general';
+      tLabel = yr ? 'دورة ' + ar(yr) : 'أسئلة عامة';
+    }
     const g = byCh[chId] = byCh[chId] || { title: chTitle, topics: {} };
-    (g.topics[x.tid || 'general'] = g.topics[x.tid || 'general'] || []).push(x);
+    if (!g.topics[tKey]) g.topics[tKey] = { label: tLabel, items: [] };
+    g.topics[tKey].items.push(x);
   });
   let h = topBar('بنك ' + subject + ' الوزاري', { back: true }) + '<main class="page">' +
     '<div class="strip"><span>بنك الأسئلة الوزارية · مرتّب بالمادة ثم الفصل ثم الموضوع</span><b class="num">' + ar(pool.length) + ' سؤالًا</b></div>' +
@@ -2748,13 +2825,13 @@ function vBank() {
     bankInsights(subject);
   Object.keys(byCh).forEach(chId => {
     const ch = byCh[chId];
-    const n = Object.values(ch.topics).reduce((a, q) => a + q.length, 0);
+    const n = Object.values(ch.topics).reduce((a, g) => a + g.items.length, 0);
     let inner = '';
     Object.keys(ch.topics).forEach(tid => {
-      const tObj = tid !== 'general' ? findTopic(tid) : null;
-      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + (tObj ? ft(tObj.t.title) : 'أسئلة عامة') + ' <span class="muted num">· ' + ar(ch.topics[tid].length) + ' سؤال</span></p>' +
-        ch.topics[tid].map(x => { const q = x.q; const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
-          if (isOpen) return '<details class="fold"><summary>' + fm(q.q) + (q.role && q.role !== 'غير محدد' ? ' <span class="small muted">· ' + esc(q.role) + '</span>' : '') + '</summary><div class="inner">' +
+      const grp = ch.topics[tid];
+      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + esc(grp.label) + ' <span class="muted num">· ' + ar(grp.items.length) + ' سؤال</span></p>' +
+        grp.items.map(x => { const q = x.q; const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
+          if (isOpen) return '<details class="fold"><summary><span>' + fm(q.q) + (q.role && q.role !== 'غير محدد' ? ' <span class="small muted" style="white-space:nowrap">· ' + esc(q.role) + '</span>' : '') + '</span></summary><div class="inner">' +
             (q.why ? '<p class="a"><b>الحل:</b> ' + fm(q.why) + '</p>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
             (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>';
           return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner"><div class="opts" style="pointer-events:none">' +
@@ -4041,7 +4118,7 @@ document.addEventListener('click', e => {
     case 'examCh': {
       const z = S.exam; if (!z) break;
       const chId = el.dataset.ch;
-      if (S.exam.selCh == null) S.exam.selCh = examPool(z.kind, z.subject).map(x => x.tid ? findTopic(x.tid).ch.id : 'general');
+      if (S.exam.selCh == null) S.exam.selCh = examPool(z.kind, z.subject).map(x => qChId(x));
       if (el.checked) { if (!S.exam.selCh.includes(chId)) S.exam.selCh.push(chId); }
       else S.exam.selCh = S.exam.selCh.filter(x => x !== chId);
       render(); break;
@@ -4084,6 +4161,15 @@ document.addEventListener('click', e => {
       z.picks[z.i] = +el.dataset.o; z.times[z.i] = Math.round((Date.now() - z.qAt) / 1000);
       if (z.kind === 'ministerial') { z.i++; z.qAt = Date.now(); clearExamClock(); if (z.i >= z.items.length) examFinish(); render(true); }
       else render();
+      break;
+    }
+    case 'examReveal': {
+      const z = S.exam; if (!z || z.phase !== 'run') break;
+      S.examRevealed = S.examRevealed || {};
+      S.examRevealed[z.items[z.i].key] = 1;
+      z.picks[z.i] = -2; /* -2 = عُرض الحل (ليس اختيارًا) */
+      z.times[z.i] = Math.round((Date.now() - z.qAt) / 1000);
+      render();
       break;
     }
     case 'examNext': { const z = S.exam; if (!z) break; z.i++; z.qAt = Date.now(); if (z.i >= z.items.length) examFinish(); render(true); break; }

@@ -220,6 +220,15 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .sub{margin:16px 0 8px;font-size:.95em;font-weight:700;color:var(--ink)}
 .pbar{height:8px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line);margin-top:8px}
 .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--acc));border-radius:999px}
+/* أشرطة النسب على نمط wizarati: وصف + شريط + نسبة */
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.srows{display:flex;flex-direction:column;gap:10px}
+.srow{display:grid;grid-template-columns:minmax(96px,34%) 1fr auto;align-items:center;gap:10px}
+.slab{font-size:.82em;color:var(--muted);line-height:1.5}
+.strack{height:10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.strack i{display:block;height:100%;border-radius:999px;background:var(--acc);transition:width .5s cubic-bezier(.2,.8,.3,1)}
+.strack i.good{background:var(--ok)} .strack i.gold{background:var(--gold)} .strack i.bad{background:var(--bad)} .strack i.acc{background:var(--acc)}
+.sval{font-size:.85em;font-weight:700;color:var(--ink);white-space:nowrap}
 
 /* نظام إدخال الإجابة الرقمي */
 .answer-pad{display:flex;flex-direction:column;gap:8px;margin:12px 0}
@@ -1592,51 +1601,108 @@ function vIntro() {
     (p < 3 ? '<button class="btn" data-act="ipart" data-i="' + (p + 1) + '">التالي</button>' : '<button class="btn" data-act="back">ادخل صفك</button>') + '</div></main>';
 }
 
-function vReview() {
+/* إحصاءات المراجعة على نمط wizarati: نسب وشرائح لا أرقام خام */
+function revStats() {
   const items = revAll();
   const over = items.filter(x => revOver(x.r));
-  const soon = items.filter(x => !revOver(x.r)).slice(0, 8);
-  const done = revTodayCount();
-  const bySubj = {};
-  over.forEach(x => (bySubj[x.subject] = bySubj[x.subject] || []).push(x));
-  const subjScores = Object.entries(bySubj).sort((a, b) => b[1].length - a[1].length);
-  const top2 = subjScores.slice(0, 2);
-  const restN = subjScores.slice(2).reduce((k, s) => k + s[1].length, 0);
-  
-  // تقسيم المراجعة إلى 3 أقسام
+  const soon = items.filter(x => !revOver(x.r));
+  const n = items.length || 1;
+  const lv = items.map(x => Math.max(0, Math.min(100, x.t ? topicPct(x.t) : 0)));
+  const avg = Math.round(lv.reduce((a, b) => a + b, 0) / (items.length || 1));
+  const band = k => items.filter((x, i) => k === 'strong' ? lv[i] >= 90 : k === 'mid' ? lv[i] >= 70 && lv[i] < 90 : lv[i] < 70).length;
+  const bySub = {};
+  items.forEach(x => {
+    const b = bySub[x.subject] = bySub[x.subject] || { all: 0, over: 0, sum: 0, strong: 0 };
+    b.all++; if (revOver(x.r)) b.over++;
+    b.sum += x.t ? topicPct(x.t) : 0;
+    if (x.t && topicPct(x.t) >= 90) b.strong++;
+  });
+  const types = { probs: 0, und: 0, memo: 0, other: 0 };
+  over.forEach(x => {
+    if (memosOf(x.t).length) types.memo++;
+    else if (x.t.problems && x.t.problems.length) types.probs++;
+    else if (x.t.explain && x.t.explain.length) types.und++;
+    else types.other++;
+  });
+  const st = me();
+  const days = Math.max(1, Math.round((Date.now() - (st.started || Date.now())) / 864e5));
+  const perDay = (st.log || []).filter(x => x.type === 'review').length / days;
+  return { items, over, soon, avg, n, band, bySub, types, done: revTodayCount(), perDay: Math.round(perDay * 10) / 10, days };
+}
+function pctBar(label, val, cls) {
+  return '<div class="srow"><span class="slab">' + label + '</span>' +
+    '<span class="strack"><i class="' + (cls || '') + '" style="width:' + Math.max(2, Math.min(100, val)) + '%"></i></span>' +
+    '<b class="sval num">' + ar(Math.round(val)) + '٪</b></div>';
+}
+function vReview() {
+  const S2 = revStats();
+  const { items, over, soon, bySub, types, avg } = S2;
+  const subjScores = Object.entries(bySub).sort((a, b) => b[1].over - a[1].over);
+  const total = items.length || 1;
+  const overPct = Math.round(over.length / total * 100);
+  const strong = S2.band('strong'), mid = S2.band('mid'), weak = S2.band('weak');
+
+  let h = topBar('المراجعة', { log: 'review' }) + '<main class="page">' +
+    '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — والتقييم هنا نِسَب لا أرقام.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>';
+
+  if (!items.length) {
+    h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
+    return h + '</main>';
+  }
+
+  /* ١) لوحة النسب العامة */
+  h += '<section class="card"><h2>صورتك الإحصائية</h2>' +
+    '<p class="small muted">حالة كل ما في جدول مراجعتك الآن، موزّعة على ثلاث شرائح إتقان.</p>' +
+    '<div class="sgrid">' +
+      '<div class="stat"><span class="muted small">متوسط إتقانك</span><b class="num">' + ar(avg) + '٪</b></div>' +
+      '<div class="stat"><span class="muted small">مستحقّ اليوم</span><b class="num">' + ar(overPct) + '٪</b></div>' +
+      '<div class="stat"><span class="muted small">راجعت اليوم</span><b class="num">' + ar(S2.done) + '</b></div>' +
+      '<div class="stat"><span class="muted small">معدّل المراجعة</span><b class="num">' + ar(S2.perDay) + '/يوم</b></div>' +
+    '</div>' +
+    '<div class="srows" style="margin-top:12px">' +
+      pctBar('ماتقنه تمامًا (٩٠٪ فأعلى)', strong / total * 100, 'good') +
+      pctBar('ما بقي على الطريق (٧٠–٨٩٪)', mid / total * 100, 'gold') +
+      pctBar('يحتاج عودة (أقل من ٧٠٪)', weak / total * 100, 'bad') +
+      pctBar('مستحقّ المراجعة الآن', overPct, 'acc') +
+    '</div></section>';
+
+  /* ٢) المواد: أيها يستحق وقت اليوم */
+  h += accSec('rev-subjects', 'حسب المادة', ar(subjScores.length) + ' مواد · ' + ar(overPct) + '٪ مستحقّ',
+    '<p class="small muted">نسبة المستحقّ من كل مادة ونسبة إتقانها — ابدأ بالأعلى خطرًا.</p>' +
+    '<div class="srows">' + subjScores.map(([s, b]) =>
+      '<div class="srow"><span class="slab">' + esc(s) + '<br><span class="small muted num">' + b.strong + ' من ' + b.all + ' متقن</span></span>' +
+      '<span class="strack"><i class="' + (b.over / b.all > .5 ? 'bad' : b.over / b.all > .2 ? 'gold' : 'good') + '" style="width:' + Math.max(3, Math.round(b.over / b.all * 100)) + '%"></i></span>' +
+      '<b class="sval num">' + ar(Math.round(b.over / b.all * 100)) + '٪</b></div>').join('') + '</div>', true);
+
+  /* ٣) نوع المراجعة */
+  const tTot = types.probs + types.und + types.memo + types.other || 1;
+  h += accSec('rev-kind', 'حسب النوع', ar(over.length) + ' بحاجة',
+    '<p class="small muted">ما الذي يستحق وقت اليوم فعلًا: مسائل، أم فهم، أم حفظ؟</p>' +
+    '<div class="srows">' +
+      pctBar('مسائل وتمارين', types.probs / tTot * 100, 'acc') +
+      pctBar('فهم وشرح', types.und / tTot * 100, 'gold') +
+      pctBar('حفظ (قصائد وسور وأحاديث)', types.memo / tTot * 100, 'good') +
+      pctBar('عامة', types.other / tTot * 100, 'bad') +
+    '</div>' +
+    '<p class="small muted" style="margin-top:8px">العدد المطلق: ' + ar(types.probs) + ' مسائل · ' + ar(types.und) + ' فهم · ' + ar(types.memo) + ' حفظ · ' + ar(types.other) + ' عام.</p>', false);
+
+  /* ٤) القوائم المنسدلة الفعلية للمراجعة */
   const problemsDue = over.filter(x => x.t.problems && x.t.problems.length);
   const understandingDue = over.filter(x => x.t.explain && x.t.explain.length);
   const memoDue = over.filter(x => memosOf(x.t).length);
-  
-  let h = topBar('المراجعة', { log: 'review' }) + '<main class="page">' +
-    '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>' +
-    '<div class="grid2"><div class="stat"><span class="muted small">بسبب اليوم</span><b class="num">' + ar(over.length) + '</b></div><div class="stat"><span class="muted small">قادمة في أيامها</span><b class="num">' + ar(items.length - over.length) + '</b></div><div class="stat"><span class="muted small">راجعت اليوم</span><b class="num">' + ar(done) + '</b></div><div class="stat"><span class="muted small">في جدول المراجعة</span><b class="num">' + ar(items.length) + '</b></div></div>';
-  
-  if (!items.length) {
-    h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
-  } else {
-    // قسم المسائل
-    if (problemsDue.length) {
-      h += accSec('rev-problems', 'مراجعة المسائل', ar(problemsDue.length) + ' موضوع فيه مسائل', problemsDue.map(x => revItemHTML(x)).join(''), true);
-    }
-    // قسم الفهم والشرح
-    if (understandingDue.length) {
-      h += accSec('rev-understanding', 'مراجعة الفهم والشرح', ar(understandingDue.length) + ' موضوع', understandingDue.map(x => revItemHTML(x)).join(''), false);
-    }
-    // قسم الحفظ
-    if (memoDue.length) {
-      h += accSec('rev-memo', 'مراجعة الحفظ', ar(memoDue.length) + ' موضوع فيه حفظ', memoDue.map(x => revItemHTML(x)).join(''), false);
-    }
-    // الباقي
-    const otherDue = over.filter(x => !problemsDue.includes(x) && !understandingDue.includes(x) && !memoDue.includes(x));
-    if (otherDue.length) {
-      h += accSec('rev-other', 'مراجعة عامة', ar(otherDue.length) + ' موضوع', otherDue.map(x => revItemHTML(x)).join(''), false);
-    }
-    if (soon.length) h += '<section class="card"><h2>قادمة في أيامها</h2><p class="small muted">ستعود إليك عندما يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div></section>';
-    h += '<p class="note">أي اختبار لموضوع يقدّم موعده التالي، والنتيجة دون ٧٠٪ تعيده إلى «غدًا».</p>';
-  }
+  const otherDue = over.filter(x => !problemsDue.includes(x) && !understandingDue.includes(x) && !memoDue.includes(x));
+  if (problemsDue.length) h += accSec('rev-problems', 'مراجعة المسائل', ar(problemsDue.length) + ' · ' + ar(Math.round(problemsDue.length / (over.length || 1) * 100)) + '٪ من مستحقّ اليوم', problemsDue.map(x => revItemHTML(x)).join(''), false);
+  if (understandingDue.length) h += accSec('rev-understanding', 'مراجعة الفهم والشرح', ar(understandingDue.length) + ' · ' + ar(Math.round(understandingDue.length / (over.length || 1) * 100)) + '٪', understandingDue.map(x => revItemHTML(x)).join(''), false);
+  if (memoDue.length) h += accSec('rev-memo', 'مراجعة الحفظ', ar(memoDue.length) + ' · ' + ar(Math.round(memoDue.length / (over.length || 1) * 100)) + '٪', memoDue.map(x => revItemHTML(x)).join(''), false);
+  if (otherDue.length) h += accSec('rev-other', 'مراجعة عامة', ar(otherDue.length) + ' · ' + ar(Math.round(otherDue.length / (over.length || 1) * 100)) + '٪', otherDue.map(x => revItemHTML(x)).join(''), false);
+
+  h += accSec('rev-soon', 'قادمة في أيامها', ar(soon.length) + ' موضوعًا',
+    soon.length ? '<p class="small muted">ستعود إليك حين يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div>' : '<p class="small muted">لا شيء في الانتظار — كل شيء مستحقّ الآن.</p>', false);
+  h += '<p class="note">أي اختبار لموضوع يقدّم موعده التالي، والنتيجة دون ٧٠٪ تعيده إلى «غدًا».</p>';
+
   h += '<div class="grid2"><button class="btn quiet" data-act="expRevLog">صدّر سجل المراجعة</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div>';
-  h += '<section class="card"><h2>سجل المراجعة التفصيلي</h2><p class="small muted">كل يوم منذ بدأت ماذا راجعت وأنجزت.</p>' + reviewLogHTML() + '</section>';
+  h += accSec('rev-log', 'سجل المراجعة التفصيلي', 'منذ بدأتك',
+    '<p class="small muted">كل يوم منذ بدأت ماذا راجعت وأنجزت.</p>' + reviewLogHTML(), false);
   return h + '</main>';
 }
 

@@ -302,6 +302,40 @@ T('مقاطع الحفظ المتعددة', () => {
   return true;
 });
 
+/* شاشة المراجعة الإحصائية (النقطة ٦) */
+T('vReview/إحصائي', () => {
+  const out = run(`(function(){ try {
+    const st = me(); st.log = st.log || [];
+    const g = gradeContents(st.grade)[0]; if (!g) return { __fail: 'لا محتوى' };
+    let seeded = 0;
+    g.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (seeded >= 6 || isHidden(t.id)) return;
+      const p = progOf(t.id);
+      p.seen = p.seen || {};
+      SEGS.forEach(s => { if (segHas(t, s[0])) p.seen[s[0]] = 1; });
+      p.quiz = p.quiz || { best: 0, last: 0, at: 0 };
+      p.quiz.best = seeded % 2 ? 95 : 60; p.quiz.last = p.quiz.best; p.quiz.at = Date.now() - 864e5;
+      p.rev = { at: Date.now() - 3 * 864e5, level: 1, done: 0 };
+      seeded++;
+    }));
+    flushSave();
+    const s = revStats();
+    if (!s.items.length) return { __fail: 'revAll فارغ بعد الزرع' };
+    if (s.avg == null || isNaN(s.avg)) return { __fail: 'متوسط الإتقان غير معرّف' };
+    const h = String(VIEWS.review());
+    ['صورتك الإحصائية', 'حسب المادة', 'حسب النوع', 'srows', 'strack', 'rev-log'].forEach(k => {
+      if (h.indexOf(k) < 0) throw new Error('عنصر مفقود في شاشة المراجعة: ' + k);
+    });
+    if (!/٪/.test(h)) throw new Error('لا نِسَب في الشاشة');
+    if (/<span class="muted small">بسبب اليوم<\\/span>/.test(h)) throw new Error('ما زالت الأرقام الخام هي العرض');
+    return { n: s.items.length, avg: s.avg, over: s.over.length };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  if (!out || !out.n) return { __fail: 'لا بيانات' };
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

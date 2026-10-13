@@ -244,6 +244,34 @@ T('قفل الاختبار الشامل', () => {
   return true;
 });
 
+/* الحفظ في نهاية كل فصل من مواد الحفظ (النقطة ٥) */
+T('تغطية الحفظ', () => {
+  const out = run(`(function(){ try {
+    const memoSubs = ['اللغة العربية', 'التربية الإسلامية'];
+    const missing = [], kinds = [];
+    gradeContents(me().grade).forEach(y => {
+      if (memoSubs.indexOf(y.subject) < 0) return;
+      y.c.chapters.forEach(ch => {
+        const blocks = ch.topics.filter(t => !isHidden(t.id)).flatMap(t => memosOf(t));
+        if (!blocks.length) missing.push(y.subject + ' / ' + ch.title);
+        blocks.forEach(b => {
+          if (!b.kind || !b.units || !b.units.length) missing.push(y.subject + ' / ' + ch.title + ' / ' + (b.title || '?'));
+          if (b.kind && kinds.indexOf(b.kind) < 0) kinds.push(b.kind);
+        });
+      });
+    });
+    return { missing: missing, kinds: kinds };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  const miss = out.missing || [], k = out.kinds || [];
+  /* الفصول التي لم يُملأ محتواها الأصلي بعد تُبلَّغ ولا تُفشل الاختبار */
+  if (miss.length) console.log('      · فصول بلا حفظ بعد: ' + miss.join(' | '));
+  const need = ['قصيدة', 'سورة', 'حديث', 'معنى'];
+  const lack = need.filter(x => k.indexOf(x) < 0);
+  if (lack.length) return { __fail: 'أنواع حفظ ناقصة: ' + lack.join('، ') };
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

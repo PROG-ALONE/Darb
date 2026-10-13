@@ -129,6 +129,9 @@ a{color:var(--acc)}
 .bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
 .bar>span{display:block;height:100%;border-radius:999px;background:var(--ok);transition:width .4s}
 .note{font-size:.85em;color:var(--muted)}
+.memo-kind{display:inline-block;font-size:.7em;font-weight:700;letter-spacing:.02em;color:var(--gold);background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.memo-tabs{margin-bottom:10px}
+.memo-tabs .chip{min-height:36px;font-size:.82em}
 .lock-note{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-top:12px;border:1px dashed var(--gold-line);background:var(--gold-soft);color:var(--gold);border-radius:14px;line-height:1.8}
 .lock-note b{color:var(--gold)}
 .lock-note .small{color:var(--muted)}
@@ -1471,10 +1474,10 @@ function vSubject() {
 }
 
 function chMemoHTML(ts, subject) {
-  const mt = ts.filter(t => t.memo); if (!mt.length) return '';
-  return '<section class="card"><h2>الحفظ في هذا الفصل</h2><p class="small muted">النصوص المقررة للحفظ في هذا الفصل. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
-    mt.map(t => { const m = memoOf(t.id), U = t.memo.units.length, ok = Object.keys(m.ok).length;
-      return '<button class="pitem" data-act="memoGo" data-id="' + t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(t.memo.title) + '</b><br><span class="small muted">' + ar(U) + (t.memo.units.some(Array.isArray) ? ' أبيات' : ' آيات') + ' · ' + (m.passed ? 'اجتزت اختبار الحفظ' : 'احفظ ثم اختبر نفسك') + '</span></span></button>'; }).join('') + '</section>';
+  const mt = ts.flatMap(t => memosOf(t).map((M, bi) => ({ t, M, bi }))).filter(x => x.M && x.M.units && x.M.units.length); if (!mt.length) return '';
+  return '<section class="card"><h2>الحفظ في نهاية هذا الفصل</h2><p class="small muted">كل نص مقرّر للحفظ في هذا الفصل: قصائد وأبيات، وسور، وأحاديث، ومعاني الآيات. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
+    mt.map(x => { const m = memoOf(x.t.id, x.bi), U = x.M.units, ok = U.filter((u, i) => m.ok[i]).length, isB = U.some(Array.isArray);
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / (U.length || 1) * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ar(U.length) + (isB ? ' أبيات' : x.M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' · ' + (m.passed ? 'اجتزت اختبار الحفظ' : 'احفظ ثم اختبر نفسك') + '</span></span></button>'; }).join('') + '</section>';
 }
 /* أسئلة البنك الوزاري التي تخص فصلًا بعينه: إما مربوطة بموضوعاته مباشرة (tid)
    أو مُحلّلة نصًّا إلى هذا الفصل (ch). الفصل المكتمل يفتح اختباره الوزاري */
@@ -1546,9 +1549,9 @@ function vChapter() {
     ((ch.goals||[]).length ? '<details class="fold"><summary>ماذا ستتعلم في هذا الفصل؟</summary><div class="inner"><ul class="lst">' + (ch.goals||[]).map(x => '<li>' + fm(x) + '</li>').join('') + '</ul></div></details>' : '') +
     ((ch.terms||[]).length ? '<details class="fold"><summary>المصطلحات العلمية (عربي وإنكليزي)</summary><div class="inner"><div class="tbl-wrap"><table class="tbl"><tbody>' + (ch.terms||[]).map(x => '<tr><td>' + esc(x[0]) + '</td><td>' + fm(x[1]) + '</td></tr>').join('') + '</tbody></table></div></div></details>' : '') +
     '<section class="map-card"><div class="map-h"><h2>مواضيع الفصل</h2>' + playBtn + '</div>' + pathMap(items, 'c:' + ch.id) + '</section>' +
-    chMemoHTML(ts, f.key.split(':')[2]) +
     chapterMinisterialHTML(f, ch, pct, doneT, ts.length) +
     '<div class="grid2"><button class="btn ghost" data-act="notebook" data-s="' + esc(f.key.split(':')[2]) + '">دفتر ' + esc(f.key.split(':')[2]) + '</button><button class="btn ghost" data-act="openExport" data-lvl="chapter" data-s="' + esc(f.key.split(':')[2]) + '" data-t="' + (ts[0] || ch.topics[0]).id + '">صدّر الفصل</button></div>' +
+    chMemoHTML(ts, f.key.split(':')[2]) +
     hiddenFold(ch.topics.filter(t => isHidden(t.id))) +
     '</main>';
 }
@@ -1603,7 +1606,7 @@ function vReview() {
   // تقسيم المراجعة إلى 3 أقسام
   const problemsDue = over.filter(x => x.t.problems && x.t.problems.length);
   const understandingDue = over.filter(x => x.t.explain && x.t.explain.length);
-  const memoDue = over.filter(x => x.t.memo && x.t.memo.units && x.t.memo.units.length);
+  const memoDue = over.filter(x => memosOf(x.t).length);
   
   let h = topBar('المراجعة', { log: 'review' }) + '<main class="page">' +
     '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>' +
@@ -2364,7 +2367,7 @@ function guideHTML(f) {
 /* =================== الموضوع =================== */
 /* الموضوع مقسم إلى أجزاء كما يُدرس: الشرح أولًا، ثم ما يُفهم ويُختبر */
 const SEGS = [['explain', 'الشرح'], ['defs', 'التعاريف'], ['laws', 'القوانين'], ['reasons', 'التعليلات'], ['blanks', 'املأ الفراغ'], ['examples', 'أمثلة الكتاب'], ['problems', 'المسائل'], ['memo', 'الحفظ'], ['quiz', 'الاختبار']];
-const segHas = (t, k) => k === 'memo' ? !!t.memo : k === 'explain' || (t[k] && t[k].length) || (k === 'quiz' && t.quiz && t.quiz.length);
+const segHas = (t, k) => k === 'memo' ? memosOf(t).length > 0 : k === 'explain' || (t[k] && t[k].length) || (k === 'quiz' && t.quiz && t.quiz.length);
 function progOf(tid) { const st = me(); st.progress = st.progress || {}; return st.progress[tid] = st.progress[tid] || { seen: {}, quiz: null }; }
 function markSeen(tid, seg) { const p = progOf(tid); if (!p.seen[seg]) { p.seen[seg] = Date.now(); save(); } }
 let _tpGen = 0, _tpCache = new Map();
@@ -2382,8 +2385,17 @@ function topicPct(t) {
 /* =================== الحفظ (على نمط ذُرى) =================== */
 const AR_MARKS = /[ً-ْٰـ]/g;
 const bare = w => w.replace(AR_MARKS, '').replace(/[^ء-يa-zA-Z0-9]/g, '');
-const memoUnits = t => t.memo.units.map(u => Array.isArray(u) ? { a: u[0], b: u[1], txt: u[0] + ' ✦ ' + u[1] } : { a: u, b: '', txt: u });
-function memoOf(tid) { const p = progOf(tid); return p.memo = p.memo || { rep: {}, ok: {}, best: null, passed: null }; }
+/* وحدة حفظ واحدة: العنوان + المقطعات (أبيات/آيات/معاني) + نوعها للاعرض */
+const memosOf = t => (t && (t.memos || (t.memo ? [t.memo] : []))) || [];
+const memoAt = (t, bi) => memosOf(t)[bi || 0] || null;
+/* تقدّم الحفظ: الأول في المسار القديم (p.memo)، وما بعده في p.memos ليبقى ما حُفظ سابقًا */
+function memoOf(tid, bi) {
+  const p = progOf(tid);
+  if (!bi) return p.memo = p.memo || { rep: {}, ok: {}, best: null, passed: null };
+  p.memos = p.memos || {};
+  return p.memos[bi] = p.memos[bi] || { rep: {}, ok: {}, best: null, passed: null };
+}
+const memoUnits = m => (m ? m.units : []).map(u => Array.isArray(u) ? { a: u[0], b: u[1], txt: u[0] + ' ✦ ' + u[1] } : { a: u, b: '', txt: u });
 function firstLetter(w) { const m = w.match(/^[^ً-ْٰ]?[ً-ْٰ]*/); return (m && m[0]) || w[0]; }
 function hideWords(u, ui, lvl) {
   const rev = (S.mrev || {});
@@ -2399,11 +2411,21 @@ function hideWords(u, ui, lvl) {
 }
 const MEMO_MODES = [['read', 'اقرأ وكرّر'], ['hide', 'الإخفاء التدريجي'], ['cards', 'البطاقات'], ['test', 'اختبار الحفظ']];
 const HIDE_LV = ['النص كاملًا', 'إخفاء الثلث', 'إخفاء النصف', 'أوائل الكلمات', 'إخفاء الكل'];
-function memoHTML(t) {
-  const m = memoOf(t.id), U = memoUnits(t), mode = S.mmode || 'read', isB = U.some(u => u.b);
-  const okN = U.filter((u, i) => m.ok[i]).length;
-  let h = '<section class="card memo-head"><h2>' + ft(t.memo.title) + '</h2><p class="small muted">' + ar(U.length) + (isB ? ' أبيات' : ' آيات') + ' · حفظتَ ' + ar(okN) + ' من ' + ar(U.length) +
-    (m.passed ? ' · <b class="ok-t">اجتزت اختبار الحفظ ✓</b>' : '') + '</p><div class="mbar"><i style="width:' + Math.round(okN / U.length * 100) + '%"></i></div>' +
+/* إحصاء مقطع حفظ واحد: ما حُفظ منه ونسبة إنجازه */
+function memoStat(t, bi) {
+  const m = memoOf(t.id, bi), M = memoAt(t, bi), U = memoUnits(M);
+  const ok = U.filter((u, i) => m.ok[i]).length;
+  return { m, M, U, ok, pct: U.length ? Math.round(ok / U.length * 100) : 0, isB: U.some(u => u.b) };
+}
+function memoHTML(t, bi) {
+  bi = bi || 0;
+  const S2 = memoStat(t, bi), m = S2.m, M = S2.M, U = S2.U, okN = S2.ok, isB = S2.isB;
+  const all = memosOf(t);
+  const mode = S.mmode || 'read';
+  let h = '';
+  if (all.length > 1) h += '<div class="chips memo-tabs">' + all.map((x, i) => '<button class="chip" data-act="memoTab" data-b="' + i + '" aria-pressed="' + (i === bi) + '">' + esc(x.kind || 'حفظ') + ' · ' + esc(x.title.replace(/^(حفظ|معاني)\s*/, '').slice(0, 26)) + '</button>').join('') + '</div>';
+  h += '<section class="card memo-head"><span class="memo-kind">' + esc(M.kind || 'حفظ') + '</span><h2>' + ft(M.title) + '</h2><p class="small muted">' + ar(U.length) + (isB ? ' أبيات' : M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' · حفظتَ ' + ar(okN) + ' من ' + ar(U.length) +
+    (m.passed ? ' · <b class="ok-t">اجتزت اختبار الحفظ ✓</b>' : '') + '</p><div class="mbar"><i style="width:' + Math.round(okN / (U.length || 1) * 100) + '%"></i></div>' +
     '<nav class="segs">' + MEMO_MODES.map(x => '<button class="seg" data-act="mmode" data-v="' + x[0] + '" aria-pressed="' + (x[0] === mode) + '">' + x[1] + '</button>').join('') + '</nav></section>';
   if (mode === 'read') {
     h += '<p class="small muted">اقرأ كل ' + (isB ? 'بيت' : 'آية') + ' بصوت مسموع، واضغط عليه بعد كل قراءة. ثلاث قراءات تملأ النقاط.</p>' +
@@ -2427,11 +2449,11 @@ function memoHTML(t) {
         : '<p class="small muted">' + (u.b ? 'سمّع عجز البيت' : 'أكمل الآية') + ' من حفظك، ثم اقلب البطاقة.</p><button class="btn" data-act="mflip">اقلب البطاقة</button>') + '</div>' +
       '<div class="grid2"><button class="btn quiet" data-act="mcard" data-v="' + (i - 1) + '"' + (i ? '' : ' disabled') + '>السابق</button><button class="btn quiet" data-act="mcard" data-v="' + (i + 1) + '"' + (i < U.length - 1 ? '' : ' disabled') + '>التالي</button></div>';
   }
-  if (mode === 'test') h += memoTestHTML(t, m, U);
+  if (mode === 'test') h += memoTestHTML(t, m, U, bi);
   return h;
 }
-function memoBuild(t) {
-  const U = memoUnits(t), qs = [], pool = [];
+function memoBuild(t, bi) {
+  const U = memoUnits(memoAt(t, bi || 0)), qs = [], pool = [];
   U.forEach(u => u.txt.split(/\s+/).forEach(w => { if (bare(w).length >= 3 && !pool.some(x => bare(x) === bare(w))) pool.push(w); }));
   U.forEach((u, i) => {
     const words = u.txt.split(/\s+/), cand = words.map((w, wi) => [w, wi]).filter(x => bare(x[0]).length >= 3);
@@ -2447,7 +2469,7 @@ function memoBuild(t) {
   return shuffle(qs).slice(0, 15);
 }
 function memoTestHTML(t, m, U) {
-  const T = S.mt && S.mt.tid === t.id ? S.mt : null;
+  const T = S.mt && S.mt.tid === t.id && (S.mt.bi || 0) === (S.mbi || 0) ? S.mt : null;
   if (!T) return '<section class="card"><h2>اختبار الحفظ</h2><p class="small">أسئلة تكمل فيها الكلمة الناقصة، وتختار ما يأتي بعد ' + (U.some(u => u.b) ? 'البيت، وعجز كل بيت.' : 'كل آية.') + '</p><p class="note">النجاح ١٠٠٪ فقط: أي خطأ يعيد الاختبار من البداية، كما في ذُرى.</p>' +
     (m.best != null ? '<p class="small num">آخر محاولة: ' + ar(m.best) + '٪' + (m.passed ? ' · اجتزته ✓' : '') + '</p>' : '') + '<button class="btn" data-act="mtest">ابدأ اختبار الحفظ</button></section>';
   if (T.done) return '<section class="card mwin"><h2>أحسنت! حفظك تام ١٠٠٪</h2><p>أجبت عن ' + ar(T.qs.length) + ' سؤالًا دون خطأ.</p><button class="btn ghost" data-act="mtest">أعد الاختبار</button></section>';
@@ -2459,7 +2481,10 @@ function memoTestHTML(t, m, U) {
     (T.pick != null && T.pick !== q.c ? '<p class="note bad">خطأ — الجواب الصحيح مُعلَّم بالأخضر. راجع الحفظ ثم أعد الاختبار من البداية.</p><div class="grid2"><button class="btn" data-act="mtest">أعد من البداية</button><button class="btn ghost" data-act="mmode" data-v="hide">راجع بالإخفاء</button></div>' : '') + '</section>';
 }
 function memoAct(a, el) {
-  const f = findTopic(S.viewTopic); if (!f || !f.t.memo) return; const t = f.t, m = memoOf(t.id), U = memoUnits(t);
+  const f = findTopic(S.viewTopic); if (!f) return; const t = f.t;
+  const bi = S.mbi || 0, M = memoAt(t, bi); if (!M) return;
+  const m = memoOf(t.id, bi), U = memoUnits(M);
+  if (a === 'memoTab') { S.mbi = +el.dataset.b || 0; S.mmode = 'read'; S.mrev = {}; S.mt = null; S.mcard = 0; S.mopen = false; render(); return; }
   if (a === 'mmode') { S.mmode = el.dataset.v; S.mrev = {}; if (S.mmode !== 'test') S.mt = null; }
   if (a === 'mrep') { const i = +el.dataset.i; m.rep[i] = (m.rep[i] || 0) + 1; save(); }
   if (a === 'mlvl') { S.mlvl = +el.dataset.v; S.mrev = {}; }
@@ -2468,22 +2493,29 @@ function memoAct(a, el) {
   if (a === 'mflip') S.mopen = true;
   if (a === 'mcard') { S.mcard = Math.max(0, Math.min(U.length - 1, +el.dataset.v)); S.mopen = false; }
   if (a === 'mrate') { const i = S.mcard || 0; if (+el.dataset.v) m.ok[i] = Date.now(); else delete m.ok[i]; save(); S.mopen = false; if (i < U.length - 1) S.mcard = i + 1; }
-  if (a === 'mtest') S.mt = { tid: t.id, qs: memoBuild(t), i: 0, pick: null };
+  if (a === 'mtest') S.mt = { tid: t.id, bi: bi, qs: memoBuild(t, bi), i: 0, pick: null };
   if (a === 'mans' && S.mt && S.mt.pick == null) { const q = S.mt.qs[S.mt.i], v = +el.dataset.v;
     if (v === q.c) { S.mt.i++; if (S.mt.i >= S.mt.qs.length) { S.mt.done = true; m.best = 100; m.passed = Date.now(); U.forEach((u, i) => { m.ok[i] = m.ok[i] || Date.now(); }); save(); } }
     else { S.mt.pick = v; m.best = Math.round(S.mt.i / S.mt.qs.length * 100); save(); } }
   const y = window.scrollY; render(false); if (a !== 'mmode' && a !== 'mtest') window.scrollTo(0, y);
 }
-function memoTopics() { const out = []; gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (t.memo && !isHidden(t.id)) out.push({ subject: y.subject, ch, t }); }))); return out; }
+function memoTopics() {
+  const out = [];
+  gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+    if (isHidden(t.id)) return;
+    memosOf(t).forEach((M, bi) => { if (M && M.units && M.units.length) out.push({ subject: y.subject, ch, t, bi, M }); });
+  })));
+  return out;
+}
 /* بطاقة «تقدم الحفظ» على مساري: لكل مادة ما حفظتَ من مقرراتها، وما اجتزتَ اختبارَ حفظها (١٠٠٪ فقط) */
 function memoProgressHTML() {
   const mt = memoTopics();
   if (!mt.length) return '';
   const bySub = {};
   mt.forEach(x => {
-    const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
+    const s = memoStat(x.t, x.bi), U = s.U.length, ok = s.ok;
     const b = bySub[x.subject] = bySub[x.subject] || { n: 0, units: 0, ok: 0, pass: 0 };
-    b.n++; b.units += U; b.ok += Math.min(ok, U); if (m.passed) b.pass++;
+    b.n++; b.units += U; b.ok += Math.min(ok, U); if (s.m.passed) b.pass++;
   });
   const rows = Object.entries(bySub);
   const units = rows.reduce((a, b) => a + b[1].units, 0), done = rows.reduce((a, b) => a + b[1].ok, 0);
@@ -2513,7 +2545,7 @@ function vTopic() {
   if (seg === 'blanks') body = blanksHTML(t);
   if (seg === 'examples') body = examplesHTML(t);
   if (seg === 'problems') body = problemsHTML(t, subject);
-  if (seg === 'memo') body = memoHTML(t);
+  if (seg === 'memo') { if (S.mbi == null) S.mbi = 0; body = memoHTML(t, S.mbi); }
   if (seg === 'quiz') body = quizStartHTML('t:' + t.id, t.quiz.length, (progOf(t.id).quiz || {}));
   const segs = SEGS.filter(s => segHas(t, s[0]));
   const i = segs.findIndex(s => s[0] === seg), nx = segs[i + 1];
@@ -3247,9 +3279,9 @@ function subjectMemoHTML(subject) {
   const byCh = {};
   mt.forEach(x => { (byCh[x.ch.id] = byCh[x.ch.id] || { ch: x.ch, items: [] }).items.push(x); });
   const body = Object.values(byCh).map(g => '<p class="small" style="font-weight:600;margin:8px 0 4px">' + esc(g.ch.title) + '</p>' +
-    g.items.map(x => { const m = memoOf(x.t.id), U = x.t.memo.units.length, ok = Object.keys(m.ok).length;
-      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / U * 100)) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.t.memo.title) + '</b><br><span class="small muted">' + ft(x.t.title) + '</span></span></button>'; }).join('')).join('');
-  return accSec('memo-' + subject, 'الحفظ في ' + esc(subject), ar(mt.length) + ' موضوع', '<p class="small muted">كل ما هو مقرر للحفظ في هذه المادة، مقسّمًا على الفصول. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' + body, true);
+    g.items.map(x => { const s = memoStat(x.t, x.bi), U = s.U.length;
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (s.m.passed ? '✓' : ar(s.pct) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ft(x.t.title) + '</span></span></button>'; }).join('')).join('');
+  return accSec('memo-' + subject, 'الحفظ في ' + esc(subject), ar(mt.length) + ' نصًّا', '<p class="small muted">كل ما هو مقرر للحفظ في هذه المادة مقسّمًا على فصولها: القصائد والأبيات، والسور، والأحاديث، ومعاني الآيات. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' + body, true);
 }
 function subjectExamsHTML(subject, st0) {
   const bank = ministerialPool(subject).length, tests = st0.tests || {};
@@ -4643,7 +4675,7 @@ document.addEventListener('click', e => {
     case 'topic': S.tseg = 'explain'; go('topic', { viewTopic: el.dataset.id }); break;
     case 'tseg': S.tseg = el.dataset.v; S.mt = null; render(true); break;
     case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
-    case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; render(true); break;
+    case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; S.mbi = el.dataset.b ? +el.dataset.b : 0; render(true); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
     case 'calYear': S.calY = +el.dataset.y; S.calM = Math.min(S.calM, 11); S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;
     case 'calMonth': S.calM = +el.dataset.m; S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;

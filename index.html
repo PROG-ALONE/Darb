@@ -2673,17 +2673,35 @@ function examConfigView(z, title) {
       ? '<p class="note">النطاق محصور بمجموعة اخترتها من البنك: <b>' + esc(S.examScope.label || '') + '</b> (' + ar(total) + ' سؤالًا). <button class="btn quiet" data-act="examScopeClear" style="padding:2px 8px">أزِل الحصر</button></p>'
       : '');
   
-  // اختيار الفصول
-  h += '<section class="card"><h3>اختر الفصول</h3><p class="small muted">حدّد الفصول التي تريد امتحانها، أو اتركها لاختيار جميعها.</p><div class="chips">';
-  chapters.forEach(ch => {
-    const chOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.includes(ch.chId);
-    h += '<label class="chip" style="flex:1;justify-content:space-between;cursor:pointer;"><span>' + esc(ch.title) + '</span>' +
-      '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '"' + (chOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);"><span class="small muted num">' + ar(ch.count) + ' س</span></label>';
-  });
-  h += '</div></section>';
+  // اختيار الفصول — صفوف قائمة بدل حبّات مضغوطة، حتى لا ينكسر النطاق الطويل داخل صندوق ضيّق
+  const allOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.length === chapters.length;
+  h += '<section class="card">' +
+    '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+      '<h3 style="margin:0">اختر الفصول</h3>' +
+      '<span class="small muted num">' + ar(chapters.length) + ' فصلًا · ' + ar(total) + ' سؤالًا في النطاق</span></div>' +
+    '<p class="small muted">حدّد ما تريد امتحانه. ترك الكل يعني كل الفصول.</p>' +
+    '<div class="chips" style="margin:10px 0">' +
+      '<button class="chip" data-act="examChAll" data-on="1" aria-pressed="' + allOn + '">تحديد الكل</button>' +
+      '<button class="chip" data-act="examChAll" data-on="0" aria-pressed="' + !allOn + '">إلغاء الكل</button>' +
+    '</div><div class="plist">' +
+    chapters.map(ch => {
+      const chOn = !(S.exam && S.exam.selCh != null) || S.exam.selCh.includes(ch.chId);
+      return '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
+        '<span class="st' + (chOn ? '' : ' muted') + '">' + ar(ch.count) + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(ch.title) + '</b><br><span class="small muted">' + ar(ch.topics.length) + ' موضوع · ' + ar(ch.count) + ' سؤالًا</span></span>' +
+        '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '"' + (chOn ? ' checked' : '') +
+        ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
+    }).join('') + '</div></section>';
   
-  // اختيار المواضيع (مُجمّع)
-  h += '<section class="card"><h3>اختر المواضيع</h3><p class="small muted">يمكنك تضييق النطاق لمواضيع محددة.</p><div class="plist">';
+  // اختيار المواضيع (مُجمّع) — صفوف قائمة كما في الفصول، مع تحديد سريع
+  const topicsAllOn = !(S.exam && S.exam.selTopics != null);
+  h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+    '<h3 style="margin:0">اختر المواضيع</h3><span class="small muted num">' + ar(chapters.reduce((a, c) => a + c.topics.length, 0)) + ' موضوعًا</span></div>' +
+    '<p class="small muted">يمكنك تضييق النطاق لمواضيع محددة داخل الفصول المختارة.</p>' +
+    '<div class="chips" style="margin:10px 0">' +
+      '<button class="chip" data-act="examTopicAll" data-on="1" aria-pressed="' + topicsAllOn + '">كل المواضيع</button>' +
+      '<button class="chip" data-act="examTopicAll" data-on="0" aria-pressed="' + !topicsAllOn + '">إلغاء الكل</button>' +
+    '</div><div class="plist">';
   chapters.forEach(ch => {
     if (ch.topics.length <= 1) return;
     h += '<div class="acc"><div class="acc-h" data-act="acc" data-k="exam-topics-' + esc(ch.chId) + '">' +
@@ -2691,9 +2709,9 @@ function examConfigView(z, title) {
       '<div class="acc-b"><div class="acc-b-in">';
     ch.topics.forEach(t => {
       const tOn = !(S.exam && S.exam.selTopics != null) || S.exam.selTopics.includes(t.tid);
-      h += '<label class="pitem" style="cursor:pointer;"><span class="st">' + ar(t.count) + '</span>' +
-        '<span style="flex:1"><b>' + ft(t.title) + '</b></span>' +
-        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '"' + (tOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);"></label>';
+      h += '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px"><span class="st' + (tOn ? '' : ' muted') + '">' + ar(t.count) + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + ft(t.title) + '</b></span>' +
+        '<input type="checkbox" data-act="examTopic" data-t="' + esc(t.tid) + '"' + (tOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
     });
     h += '</div></div></div>';
   });
@@ -4257,15 +4275,31 @@ document.addEventListener('click', e => {
     case 'examCh': {
       const z = S.exam; if (!z) break;
       const chId = el.dataset.ch;
-      if (S.exam.selCh == null) S.exam.selCh = examPool(z.kind, z.subject).map(x => qChId(x));
+      /* المعرّفات تُبنى فريدة: كانت تُبنى سؤالًا بسؤال فتختلّ أعداد «تحديد الكل» */
+      if (S.exam.selCh == null) S.exam.selCh = [...new Set(examPool(z.kind, z.subject).map(x => qChId(x)))];
       if (el.checked) { if (!S.exam.selCh.includes(chId)) S.exam.selCh.push(chId); }
       else S.exam.selCh = S.exam.selCh.filter(x => x !== chId);
+      render(); break;
+    }
+    case 'examChAll': {
+      const z = S.exam; if (!z) break;
+      const all = [...new Set(examPool(z.kind, z.subject).map(x => qChId(x)))];
+      S.exam.selCh = el.dataset.on === '1' ? all : [];
+      S.exam.selTopics = null;   /* إعادة التحديد تُبطل ضييق المواضيع حتى لا يُخفى كل شيء */
+      render(); break;
+    }
+    case 'examTopicAll': {
+      const z = S.exam; if (!z) break;
+      const all = [...new Set(examPool(z.kind, z.subject).map(x => qTid(x)))];
+      S.exam.selTopics = el.dataset.on === '1' ? all : [];
       render(); break;
     }
     case 'examTopic': {
       const z = S.exam; if (!z) break;
       const tId = el.dataset.t;
-      if (S.exam.selTopics == null) S.exam.selTopics = examPool(z.kind, z.subject).map(x => x.tid || 'general');
+      /* المعرّفات عبر qTid لا tid الخام: سؤال البنك غير المربوط بموضوع يُجمَّع تحت مجموعته
+         (دورة ٢٠٢٠ مثلاً)، وكان البناء من tid الخام يُسقطها كلها عند الفلترة */
+      if (S.exam.selTopics == null) S.exam.selTopics = [...new Set(examPool(z.kind, z.subject).map(x => qTid(x)))];
       if (el.checked) { if (!S.exam.selTopics.includes(tId)) S.exam.selTopics.push(tId); }
       else S.exam.selTopics = S.exam.selTopics.filter(x => x !== tId);
       render(); break;

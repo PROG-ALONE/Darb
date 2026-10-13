@@ -484,10 +484,13 @@ details.think div{border-top:1px solid var(--line);padding-top:8px}
 .fig-tools{display:flex;gap:6px;flex-shrink:0}
 .fig-tools .icon-btn{width:38px;height:38px;border-radius:10px}
 .fig-tools .icon-btn svg{width:18px;height:18px}
-.fig-vp{position:relative;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--soft);touch-action:none;cursor:grab;min-height:170px;display:flex;align-items:center;justify-content:center}
+/* touch-action:none للشاشة الكاملة فقط؛ أما رسم الموضوع فيمرّر الصفحة عاديًّا ما دام صغيرًا */
+.fig-vp{position:relative;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--soft);cursor:grab;min-height:170px;display:flex;align-items:center;justify-content:center}
+.fig-vp[data-figvp]{touch-action:none}
 .fig-vp:active{cursor:grabbing}
+/* عرض الطبقة = عرض الـsvg بالضبط، وإلّا انزلقت النقاط عن مواضعها (نسبة من الطبقة) */
 .fig-layer{position:relative;width:100%;max-width:520px;margin:0 auto;transform-origin:50% 50%;transition:transform .12s ease-out;will-change:transform}
-.fig-layer svg{display:block;width:100%;height:auto}
+.fig-layer svg{display:block;width:100%;max-width:none;height:auto}
 .fig.ix .fhot{position:absolute;width:26px;height:26px;border-radius:50%;border:2px solid var(--acc);background:var(--card);color:var(--acc);font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.22);z-index:3;padding:0;line-height:1;transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)));transition:transform .12s ease-out}
 .fig.ix .fhot:hover,.fig.ix .fhot.on{background:var(--acc);color:#fff;transform:translate(-50%,-50%) scale(calc(1.18 / var(--fz,1)))}
 .fig-hint{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.72em;color:var(--muted);line-height:1.7}
@@ -4591,7 +4594,21 @@ function exportLogDoc(kind) {
 function figVBox(svg) { const m = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg || ''); return m ? { w: +m[1], h: +m[2] } : { w: 320, h: 200 }; }
 function figSt(k) { const S2 = S; if (!S2.figs[k]) S2.figs[k] = { z: 1, x: 0, y: 0, step: 0, part: -1 }; return S2.figs[k]; }
 /* --fz يبقى مع التكبير حتى تستطيع النقاط أن تُحجَم بمعكوسه فلا تتضخّم مع الرسم */
-function figT(z, x, y) { return 'transform:translate(' + x + 'px,' + y + 'px) scale(' + z + ');--fz:' + z + ';'; }
+/* قيمة transform وحدها — تُستعمل أيضًا في style.transform مباشرة */
+function figT(z, x, y) { return 'translate(' + x + 'px,' + y + 'px) scale(' + z + ')'; }
+/* قائمة كاملة للخاصية style=""، وتحمل --fz حتى تُحجَم النقاط بمعكوس التكبير */
+function figTDecl(z, x, y) { return 'transform:' + figT(z, x, y) + ';--fz:' + z + ';'; }
+function figApply(k) {
+  const L = document.querySelector('[data-figlayer="' + k + '"]');
+  if (!L) return false;
+  const st = figSt(k);
+  L.style.transform = figT(st.z, st.x, st.y);
+  L.style.setProperty('--fz', st.z);
+  /* داخل الموضوع: تُمنع لمس السحب فقط بعد التكبير، وإلّا يبقى تمرير الصفحة طبيعيًّا */
+  const vp = L.closest('.fig-vp');
+  if (vp && !vp.dataset.figvp) vp.style.touchAction = st.z > 1 ? 'none' : '';
+  return true;
+}
 
 /* النقاط المرقّمة فوق الأجزاء — موقعها نسبةً من مقياس الـsvg نفسه */
 function figHotspots(k) {
@@ -4661,7 +4678,7 @@ function figHTML(k, cap, full) {
   const drawn = full && S.figDraw === k;
   return '<figure class="fig ix" data-fig="' + k + '">' +
     '<div class="fig-head"><b class="fig-ttl">' + esc(f.title) + '</b>' + figTools(k, !!full) + '</div>' +
-    '<div class="fig-vp"' + (full ? ' data-figvp="' + k + '"' : '') + '><div class="fig-layer" data-figlayer="' + k + '" style="' + figT(st.z, st.x, st.y) + '">' +
+    '<div class="fig-vp"' + (full ? ' data-figvp="' + k + '"' : '') + '><div class="fig-layer" data-figlayer="' + k + '" style="' + figTDecl(st.z, st.x, st.y) + '">' +
       f.svg + figHotspots(k) + '</div></div>' +
     (cap ? '<figcaption>' + fm(cap) + '</figcaption>' : '') +
     figHint() + figExplHTML(k) +
@@ -4695,12 +4712,12 @@ function mountFigs() {
     if (el.dataset.m) return; el.dataset.m = '1';
     const k = el.querySelector('[data-figlayer]').dataset.figlayer;
     const layer = () => el.querySelector('[data-figlayer]');
-    const apply = st => { const L = layer(); if (L) L.style.transform = figT(st.z, st.x, st.y); };
+    const apply = () => figApply(k);
     /* العجلة تكبّر داخل الشاشة الكاملة فقط، حتى لا تخطف تمرير الصفحة في الموضوع */
-    if (el.dataset.figvp) el.addEventListener('wheel', e => { e.preventDefault(); const st = figSt(k); st.z = Math.max(1, Math.min(6, st.z * (e.deltaY < 0 ? 1.15 : 0.87))); if (st.z === 1) { st.x = st.y = 0; } apply(st); }, { passive: false });
+    if (el.dataset.figvp) el.addEventListener('wheel', e => { e.preventDefault(); const st = figSt(k); st.z = Math.max(1, Math.min(6, st.z * (e.deltaY < 0 ? 1.15 : 0.87))); if (st.z === 1) { st.x = st.y = 0; } apply(); }, { passive: false });
     let drag = null;
     el.addEventListener('pointerdown', e => { const st = figSt(k); if (st.z <= 1) return; drag = { x: e.clientX, y: e.clientY, ox: st.x, oy: st.y }; try { el.setPointerCapture(e.pointerId); } catch (er) { } });
-    el.addEventListener('pointermove', e => { if (!drag) return; const st = figSt(k); st.x = drag.ox + (e.clientX - drag.x); st.y = drag.oy + (e.clientY - drag.y); apply(st); });
+    el.addEventListener('pointermove', e => { if (!drag) return; const st = figSt(k); st.x = drag.ox + (e.clientX - drag.x); st.y = drag.oy + (e.clientY - drag.y); apply(); });
     const end = () => { drag = null; };
     el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); el.addEventListener('pointerleave', end);
   });
@@ -5719,8 +5736,7 @@ document.addEventListener('click', e => {
       const k = el.dataset.k, d = +el.dataset.d, st = figSt(k);
       if (d === 0) { st.z = 1; st.x = 0; st.y = 0; }
       else { st.z = Math.max(1, Math.min(6, +(st.z * (d > 0 ? 1.4 : 0.71)).toFixed(3))); if (st.z === 1) { st.x = 0; st.y = 0; } }
-      const L = document.querySelector('[data-figlayer="' + k + '"]');
-      if (L) L.style.transform = figT(st.z, st.x, st.y); else render();
+      if (!figApply(k)) render();
       break;
     }
     case 'figPart': { const k = el.dataset.k, i = +el.dataset.i; const st = figSt(k); st.part = (st.part === i ? -1 : i); render(); break; }

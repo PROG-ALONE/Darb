@@ -23,7 +23,8 @@
 
     T({ id: 'e12u1t2', sec: 'Lesson 2', page: '7, 88', title: 'I was ice skating, and I fell over', en: 'Past simple vs past continuous',
       why: 'أهم قاعدة في الوحدة: حدث طويل في الماضي (was/were + ing) قطعه حدث قصير (past simple).',
-      explain: [
+        explain: [
+          { t: 'fig', k: 'tenseTimeline', cap: 'The timeline: a long past action (past continuous) interrupted by a short one (past simple)' },
         P('Adil is at the hospital. “I was ice skating, and I fell over.” — “Do you think it’s broken?” — “You need to have an X-ray.” — “I’m afraid so. It’s fractured here. I’m going to put your wrist in plaster.” — “Six weeks.”'),
         HD('Grammar'),
         TB('', ['Tense', 'Form', 'Use'], [['Past continuous', 'was/were + verb-ing', 'a longer action in progress in the past (background)'], ['Past simple', 'verb-ed / irregular (fell, cut, hit)', 'a short, completed action that interrupts it']]),

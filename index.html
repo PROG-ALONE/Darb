@@ -477,6 +477,43 @@ details.think div{border-top:1px solid var(--line);padding-top:8px}
 .fig{margin:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:6px;align-items:center}
 .fig svg{width:100%;max-width:420px;height:auto}
 .fig figcaption{font-size:.85em;color:var(--muted)}
+/* ── الرسم التفاعلي (النقطة ٨): إطار مقصوص + طبقة قابلة للسحب والتقريب + نقاط شرح ── */
+.fig.ix{align-items:stretch;gap:8px;overflow:hidden}
+.fig-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fig-ttl{font-size:.95em;color:var(--acc);line-height:1.5}
+.fig-tools{display:flex;gap:6px;flex-shrink:0}
+.fig-tools .icon-btn{width:38px;height:38px;border-radius:10px}
+.fig-tools .icon-btn svg{width:18px;height:18px}
+.fig-vp{position:relative;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--soft);touch-action:none;cursor:grab;min-height:170px;display:flex;align-items:center;justify-content:center}
+.fig-vp:active{cursor:grabbing}
+.fig-layer{position:relative;width:100%;max-width:520px;margin:0 auto;transform-origin:50% 50%;transition:transform .12s ease-out;will-change:transform}
+.fig-layer svg{display:block;width:100%;height:auto}
+.fig.ix .fhot{position:absolute;width:26px;height:26px;border-radius:50%;border:2px solid var(--acc);background:var(--card);color:var(--acc);font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.22);z-index:3;padding:0;line-height:1;transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)));transition:transform .12s ease-out}
+.fig.ix .fhot:hover,.fig.ix .fhot.on{background:var(--acc);color:#fff;transform:translate(-50%,-50%) scale(calc(1.18 / var(--fz,1)))}
+.fig-hint{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.72em;color:var(--muted);line-height:1.7}
+.fig-hint b{color:var(--acc)}
+.fig-tip{display:flex;gap:8px;align-items:flex-start;background:var(--soft);border:1px dashed var(--line);border-radius:12px;padding:9px 12px;font-size:.8em;color:var(--muted);line-height:1.7}
+.fig-tip svg{width:18px;height:18px;flex-shrink:0;margin-top:2px;color:var(--acc)}
+.fig-expl{background:var(--acc-soft);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;animation:figPop .18s ease-out}
+.fig-expl b{display:flex;align-items:center;gap:7px;color:var(--acc);font-size:.92em;margin-bottom:4px}
+.fig-expl p{margin:0 0 8px;font-size:.84em;line-height:1.85}
+.fnum{display:inline-flex;min-width:22px;height:22px;padding:0 5px;align-items:center;justify-content:center;border-radius:50%;background:var(--acc);color:#fff;font-size:.72em;font-style:normal}
+@keyframes figPop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.fig-why{border-style:dashed}
+.fig-open{width:100%;font-size:.85em}
+/* «كيف ترسمه بنفسك؟»: بناء الرسم أمام الطالب خطوة خطوة */
+.fig-draw{border:1.5px solid var(--gold-line);border-radius:14px;padding:10px;background:var(--gold-soft);display:flex;flex-direction:column;gap:8px}
+.fig-stepper{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between}
+.fig-stepper .num{font-size:.8em;color:var(--muted);font-weight:600}
+.fig-stepper button[disabled]{opacity:.4;cursor:default}
+.fig-stepview{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;overflow:hidden}
+.fig-stepview svg{display:block;width:100%;max-width:460px;height:auto;margin:0 auto;animation:figPop .2s ease-out}
+.fig-say{margin:0;background:var(--card);border-inline-start:3px solid var(--gold);border-radius:8px;padding:8px 10px;font-size:.85em;line-height:1.7}
+.fig-say b{color:var(--gold)}
+.fig-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.fig-list .pitem{cursor:pointer}
+.fig-grp{margin-top:12px}
+.fig-grp-t{display:block;color:var(--acc);font-size:.9em;margin-bottom:6px}
 .zap{animation:zap 1.2s infinite}
 @keyframes zap{0%,60%,100%{opacity:1}30%{opacity:.15}}
 .sim svg text,.fig svg text{direction:ltr;unicode-bidi:plaintext}
@@ -767,6 +804,7 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 <div id="app" dir="rtl" lang="ar"></div>
 
 <script src="content/h.js"></script>
+<script src="content/figs.js"></script>
 <script src="content/physics-12-c1.js"></script>
 <script src="content/physics-12-c1-more.js"></script>
 <script src="content/physics-12-c2.js"></script>
@@ -1042,7 +1080,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null, minPrepSubj: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null, minPrepSubj: null, figs: {}, figK: null, figCap: '', figDraw: null };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -1106,7 +1144,7 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
 const TABS = [['today', 'الخطة', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
-const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests', minsim: 'tests' };
+const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests', minsim: 'tests', fig: 'path' };
 
 function topBar(title, opts) {
   opts = opts || {};
@@ -2109,11 +2147,20 @@ function vLibrary() {
       '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر كل صفّي</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل صفوفي</button></div>', false) : '';
   const minSec = ministerialLibraryHTML(st);
   const minAcc = minSec ? accSec('ministerial', 'بنك الأسئلة الوزارية', '', minSec, false) : '';
+  /* مكتبة الرسوم (النقطة ٨): كل رسم في التطبيق مكانه واحد، مجمّعًا بحسب مادته */
+  const figGroups = Object.keys(FIGS).reduce((acc, k) => { const g = FIG_SUBJ[k] || 'أخرى'; (acc[g] = acc[g] || []).push(k); return acc; }, {});
+  const figAcc = accSec('figs', 'الرسوم التفاعلية', ar(Object.keys(FIGS).length) + ' رسمًا',
+    '<div class="hint-purpose">' + ico('bulb', 1.7) + '<span><b>لماذا هذا القسم؟</b><br><span class="small">بدل أن تبحث عن الشكل في الكتاب، تفتحه هنا مكبّرًا: اضغط رقمًا من نقاطه فيشرح نفسه، واضغط «كيف أرسمه؟» فيبنيه أمامك خطوة خطوة — وهذا ما يُطلب منك في سؤال «ارسم واشرح».</span></span></div>' +
+    Object.keys(figGroups).map(subj =>
+      '<div class="fig-grp"><b class="fig-grp-t">' + esc(subj) + '</b><div class="plist">' +
+      figGroups[subj].map(k => '<button class="pitem" data-act="figFull" data-k="' + k + '"><span class="st">' + ico('grid') + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(FIGS[k].title) + '</b><br><span class="small muted">' + esc(String(FIGS[k].teaches).slice(0, 96)) + '…</span></span></button>').join('') +
+      '</div></div>').join(''), false);
   return topBar('المكتبة') + '<main class="page">' +
     '<section class="shelf" aria-label="رف ' + esc(GRADES[st.grade - 1].name) + '"><span class="lbl">جناح ' + esc(GRADES[st.grade - 1].name) + '</span><div class="books">' +
       subs.map((s, i) => '<span class="book" style="height:' + (160 + (i % 3) * 14) + 'px">' + esc(s) + '</span>').join('') +
     '</div><div class="plank" aria-hidden="true"></div></section>' +
-    libSec + minAcc +
+    libSec + minAcc + figAcc +
     '<div class="grid2"><button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر دفاتري</button><button class="btn quiet" data-act="openExport" data-lvl="all">صدّر كل شيء</button></div>' +
     (BOOK_SOURCES[st.grade] ? '<section class="card"><h2>كتب ' + esc(GRADES[st.grade - 1].name) + '</h2><p class="small muted">نزّل الكتب من الموقع. وحين تُربط الكتب داخل التطبيق، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p><a class="btn" href="' + BOOK_SOURCES[st.grade] + '" target="_blank" rel="noopener">افتح موقع الكتب</a></section>'
       : '<p class="note">الكتب باهتة لأنها لم تُنزَّل بعد. حين تُربط روابط الكتب، يضيء كل كتاب على رفّه بعد تنزيله ويُفتح بلا إنترنت.</p>') + '</main>';
@@ -2779,7 +2826,7 @@ function blockHTML(b, key) {
     case 'mend': return '<div class="mend">■ هنا ينتهي الحفظ' + (b.x ? ' — ' + esc(b.x) : '') + '</div>';
     case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol>';
     case 'think': return '<details class="think"><summary><b>فكّر</b> ' + fm(b.q) + '</summary><div>' + fm(b.a) + '</div></details>';
-    case 'fig': return '<figure class="fig">' + (FIGS[b.k] || '') + '<figcaption>' + fm(b.cap) + '</figcaption></figure>';
+    case 'fig': return figHTML(b.k, b.cap, false);
     case 'sim': return '<div class="sim" data-sim="' + b.k + '" data-key="' + key + '"></div>';
     case 'table': return '<div class="tbl-wrap"><table class="tbl"><caption>' + fm(b.cap) + '</caption><thead><tr>' + b.head.map(h => '<th>' + fm(h) + '</th>').join('') + '</tr></thead><tbody>' + b.rows.map(r => '<tr>' + r.map(c => '<td>' + fm(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
     case 'activity': return '<section class="activity"><span class="lbl">نشاط</span><h3>' + fm(b.title.replace(/^نشاط[:\s—-]*/, '')) + '</h3><p class="small"><b>أدوات النشاط:</b> ' + fm(b.tools) + '</p><ol class="lst">' + b.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><details class="think"><summary><b>نستنتج من النشاط</b> فكّر أولًا، ماذا تتوقع؟</summary><div>' + fm(b.result) + '</div></details></section>';
@@ -4530,12 +4577,138 @@ function exportLogDoc(kind) {
 }
 
 /* =================== الأشكال =================== */
-const FIGS = {
-  spark: '<svg viewBox="0 0 320 170" role="img" aria-label="موصل كروي مشحون تخرج منه شرارة في الهواء"><circle cx="110" cy="90" r="52" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="3"/>' + [0, 1, 2, 3, 4, 5, 6, 7].map(i => { const a = i * Math.PI / 4; return '<text x="' + (110 + 34 * Math.cos(a)) + '" y="' + (96 + 34 * Math.sin(a)) + '" text-anchor="middle" font-size="18" fill="var(--bad)" font-weight="700">+</text>'; }).join('') + '<path class="zap" d="M162 82 L198 70 L190 92 L232 78 L222 100 L268 86" fill="none" stroke="var(--gold)" stroke-width="4" stroke-linejoin="round"/><text x="250" y="130" text-anchor="middle" font-size="15" fill="var(--muted)">تفريغ في الهواء</text></svg>',
-  twoConductors: '<svg viewBox="0 0 320 140" role="img" aria-label="موصل موجب وموصل سالب متقابلان"><rect x="40" y="100" width="90" height="10" rx="3" fill="var(--ok)"/><rect x="190" y="100" width="90" height="10" rx="3" fill="var(--ok)"/><circle cx="85" cy="62" r="34" fill="#E46B55"/><text x="85" y="72" text-anchor="middle" font-size="30" fill="#fff" font-weight="700">+</text><circle cx="235" cy="62" r="34" fill="#3B82C4"/><text x="235" y="72" text-anchor="middle" font-size="30" fill="#fff" font-weight="700">−</text><text x="85" y="132" text-anchor="middle" font-size="13" fill="var(--muted)">شحنة موجبة</text><text x="235" y="132" text-anchor="middle" font-size="13" fill="var(--muted)">شحنة سالبة</text></svg>',
-  plates: '<svg viewBox="0 0 340 200" role="img" aria-label="صفيحتان متوازيتان بينهما مجال كهربائي منتظم"><rect x="60" y="30" width="220" height="12" rx="3" fill="#C9473A"/><rect x="60" y="158" width="220" height="12" rx="3" fill="#2F6FB0"/>' + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => '<text x="' + (72 + i * 22) + '" y="26" text-anchor="middle" font-size="15" fill="#C9473A" font-weight="700">+</text><text x="' + (72 + i * 22) + '" y="190" text-anchor="middle" font-size="17" fill="#2F6FB0" font-weight="700">−</text>').join('') + [0, 1, 2, 3, 4, 5, 6, 7].map(i => '<line class="fl" x1="' + (84 + i * 25) + '" y1="46" x2="' + (84 + i * 25) + '" y2="150" stroke="var(--ok)" stroke-width="2.4" marker-end="url(#ar)"/>').join('') + '<path d="M60 46 Q36 100 60 154 M280 46 Q304 100 280 154" fill="none" stroke="var(--ok)" stroke-width="2" stroke-dasharray="4 4" opacity=".7"/><text x="300" y="104" font-size="18" fill="var(--ink)" font-style="italic">d</text><text x="40" y="104" font-size="17" fill="var(--ink)" font-style="italic">E</text><defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ok)"/></marker></defs></svg>',
-  waxRoll: '<svg viewBox="0 0 320 150" role="img" aria-label="شريطان موصلان بينهما ورق عازل ملفوفان"><g transform="translate(10,20)"><ellipse cx="70" cy="55" rx="40" ry="50" fill="var(--soft)" stroke="var(--muted)"/><ellipse cx="70" cy="55" rx="28" ry="36" fill="none" stroke="#9AA4AC" stroke-width="6"/><ellipse cx="70" cy="55" rx="16" ry="21" fill="none" stroke="#E0BE7A" stroke-width="6"/><path d="M70 5 L270 5 L270 30 L70 30" fill="#9AA4AC"/><path d="M70 36 L270 36 L270 50 L70 50" fill="#E0BE7A"/><path d="M70 56 L270 56 L270 80 L70 80" fill="#9AA4AC"/><text x="285" y="22" font-size="12" fill="var(--muted)">موصل</text><text x="285" y="47" font-size="12" fill="var(--muted)">عازل</text><text x="285" y="72" font-size="12" fill="var(--muted)">موصل</text></g></svg>'
-};
+/* ══════════════════════════════════════════════════════════════════════
+   الرسم التفاعلي (النقطة ٨)
+   ──────────────────────────────────────────────────────────────────────
+   الرسم ليس صورةً تُنظر إليها ويُمرَّ عليها. هنا:
+     · تكبير وتصغير (أزرار + عجلة الفأرة) وسحب للتحريك داخل الإطار.
+     · نقاط مرقّمة فوق أجزاء الرسم — اضغط أيًّا منها فيشرح نفسه.
+     · «ماذا يعلّمك هذا الرسم؟» — غاية الرسم التعليمية صراحةً.
+     · «كيف ترسمه بنفسك؟» — يبنيه أمامك خطوةً خطوة، فيتعلّم
+       الطالب بناء الرسم لا حفظ شكله.
+     · ملء الشاشة للكبير منه والتقريب الدقيق.
+   ══════════════════════════════════════════════════════════════════════ */
+function figVBox(svg) { const m = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg || ''); return m ? { w: +m[1], h: +m[2] } : { w: 320, h: 200 }; }
+function figSt(k) { const S2 = S; if (!S2.figs[k]) S2.figs[k] = { z: 1, x: 0, y: 0, step: 0, part: -1 }; return S2.figs[k]; }
+/* --fz يبقى مع التكبير حتى تستطيع النقاط أن تُحجَم بمعكوسه فلا تتضخّم مع الرسم */
+function figT(z, x, y) { return 'transform:translate(' + x + 'px,' + y + 'px) scale(' + z + ');--fz:' + z + ';'; }
+
+/* النقاط المرقّمة فوق الأجزاء — موقعها نسبةً من مقياس الـsvg نفسه */
+function figHotspots(k) {
+  const f = FIGS[k]; if (!f || !f.parts || !f.parts.length) return '';
+  const vb = figVBox(f.svg), st = figSt(k);
+  return f.parts.map((p, i) => {
+    if (typeof p.x !== 'number' || typeof p.y !== 'number') return '';
+    const L = (p.x / vb.w * 100).toFixed(2), T = (p.y / vb.h * 100).toFixed(2);
+    return '<button class="fhot' + (st.part === i ? ' on' : '') + '" data-act="figPart" data-k="' + k + '" data-i="' + i + '" ' +
+      'style="left:' + L + '%;top:' + T + '%" aria-label="' + esc(p.label) + '">' + ar(i + 1) + '</button>';
+  }).join('');
+}
+
+/* لوحة شرح الجزء المختار: ماذا يُعلّم هذا الجزء تحديدًا */
+function figExplHTML(k) {
+  const f = FIGS[k]; if (!f) return '';
+  const st = figSt(k), p = (f.parts || [])[st.part];
+  if (st.part < 0 || !p) return '<div class="fig-tip">' + ico('search', 1.5) + '<span>اضغط رقمًا من نقاط الرسم فيشرح نفسه، أو اسحب الرسم للتحريك وكبّره بعجلة الفأرة.</span></div>';
+  return '<div class="fig-expl"><b><i class="fnum">' + ar(st.part + 1) + '</i> ' + esc(p.label) + '</b><p>' + esc(p.note) + '</p>' +
+    '<button class="chip sm" data-act="figPart" data-k="' + k + '" data-i="-1">إغلاق الشرح ✕</button></div>';
+}
+
+/* «كيف ترسمه بنفسك؟» — نبني الرسم أمامه خطوةً خطوة.
+   تعليمات الخطوات تُقتطع من الـsvg (تبدأ برقم ثم قوس) وتُعرض تحته كتعليق،
+   وإلا تراكمت التعليمات فوق بعضها في كل خطوة. */
+const FIG_SAY_RE = /<text[^>]*>\s*[٠-٩0-9]+\)[\s\S]*?<\/text>/g;
+function figStrip(say) { return String(say || '').replace(FIG_SAY_RE, ''); }
+function figSay(step) { const m = String(step || '').match(FIG_SAY_RE); return m ? m[m.length - 1].replace(/^<text[^>]*>|<\/text>$/g, '') : ''; }
+function figDrawHTML(k) {
+  const f = FIGS[k]; if (!f || !f.steps || !f.steps.length) return '';
+  const st = figSt(k), vb = figVBox(f.svg);
+  const n = f.steps.length, at = Math.max(0, Math.min(st.step, n - 1));
+  let draw = '';
+  for (let i = 0; i <= at; i++) draw += figStrip(f.steps[i]);
+  const say = figSay(f.steps[at]) || ('الخطوة ' + ar(at + 1));
+  return '<div class="fig-draw">' +
+    '<div class="fig-stepper">' +
+      '<button class="chip sm" data-act="figStep" data-k="' + k + '" data-d="-1"' + (at === 0 ? ' disabled' : '') + '>↩ السابق</button>' +
+      '<span class="num">الخطوة ' + ar(at + 1) + ' من ' + ar(n) + '</span>' +
+      '<button class="chip sm" data-act="figStep" data-k="' + k + '" data-d="1"' + (at >= n - 1 ? ' disabled' : '') + '><b>التالي ▶</b></button>' +
+      '<button class="chip sm" data-act="figStep" data-k="' + k + '" data-d="0">من البداية</button>' +
+    '</div>' +
+    '<div class="fig-stepview"><svg viewBox="0 0 ' + vb.w + ' ' + vb.h + '" role="img" aria-label="' + esc(say) + '">' + (window.FIG_DEFS || '') + draw + '</svg></div>' +
+    '<p class="fig-say"><b>' + esc(say) + '</b></p>' +
+    (at >= n - 1 ? '<p class="small muted">هذا الرسم كاملًا. جرّب أن ترسمه من ذاكرة ثم قارنه بالصورة الأصلية.</p>' : '') +
+    '</div>';
+}
+
+/* أدوات الرسم: تكبير/تصغير/إعادة/ملء الشاشة — تحتها سطر يشرح فائدة كل زرّ (٧-هـ) */
+function figTools(k, full) {
+  return '<div class="fig-tools">' +
+    '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="-1" aria-label="تصغير">−</button>' +
+    '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="1" aria-label="تكبير">＋</button>' +
+    '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="0" aria-label="إعادة الحجم">⟲</button>' +
+    (full ? '<button class="icon-btn" data-act="figDraw" data-k="' + k + '" aria-label="رسمه خطوة بخطوة">✎</button>' : '') +
+    '<button class="icon-btn" data-act="figFull" data-k="' + k + '" aria-label="ملء الشاشة">' + ico('search', 1.6) + '</button>' +
+    '</div>';
+}
+function figHint() {
+  return '<div class="fig-hint"><span><b>التقريب</b>: عجلة الفأرة أو أزرار ＋ −</span><span><b>التحريك</b>: اسحب الإطار</span><span><b>الفهم</b>: اضغط رقمًا على الرسم</span><span><b>البناء</b>: زرّ ✎ يرسمه أمامك خطوة خطوة</span></div>';
+}
+
+/* بطاقة الرسم داخل الموضوع — قابلة للتقريب والسحب والشرح والبناء */
+function figHTML(k, cap, full) {
+  const f = FIGS[k]; if (!f) return '';
+  const st = figSt(k);
+  const drawn = full && S.figDraw === k;
+  return '<figure class="fig ix" data-fig="' + k + '">' +
+    '<div class="fig-head"><b class="fig-ttl">' + esc(f.title) + '</b>' + figTools(k, !!full) + '</div>' +
+    '<div class="fig-vp"' + (full ? ' data-figvp="' + k + '"' : '') + '><div class="fig-layer" data-figlayer="' + k + '" style="' + figT(st.z, st.x, st.y) + '">' +
+      f.svg + figHotspots(k) + '</div></div>' +
+    (cap ? '<figcaption>' + fm(cap) + '</figcaption>' : '') +
+    figHint() + figExplHTML(k) +
+    '<details class="think fig-why"><summary><b>ماذا يعلّمك هذا الرسم؟</b> اضغط لتعرف غايته</summary><div>' + esc(f.teaches) + '</div></details>' +
+    (full || drawn
+      ? (drawn ? figDrawHTML(k) : '')
+      : '<button class="btn ghost fig-open" data-act="figFull" data-k="' + k + '">افتحه ملء الشاشة للتقريب والشرح</button>') +
+    '</figure>';
+}
+
+/* شاشة ملء الشاشة: رسم كبير + شرح كل جزء + البناء خطوة خطوة */
+function vFig() {
+  const k = S.figK, f = FIGS[k];
+  if (!f) return topBar('رسم', { back: true, noTools: true }) + '<main class="page">' + empty('book', 'هذا الرسم غير متاح', 'اختر رسمًا آخر من الصفحة.') + '</main>';
+  return topBar(f.title, { back: true, noTools: true }) + '<main class="page">' +
+    figHTML(k, S.figCap || '', true) +
+    '<div class="grid2" style="margin-top:10px">' +
+      '<button class="btn' + (S.figDraw === k ? '' : ' ghost') + '" data-act="figDraw" data-k="' + k + '">' + (S.figDraw === k ? '✕ أخفِ خطوات الرسم' : '✎ كيف أرسمه؟ خطوة خطوة') + '</button>' +
+      '<button class="btn ghost" data-act="figPart" data-k="' + k + '" data-i="-1">↺ اشرح كل الأجزاء</button>' +
+    '</div>' +
+    '<div class="fig-list">' + (f.parts || []).map((p, i) =>
+      '<button class="pitem" data-act="figPart" data-k="' + k + '" data-i="' + i + '"><span class="st fnum">' + ar(i + 1) + '</span>' +
+      '<span style="flex:1;min-width:0"><b>' + esc(p.label) + '</b><br><span class="small muted">' + esc(p.note.slice(0, 90)) + (p.note.length > 90 ? '…' : '') + '</span></span></button>').join('') +
+    '</div>' +
+    '</main>';
+}
+
+/* التثبيت بعد كل رسم: العجلة للتكبير، والسحب للتحريك (لا يُعاد إلا على الجديد) */
+function mountFigs() {
+  document.querySelectorAll('.fig-vp').forEach(el => {
+    if (el.dataset.m) return; el.dataset.m = '1';
+    const k = el.querySelector('[data-figlayer]').dataset.figlayer;
+    const layer = () => el.querySelector('[data-figlayer]');
+    const apply = st => { const L = layer(); if (L) L.style.transform = figT(st.z, st.x, st.y); };
+    /* العجلة تكبّر داخل الشاشة الكاملة فقط، حتى لا تخطف تمرير الصفحة في الموضوع */
+    if (el.dataset.figvp) el.addEventListener('wheel', e => { e.preventDefault(); const st = figSt(k); st.z = Math.max(1, Math.min(6, st.z * (e.deltaY < 0 ? 1.15 : 0.87))); if (st.z === 1) { st.x = st.y = 0; } apply(st); }, { passive: false });
+    let drag = null;
+    el.addEventListener('pointerdown', e => { const st = figSt(k); if (st.z <= 1) return; drag = { x: e.clientX, y: e.clientY, ox: st.x, oy: st.y }; try { el.setPointerCapture(e.pointerId); } catch (er) { } });
+    el.addEventListener('pointermove', e => { if (!drag) return; const st = figSt(k); st.x = drag.ox + (e.clientX - drag.x); st.y = drag.oy + (e.clientY - drag.y); apply(st); });
+    const end = () => { drag = null; };
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); el.addEventListener('pointerleave', end);
+  });
+}
+
+/* الرسوم التفاعلية كلّها تُحمَّل من content/figs.js (النقطة ٨):
+   كل رسم له svg + أجزاء تشرح نفسها بالضغط + خطوات «كيف أرسمه». */
+const FIGS = window.FIGS || {};
 
 /* =================== المحاكاة =================== */
 /* كل محاكاة تُركّب بعد الرسم داخل عنصرها، وتحدّث نفسها دون إعادة رسم الصفحة حتى لا ينقطع سحب المنزلقات */
@@ -5179,7 +5352,7 @@ function vDialog() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim };
+const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim, fig: vFig };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -5187,7 +5360,7 @@ function render(scrollTop) {
   if (!me()) { startOnb('first'); render(); return; }
   app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.dialog ? vDialog() : '');
   if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
-  mountSims(); mountPhotos();
+  mountSims(); mountPhotos(); mountFigs();
   bindHintHover(app);
   if (scrollTop) window.scrollTo(0, 0);
   if (S.view === 'search') { const q = document.getElementById('q'); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
@@ -5541,6 +5714,21 @@ document.addEventListener('click', e => {
     case 'subExams': go('subexams'); break;
     case 'minPrep': go('minprep'); break;
     case 'minPrepSubj': S.minPrepSubj = el.dataset.s || null; go('minprep'); break;
+    /* ٨) الرسم التفاعلي: تقريب، تحريك، شرح بالضغط، وبناء خطوة بخطوة */
+    case 'figZoom': {
+      const k = el.dataset.k, d = +el.dataset.d, st = figSt(k);
+      if (d === 0) { st.z = 1; st.x = 0; st.y = 0; }
+      else { st.z = Math.max(1, Math.min(6, +(st.z * (d > 0 ? 1.4 : 0.71)).toFixed(3))); if (st.z === 1) { st.x = 0; st.y = 0; } }
+      const L = document.querySelector('[data-figlayer="' + k + '"]');
+      if (L) L.style.transform = figT(st.z, st.x, st.y); else render();
+      break;
+    }
+    case 'figPart': { const k = el.dataset.k, i = +el.dataset.i; const st = figSt(k); st.part = (st.part === i ? -1 : i); render(); break; }
+    case 'figStep': { const k = el.dataset.k, d = +el.dataset.d, st = figSt(k), n = ((FIGS[k] || {}).steps || []).length;
+      if (d === 0) st.step = 0; else st.step = Math.max(0, Math.min(n - 1, st.step + d));
+      S.figDraw = k; render(); break; }
+    case 'figFull': { S.figK = el.dataset.k; S.figCap = ''; S.figDraw = null; go('fig'); break; }
+    case 'figDraw': { const k = el.dataset.k; S.figDraw = (S.figDraw === k ? null : k); if (S.figDraw === k) figSt(k).step = Math.max(0, figSt(k).step); render(); break; }
     case 'weakOf': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     /* ٧-ز) سجل «تطوّرك الوزاري» في تبويب الاختبارات */
     case 'minRec': go('minrec'); break;
@@ -5592,6 +5780,58 @@ document.addEventListener('change', e => {
   if (e.target.hasAttribute && e.target.hasAttribute('data-ai-consent')) { aiPref().consent = e.target.checked; save(); return; }
   const pin = e.target.dataset && e.target.dataset.photoIn;
   if (pin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(photoKey(pin), d)).then(() => { solveOf(pin).photo = 1; save(); render(); toast('أُرفقت صورة حلّك.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
+  const avin = e.target.dataset && e.target.dataset.avatarIn;
+  if (avin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(avKey(avin), d)).then(() => { const s = DB.students.find(x => x.id === avin); if (s) s.photo = 1; save(); render(); toast('حُفظت صورتك الشخصية.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
+  if (S.view === 'export' && S.exp && ['expSubj', 'expCh', 'expTopic', 'expSeg'].includes(e.target.id)) {
+    const x = S.exp, val = e.target.value;
+    if (e.target.id === 'expSubj') { const d = defaultExp(x.lvl, val); x.subject = val; x.ch = d.ch; x.tid = d.tid; }
+    if (e.target.id === 'expCh') { x.ch = val; const ch = findChapter(val).ch; x.tid = (ch.topics.find(t => !isHidden(t.id)) || ch.topics[0]).id; }
+    if (e.target.id === 'expTopic') x.tid = val;
+    if (e.target.id === 'expSeg') x.seg = val;
+    render(); return;
+  }
+  const id = e.target.id, st = me(), v = e.target.value;
+  if (id === 'oStart' && S.onb && v) { S.onb.start = v; render(); }
+  if (id === 'fs') render();
+  if (id === 'sGrade') {
+    st.grade = +v; const g = GRADES[st.grade - 1];
+    st.branch = g.branch ? (st.branch || 'sci') : null;
+    if (!g.ministerial) st.goal = null; else if (!st.goal) st.goal = 90;
+    st.examDate = null; save(); render(); toast('تغيّر صفك إلى ' + g.name + '.');
+  }
+  if (id === 'sStart' && v) { st.start = v; save(); toast('أُعيد حساب أسابيعك.'); }
+  if (id === 'sExam' && v) { st.examDate = v; save(); toast('حُفظ موعد امتحانك.'); }
+  if (id === 'impFile' && e.target.files[0]) {
+    const r = new FileReader(); r.onload = () => doImport(String(r.result)); r.readAsText(e.target.files[0]);
+  }
+});
+
+/* =================== النسخ الاحتياطي =================== */
+function doExport() {
+  const data = JSON.stringify({ app: 'study-app', schema: SCHEMA, exported: new Date().toISOString(), db: DB });
+  const box = document.getElementById('expBox'), ta = document.getElementById('expText');
+  ta.value = data; box.hidden = false;
+  saveFile('نسخة-احتياطية-' + isoD(new Date()) + '.json', data, 'application/json');
+}
+function doImport(text) {
+  let o;
+  try { o = JSON.parse(text); } catch (err) { toast('هذا النص ليس نسخة احتياطية صالحة. تأكد أنك نسخته كاملًا.'); return; }
+  if (!o || o.app !== 'study-app' || !o.db || !Array.isArray(o.db.students)) { toast('الملف لا يخص هذا التطبيق.'); return; }
+  S.dialog = { title: 'استرجاع النسخة الاحتياطية؟', text: 'فيها ' + ar(o.db.students.length) + ' طالب. ستحل محل كل ما على هذا الجهاز الآن.', ok: 'استرجع', danger: false,
+    run: () => { DB = Object.assign(freshDB(), o.db, { schema: SCHEMA }); save(); S.stack = []; S.view = 'today'; toast('استُرجعت النسخة الاحتياطية.'); } };
+  render();
+}
+
+/* =================== التشغيل =================== */
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+}
+try { history.replaceState({ d: 0 }, ''); } catch (e) {}
+render();
+</script>
+</body>
+</html>
+ender(); toast('أُرفقت صورة حلّك.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
   const avin = e.target.dataset && e.target.dataset.avatarIn;
   if (avin && e.target.files && e.target.files[0]) { shrinkPhoto(e.target.files[0]).then(d => MEDIA.put(avKey(avin), d)).then(() => { const s = DB.students.find(x => x.id === avin); if (s) s.photo = 1; save(); render(); toast('حُفظت صورتك الشخصية.'); }).catch(() => toast('تعذّر حفظ الصورة.')); return; }
   if (S.view === 'export' && S.exp && ['expSubj', 'expCh', 'expTopic', 'expSeg'].includes(e.target.id)) {

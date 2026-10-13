@@ -571,6 +571,75 @@ T('سجل التهيئة الشاملة', () => {
   return true;
 });
 
+/* الرسوم التفاعلية (النقطة ٨): تقريب وشرح بالضغط وبناء خطوة بخطوة */
+T('الرسوم التفاعلية', () => {
+  const out = run(`(function(){ try {
+    const ks = Object.keys(FIGS);
+    if (ks.length < 12) return { __fail: 'عدد الرسوم قليل: ' + ks.length };
+    /* كل رسم: صورة + ما يعلّمه + أجزاء قابلة للشرح + خطوات رسم */
+    ks.forEach(k => {
+      const f = FIGS[k];
+      if (!f.svg || f.svg.indexOf('<svg') < 0) throw new Error('رسم بلا svg: ' + k);
+      if (!f.title || !f.teaches) throw new Error('رسم بلا عنوان أو بلا «ماذا يعلّمك»: ' + k);
+      if (!f.parts || !f.parts.length) throw new Error('رسم بلا أجزاء للشرح: ' + k);
+      if (!f.steps || f.steps.length < 3) throw new Error('رسم بأقل من ثلاث خطوات: ' + k);
+      f.parts.forEach(p => { if (typeof p.x !== 'number' || !p.label || !p.note) throw new Error('جزء ناقص في ' + k); });
+    });
+    /* بطاقة الرسم داخل موضوع: نقاط مرقّمة + فائدة + فتح ملء الشاشة */
+    let withFig = null;
+    gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (!withFig && (t.explain || []).some(b => b.t === 'fig')) withFig = { subject: y.subject, ch: ch, t: t };
+    })));
+    if (!withFig) return { __fail: 'لا موضوع فيه رسم' };
+    /* كل مفتاح رسم مستعمل في المحتوى موجود فعلًا في مكتبة الرسوم */
+    const unknown = [];
+    gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => ch.topics.forEach(t =>
+      (t.explain || []).forEach(b => { if (b.t === 'fig' && !FIGS[b.k]) unknown.push(y.subject + '/' + t.id + ':' + b.k); }))));
+    if (unknown.length) return { __fail: 'رسوم مفقودة: ' + unknown.join(', ') };
+    S.viewGrade = me().grade; S.viewSubject = withFig.subject; S.viewChapter = withFig.ch.id; S.viewTopic = withFig.t.id;
+    const topic = String(VIEWS.topic());
+    ['fig-vp', 'fhot', 'ماذا يعلّمك هذا الرسم', 'data-act="figFull"'].forEach(k => {
+      if (topic.indexOf(k) < 0) throw new Error('عنصر مفقود في صفحة الموضوع: ' + k);
+    });
+    if (/undefined|NaN/.test(topic)) throw new Error('undefined في صفحة موضوع فيه رسم');
+    /* شاشة ملء الشاشة: الشرح + قائمة الأجزاء + بناء الرسم خطوة خطوة */
+    const fk = withFig.t.explain.filter(b => b.t === 'fig')[0].k;
+    S.figK = fk; S.figDraw = null; S.view = 'fig';
+    const full = String(VIEWS.fig());
+    ['fig-tools', 'عجلة الفأرة', 'fig-list', 'ماذا يعلّمك هذا الرسم'].forEach(k => {
+      if (k && full.indexOf(k) < 0) throw new Error('عنصر مفقود في شاشة الرسم: ' + k);
+    });
+    /* شرح جزء بالضغط */
+    figSt(fk).part = 0;
+    const ex = figExplHTML(fk);
+    if (ex.indexOf('fig-expl') < 0) throw new Error('شرح الجزء غير معروض');
+    if (ex.indexOf(esc(FIGS[fk].parts[0].label)) < 0) throw new Error('اسم الجزء غير ظاهر');
+    /* البناء خطوة بخطوة: الخطوة الأولى لا تُظهر بقية الخطوات */
+    S.figDraw = fk; figSt(fk).step = 0;
+    const d0 = figDrawHTML(fk);
+    if (d0.indexOf('الخطوة ١ من') < 0 && d0.indexOf('الخطوة 1 من') < 0) throw new Error('عدّاد الخطوات مفقود');
+    if (d0.indexOf('fig-stepview') < 0) throw new Error('منطقة خطوات الرسم مفقودة');
+    /* كل الخطوات معًا تساوي رسم الرسم كاملًا (بلا تعليمات متراكمة) */
+    const st = figSt(fk); st.step = FIGS[fk].steps.length - 1;
+    const dAll = figDrawHTML(fk);
+    if (dAll.indexOf('fig-say') < 0) throw new Error('شرح الخطوة الأخيرة مفقود');
+    st.step = 0; st.part = -1;
+    /* مكتبة الرسوم: كل رسم مصنّف بحسب مادته ومُتاح من هناك */
+    S.view = 'library';
+    const lib = String(VIEWS.library());
+    ['الرسوم التفاعلية', 'لماذا هذا القسم', 'fig-grp', 'data-act="figFull"'].forEach(k => {
+      if (lib.indexOf(k) < 0) throw new Error('عنصر مفقود في مكتبة الرسوم: ' + k);
+    });
+    const groups = Object.keys(FIGS).filter(k => !FIG_SUBJ[k]);
+    if (groups.length) throw new Error('رسوم بلا مادة: ' + groups.join(', '));
+    return { figs: ks.length, parts: FIGS[fk].parts.length, steps: FIGS[fk].steps.length, topic: withFig.t.id };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  if (!out) return { __fail: 'لا نتيجة' };
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

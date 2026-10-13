@@ -180,6 +180,46 @@ VIEWS_LIST.forEach(v => {
   });
 });
 
+/* فروع الشاشة الواحدة: كل مصدر سجل له رسم مستقل، وأعيدنا بناء واحدة منها كاملة */
+const BRANCHES = [
+  ['vLog/stats', `S.logFor='stats'; S.calY=null; S.calM=null; S.calD=null; return String(VIEWS.log());`],
+  ['vLog/today', `S.logFor='today'; return String(VIEWS.log());`],
+  ['vLog/review', `S.logFor='review'; return String(VIEWS.log());`],
+  ['vLog/tests', `S.logFor='tests'; S.logSubject=null; return String(VIEWS.log());`],
+  ['vLog/path', `S.logFor='path'; return String(VIEWS.log());`],
+];
+console.log('\n[فروع إضافية]');
+BRANCHES.forEach(([name, code]) => {
+  T(name, () => {
+    const out = run(`(function(){ try { ${code} } catch(e){ return { __fail: e.message }; } })()`);
+    if (out && out.__fail) return out;
+    if (typeof out !== 'string' || !out.length) return { __fail: 'لم يُرجع نصًّا' };
+    return true;
+  });
+});
+/* أيام حقيقية في التقويم: نزرع نشاطًا في يومين ثم نرسم التقويم وتفاصيل اليوم */
+T('calDay/tmonth', () => {
+  const out = run(`(function(){ try {
+    const d = isoD(new Date());
+    me().log = me().log || [];
+    me().log.push({ d: d, subject: 'الأحياء', sec: 900, type: 'study' });
+    me().log.push({ d: d, subject: 'المراجعة', sec: 0, type: 'review' });
+    me().log.push({ d: isoD(new Date(Date.now()-864e5)), subject: 'الأحياء', sec: 600, type: 'study' });
+    const f = dayFacts(d); if (!f.items) return { __fail: 'dayFacts لم تجد النشاط' };
+    const cal = calGridHTML(new Date().getFullYear(), new Date().getMonth());
+    if (!/cday/.test(cal)) return { __fail: 'التقويم بلا مربعات' };
+    const det = dayDetailHTML(d); if (!/دقائق الدراسة/.test(det)) return { __fail: 'تفاصيل اليوم ناقصة' };
+    const ms = monthStatsHTML(new Date().getFullYear(), new Date().getMonth()); if (!ms) return { __fail: 'إحصاء الشهر فارغ' };
+    S.logFor='stats'; S.calD=d;
+    const v = String(VIEWS.log());
+    if (!/cal-grid/.test(v)) return { __fail: 'الشاشة لا تعرض شبكة التقويم' };
+    if (!/تفاصيل اليوم/.test(v)) return { __fail: 'الشاشة لا تعرض قسم تفاصيل اليوم' };
+    return true;
+  } catch(e){ return { __fail: e.message }; } })()`);
+  if (out && out.__fail) return out;
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

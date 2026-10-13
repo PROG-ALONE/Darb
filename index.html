@@ -193,6 +193,27 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .kcal .kday.mid{background:var(--gold-soft);border-color:var(--gold-line);color:var(--gold)}
 .kcal .kday.weak{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
 
+/* تقويم السجل: مربع لكل يوم بلون إنجازه، يُضغط ليُفتح تفصيله */
+.cal-wrap{margin-top:12px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-wd{font-size:.72em;text-align:center;color:var(--muted);font-weight:600;padding-bottom:2px}
+.cday{position:relative;aspect-ratio:1;min-height:40px;border:1px solid var(--line);border-radius:10px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.9em;font-weight:600;color:var(--muted);cursor:pointer;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.cday:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.cday .cdot{width:7px;height:7px;border-radius:50%;background:var(--acc);display:block}
+.cday.out{opacity:.32;background:transparent;border-style:dashed;cursor:default}
+.cday.good{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.cday.good .cdot{background:var(--ok)}
+.cday.mid{background:var(--gold-soft);border-color:var(--gold-line);color:var(--gold)}
+.cday.mid .cdot{background:var(--gold)}
+.cday.weak{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.cday.weak .cdot{background:var(--bad)}
+.cday.sel{outline:2px solid var(--acc);outline-offset:2px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.ctoday{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--acc)}
+.chip.sm{min-height:34px;padding:0 12px;font-size:.85em}
+.sub{margin:16px 0 8px;font-size:.95em;font-weight:700;color:var(--ink)}
+.pbar{height:8px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line);margin-top:8px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--acc));border-radius:999px}
+
 /* نظام إدخال الإجابة الرقمي */
 .answer-pad{display:flex;flex-direction:column;gap:8px;margin:12px 0}
 .answer-display{font-size:1.5em;text-align:center;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--bg);min-height:56px;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--ink)}
@@ -1678,6 +1699,120 @@ function vMinPrep() {
     }).join('') + '</main>';
 }
 function examSubj(src) { if (src[0] === 't' || src[0] === 'c') { const f = src[0] === 't' ? findTopic(src.slice(2)) : findChapter(src.slice(2)); return f ? f.key.split(':')[2] : null; } return null; }
+/* ————— سجلّي: تقويم بأيامه وإحصاء كل يوم على حدة ————— */
+/* كل ما جرى في يوم واحد: المسائل ونتيجتها، والمراجعات والدروس، والاختبارات ونواتجها.
+   نبني منه بطاقة اليوم كاملة بالتفاصيل، لا سطر «مراجعة» واحدًا كما كان. */
+function dayFacts(d) {
+  const st = me();
+  const f = { d, ok: 0, bad: 0, rev: 0, study: 0, log: [], problems: [], exams: [], quizzes: [] };
+  Object.keys(st.solves || {}).forEach(k => {
+    const v = st.solves[k]; if (!v || !v.started) return; if (isoD(new Date(v.started)) !== d) return;
+    if (v.self === 'ok') f.ok++; else if (v.self === 'bad' || v.self === 'none') f.bad++;
+    f.problems.push({ k, v, info: findProblem(k) });
+  });
+  (st.log || []).forEach(x => { if (x.d !== d) return; f.log.push(x); if (x.type === 'review') f.rev++; if (x.type === 'study') f.study += x.sec || 0; });
+  (st.exams || []).forEach(e => { if (isoD(new Date(e.at)) === d) f.exams.push(e); });
+  Object.keys(st.progress || {}).forEach(tid => { const p = st.progress[tid]; if (p && p.quiz && p.quiz.at && isoD(new Date(p.quiz.at)) === d) f.quizzes.push({ tid, q: p.quiz }); });
+  f.probs = f.ok + f.bad;
+  f.pct = f.probs ? Math.round(f.ok / f.probs * 100) : 0;
+  f.items = f.probs + f.rev + f.exams.length + f.quizzes.length + (f.study ? 1 : 0);
+  return f;
+}
+/* لون اليوم في التقويم: أخضر إنجاز، ذهبي متوسط، أحمر أخطاء أكثر، ورمادي بلا نشاط */
+function dayLevel(f) {
+  if (!f.items) return '';
+  if (f.probs) return f.pct >= 80 ? 'good' : f.pct >= 50 ? 'mid' : 'weak';
+  return (f.study >= 600 || f.exams.length) ? 'good' : 'mid';
+}
+/* الأيام التي حصل فيها نشاط — لتقييد أزرار السنة والشهر على ما هو حقيقي */
+function activityDays() {
+  const st = me(), set = new Set();
+  (st.log || []).forEach(x => { if (x.d) set.add(x.d); });
+  Object.keys(st.solves || {}).forEach(k => { const v = st.solves[k]; if (v && v.started) set.add(isoD(new Date(v.started))); });
+  (st.exams || []).forEach(e => set.add(isoD(new Date(e.at))));
+  return set;
+}
+function calState() {
+  const t = new Date();
+  if (S.calY == null) S.calY = t.getFullYear();
+  if (S.calM == null) S.calM = t.getMonth();
+  if (S.calD == null) S.calD = isoD(t);
+  return { y: S.calY, m: S.calM, d: S.calD };
+}
+/* شبكة الشهر: رؤوس الأيام + مربع لكل يوم بلون نشاطه ونسبة دقّته */
+function calGridHTML(y, m) {
+  const act = activityDays();
+  const first = new Date(y, m, 1), lead = first.getDay(), total = new Date(y, m + 1, 0).getDate();
+  const t = today0(), isCur = y === t.getFullYear() && m === t.getMonth();
+  let h = '<div class="cal-grid" role="grid" aria-label="أيام ' + MONTHS[m] + ' ' + ar(y) + '">' +
+    DAYS.map(w => '<span class="cal-wd">' + w.slice(0, 3) + '</span>').join('');
+  for (let i = 0; i < lead; i++) h += '<span class="cday out" aria-hidden="true"></span>';
+  for (let n = 1; n <= total; n++) {
+    const ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0');
+    const future = ds > isoD(t);
+    const lvl = act.has(ds) ? dayLevel(dayFacts(ds)) : '';
+    const sel = ds === S.calD;
+    h += '<button class="cday' + (lvl ? ' ' + lvl : '') + (sel ? ' sel' : '') + (future ? ' out' : '') + '"' +
+      (future ? ' disabled' : ' data-act="calDay" data-d="' + ds + '"') +
+      ' aria-label="' + fmtD(parseD(ds)) + (lvl ? ' · نشاط' : ' · بلا نشاط') + '"' + (sel ? ' aria-current="date"' : '') + '>' +
+      '<b>' + ar(n) + '</b>' + (lvl ? '<i class="cdot"></i>' : '') +
+      (isCur && n === t.getDate() ? '<em class="ctoday"></em>' : '') + '</button>';
+  }
+  return h + '</div>';
+}
+/* تفصيل يوم واحد: كل مسألة وكل مراجعة وكل اختبار فيه، بتفاصيله لا بجملة واحدة */
+function dayDetailHTML(d) {
+  const f = dayFacts(d), stat = (lab, val, cls) => '<div class="stat"><span class="muted small">' + lab + '</span><b class="num' + (cls ? ' ' + cls : '') + '">' + val + '</b></div>';
+  if (!f.items && !f.log.length) return '<div class="empty">' + ico('sun', 1.3) + '<b>يوم بلا نشاط</b><p>لم تسجّل في هذا اليوم مسألة ولا مراجعة ولا اختبارًا. ابدأ اليوم بخطوة صغيرة.</p></div>';
+  let h = '<div class="grid2">' +
+    stat('دقائق الدراسة', ar(Math.round(f.study / 60))) +
+    stat('مسائل محلولة', f.probs ? ar(f.ok) + ' ✓ <span class="muted">/ ' + ar(f.probs) + '</span>' : '—', f.probs ? (f.pct >= 70 ? 'ok' : 'bad') : '') +
+    stat('مراجعات', ar(f.rev)) +
+    stat('اختبارات', ar(f.exams.length + f.quizzes.length)) + '</div>';
+  if (f.probs) h += '<div class="pbar" role="img" aria-label="دقة يوم ' + ar(+d.slice(8)) + ' ' + ar(f.pct) + ' بالمئة"><i style="width:' + Math.max(3, f.pct) + '%"></i></div><p class="small muted">دقة يومك: <b class="num">' + ar(f.pct) + '٪</b>' + (f.pct >= 80 ? ' — يوم ممتاز.' : f.pct >= 50 ? ' — لا بأس، راجع أخطاءك.' : ' — راجع ما أخطأت فيه قبل أن تمضي.') + '</p>';
+  if (f.problems.length) {
+    h += '<h3 class="sub">المسائل (' + ar(f.problems.length) + ')</h3><div class="plist">' + f.problems.map(x => {
+      const info = x.info, ok = x.v.self === 'ok';
+      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (ok ? 'ok' : x.v.self ? 'bad' : '') + '">' + (ok ? '✓' : x.v.self ? '!' : '•') + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + (info ? esc(info.subject) : 'مسائل') + '</b><br><span class="small muted">' + (info ? esc(fm(info.p.text)).slice(0, 90) : esc(x.k)) + (x.v.used ? ' · ' + mmss(x.v.used) : '') + '</span></span>' +
+        '<span class="small muted">' + (ok ? 'صحيحة' : x.v.self === 'bad' ? 'خطأ' : x.v.self === 'none' ? 'لم أصل للحل' : 'بدأها فقط') + '</span></div>';
+    }).join('') + '</div>';
+  }
+  if (f.quizzes.length) {
+    h += '<h3 class="sub">اختبارات المواضيع (' + ar(f.quizzes.length) + ')</h3><div class="plist">' + f.quizzes.map(x => {
+      const g = findTopic(x.tid), best = x.q.best || 0;
+      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (best >= 70 ? 'ok' : 'bad') + '">' + ar(best) + '٪</span>' +
+        '<span style="flex:1;min-width:0"><b>' + (g ? esc(g.t.title) : 'موضوع') + '</b><br><span class="small muted">' + (g ? esc(g.ch.title) : '') + '</span></span>' +
+        '<span class="small muted num">' + fmtD(new Date(x.q.at)) + '</span></div>';
+    }).join('') + '</div>';
+  }
+  if (f.exams.length) {
+    h += '<h3 class="sub">امتحانات (' + ar(f.exams.length) + ')</h3><div class="plist">' + f.exams.map(e =>
+      '<div class="pitem" style="pointer-events:none"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span>' +
+      '<span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + ar(e.n) + ' سؤالًا · ' + fmtD(new Date(e.at)) + '</span></span></div>').join('') + '</div>';
+  }
+  const logs = f.log.filter(x => x.type !== 'review');
+  if (logs.length) h += '<h3 class="sub">أخرى (' + ar(logs.length) + ')</h3><div class="plist">' + logs.map(x =>
+    '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc({ problem: 'مسألة', study: 'دراسة', quiz: 'اختبار' }[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span></div>').join('') + '</div>';
+  if (f.rev) h += '<p class="small muted">' + ar(f.rev) + ' مراجعة استحقّها جدول المراجعة في هذا اليوم.</p>';
+  return h;
+}
+/* إحصاء الشهر المعروض: يشبه أرقام وزارياتي — أيام فعلية ودقائق ودقة */
+function monthStatsHTML(y, m) {
+  const p2 = String(m + 1).padStart(2, '0'), pre = y + '-' + p2 + '-';
+  const days = activityDays(), mine = [...days].filter(d => d.startsWith(pre)).sort();
+  let ok = 0, bad = 0, rev = 0, study = 0, exams = 0;
+  mine.forEach(d => { const f = dayFacts(d); ok += f.ok; bad += f.bad; rev += f.rev; study += f.study; exams += f.exams.length; });
+  const probs = ok + bad, acc = probs ? Math.round(ok / probs * 100) : 0, total = new Date(y, m + 1, 0).getDate();
+  const cell = (lab, v, sub, cls) => '<div class="stat"><span class="muted small">' + lab + '</span><b class="num' + (cls ? ' ' + cls : '') + '">' + v + '</b>' + (sub ? '<span class="small muted">' + sub + '</span>' : '') + '</div>';
+  return '<div class="grid2">' +
+    cell('أيام فعلية', ar(mine.length), 'من ' + ar(total) + ' يومًا', mine.length >= total * 0.6 ? 'ok' : '') +
+    cell('دقة الحلول', acc ? ar(acc) + '٪' : '—', probs ? ar(ok) + ' من ' + ar(probs) : 'لا مسائل', acc >= 70 ? 'ok' : probs ? 'bad' : '') +
+    cell('دقائق الدراسة', ar(Math.round(study / 60)), 'مجموع الشهر') +
+    cell('مراجعات', ar(rev), 'استحقّتها') +
+    cell('امتحانات', ar(exams), 'أنهيتها') +
+    cell('تسلسلك', ar(streakDays()), 'أيام متتالية', 'acc') + '</div>';
+}
 function vLog() {
   const st = me(), src = S.logFor || 'today', subject = S.logSubject || null;
   const types = { problem: 'مسألة', review: 'مراجعة', study: 'دراسة', quiz: 'اختبار' };
@@ -1687,12 +1822,32 @@ function vLog() {
     title = 'سجل المراجعة';
     body = '<section class="card"><h2>سجل المراجعة</h2><p class="small muted">كل يوم ماذا راجعت، مع فلاتر حسب الفترة وفك تفاصيل كل يوم.</p>' + reviewLogHTML() + '</section>';
   } else if (src === 'stats') {
+    /* التقويم أولًا: اختار سنة ثم شهرًا ثم يومًا، فيُفتح تفصيل ذلك اليوم كاملًا */
     title = 'سجلّي والتقييم';
-    const log = (st.log || []).slice().reverse().slice(0, 60);
-    body = achievementsHTML() + activityChartsHTML() +
-      '<section class="card"><h2>الرزنامة</h2><p class="small muted">آخر ٢٨ يومًا: لون كل يوم يعكس نسبة إنجازك فيه، وتمرّر فوقه لتفاصيله.</p>' + calendarStripHTML() + '</section>' +
-      '<section class="card"><h2>آخر نشاط</h2><p class="small muted">أحدث ٦٠ حركة مسجلة: كل مسألة ومراجعة واختبار ودراسة.</p>' +
-      (log.length ? '<div class="plist">' + log.map(row).join('') + '</div>' : '<div class="empty">' + ico('sun', 1.3) + '<b>لا نشاط بعد</b><p>ابدأ بحل مسألة أو دراسة موضوع، وسيُسجَّل هنا فورًا.</p></div>') + '</section>';
+    const c = calState(), t = today0();
+    const act = activityDays();
+    const years = [...new Set([...act].map(d => +d.slice(0, 4)).concat([t.getFullYear()]))].sort((a, b) => b - a);
+    const months = MONTHS.map((nm, i) => {
+      const pre = c.y + '-' + String(i + 1).padStart(2, '0') + '-';
+      const n = [...act].filter(d => d.startsWith(pre)).length;
+      return '<button class="chip" data-act="calMonth" data-m="' + i + '" aria-pressed="' + (i === c.m) + '">' + nm + (n ? ' <span class="num">' + ar(n) + '</span>' : '') + '</button>';
+    }).join('');
+    const dayList = [...act].filter(d => d.startsWith(c.y + '-' + String(c.m + 1).padStart(2, '0') + '-')).sort().reverse();
+    body =
+      accSec('cal-pick', 'اختر يومًا', MONTHS[c.m] + ' ' + ar(c.y) + ' · ' + ar(dayList.length) + ' يوم نشِط',
+        '<p class="small muted">السنة ثم الشهر ثم يومًا من التقويم. كل مربع يوم، ولونه يدلّ على ما أنجزته فيه.</p>' +
+        '<div class="chips">' + years.map(y => '<button class="chip" data-act="calYear" data-y="' + y + '" aria-pressed="' + (y === c.y) + '">' + ar(y) + '</button>').join('') + '</div>' +
+        '<div class="chips">' + months + '</div>' +
+        '<div class="cal-wrap">' + calGridHTML(c.y, c.m) + '</div>' +
+        '<div class="dlegend"><span><i class="good"></i> إنجاز</span><span><i class="mid"></i> متوسط</span><span><i class="weak"></i> أخطاء أكثر</span><span><i></i> بلا نشاط</span></div>' +
+        (dayList.length ? '<p class="small muted">أيام نشِطة هذا الشهر: ' + dayList.map(d => '<button class="chip sm" data-act="calDay" data-d="' + d + '">' + ar(+d.slice(8)) + '</button>').join('') + '</p>' : ''),
+        true) +
+      accSec('cal-day', 'تفاصيل اليوم', fmtD(parseD(c.d)), dayDetailHTML(c.d), true) +
+      accSec('cal-month', 'إحصاء الشهر', MONTHS[c.m] + ' ' + ar(c.y), monthStatsHTML(c.y, c.m), true) +
+      accSec('cal-strip', 'آخر ١٤ يومًا', 'مقارنة سريعة', activityChartsHTML(), false) +
+      achievementsHTML() +
+      '<section class="card"><h2>آخر نشاط</h2><p class="small muted">أحدث ٦٠ حركة مسجلة.</p>' +
+      ((st.log || []).length ? '<div class="plist">' + (st.log || []).slice().reverse().slice(0, 60).map(row).join('') + '</div>' : '<div class="empty">' + ico('sun', 1.3) + '<b>لا نشاط بعد</b><p>ابدأ بحل مسألة أو دراسة موضوع، وسيُسجَّل هنا فورًا.</p></div>') + '</section>';
   } else if (src === 'today') {
     const d = isoD(new Date()), log = (st.log || []).filter(x => x.d === d).reverse();
     title = 'سجل اليوم';
@@ -4474,6 +4629,9 @@ document.addEventListener('click', e => {
     case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; render(true); break;
     case 'acc': S.acc = S.acc || {}; S.acc[el.dataset.k] = !S.acc[el.dataset.k]; render(); break;
+    case 'calYear': S.calY = +el.dataset.y; S.calM = Math.min(S.calM, 11); S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;
+    case 'calMonth': S.calM = +el.dataset.m; S.calD = S.calY + '-' + String(S.calM + 1).padStart(2, '0') + '-01'; render(); break;
+    case 'calDay': S.calD = el.dataset.d; { const p = parseD(el.dataset.d); S.calY = p.getFullYear(); S.calM = p.getMonth(); } S.acc = S.acc || {}; S.acc['cal-day'] = true; render(); break;
     case 'revLog': S.revLog = el.dataset.v; render(); break;
     case 'openLog': S.logFor = el.dataset.v; S.logSubject = null; go('log'); break;
     case 'testsLog': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;

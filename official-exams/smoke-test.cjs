@@ -220,6 +220,30 @@ T('calDay/tmonth', () => {
   return true;
 });
 
+/* قفل اختبار الفصل الشامل والوزاري (النقطة ٤) */
+T('قفل الاختبار الشامل', () => {
+  const out = run(`(function(){ try {
+    const g = gradeContents(me().grade)[0]; if (!g) return { __fail: 'لا محتوى' };
+    const ch = g.c.chapters[0]; const ts = ch.topics.filter(t => !isHidden(t.id));
+    if (!ts.length) return { __fail: 'فصل بلا مواضيع' };
+    const l1 = chTestUnlocked(ts);
+    if (!l1) return { __fail: 'كان مفتوحًا قبل إتمام المواضيع' };
+    ts.forEach(t => { const p = progOf(t.id); p.seen = p.seen || {}; SEGS.forEach(s => { if (segHas(t, s[0])) p.seen[s[0]] = 1; }); p.quiz = p.quiz || { best: 0, last: 0, at: Date.now() }; p.quiz.at = Date.now(); p.quiz.best = 100; p.quiz.last = 100; });
+    flushSave(); /* يُبطل ذاكرة topicPct المؤقتة */
+    const l2 = chTestUnlocked(ts);
+    if (l2) return { __fail: 'بقي مقفلًا بعد الإتمام: ' + l2 };
+    /* شاشة الفصل تعرض ملاحظة القفل قبل الإتمام */
+    ts.forEach(t => { const p = progOf(t.id); delete p.quiz; });
+    S.viewGrade = me().grade; S.viewSubject = g.subject; S.viewChapter = ch.id;
+    const h = String(VIEWS.chapter());
+    if (!/مقفل/.test(h)) return { __fail: 'لا ملاحظة قفل في شاشة الفصل' };
+    if (!/chTestLocked/.test(h)) return { __fail: 'النجمة ليست مغلقة' };
+    return true;
+  } catch(e){ return { __fail: e.message }; } })()`);
+  if (out && out.__fail) return out;
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

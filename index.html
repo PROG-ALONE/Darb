@@ -129,6 +129,10 @@ a{color:var(--acc)}
 .bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
 .bar>span{display:block;height:100%;border-radius:999px;background:var(--ok);transition:width .4s}
 .note{font-size:.85em;color:var(--muted)}
+.lock-note{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-top:12px;border:1px dashed var(--gold-line);background:var(--gold-soft);color:var(--gold);border-radius:14px;line-height:1.8}
+.lock-note b{color:var(--gold)}
+.lock-note .small{color:var(--muted)}
+.lock-note svg{flex-shrink:0;margin-top:4px}
 .empty{border:1.5px dashed var(--line);border-radius:18px;padding:28px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted)}
 .empty svg{width:44px;height:44px;color:var(--acc)}
 .empty b{color:var(--ink);font-size:1.05em}
@@ -1450,10 +1454,10 @@ function vSubject() {
     });
     const starSt = (mT && mT.best != null && mT.best >= 60) ? 'done' : (mN && chDone ? 'next' : 'lock');
     const starSub = mN
-      ? ar(mN) + ' سؤالًا · ' + (mT && mT.best != null ? 'أفضل ' + ar(mT.best) + '٪' : (starSt === 'next' ? 'ابدأ تهيئتك' : 'من الدورات السابقة'))
+      ? ar(mN) + ' سؤالًا · ' + (mT && mT.best != null ? 'أفضل ' + ar(mT.best) + '٪' : (starSt === 'lock' ? 'يُفتح بعد إتمام كل الفصول' : 'ابدأ تهيئتك'))
       : 'قيد البناء';
     items.push({ k: 'star', st: starSt, mark: starSt === 'done' ? '✓' : '★', name: 'الوزاري', sub: starSub,
-      attrs: mN ? 'data-act="openBank" data-s="' + esc(s) + '"' : 'data-act="soon"' });
+      attrs: !mN ? 'data-act="soon"' : starSt === 'lock' ? 'data-act="minLocked" data-s="' + esc(s) + '"' : 'data-act="openBank" data-s="' + esc(s) + '"' });
     map = '<section class="map-card"><div class="map-h"><div><span class="small muted">' + esc(g.name) + '</span><h2>مسار ' + esc(s) + '</h2></div>' + playBtn + '</div>' + pathMap(items, 's:' + key) + '</section>';
   }
   const hiddenAll = c ? c.chapters.flatMap(ch => ch.topics.filter(t => isHidden(t.id))) : [];
@@ -1510,6 +1514,15 @@ function ministerialChapterBest(subject, chId) {
   return hit.length ? Math.max.apply(null, hit.map(x => x.pct)) : 0;
 }
 
+/* اختبار الفصل الشامل لا يُفتح إلّا بعد إتمام ما قبله: كل مواضيعه مُختبَرة وبلغت ٦٠٪ فأعلى.
+   تُرجع سبب القفل، أو null إذا كان مفتوحًا. */
+function chTestUnlocked(ts, ch) {
+  const open = ts.filter(t => !isHidden(t.id));
+  if (!open.length) return 'لا مواضيع مفتوحة في هذا الفصل بعد';
+  const left = open.filter(t => { const p = progOf(t.id); return !(p.quiz && p.quiz.at) || topicPct(t) < 60; });
+  if (left.length) return 'بقي ' + ar(left.length) + ' من ' + ar(open.length) + ' مواضيع لم تكتمل دراستها أو اختبارها بعد';
+  return null;
+}
 function vChapter() {
   const f = findChapter(S.viewChapter); if (!f) return vSubject();
   const ch = f.ch, ts = ch.topics.filter(t => !isHidden(t.id)), pct = chPct(ch), tb = (me().tests || {})['c:' + ch.id];
@@ -1522,11 +1535,14 @@ function vChapter() {
     const s2 = mk(!!q);
     items.push({ k: 'small', st: s2, mark: q ? '✓' : '؟', name: 'اختبار ' + t.title, aria: 'اختبار بعد موضوع ' + t.title, sub: q ? ar(q.best) + '٪' : '', attrs: 'data-act="tQuiz" data-id="' + t.id + '"' });
   });
-  items.push({ k: 'star', st: tb ? 'done' : mk(false), mark: '★', name: 'اختبار الفصل الشامل', sub: tb ? 'أفضل نتيجة ' + ar(tb.best) + '٪' : 'كل مواضيع الفصل', attrs: 'data-act="chTest" data-id="' + ch.id + '"' });
+  items.push(chTestUnlocked(ts, ch) === null
+    ? { k: 'star', st: tb ? 'done' : mk(false), mark: '★', name: 'اختبار الفصل الشامل', sub: tb ? 'أفضل نتيجة ' + ar(tb.best) + '٪' : 'كل مواضيع الفصل', attrs: 'data-act="chTest" data-id="' + ch.id + '"' }
+    : { k: 'star', st: 'lock', mark: '★', name: 'اختبار الفصل الشامل', sub: 'مقفل حتى تكمل ما قبله', attrs: 'data-act="chTestLocked" data-id="' + ch.id + '"' });
   const doneT = ts.filter(t => topicPct(t) >= 90).length;
   return topBar(ch.title.split(':')[0], { back: true }) + '<main class="page">' +
     '<div class="t-head"><span class="chap-no">' + ar(ch.no) + '</span><div><h1>' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '')) + '</h1><span class="small muted">' + esc(S.viewSubject || 'الفيزياء') + ' · ' + esc(ch.en) + ' · الكتاب ص' + ar(ch.pages) + '</span></div></div>' +
     '<div class="strip"><span>بعد كل موضوع اختبار تختار عدد أسئلته، وفي آخر الفصل اختبار شامل</span><b class="num">' + ar(doneT) + ' من ' + ar(ts.length) + ' · ' + ar(pct) + '٪</b></div>' +
+    (() => { const lock = chTestUnlocked(ts); return lock ? '<div class="lock-note">' + ico('tests', 1.4) + '<span><b>اختبار الفصل الشامل مقفل</b><br><span class="small">يُفتح بعد ' + esc(lock) + '. ادرس كل موضوع ثم اختبره، فيفتح لك الاختبار الذي يجمع الفصل كله.</span></span></div>' : ''; })() +
     ((ch.goals||[]).length ? '<details class="fold"><summary>ماذا ستتعلم في هذا الفصل؟</summary><div class="inner"><ul class="lst">' + (ch.goals||[]).map(x => '<li>' + fm(x) + '</li>').join('') + '</ul></div></details>' : '') +
     ((ch.terms||[]).length ? '<details class="fold"><summary>المصطلحات العلمية (عربي وإنكليزي)</summary><div class="inner"><div class="tbl-wrap"><table class="tbl"><tbody>' + (ch.terms||[]).map(x => '<tr><td>' + esc(x[0]) + '</td><td>' + fm(x[1]) + '</td></tr>').join('') + '</tbody></table></div></div></details>' : '') +
     '<section class="map-card"><div class="map-h"><h2>مواضيع الفصل</h2>' + playBtn + '</div>' + pathMap(items, 'c:' + ch.id) + '</section>' +
@@ -4704,7 +4720,9 @@ document.addEventListener('click', e => {
     case 'exNext': S.exStep[el.dataset.k] = (S.exStep[el.dataset.k] || 0) + 1; render(); break;
     case 'exAll': S.exStep[el.dataset.k] = +el.dataset.n; render(); break;
     case 'quizStart': if (S.view === 'quiz') { S.stack.pop(); } startQuiz(el.dataset.src, +el.dataset.n); break;
-    case 'chTest': { const ch = findChapter(el.dataset.id).ch; S.chTest = ch.id; S.dialog = { title: 'اختبار ' + ch.title, text: 'أسئلة من كل مواضيع الفصل (عدا ما أخفيته). كم سؤالًا تريد؟', choices: [10, 20, 30].concat([quizPool('c:' + ch.id).length]).filter((v, i, a) => v <= a[a.length - 1] && a.indexOf(v) === i), src: 'c:' + ch.id }; render(); break; }
+    case 'chTest': { const f = findChapter(el.dataset.id); if (!f) break; const lock = chTestUnlocked(f.ch.topics); if (lock) { toast('اختبار الفصل الشامل مقفل: ' + lock + '.'); break; } const ch = f.ch; S.chTest = ch.id; S.dialog = { title: 'اختبار ' + ch.title, text: 'أسئلة من كل مواضيع الفصل (عدا ما أخفيته). كم سؤالًا تريد؟', choices: [10, 20, 30].concat([quizPool('c:' + ch.id).length]).filter((v, i, a) => v <= a[a.length - 1] && a.indexOf(v) === i), src: 'c:' + ch.id }; render(); break; }
+    case 'chTestLocked': { const f = findChapter(el.dataset.id); if (!f) break; toast('مقفل حتى تكمل ما قبله: ' + (chTestUnlocked(f.ch.topics) || '') + '.'); break; }
+    case 'minLocked': { const st = me(), s = el.dataset.s, c = contentOf(st.grade, s); const left = c ? c.chapters.filter(ch => { const ts = ch.topics.filter(t => !isHidden(t.id)); return !ts.length || chPct(ch) < 90 || !(st.tests || {})['c:' + ch.id]; }) : []; toast('الوزاري مقفل: أكمل ' + ar(left.length) + ' فصلًا (٩٠٪ + اختباره) أولًا.'); break; }
     case 'dlgQuiz': { const src = S.dialog.src; S.dialog = null; startQuiz(src, +el.dataset.n); break; }
     case 'quizPick': S.quiz.picks[S.quiz.i] = +el.dataset.o; render(); break;
     case 'quizNext': S.quiz.i++; if (S.quiz.i >= S.quiz.items.length) finishQuiz(); render(true); break;
@@ -4842,7 +4860,6 @@ document.addEventListener('click', e => {
     case 'prob': if (el.dataset.replace) { S.viewProblem = el.dataset.id; render(true); } else go('problem', { viewProblem: el.dataset.id }); break;
     case 'notebook': go('notebook', { viewSubject: el.dataset.s }); break;
     case 'startSolve': startSolve(el.dataset.id); render(); break;
-    case 'finishSolve': { const f = findItem(el.dataset.id); if (f) revealSolve(f.id); break; }
     case 'selfCheck': { const v = solveOf(el.dataset.id); v.self = el.dataset.v; save(); render(); if (v.self === 'ok') toast('أحسنت.'); break; }
     case 'retrySolve': startSolve(el.dataset.id); render(); break;
   }

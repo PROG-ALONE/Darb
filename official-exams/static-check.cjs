@@ -67,7 +67,12 @@ const HANDLER = (() => {
   return SCRIPT.slice(start);
 })();
 const handlerCases = new Set([...HANDLER.matchAll(/case\s+'([A-Za-z0-9_]+)'\s*:/g)].map(m => m[1]));
-const orphan = [...handlerCases].filter(c => !allActs.has(c));
+/* بعض الأفعال تُبنى نصًّا ديناميكيًّا (data-act="' + (last ? 'onbDone' : ...) )
+   فلا يظهر كـ data-act="..." صريح. نعتبر الاسم مستعملًا إن وُرد كنص مفرد أكثر من مرة
+   (المرة الواحدة هي سطر الـ case نفسه، فتكون أفعالًا يتيمة حقيقية). */
+const litCount = {};
+[...SCRIPT.matchAll(/'([A-Za-z0-9_]{3,})'/g)].forEach(m => { litCount[m[1]] = (litCount[m[1]] || 0) + 1; });
+const orphan = [...handlerCases].filter(c => !allActs.has(c) && (litCount[c] || 0) < 2);
 /* نستثني الحالات التي يُبنى زرّها في سكربت خارجي أو يُستدعى برمجيًا */
 const KNOWN_DYNAMIC = new Set(['closeDialog', 'tab', 'back', 'go', 'acc', 'rate']);
 const realOrphan = orphan.filter(c => !KNOWN_DYNAMIC.has(c));
@@ -95,7 +100,9 @@ const GLOBALS = new Set(['window', 'document', 'Math', 'JSON', 'Object', 'Array'
   'parseInt', 'parseFloat', 'isNaN', 'encodeURIComponent', 'decodeURIComponent', 'alert',
   'confirm', 'Blob', 'File', 'FileReader', 'URL', 'indexedDB', 'crypto', 'structuredClone',
   'FormData', 'Headers', 'Request', 'AbortController', 'Image', 'MutationObserver', 'Event',
-  'CustomEvent', 'getComputedStyle', 'matchMedia', 'performance', 'atob', 'btoa']);
+  'CustomEvent', 'getComputedStyle', 'matchMedia', 'performance', 'atob', 'btoa',
+  'addEventListener', 'removeEventListener', 'scrollTo', 'scrollIntoView', 'isFinite',
+  'queueMicrotask', 'isNaN', 'require', 'module', 'process', '__dirname', 'fetch']);
 const defined = new Set(defs.keys());
 /* أي تعريف في أي نطاق (const/let/var/function/params) فهو معرّف — فلا نصوّبه */
 [...SCRIPT.matchAll(/\b(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=/g)].forEach(m => defined.add(m[1]));
@@ -104,18 +111,46 @@ const defined = new Set(defs.keys());
 [...SCRIPT.matchAll(/\bfunction\s+[A-Za-z0-9_$]*\s*\(([^)]*)\)/g)].forEach(m => m[1].split(',').forEach(p => {
   const n = p.replace(/[={].*$/, '').trim(); if (n) defined.add(n);
 }));
+/* معاملات الدوال السهمية والعادية: كل ما بين قوسين ويسبقه { أو => */
+[...SCRIPT.matchAll(/\(([^()]*)\)\s*(?:=>|\{)/g)].forEach(m => m[1].split(',').forEach(p => {
+  const n = p.replace(/^[a-z]+\s+/i, '').replace(/[={].*$/, '').trim();
+  if (/^[A-Za-z_$][\w$]*$/.test(n)) defined.add(n);
+}));
+/* تعدد التعريفات في جملة const واحدة: const a = …, b = … */
+[...SCRIPT.matchAll(/,\s*([A-Za-z_$][\w$]*)\s*=(?!=)/g)].forEach(m => defined.add(m[1]));
+/* صيغة الـ methods في الكائنات: name(args) { … } — مثل FIGS.acgen (ومع async/await) */
+[...SCRIPT.matchAll(/^\s*(?:async\s+|get\s+|set\s+)?([A-Za-z_$][\w$]*)\s*\([^()]*\)\s*\{/gm)].forEach(m => defined.add(m[1]));
 /* دوال سهمية ومعاملات حلقات الدوال داخل الكائنات */
 [...SCRIPT.matchAll(/(?:=>|\()\s*\{?\s*([A-Za-z0-9_$]+)\s*(?:,|\)|=>)/g)].forEach(m => defined.add(m[1]));
 [...SCRIPT.matchAll(/window\.([A-Za-z0-9_$]+)\s*=/g)].forEach(m => defined.add(m[1]));
 
 /* نلتقط استدعاء الدالة الحقيقية: أول حرف في اسم الدالة، وما قبله ليس قيمة ولا نقطة.
-   النمط (foo( — لكن ليس obj.foo( ولا "foo"( ولا a+foo( بعد قيمة. */
+   النمط (foo( — لكن ليس obj.foo( ولا "foo"( ولا a+foo( بعد قيمة.
+   الأهم: نُفرغ النصوص والتعليقات أولًا، وإلّا التُقطت بناءً CSS داخل نصوص JS
+   (rgba( ، repeat( ، gradient() وكأنها استدعاءات حقيقية. */
+const blank = src => {
+  let out = '', i = 0;
+  while (i < src.length) {
+    const c = src[i];
+    if (c === '/' && src[i + 1] === '/') { while (i < src.length && src[i] !== '\n') { out += ' '; i++; } continue; }
+    if (c === '/' && src[i + 1] === '*') { i += 2; while (i < src.length && !(src[i] === '*' && src[i + 1] === '/')) { out += src[i] === '\n' ? '\n' : ' '; i++; } i += 2; out += '  '; continue; }
+    if (c === '"' || c === "'" || c === '`') {
+      const q = c; out += ' '; i++;
+      while (i < src.length && src[i] !== q) { if (src[i] === '\\') { out += '  '; i += 2; continue; } out += src[i] === '\n' ? '\n' : ' '; i++; }
+      out += ' '; i++; continue;
+    }
+    out += c; i++;
+  }
+  return out;
+};
+const CODE = blank(SCRIPT);
 const called = new Set();
 const CALL_RE = /(?:^|[^\w.$'"`)\],]|=>\s*|return\s+|;\s*)([A-Za-z_$][A-Za-z0-9_$]*)\s*\(/g;
 let cm;
-while ((cm = CALL_RE.exec(SCRIPT)) !== null) called.add(cm[1]);
+while ((cm = CALL_RE.exec(CODE)) !== null) called.add(cm[1]);
 const KEYWORDS = new Set(['if', 'for', 'while', 'switch', 'catch', 'return', 'typeof', 'function',
-  'new', 'do', 'else', 'await', 'throw', 'in', 'of', 'case', 'delete', 'void', 'yield', 'as']);
+  'new', 'do', 'else', 'await', 'throw', 'in', 'of', 'case', 'delete', 'void', 'yield', 'as', 'var',
+  'async', 'get', 'set']);
 const missing = [...called].filter(c => !defined.has(c) && !GLOBALS.has(c) && !KEYWORDS.has(c));
 if (missing.length) bad('استدعاء غير معرّف', missing.slice(0, 25).join('، ') + (missing.length > 25 ? ' …' : ''));
 else ok('الاستدعاءات', 'كل دالة معرّفة');

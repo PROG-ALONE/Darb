@@ -1830,6 +1830,28 @@ function qGroup(x) {
 }
 function qChId(x) { return qGroup(x).chId; }
 function qTid(x) { return qGroup(x).tKey; }
+/* بيانات السؤال الوزاري: الفصل المرتبط به (إن وُجد بالتحليل) + نوعه وزمنه ومصدره */
+function bankMeta(x) {
+  const q = x.q || {}, t = x.tid ? findTopic(x.tid) : null;
+  const chTitle = q.ch || (t ? t.ch.title : '');
+  const tpTitle = q.tpT || (t ? ft(t.t.title) : '');
+  const conf = q.mc || (q.ch ? q.mc || 'chapter' : (t ? 'high' : 'none'));
+  const year = q.year || 0, role = q.role && q.role !== 'غير محدد' ? q.role : '';
+  const isMCQ = q.o && q.o.length;
+  const type = q.type || (isMCQ ? 'اختيار من متعدد' : '');
+  const sec = q.time || (isMCQ ? 60 : 120);
+  return { chTitle, tpTitle, conf, year, role, sec, type, letter: q.letter || '', num: q.num || '', fromExam: !!year };
+}
+/* سطر هينت يظهر عند المرور على السؤال: مصدره في الدورات + نوعه + زمنه */
+function bankHint(x) {
+  const m = bankMeta(x), bits = [];
+  bits.push(m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'سؤال من إعداد المنهج لا من دورة سابقة');
+  if (m.type) bits.push('النوع: ' + m.type);
+  bits.push('زمن مقترح: ' + Math.round(m.sec / 60) + ' دقيقة');
+  if (m.chTitle) bits.push('الفصل: ' + m.chTitle.replace(/^[^:]*[:：]\s*/, ''));
+  if (m.letter) bits.push('الفرع ' + m.letter + (m.num ? ' · رقم ' + ar(m.num) : ''));
+  return bits.join(' · ');
+}
 function findChapter(id) { return IDX_CH.get(id) || null; }
 function findProblem(id) { return IDX_PROB.get(id) || null; }
 /* يعزل كل معادلة داخل النص العربي حتى لا ينقلب ترتيبها */
@@ -2443,9 +2465,11 @@ function subjQuizPool(subject) {
 }
 function ministerialPool(subject) {
   const key = contentKey(me().grade, me().branch, subject), out = [];
-  (window.MINISTERIAL_BANK || []).forEach(part => {
+  (window.MINISTERIAL_BANK || []).forEach((part, pi) => {
     if (part.key !== key || !part.questions) return;
-    part.questions.forEach((q, i) => out.push({ q, tid: q.tid || null, key: 'MN:' + key + ':' + i }));
+    /* pi في المفتاح ضروري: أكثر من جزء قد يتشارك المادة نفسها (بنك يدوي + بنك مستخرج)
+       وكان التكرار يجعل مفتاحًا واحدًا يُطابق سؤالين فيحصر التدريب على ضعف ما اختير */
+    part.questions.forEach((q, i) => out.push({ q, tid: q.tid || null, part: pi, key: 'MN:' + key + ':' + pi + ':' + i }));
   });
   return out;
 }
@@ -2473,6 +2497,10 @@ function startExam(kind, subject, n, perQ) {
   }
   if (S.exam && Array.isArray(S.exam.selTopics)) {
     filtered = filtered.filter(x => S.exam.selTopics.includes(qTid(x)));
+  }
+  /* نطاق مجموعات البنك: إن اختار الطالب فصلًا أو دورة من الشاشة السابقة، يُحصر الاختبار فيها */
+  if (S.examScope && Array.isArray(S.examScope.keys)) {
+    filtered = filtered.filter(x => S.examScope.keys.includes(x.key));
   }
   if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
   
@@ -2603,14 +2631,18 @@ function examConfigView(z, title) {
     return { chId, title: g.title, count: g.items.length, topics };
   });
   
-  // الفلترة المجرّبة: تظهر الأعداد حسب النطاق المحدّد (فصول/مواضيع)
+  // الفلترة المجرّبة: تظهر الأعداد حسب النطاق المحدّد (فصول/مواضيع/مجموعة بنك)
   let fpool = pool;
   if (S.exam && Array.isArray(S.exam.selCh)) fpool = fpool.filter(x => S.exam.selCh.includes(qChId(x)));
   if (S.exam && Array.isArray(S.exam.selTopics)) fpool = fpool.filter(x => S.exam.selTopics.includes(qTid(x)));
+  if (S.examScope && Array.isArray(S.examScope.keys)) fpool = fpool.filter(x => S.examScope.keys.includes(x.key));
   const total = fpool.length, counts = [5, 10, 20, 30].filter(n => n < total).concat([total]);
   let h = topBar(title, { back: true }) + '<main class="page">' +
     '<section class="card"><h2>' + esc(EXAM_KINDS[z.kind]) + '</h2><p class="small muted">' + EXAM_DESC[z.kind] + '</p>' +
-    '<p class="small muted num">إجمالي الأسئلة: ' + ar(total) + '</p>';
+    '<p class="small muted num">إجمالي الأسئلة: ' + ar(total) + '</p>' +
+    (S.examScope && Array.isArray(S.examScope.keys)
+      ? '<p class="note">النطاق محصور بمجموعة اخترتها من البنك: <b>' + esc(S.examScope.label || '') + '</b> (' + ar(total) + ' سؤالًا). <button class="btn quiet" data-act="examScopeClear" style="padding:2px 8px">أزِل الحصر</button></p>'
+      : '');
   
   // اختيار الفصول
   h += '<section class="card"><h3>اختر الفصول</h3><p class="small muted">حدّد الفصول التي تريد امتحانها، أو اتركها لاختيار جميعها.</p><div class="chips">';
@@ -2801,44 +2833,85 @@ function vBank() {
     empty('library', 'بنك هذه المادة قيد البناء', 'يُبنى بنك الأسئلة الوزارية الكامل من دورات ٢٠١٦ إلى ٢٠٢٦، ويخدم الطالب (تصفّح وتدريب) والنظام (تهيئة وقياس التطور). تابع تحديثات المحتوى.') +
     (subs.length > 1 ? '<div class="chips">' + subs.map(s => '<button class="chip" data-act="openBank" data-s="' + esc(s) + '" aria-pressed="' + (s === subject) + '">' + esc(s) + '</button>').join('') + '</div>' : '') +
     (subjQuizPool(subject).length ? '<button class="btn quiet" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">تهيئة وزارية من أسئلة المادة</button>' : '') + '</main>';
-  // التجميع: المادة ← الفصل ← الموضوع. غير المربوط بموضوع يُجمَّع حسب الدورة
-  const byCh = {};
+
+  const view = S.bankView === 'year' ? 'year' : 'ch';
+
+  /* التجميع: «بالفصل» يضع كل سؤال في فصله ثم موضوعه — و«بالدورة» يرسم ورقة الاختبار كما هي */
+  const groups = {};
   pool.forEach(x => {
-    const t = x.tid ? findTopic(x.tid) : null;
-    let chId, chTitle, tKey, tLabel;
-    if (t) {
-      chId = t.ch.id; chTitle = t.ch.title; tKey = x.tid; tLabel = ft(t.t.title);
+    const m = bankMeta(x);
+    let gKey, gTitle, sKey, sTitle;
+    if (view === 'ch') {
+      gKey = m.chTitle || 'غير مرتبط بفصل';
+      gTitle = gKey;
+      sKey = m.tpTitle || (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'أسئلة من إعداد المنهج');
+      sTitle = sKey;
     } else {
-      chId = 'bank'; chTitle = 'أسئلة الدورات الوزارية';
-      const yr = x.q && x.q.year;
-      tKey = yr ? 'y' + yr : 'general';
-      tLabel = yr ? 'دورة ' + ar(yr) : 'أسئلة عامة';
+      gKey = m.fromExam ? 'دورة ' + ar(m.year) : 'أسئلة من إعداد المنهج (بلا دورة)';
+      gTitle = gKey;
+      sKey = m.role || 'الدورات';
+      sTitle = sKey;
     }
-    const g = byCh[chId] = byCh[chId] || { title: chTitle, topics: {} };
-    if (!g.topics[tKey]) g.topics[tKey] = { label: tLabel, items: [] };
-    g.topics[tKey].items.push(x);
+    const g = groups[gKey] = groups[gKey] || { title: gTitle, subs: {}, n: 0, linked: 0 };
+    const s = g.subs[sKey] = g.subs[sKey] || { label: sTitle, items: [] };
+    s.items.push(x);
+    g.n++;
+    if (m.chTitle) g.linked++;
   });
+  const ordered = Object.entries(groups).sort((a, b) => {
+    if (view === 'year') return (parseInt(a[0].match(/\d+/) || 0) - parseInt(b[0].match(/\d+/) || 0)) || a[0].localeCompare(b[0], 'ar');
+    if (a[0] === 'غير مرتبط بفصل') return 1;
+    if (b[0] === 'غير مرتبط بفصل') return -1;
+    return b[1].n - a[1].n;
+  });
+
+  const AR_N = n => ar(n);
   let h = topBar('بنك ' + subject + ' الوزاري', { back: true }) + '<main class="page">' +
-    '<div class="strip"><span>بنك الأسئلة الوزارية · مرتّب بالمادة ثم الفصل ثم الموضوع</span><b class="num">' + ar(pool.length) + ' سؤالًا</b></div>' +
+    '<div class="strip"><span>' + (view === 'ch' ? 'مرتّب بالمادة ← الفصل ← الموضوع' : 'مرتّب كما في ورقة الاختبار: الدورة ← الدور') + '</span><b class="num">' + ar(pool.length) + ' سؤالًا</b></div>' +
     (subs.length > 1 ? '<div class="chips" style="margin:10px 0">' + subs.map(s => '<button class="chip" data-act="openBank" data-s="' + esc(s) + '" aria-pressed="' + (s === subject) + '">' + esc(s) + '</button>').join('') + '</div>' : '') +
+    '<div class="chips" style="margin:10px 0"><button class="chip" data-act="bankView" data-v="ch" aria-pressed="' + (view === 'ch') + '">بالفصل</button>' +
+    '<button class="chip" data-act="bankView" data-v="year" aria-pressed="' + (view === 'year') + '">بالدورة</button></div>' +
     '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '">ابدأ تهيئة وزارية</button><button class="btn quiet" data-act="back">رجوع</button></div>' +
     bankInsights(subject);
-  Object.keys(byCh).forEach(chId => {
-    const ch = byCh[chId];
-    const n = Object.values(ch.topics).reduce((a, g) => a + g.items.length, 0);
-    let inner = '';
-    Object.keys(ch.topics).forEach(tid => {
-      const grp = ch.topics[tid];
-      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + esc(grp.label) + ' <span class="muted num">· ' + ar(grp.items.length) + ' سؤال</span></p>' +
-        grp.items.map(x => { const q = x.q; const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
-          if (isOpen) return '<details class="fold"><summary><span>' + fm(q.q) + (q.role && q.role !== 'غير محدد' ? ' <span class="small muted" style="white-space:nowrap">· ' + esc(q.role) + '</span>' : '') + '</span></summary><div class="inner">' +
+
+  ordered.forEach(([gKey, g]) => {
+    const linkedNote = view === 'ch' && gKey !== 'غير مرتبط بفصل'
+      ? '<span class="muted small num">مطابَق بتحليل النص</span>'
+      : (gKey === 'غير مرتبط بفصل' ? '<span class="muted small">لم يُحدَّد فصله بثقة كافية</span>' : '');
+    let inner = '', n = 0;
+    Object.keys(g.subs).forEach(sKey => {
+      const grp = g.subs[sKey];
+      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + esc(grp.label) +
+        ' <span class="muted num">· ' + ar(grp.items.length) + ' سؤال</span></p>';
+      grp.items.forEach(x => {
+        const q = x.q, m = bankMeta(x);
+        n++;
+        const no = '<span class="ol" style="background:transparent;color:var(--muted);border:none;font-weight:700">' + AR_N(n) + '</span>';
+        const typeChip = m.type ? ' <span class="chip" style="pointer-events:none;padding:1px 7px;font-size:11px">' + esc(m.type) + '</span>' : '';
+        const timeChip = ' <span class="small muted num" style="white-space:nowrap">⏱ ' + Math.round(m.sec / 60) + ' د</span>';
+        const srcLine = '<span class="small muted" style="display:block;margin-top:4px">' +
+          (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'من إعداد المنهج — لا يخص دورة معيّنة') +
+          (m.letter ? ' · فرع ' + esc(m.letter) + (m.num ? ' رقم ' + ar(m.num) : '') : '') + '</span>';
+        const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
+        const summaryInner = no + '<span style="flex:1;min-width:0">' + fm(q.q) + typeChip + timeChip + '</span>';
+        if (isOpen) {
+          inner += '<details class="fold" title="' + esc(bankHint(x)) + '"><summary style="display:flex;gap:8px;align-items:flex-start">' + summaryInner + '</summary>' +
+            '<div class="inner">' + srcLine +
             (q.why ? '<p class="a"><b>الحل:</b> ' + fm(q.why) + '</p>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
-            (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>';
-          return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner"><div class="opts" style="pointer-events:none">' +
+            '</div></details>';
+        } else {
+          inner += '<details class="fold" title="' + esc(bankHint(x)) + '"><summary style="display:flex;gap:8px;align-items:flex-start">' + summaryInner + '</summary>' +
+            '<div class="inner">' + srcLine + '<div class="opts" style="pointer-events:none">' +
             q.o.map((o, oi) => '<div class="opt' + (oi === q.c ? ' ok' : '') + '"><span class="ol">' + 'أبجد'[oi] + '</span><span>' + fm(o) + '</span></div>').join('') +
-            '</div><p class="a"><b>السبب:</b> ' + fm(q.why || '') + '</p>' + (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + '</p>' : '') + '</div></details>'; }).join('');
+            '</div>' + (q.why ? '<p class="a"><b>السبب:</b> ' + fm(q.why) + '</p>' : '') + '</div></details>';
+        }
+      });
     });
-    h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2>' + esc(ch.title) + '</h2><span class="muted small num">' + ar(n) + ' سؤال</span></div>' + inner + '</section>';
+    h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
+      '<h2 style="min-width:0">' + esc(g.title) + '</h2><span class="muted small num">' + ar(g.n) + ' سؤال</span></div>' +
+      (linkedNote ? '<p class="small muted" style="margin:2px 0 0">' + linkedNote + '</p>' : '') +
+      '<button class="btn quiet" style="margin-top:8px" data-act="bankTrain" data-s="' + esc(subject) + '" data-g="' + esc(gKey) + '" data-v="' + view + '">تدرّب على هذه المجموعة (' + ar(g.n) + ' سؤال)</button>' +
+      inner + '</section>';
   });
   return h + '</main>';
 }
@@ -4143,7 +4216,8 @@ document.addEventListener('click', e => {
     case 'quizNext': S.quiz.i++; if (S.quiz.i >= S.quiz.items.length) finishQuiz(); render(true); break;
     case 'mixQuiz': { const pl = myStudyPool(); if (pl.length < 5) { toast('ادرس موضوعًا أولًا حتى تظهر أسئلته في «اختباراتي».'); break; } startQuiz('m', Math.min(+el.dataset.n || 10, pl.length)); break; }
     case 'retake': { const src = el.dataset.src, n = +el.dataset.n; if (src === 'm') { const pl = myStudyPool(); if (pl.length < 5) { toast('لا أسئلة كافية مما درسته.'); break; } startQuiz('m', Math.min(n, pl.length)); } else if (src[0] === 'x') { const p = src.split(':'); examConfig(p[2], p[1]); } else startQuiz(src, n); break; }
-    case 'examCfg': examConfig(el.dataset.kind, el.dataset.s); break;
+    case 'examCfg': S.examScope = null; examConfig(el.dataset.kind, el.dataset.s); break;
+    case 'examScopeClear': S.examScope = null; if (S.exam) { S.exam.selCh = null; S.exam.selTopics = null; } render(); break;
     case 'ministerialFull': {
       const s = el.dataset.s;
       const pool = ministerialPool(s);
@@ -4179,6 +4253,23 @@ document.addEventListener('click', e => {
       render(); break;
     }
     case 'openBank': S.bankSubject = el.dataset.s; go('bank'); break;
+    case 'bankView': S.bankView = el.dataset.v; render(); break;
+    case 'bankTrain': {
+      /* يحصر التهيئة الوزارية في مجموعة واحدة من البنك (فصل أو دورة) */
+      const subj = el.dataset.s, gk = el.dataset.g, vw = el.dataset.v;
+      const keys = [];
+      ministerialPool(subj).forEach(x => {
+        const m = bankMeta(x);
+        const hit = vw === 'year'
+          ? ((m.fromExam ? 'دورة ' + ar(m.year) : 'أسئلة من إعداد المنهج (بلا دورة)') === gk)
+          : ((m.chTitle || 'غير مرتبط بفصل') === gk);
+        if (hit) keys.push(x.key);
+      });
+      if (!keys.length) { toast('لا توجد أسئلة في هذه المجموعة.'); break; }
+      S.examScope = { subject: subj, keys, label: gk };
+      examConfig('ministerial', subj);
+      break;
+    }
     case 'subExams': go('subexams'); break;
     case 'minPrep': go('minprep'); break;
     case 'expRevLog': exportLogDoc('review'); break;

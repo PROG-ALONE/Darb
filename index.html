@@ -1042,7 +1042,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all' };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null };
 function go(view, opts) {
   const o = opts || {};
   S.stack.push({ view: S.view, viewGrade: S.viewGrade, viewSubject: S.viewSubject, viewTopic: S.viewTopic, viewProblem: S.viewProblem, viewChapter: S.viewChapter, y: window.scrollY, focus: o.viewTopic || o.viewProblem || o.viewChapter || o.viewSubject || null });
@@ -1106,7 +1106,7 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
 const TABS = [['today', 'الخطة', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
-const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests' };
+const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests', minsim: 'tests' };
 
 function topBar(title, opts) {
   opts = opts || {};
@@ -3119,6 +3119,100 @@ function vMinrec() {
     minRecordHTML(cur, S.minRecTab || 'all') + '</main>';
 }
 
+/* ٧-ط) «المحاكاة الكاملة»: الوزاري الحقيقي ٥–٦ أسئلة فقط، تغطي المادة كلها،
+   ومئتها موزّعة على المسائل والتعريفات والرسوم — لا ٥٠ سؤالًا متناثرًا.
+   نبني الخطة من أنماط الأسئلة المستخرجة من الدورات (bankMeta.type). */
+const SIM_PROB = /احسب|حساب|أعرب|أوصل|رتّب|صحّح|املأ|أجب|اختر|مسألة/;
+const SIM_DRAW = /ارسم|رسمة|مجسم|شكل|خريطة|دائرة|مخطط/;
+const SIM_DEF = /عرّف|تعريف|حدّد|بيّن|اذكر|علّل|اشرح|استنتج|قارن/;
+const SCIENCE = /الرياضيات|الفيزياء|الكيمياء|الأحياء/;
+/* فرّة السؤال: مسألة، أم تعريف، أم رسم — والسؤال العام يُصنَّف حسب المادة */
+function simBucket(q, subject) {
+  const t = (q && q.type || '').trim();
+  if (SIM_DRAW.test(t)) return 'draw';
+  if (SIM_PROB.test(t)) return 'prob';
+  if (SIM_DEF.test(t)) return 'def';
+  return SCIENCE.test(subject) ? 'prob' : 'def';
+}
+const SIM_LABEL = { prob: 'مسائل وحسابات', def: 'تعريفات وتعليلات', draw: 'رسوم ومجسمات', gen: 'أسئلة عامة' };
+/* نقاط كل فرّة: المسائل أغلى، ثم الرسوم، ثم التعريفات — حتى تكتمل ١٠٠ */
+const SIM_WEIGHT = { prob: 3, draw: 3, def: 2, gen: 2 };
+function simPlan(subject) {
+  const pool = ministerialPool(subject);
+  if (!pool.length) return { n: 0, items: [], by: {}, total: 0, sec: 0 };
+  const y = subjEntry(subject);
+  const chs = y ? y.c.chapters.filter(ch => pool.some(x => qChId(x) === ch.id)) : [];
+  /* ٥ أو ٦ أسئلة كما في الوزاري الحقيقي: منتصف عدد الفصول، محصورًا بينهما */
+  const n = Math.max(5, Math.min(6, Math.ceil((chs.length || pool.length) / 2)));
+  /* نوزّع الأسئلة على الفصول بالتناوب حتى تُغطى المادة كلّها لا فصلًا واحدًا */
+  const byCh = {};
+  pool.forEach(x => (byCh[qChId(x)] = byCh[qChId(x)] || []).push(x));
+  const order = Object.keys(byCh).sort((a, b) => byCh[b].length - byCh[a].length);
+  const picked = [];
+  for (let round = 0; round < n && picked.length < n; round++) {
+    for (let k = 0; k < order.length && picked.length < n; k++) {
+      const arr = byCh[order[k]];
+      const cand = arr.filter(x => picked.indexOf(x) < 0);
+      if (!cand.length) continue;
+      /* داخل الفصل ننوّع الفرّ: مسألة ثم تعريف ثم رسم إن وُجد */
+      const want = ['prob', 'def', 'draw', 'prob', 'def', 'draw'][picked.length % 6];
+      let x = cand.find(c => simBucket(c.q, subject) === want) || cand[round % cand.length];
+      picked.push(x);
+    }
+  }
+  /* توزيع ١٠٠ نقطة على ما اخترناه بحسب فرّته */
+  const ws = picked.map(x => SIM_WEIGHT[simBucket(x.q, subject)] || 2);
+  const wSum = ws.reduce((a, b) => a + b, 0) || 1;
+  let left = 100;
+  const pts = ws.map((w, i) => {
+    const v = i === ws.length - 1 ? left : Math.max(5, Math.round(w / wSum * 100));
+    left -= v; return v;
+  });
+  while (left > 0) { pts[0] += 1; left--; }
+  while (left < 0) { const j = pts.indexOf(Math.max.apply(null, pts)); pts[j] -= 1; left++; }
+  const by = {};
+  picked.forEach((x, i) => {
+    const b = simBucket(x.q, subject);
+    by[b] = by[b] || { n: 0, pts: 0 };
+    by[b].n++; by[b].pts += pts[i];
+  });
+  return {
+    n: picked.length, items: picked.map((x, i) => ({ x, pts: pts[i], b: simBucket(x.q, subject) })),
+    by, total: pts.reduce((a, b) => a + b, 0),
+    sec: picked.reduce((a, x) => a + qSec(x.q, 'ministerial'), 0),
+    chs: chs.length, bank: pool.length
+  };
+}
+/* شاشة التحضير للمحاكاة الكاملة: تشرح الخطة (عدد الأسئلة وتوزيع المئات وزمنها) قبل البدء */
+function vMinsim() {
+  const subj = S.minsimSubj;
+  if (!subj) return vMinPrep();
+  const p = simPlan(subj);
+  if (!p.n) return topBar('المحاكاة الكاملة', { back: true, noTools: true }) + '<main class="page">' + empty('library', 'لا بنك وزاري لهذه المادة بعد', 'حين يُبنى بنك الدورات تظهر هنا خطة المحاكاة الكاملة: ٥–٦ أسئلة تغطي المادة كلها، ومئتها موزّعة على المسائل والتعريفات والرسوم.') + '</main>';
+  const h = topBar('المحاكاة الكاملة · ' + subj, { back: true, noTools: true }) + '<main class="page">' +
+    '<section class="card"><h2>خطة المحاكاة كما في الوزاري الحقيقي</h2>' +
+    '<p class="small muted">الوزاري الحقيقي خمسة أسئلة أو ستة فقط، لكنها تغطي المادة كلّها. هنا تُبنى من أنماط أسئلة الدورات المستخرجة: ' +
+    ar(p.chs) + ' فصلًا في ' + ar(p.n) + ' أسئلة، والمئة نقطة موزّعة على المسائل والتعريفات والرسوم — لا أربعون سؤالًا متناثرًا.</p>' +
+    '<div class="srows" style="margin-top:10px">' +
+      Object.keys(p.by).map(b => pctBar(SIM_LABEL[b] || b + ' · ' + ar(p.by[b].n) + ' أسئلة', p.by[b].pts, b === 'prob' ? 'acc' : b === 'draw' ? 'gold' : 'good')).join('') +
+      pctBar('المجموع', p.total, 'good') +
+    '</div>' +
+    '<div class="sgrid" style="margin-top:12px">' +
+      '<div class="stat"><span class="muted small">عدد الأسئلة</span><b class="num">' + ar(p.n) + '</b></div>' +
+      '<div class="stat"><span class="muted small">الزمن المحسوب</span><b class="num">' + fmtDur(p.sec) + '</b></div>' +
+      '<div class="stat"><span class="muted small">معدّل السؤال</span><b class="num">' + ar(Math.round(p.sec / p.n)) + ' ث</b></div>' +
+      '<div class="stat"><span class="muted small">بنك المادة</span><b class="num">' + ar(p.bank) + '</b></div></div>' +
+    '<div class="hint-purpose" style="margin-top:12px">' + ico('star', 1.6) +
+      '<span><b>لماذا هذه الخطة؟</b><br><span class="small">لأن الوزاري يقيس الفهم لا الحفظ: خمسة أسئلة كبيرة تغطي الفصول كلّها وتُوزَّع بالنقاط، فتتدرب على التفكير في سؤال طويل بدل الإجابة عن أربعين سؤالًا قصيرًا. زمن كل سؤال مشتقّ من صعوبته (كتاب ٣ دقائق، وزاري ٥) ومن زمنك الفعلي.</span></span></div>' +
+    '<div class="chips" style="margin-top:12px">' + p.items.map((it, i) =>
+      '<span class="chip" style="cursor:default"><b>' + ar(i + 1) + ' · ' + ar(it.pts) + ' ن</b> <span class="small muted">' + (SIM_LABEL[it.b] || '') + '</span></span>').join('') + '</div>' +
+    '<div class="grid2" style="margin-top:12px">' +
+      '<button class="btn" data-act="minsimStart"><b>ابدأ المحاكاة</b><span class="small muted">' + ar(p.n) + ' أسئلة · ' + fmtDur(p.sec) + '</span></button>' +
+      '<button class="btn ghost" data-act="back">رجوع</button></div>' +
+    '</section></main>';
+  return h;
+}
+
 /* =================== الامتحانات لكل مادة: عندي امتحان، الشهري، التهيئة للوزاري =================== */
 const EXAM_KINDS = { exam: 'عندي امتحان', monthly: 'الشهري', ministerial: 'التهيئة للوزاري' };
 const EXAM_DESC = {
@@ -3177,7 +3271,10 @@ function startExam(kind, subject, n, perQ) {
   }
   if (!filtered.length) { toast('لا توجد أسئلة في النطاق المحدد.'); return false; }
   
-  const pick = shuffle(filtered).slice(0, Math.min(n || filtered.length, filtered.length));
+  /* ٧-ط) المحاكاة الكاملة تفرض أسئلتها المخطَّطة (بنقاطها) بدل الاختيار العشوائي */
+  const forced = S.examForcePick;
+  if (forced) S.examForcePick = null;
+  const pick = forced || shuffle(filtered).slice(0, Math.min(n || filtered.length, filtered.length));
   /* الوقت لا يُختار برقمه: مشتقّ من صعوبة كل سؤال ومن زمنك الفعلي، ثم يُرجَّح حسب أخطائك */
   const isOpenQ = x => (!x.q.o || !x.q.o.length) && (x.q.c == null || x.q.c < 0);
   const openN = pick.filter(isOpenQ).length;
@@ -3187,8 +3284,10 @@ function startExam(kind, subject, n, perQ) {
     kind, subject, phase: 'run', perQ,
     prep: ((S.exam && S.exam.prep) || 0),
     items: pick.map(x => ({ q: x.q, tid: x.tid, key: x.key, order: x.q.tf ? [0, 1] : (x.q.o && x.q.o.length ? shuffle(x.q.o.map((_, i) => i)) : []) })),
-    i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0, adaptive
+    i: 0, picks: [], times: [], startAt: Date.now(), qAt: Date.now(), timeSec: 0, adaptive,
+    pts: (S.examForcePts && S.examForcePts.length === pick.length) ? S.examForcePts.slice() : null
   };
+  if (S.examForcePts) S.examForcePts = null;
   S.examRevealed = {};
   go('exam'); return true;
 }
@@ -3203,7 +3302,15 @@ function examFinish() {
   /* الأسئلة المفتوحة تُحتسب مراجعة ناجحة إذا عُرض الحل (picks[i] === -2) */
   const openReviewed = z.items.reduce((k, it, i) => k + (isOpenQ(it) && z.picks[i] === -2 ? 1 : 0), 0);
   z.ok = ok; z.openTotal = openTotal; z.openReviewed = openReviewed;
-  z.pct = mcTotal ? Math.round(ok / mcTotal * 100) : (openTotal ? Math.round(openReviewed / openTotal * 100) : 0);
+  if (z.pts) {
+    /* ٧-ط) المحاكاة الكاملة: الدرجة من النقاط الموزّعة (١٠٠) لا من عدد الأسئلة */
+    const totPts = z.pts.reduce((a, b) => a + b, 0) || 100;
+    const got = z.items.reduce((k, it, i) => k + ((!isOpenQ(it) && z.picks[i] === it.q.c) || (isOpenQ(it) && z.picks[i] === -2) ? z.pts[i] : 0), 0);
+    z.gotPts = got;
+    z.pct = Math.round(got / totPts * 100);
+  } else {
+    z.pct = mcTotal ? Math.round(ok / mcTotal * 100) : (openTotal ? Math.round(openReviewed / openTotal * 100) : 0);
+  }
   z.timeSec = Math.round((z.endAt - z.startAt) / 1000);
   const st = me(), src = 'x:' + z.subject + ':' + z.kind;
   st.tests = st.tests || {};
@@ -4998,7 +5105,7 @@ function vDialog() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec };
+const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -5294,11 +5401,24 @@ document.addEventListener('click', e => {
       break;
     }
     case 'ministerialFull': {
-      const s = el.dataset.s;
-      const pool = ministerialPool(s);
-      if (!pool.length) { toast('بنك ' + esc(s) + ' الوزاري قيد البناء.'); break; }
+      /* ٧-ط) «المحاكاة الكاملة» تمرّ بخطة معلنة (٥–٦ أسئلة، ١٠٠ نقطة، زمن مشتقّ) */
+      const s2 = el.dataset.s;
+      S.examScope = null; S.minsimSubj = s2;
       if (S.exam) { S.exam.selCh = null; S.exam.selTopics = null; S.exam.prep = 0; }
-      startExam('ministerial', s, pool.length, 0);
+      go('minsim');
+      break;
+    }
+    case 'minsimStart': {
+      const subj = S.minsimSubj; if (!subj) break;
+      const plan = simPlan(subj);
+      if (!plan.n) { toast('لا بنك وزاري لهذه المادة بعد.'); break; }
+      S.examScope = null; S.exam = { kind: 'ministerial', subject: subj, phase: 'config', perQ: 0, prep: 0 };
+      S.examForcePick = plan.items.map(it => it.x);
+      S.examForcePts = plan.items.map(it => it.pts);
+      const ok2 = startExam('ministerial', subj, plan.n, Math.round(plan.sec / plan.n));
+      if (!ok2) { S.exam = null; break; }
+      S.exam.phase = 'run';
+      render(true);
       break;
     }
     case 'examGo': { const z = S.exam; if (!z) break; const ok = startExam(z.kind, z.subject, +el.dataset.n, z.perQ); if (ok && S.exam && S.exam.prep > 0) { S.exam.phase = 'prep'; S.exam.prepEnd = Date.now() + S.exam.prep * 60000; } render(true); break; }

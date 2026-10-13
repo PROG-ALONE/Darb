@@ -474,6 +474,66 @@ T('سجل تطوّرك الوزاري', () => {
   return true;
 });
 
+/* ٧-ط) المحاكاة الكاملة: ٥–٦ أسئلة، ١٠٠ نقطة موزّعة، زمن مشتقّ */
+T('المحاكاة الكاملة', () => {
+  const out = run(`(function(){ try {
+    const st = me();
+    const y = gradeContents(st.grade).find(g => ministerialPool(g.subject).length >= 8);
+    if (!y) return { skip: 1, why: 'لا مادة ببنك وزاري كافٍ' };
+    const subj = y.subject;
+    const p = simPlan(subj);
+    if (p.n < 5 || p.n > 6) return { __fail: 'عدد أسئلة المحاكاة خارج ٥–٦: ' + p.n };
+    if (p.total !== 100) return { __fail: 'المجموع ليس ١٠٠: ' + p.total };
+    if (p.items.some(i => !i.pts)) return { __fail: 'سؤال بلا نقاط' };
+    if (p.items.some(i => i.pts < 5)) return { __fail: 'سؤال بأقل من ٥ نقاط' };
+    if (Math.abs(p.items.reduce((a, i) => a + i.pts, 0) - 100) > 0) return { __fail: 'النقاط لا تجمع ١٠٠' };
+    if (!p.sec || p.sec < 300) return { __fail: 'زمن المحاكاة غير معقول: ' + p.sec };
+    /* التغطية: عدد الفصول المختلفة في الأسئلة المختارة */
+    const chIds = new Set(p.items.map(i => qChId(i.x)));
+    if (p.chs > 2 && chIds.size < 2) return { __fail: 'الأسئلة من فصل واحد لا تغطّي المادة' };
+    const hs = Object.keys(p.by);
+    if (!hs.length) return { __fail: 'لا توزيع' };
+    S.minsimSubj = subj;
+    const v = String(VIEWS.minsim());
+    ['خطة المحاكاة كما في الوزاري الحقيقي', 'ابدأ المحاكاة', 'srows', 'المجموع'].forEach(k => {
+      if (v.indexOf(k) < 0) throw new Error('عنصر مفقود في شاشة المحاكاة: ' + k);
+    });
+    if (!/٪/.test(v)) throw new Error('لا نِسَب في خطة المحاكاة');
+
+    /* البدء: يفرض الأسئلة المخطَّطة ونقاطها، والدرجة من النقاط */
+    S.examScope = null;
+    S.exam = { kind: 'ministerial', subject: subj, phase: 'config', perQ: 0, prep: 0 };
+    S.examForcePick = p.items.map(i => i.x);
+    S.examForcePts = p.items.map(i => i.pts);
+    const ok = startExam('ministerial', subj, p.n, Math.round(p.sec / p.n));
+    if (!ok || !S.exam) return { __fail: 'لم يبدأ الامتحان' };
+    if (!S.exam.pts || S.exam.pts.length !== p.n) return { __fail: 'النقاط لم تُمرَّر إلى الامتحان' };
+    if (S.exam.items.length !== p.n) return { __fail: 'عدد الأسئلة ليس كالمخطط' };
+    /* حالة صفر: بلا إجابات — لا نقاط */
+    S.exam.items.forEach((it, i) => { S.exam.picks[i] = -1; S.exam.times[i] = 60; });
+    examFinish();
+    const z0 = S.exam;
+    if (z0.gotPts !== 0 || z0.pct !== 0) return { __fail: 'بلا إجابات ومنح نقاطًا: ' + z0.gotPts };
+    /* حالة كاملة: كل سؤال أُجيب (مفتوح يُعرض حلّه) — المئة كاملة */
+    S.exam._fin = 0; S.exam.phase = 'run'; S.exam.picks = [];
+    S.exam.items.forEach((it, i) => {
+      const isOpen = (!it.q.o || !it.q.o.length) && (it.q.c == null || it.q.c < 0);
+      S.exam.picks[i] = isOpen ? -2 : it.q.c;
+      S.exam.times[i] = 60;
+    });
+    examFinish();
+    const z = S.exam;
+    if (z.gotPts == null) return { __fail: 'النقاط المكتسبة غير محسوبة' };
+    if (z.gotPts !== 100 || z.pct !== 100) return { __fail: 'الإجابة الكاملة لم تمنح ١٠٠ نقطة: ' + z.gotPts + ' / ' + z.pct };
+    S.exam = null;
+    return { n: p.n, total: p.total, sec: p.sec, pct: z.pct, chs: chIds.size };
+  } catch(e){ return { error: e.message }; } })()`);
+  if (out && out.error) return { __fail: out.error };
+  if (out && out.__fail) return out;
+  if (out && out.skip) { console.log('      · تخطّي: ' + out.why); return true; }
+  return true;
+});
+
 console.log('\n[البنود الأربعة]');
 T('كل الشاشات تُرسم', () => failures === 0 ? true : { __fail: failures + ' شاشة فشلت' });
 

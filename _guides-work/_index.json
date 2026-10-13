@@ -1,0 +1,279 @@
+[
+ {
+  "part": "part-01",
+  "count": 40,
+  "chapters": [
+   "p12c1",
+   "p12c2"
+  ]
+ },
+ {
+  "part": "part-02",
+  "count": 40,
+  "chapters": [
+   "p12c2",
+   "k12c1"
+  ]
+ },
+ {
+  "part": "part-03",
+  "count": 40,
+  "chapters": [
+   "k12c1",
+   "k12c2"
+  ]
+ },
+ {
+  "part": "part-04",
+  "count": 40,
+  "chapters": [
+   "k12c2",
+   "k12c3"
+  ]
+ },
+ {
+  "part": "part-05",
+  "count": 40,
+  "chapters": [
+   "k12c3"
+  ]
+ },
+ {
+  "part": "part-06",
+  "count": 40,
+  "chapters": [
+   "k12c3",
+   "k12c4"
+  ]
+ },
+ {
+  "part": "part-07",
+  "count": 40,
+  "chapters": [
+   "k12c4",
+   "k12c5"
+  ]
+ },
+ {
+  "part": "part-08",
+  "count": 40,
+  "chapters": [
+   "k12c5",
+   "a12c1"
+  ]
+ },
+ {
+  "part": "part-09",
+  "count": 40,
+  "chapters": [
+   "a12c1",
+   "a12c2"
+  ]
+ },
+ {
+  "part": "part-10",
+  "count": 40,
+  "chapters": [
+   "a12c2",
+   "b12c1"
+  ]
+ },
+ {
+  "part": "part-11",
+  "count": 40,
+  "chapters": [
+   "b12c1",
+   "r12u1"
+  ]
+ },
+ {
+  "part": "part-12",
+  "count": 40,
+  "chapters": [
+   "r12u1",
+   "i12u1",
+   "e12u1",
+   "e12u2",
+   "k12c6"
+  ]
+ },
+ {
+  "part": "part-13",
+  "count": 40,
+  "chapters": [
+   "k12c6",
+   "k12c7"
+  ]
+ },
+ {
+  "part": "part-14",
+  "count": 40,
+  "chapters": [
+   "k12c7"
+  ]
+ },
+ {
+  "part": "part-15",
+  "count": 40,
+  "chapters": [
+   "k12c7",
+   "k12c8"
+  ]
+ },
+ {
+  "part": "part-16",
+  "count": 40,
+  "chapters": [
+   "k12c8",
+   "p12c3",
+   "p12c4",
+   "p12c5"
+  ]
+ },
+ {
+  "part": "part-17",
+  "count": 40,
+  "chapters": [
+   "p12c5",
+   "a12c4"
+  ]
+ },
+ {
+  "part": "part-18",
+  "count": 40,
+  "chapters": [
+   "a12c4"
+  ]
+ },
+ {
+  "part": "part-19",
+  "count": 40,
+  "chapters": [
+   "a12c4"
+  ]
+ },
+ {
+  "part": "part-20",
+  "count": 40,
+  "chapters": [
+   "a12c4",
+   "a12c5"
+  ]
+ },
+ {
+  "part": "part-21",
+  "count": 40,
+  "chapters": [
+   "a12c5",
+   "b12c2"
+  ]
+ },
+ {
+  "part": "part-22",
+  "count": 40,
+  "chapters": [
+   "b12c2",
+   "b12c4"
+  ]
+ },
+ {
+  "part": "part-23",
+  "count": 40,
+  "chapters": [
+   "b12c4",
+   "b12c5"
+  ]
+ },
+ {
+  "part": "part-24",
+  "count": 40,
+  "chapters": [
+   "b12c5",
+   "p12c6",
+   "p12c7"
+  ]
+ },
+ {
+  "part": "part-25",
+  "count": 40,
+  "chapters": [
+   "p12c7",
+   "p12c8"
+  ]
+ },
+ {
+  "part": "part-26",
+  "count": 40,
+  "chapters": [
+   "p12c8",
+   "p12c9",
+   "a12c3"
+  ]
+ },
+ {
+  "part": "part-27",
+  "count": 40,
+  "chapters": [
+   "a12c3"
+  ]
+ },
+ {
+  "part": "part-28",
+  "count": 40,
+  "chapters": [
+   "a12c3"
+  ]
+ },
+ {
+  "part": "part-29",
+  "count": 40,
+  "chapters": [
+   "a12c3",
+   "a12c6"
+  ]
+ },
+ {
+  "part": "part-30",
+  "count": 40,
+  "chapters": [
+   "a12c6",
+   "b12c3"
+  ]
+ },
+ {
+  "part": "part-31",
+  "count": 40,
+  "chapters": [
+   "b12c3"
+  ]
+ },
+ {
+  "part": "part-32",
+  "count": 40,
+  "chapters": [
+   "b12c3"
+  ]
+ },
+ {
+  "part": "part-33",
+  "count": 40,
+  "chapters": [
+   "b12c3",
+   "r12u2",
+   "r12u3",
+   "r12u4",
+   "r12u5",
+   "r12u6",
+   "e12u3"
+  ]
+ },
+ {
+  "part": "part-34",
+  "count": 12,
+  "chapters": [
+   "e12u3",
+   "e12u4",
+   "e12u5"
+  ]
+ }
+]

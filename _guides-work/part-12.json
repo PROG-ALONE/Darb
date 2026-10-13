@@ -1,0 +1,662 @@
+{
+ "part": "part-12",
+ "subjects": "اللغة العربية, التربية الإسلامية, اللغة الإنكليزية, الكيمياء",
+ "count": 40,
+ "items": [
+  {
+   "id": "r12u1p10",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u1",
+   "chName": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "kind": "problem",
+   "text": "مَتَى يَسْتَقِيْمُ الظِّلُّ والعودُ أَعْوَجُ — أعرب متى، واستبدل بـ(هل) حرفًا آخر.",
+   "ans": "متى: اسم استفهام مبني على السكون في محل نصب مفعول فيه ظرف زمان؛ لأنه تلاه فعل تام (يستقيم). والاستبدال: (أَذَهَبٌ صِرْفٌ يُسَاوِيهِ بَهَرَجُ؟).",
+   "steps": [
+    "(متى) اسم استفهام يدلّ على الزمان المطلق، وهو مبنيٌّ على السكون.",
+    "القاعدة: أسماء الاستفهام الدالّة على الظرف تُعرب مفعولًا فيه (ظرفًا) إذا تلاها فعل تام أو ناقصٌ استوفى خبرَه.",
+    "التطبيق: تلاها (يَسْتَقِيمُ) وهو فعل تامٌّ لم يحتج إلى خبر، فاحتاج الاسمُ إلى مفعول فيه.",
+    "الاستبدال: الجملة استفهام تصديقي بـ(هل)، فاستُبدلت (هل) بالهمزة التي تصلح للتصديق والتصوّر معًا.",
+    "النتيجة: (مَتَى) في محل نصب مفعول فيه ظرف زمان، وأصلُها: (في أيّ وقتٍ يستقيم الظل؟)."
+   ],
+   "ref": "التمرين 5/6"
+  },
+  {
+   "id": "r12u1p11",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u1",
+   "chName": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "kind": "problem",
+   "text": "ميّز كم الاستفهامية من الخبرية وأعربهما: 1) ﴿وَكَمْ مِنْ مَلَكٍ فِي السَّمَاوَاتِ﴾ 2) ﴿قَالَ كَمْ لَبِثْتَ﴾ 3) كم جولةً جلتَ في السباق؟",
+   "ans": "1) خبرية، مبتدأ في محل رفع، تمييزها (ملك) مجرور بمن. 2) استفهامية، تمييزها محذوف تقديره (يومًا)، في محل نصب مفعول فيه ظرف زمان. 3) استفهامية، في محل نصب مفعول مطلق؛ لأن تمييزها (جولة) مصدر من لفظ الفعل (جال).",
+   "steps": [
+    "القاعدة: كم الخبرية تدلّ على التكثير فلا تحتاج جوابًا، وتمييزها مفرد أو جمع يُجرّ بالإضافة أو بـ(مِن)؛ وكم الاستفهامية تحتاج جوابًا وتمييزها مفرد منصوب يُحدّد معناها وإعرابها.",
+    "١) تمييزُها (ملك) مجموعٌ إليه بـ(مِن) فهو مجرور، ولم يسبقها فعلٌ يدلّ على معنى الكثرة، فهي خبرية مبتدأ.",
+    "٢) تمييزُها محذوفٌ يُقدَّر (يومًا)، وهو ظرف زمان، فدلّ على الظرفية وتُعرب مفعولًا فيه؛ وهي استفهامية لأنّ الجملة سؤال.",
+    "٣) تمييزُها (جولة) مصدرٌ من لفظ الفعل (جال) الذي يأتي بعدها، فتُعرب مفعولًا مطلقًا.",
+    "النتيجة: ١) خبريةٌ مبتدأٌ في محل رفع بتمييز مجرور بمن، ٢) استفهاميةٌ في محل نصب مفعول فيه بتمييز محذوف، ٣) استفهاميةٌ في محل نصب مفعول مطلق."
+   ],
+   "ref": "التمرين 8"
+  },
+  {
+   "id": "r12u1p12",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u1",
+   "chName": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "kind": "problem",
+   "text": "4) ﴿وَكَمْ مِنْ قَرْيَةٍ أَهْلَكْنَاهَا﴾ 5) كم طبيبًا في المستشفى؟ 6) كَم صَديقٍ عَرَفتُهُ بِصَديقٍ...",
+   "ans": "4) خبرية، مبتدأ؛ لأن الفعل بعدها استوفى مفعوله (ها)، وتمييزها مجرور بمن. 5) استفهامية، مبتدأ؛ لأنه تلاها شبه جملة، وتمييزها (طبيبًا) منصوب. 6) خبرية، مبتدأ؛ لأن الفعل استوفى مفعوله (الهاء)، وتمييزها (صديقٍ) مجرور بالإضافة.",
+   "steps": [
+    "القاعدة: كم الخبرية تمهّل فلا تطلب عددًا، وتمييزها يُجرّ؛ وكم الاستفهامية تطلب العدد، وتمييزها مفرد منصوب يُعرب إعراب (مَن) و(ما).",
+    "٤) تمييزُها (قرية) مجموعٌ إليه بـ(مِن) فهو مجرور، وتلاها فعلٌ استوفى مفعوله (ها) فأجازت رفعها مبتدأ.",
+    "٥) تمييزُها (طبيبًا) نكرةٌ مفردة منصوبة، وتلاها شبهُ جملة (في المستشفى) فكانت كم مبتدأ.",
+    "٦) تمييزُها (صديقٍ) مفرده مضاف إلى تمييزها، فمجموعٌ إلى تمييزها فمجرور، وتلاها فعلٌ استوفى مفعوله (الهاء).",
+    "النتيجة: ٤) و٦) خبريتان مبتدأٌ في محل رفع، و٥) استفهاميةٌ في محل رفع مبتدأ بتمييز منصوب."
+   ],
+   "ref": "التمرين 8"
+  },
+  {
+   "id": "r12u1p13",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u1",
+   "chName": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "kind": "problem",
+   "text": "كَمْ دَارَتْ سفينةُ الفضاءِ حَوْلَ الأرضِ؟ — تصلح كم لموضعين إعرابيين، قدّر تمييزها في كل موضع ثم أعربها.",
+   "ans": "أ) كم دورةً: مفعول مطلق (التمييز مصدر من لفظ الفعل دار). ب) كم ساعةً/يومًا: مفعول فيه ظرف زمان.",
+   "steps": [
+    "القاعدة: إعرابُ (كم) يتبع تمييزَها؛ فإذا دلّ التمييزُ على الحدث وكان مصدرًا من لفظ الفعل الذي بعدها فمفعولٌ مطلق، وإذا دلّ على الظرف فمفعولٌ فيه.",
+    "التطبيق الأول: التمييزُ (دورة) مصدرٌ من لفظ الفعل (دار) الذي يتلو (كم)، فيلزم مفعولًا مطلقًا.",
+    "التطبيق الثاني: التمييزُ (ساعة) أو (يوم) ظرفُ زمان، فيلزم مفعولًا فيه.",
+    "النتيجة: (كَمْ دَوْرَةً) في محل نصب مفعول مطلق، و(كَمْ سَاعَةً) أو (كَمْ يَوْمًا) في محل نصب مفعول فيه ظرف زمان."
+   ],
+   "ref": "التمرين 5/13"
+  },
+  {
+   "id": "i12t1",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "ما حكم النون الساكنة والتنوين: ﴿فَسَوَّاهُنَّ سَبْعَ سَمَاوَاتٍ ۚ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ﴾ (البقرة:29)",
+   "ans": "سماواتٍ وهو: إدغام بغنّة (الواو)؛ شيءٍ عليم: إظهار (العين).",
+   "steps": [
+    "أحدّد مواضع النون الساكنة والتنوين في الآية، فإذا هي موضعان: تنوين (سَمَاوَاتٍ) وتنوين (شَيْءٍ).",
+    "أنظر إلى الحرف الذي يلي كل نون أو تنوين، فهو الذي يقرر الحكم.",
+    "بعد تنوين (سَمَاوَاتٍ) حرف الواو، وهو من حروف الإدغام بغنّة (ينمو) ⇒ إدغام بغنّة، يُنطق بمشدد مع الغنّة.",
+    "بعد تنوين (شَيْءٍ) حرف العين، وهو من حروف الحلق الستة ⇒ إظهار، يُنطق بالنون من غير غنّة."
+   ],
+   "ref": "ت1/1"
+  },
+  {
+   "id": "i12t2",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿وَلَا تَشْتَرُوا بِآيَاتِي ثَمَنًا قَلِيلًا﴾ (المائدة:44)",
+   "ans": "ثمنًا قليلًا: إخفاء لمجيء القاف.",
+   "steps": [
+    "أبحث عن النون الساكنة فلا أجدها في الآية، وليس فيها إلا تنوين واحد هو تنوين (ثَمَنًا).",
+    "الحرف الذي بعده هو القاف، وهو من حروف الإخفاء الخمسة عشر (ص ذ ث ك ج ش ق س د ط ز ف ت ض ظ) ⇒ إخفاء.",
+    "وإخفاء يكون بالنون خالية من التشديد وسطًا بين الإظهار والإدغام، مع بقاء الغنّة مقدار حركتين."
+   ],
+   "ref": "ت1/2"
+  },
+  {
+   "id": "i12t3",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿صُمٌّ بُكْمٌ عُمْيٌ فَهُمْ لَا يَرْجِعُونَ﴾ (البقرة:18)",
+   "ans": "صمٌّ بكمٌ: إقلاب (الباء)؛ بكمٌ عميٌ: إظهار (العين)؛ عميٌ فهم: إخفاء (الفاء).",
+   "steps": [
+    "أستخرج مواضع التنوين، فإذا هي ثلاثة: (صُمٌّ)، (بُكْمٌ)، (عُمْيٌ).",
+    "بعد (صُمٌّ) حرف الباء، وهو حرف الإقلاب ⇒ تُقلب النون ميمًا مخفاة مع بقاء الغنّة.",
+    "بعد (بُكْمٌ) حرف العين، وهو من حروف الحلق الستة ⇒ إظهار بلا غنّة.",
+    "بعد (عُمْيٌ) حرف الفاء، وهو من حروف الإخفاء ⇒ إخفاء مع الغنّة مقدار حركتين.",
+    "فأحكام مواضع الآية: إقلاب ثم إظهار ثم إخفاء."
+   ],
+   "ref": "ت1/3"
+  },
+  {
+   "id": "i12t4",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿اتَّبِعُوا مَا أُنْزِلَ إِلَيْكُمْ مِنْ رَبِّكُمْ وَلَا تَتَّبِعُوا مِنْ دُونِهِ أَوْلِيَاءَ ۗ قَلِيلًا مَا تَذَكَّرُونَ﴾ (الأعراف:3)",
+   "ans": "أُنْزِل: إخفاء (الزاي)؛ مِنْ ربّكم: إدغام بغير غنّة؛ مِنْ دونه: إخفاء (الدال)؛ قليلًا ما: إدغام بغنّة (الميم).",
+   "steps": [
+    "أحدّد المواضع: نون ساكنة في (أُنْزِلَ)، ونونان ساكنتان في (مِنْ رَبِّكُمْ) و(مِنْ دُونِهِ)، وتنوين في (قَلِيلًا).",
+    "بعد (أُنْزِلَ) زاي، وبعد (مِنْ دُونِهِ) دال، وكلاهما من حروف الإخفاء ⇒ إخفاء بغنّة في الموضعين.",
+    "بعد (مِنْ رَبِّكُمْ) راء، وهي من حروف الإدغام الباقية (ل، ر) ⇒ إدغام بغير غنّة.",
+    "بعد (قَلِيلًا) ميم، وهي من حروف (ينمو) ⇒ إدغام بغنّة."
+   ],
+   "ref": "ت1/4"
+  },
+  {
+   "id": "i12t5",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿مَثَلُ الَّذِينَ يُنْفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنْبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِائَةُ حَبَّةٍ ۗ وَاللَّهُ يُضَاعِفُ لِمَنْ يَشَاءُ ۗ وَاللَّهُ وَاسِعٌ عَلِيمٌ﴾ (البقرة:261)",
+   "ans": "يُنْفقون: إخفاء (الفاء)؛ حبةٍ أنبتت: إظهار (الهمزة)؛ أنْبتت: إقلاب؛ سُنْبلة: إقلاب؛ سنبلةٍ مائة: إدغام بغنّة؛ لمن يشاء: إدغام بغنّة؛ واسعٌ عليم: إظهار.",
+   "steps": [
+    "آية طويلة، فأستخرج كل نون ساكنة أو تنوين أولًا: نون (يُنْفِقُونَ)، وتنوين (حَبَّةٍ)، ونون (أَنْبَتَتْ)، ونون (سُنْبُلَةٍ)، وتنوين (سُنْبُلَةٍ)، ونون (لِمَنْ)، وتنوين (وَاسِعٌ).",
+    "بعد (يُنْفِقُونَ) فاء ⇒ إخفاء؛ وبعد تنوين (حَبَّةٍ) همزة ⇒ إظهار.",
+    "بعد نون (أَنْبَتَتْ) باء، وبعد نون (سُنْبُلَةٍ) باء ⇒ إقلاب في الموضعين.",
+    "بعد تنوين (سُنْبُلَةٍ) ميم، وبعد نون (لِمَنْ) ياء ⇒ إدغام بغنّة في الموضعين.",
+    "بعد تنوين (وَاسِعٌ) عين ⇒ إظهار؛ فهذه مواضع الآية كلها."
+   ],
+   "ref": "ت1/5"
+  },
+  {
+   "id": "i12t6",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿ذُرِّيَّةً بَعْضُهَا مِنْ بَعْضٍ ۗ وَاللَّهُ سَمِيعٌ عَلِيمٌ﴾ (آل عمران:34)",
+   "ans": "ذريةً بعضها: إقلاب؛ مِنْ بعض: إقلاب؛ سميعٌ عليم: إظهار.",
+   "steps": [
+    "أستخرج المواضع: تنوين (ذُرِّيَّةً)، ونون ساكنة (مِنْ)، وتنوين (بَعْضٍ)، وتنوين (عَلِيمٌ).",
+    "بعد تنوين (ذُرِّيَّةً) حرف الباء ⇒ إقلاب.",
+    "بعد نون (مِنْ) حرف الباء ⇒ إقلاب.",
+    "بعد تنوين (عَلِيمٌ) حرف العين، وهو من حروف الحلق ⇒ إظهار.",
+    "وإن وُصلت من (بَعْضٍ) إلى (وَاللَّهُ) فالتنوين يدغَم في الواو إدغامًا بغنّة؛ وإن وقف على العلامة (ۗ) لُفظ التنوين قائمًا على آخر الكلمة."
+   ],
+   "ref": "ت1/6"
+  },
+  {
+   "id": "i12t7",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿وَمَا يَفْعَلُوا مِنْ خَيْرٍ فَلَنْ يُكْفَرُوهُ ۗ وَاللَّهُ عَلِيمٌ بِالْمُتَّقِينَ﴾ (آل عمران:115)",
+   "ans": "مِنْ خير: إظهار (الخاء)؛ خيرٍ فلن: إخفاء (الفاء)؛ فلنْ يُكفروه: إدغام بغنّة؛ عليمٌ بالمتقين: إقلاب.",
+   "steps": [
+    "أستخرج المواضع: نون (مِنْ)، وتنوين (خَيْرٍ)، ونون (فَلَنْ)، وتنوين (عَلِيمٌ).",
+    "بعد نون (مِنْ) خاء، وهو من حروف الحلق الستة ⇒ إظهار بلا غنّة.",
+    "بعد تنوين (خَيْرٍ) فاء، وهو من حروف الإخفاء ⇒ إخفاء بغنّة.",
+    "بعد نون (فَلَنْ) ياء، وهي من حروف (ينمو) ⇒ إدغام بغنّة.",
+    "بعد تنوين (عَلِيمٌ) باء ⇒ إقلاب."
+   ],
+   "ref": "ت1/7"
+  },
+  {
+   "id": "i12t8",
+   "subj": "التربية الإسلامية",
+   "key": "12:sci:التربية الإسلامية",
+   "ch": "i12u1",
+   "chName": "التجويد + الوحدة الأولى",
+   "kind": "problem",
+   "text": "﴿وَلَوْلَا أَنْ يَكُونَ النَّاسُ أُمَّةً وَاحِدَةً لَجَعَلْنَا لِمَنْ يَكْفُرُ بِالرَّحْمَٰنِ لِبُيُوتِهِمْ سُقُفًا مِنْ فِضَّةٍ وَمَعَارِجَ عَلَيْهَا يَظْهَرُونَ﴾ (الزخرف:33)",
+   "ans": "أنْ يكون: إدغام بغنّة؛ أمةً واحدة: إدغام بغنّة؛ واحدةً لجعلنا: إدغام بغير غنّة؛ لمنْ يكفر: إدغام بغنّة (الياء)؛ سقفًا من: إدغام بغنّة؛ مِنْ فضة: إخفاء (الفاء)؛ فضةٍ ومعارج: إدغام بغنّة.",
+   "steps": [
+    "أستخرج المواضع السبعة: نون (أَنْ)، وتنوين (أُمَّةً)، وتنوين (وَاحِدَةً)، ونون (لِمَنْ)، وتنوين (سُقُفًا)، ونون (مِنْ)، وتنوين (فِضَّةٍ).",
+    "بعد (أَنْ) ياء، وبعد (أُمَّةً) واو، وبعد (سُقُفًا) ميم، وبعد (فِضَّةٍ) واو ⇒ إدغام بغنّة في المواضع الأربعة.",
+    "بعد تنوين (وَاحِدَةً) لام ⇒ إدغام بغير غنّة.",
+    "بعد نون (لِمَنْ) ياء، وهي من حروف (ينمو) ⇒ إدغام بغنّة، وليس إخفاء؛ لأن الياء ليست من حروف الإخفاء الخمسة عشر.",
+    "بعد نون (مِنْ) فاء ⇒ إخفاء بغنّة."
+   ],
+   "ref": "ت1/8"
+  },
+  {
+   "id": "e12u1p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u1",
+   "chName": "Unit 1: Health",
+   "kind": "problem",
+   "text": "Join with when/while: 1) I was playing football. I twisted my ankle. 2) My mother was cooking. My father was reading.",
+   "ans": "1) I was playing football when I twisted my ankle. 2) While my mother was cooking, my father was reading.",
+   "steps": [
+    "Long + short → past continuous + when + past simple.",
+    "Two long actions together → while + past continuous, past continuous."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u1p2",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u1",
+   "chName": "Unit 1: Health",
+   "kind": "problem",
+   "text": "Rewrite using used to / didn’t use to: 1) My grandfather walked to school every day, but he doesn’t now. 2) There weren’t many cars in the past.",
+   "ans": "1) My grandfather used to walk to school every day. 2) There didn’t use to be many cars.",
+   "steps": [
+    "Sentence 1: the action was true in the past and is not true now → subject + used to + base verb (used to walk).",
+    "Sentence 2: something did not exist in the past → there + didn’t use to + be + noun (there didn’t use to be many cars).",
+    "Check both against the book rule: used to + verb is for things which were true in the past but are not true now, and after didn’t we write use with no d."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u2t1-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Complete each sentence with the correct form from the box: didn’t have / didn’t use to have / used to like / used to watch / walked / was walking / was watching / were speeding.\n1) I … travelling, but I don’t like it anymore.\n2) We … when we saw the police car.\n3) While my baggage was going through the X-ray machine, I … through the metal detector.\n4) We … security cameras, but now we have six of them.\n5) I … my passport, so they didn’t let me get on the plane.\n6) She … home from school when she heard the police siren.\n7) I … action films on TV, but now I prefer documentaries.\n8) The security guard saw the thieves because he … the screen.",
+   "ans": "1) I used to like travelling, but I don’t like it anymore.\n2) We were speeding when we saw the police car.\n3) While my baggage was going through the X-ray machine, I was walking through the metal detector.\n4) We didn’t use to have security cameras, but now we have six of them.\n5) I didn’t have my passport, so they didn’t let me get on the plane.\n6) She was walking home from school when she heard the police siren.\n7) I used to watch action films on TV, but now I prefer documentaries.\n8) The security guard saw the thieves because he was watching the screen.",
+   "steps": [
+    "Sentence 1 and 7: the habit existed in the past and is finished now → used to + infinitive.",
+    "Sentences 2, 3, 6, 8: one long action in progress in the past (were speeding, was walking, was watching) → was/were + verb-ing.",
+    "Sentences 4 and 5: the situation has changed → didn’t use to have (no longer true) and didn’t have (a single past moment)."
+   ],
+   "ref": "SB p18 / AB p29"
+  },
+  {
+   "id": "e12u2t1:e0",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "example",
+   "text": "While I was moving, I found some old photos.",
+   "ans": "While I was moving (past continuous), I found (past simple) some old photos.",
+   "steps": [
+    "The two things are in the past.",
+    "One of them (moving) is the longer action happening at the same time as the other.",
+    "The shorter action that appears in the sentence (found) is past simple; the longer one is past continuous."
+   ],
+   "title": "Choosing the right tense"
+  },
+  {
+   "id": "e12u2t2-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Answer these questions about the three texts on SB p19.\n1) Where do police officers go when a crime has been committed?\n2) Who helps police officers identify fingerprints?\n3) Where do pickpockets often commit crimes?\n4) How can witnesses help the police?\n5) What should you do if you are lost and need help?",
+   "ans": "1) They go to the place where the crime happened.\n2) Fingerprint experts help them.\n3) In crowded areas.\n4) They can tell the police what a criminal looks like or what time a crime was committed.\n5) You can ask a police officer for directions.",
+   "steps": [
+    "Every answer must be taken from one of the three texts, not from your own knowledge.",
+    "Questions 1, 3 and 5 are answered directly; question 4 needs the sentence about witnesses describing the criminal and the time."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u2t3-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Use must, mustn’t, have to, don’t have to, need to and needn’t to complete the sentences. (More than one answer may be possible.)\n1) When you get in a car, you … put on your seat belt.\n2) There’s petrol in the car, so you … go to the petrol station.\n3) You’re driving too fast! You … slow down.\n4) Please put out your cigarette. You … smoke in the police station.\n5) You … pick me up in the car – I’ll get the bus.\n6) Police officers … prevent crimes.\n7) I … be back later than 8 o’clock tonight, or my parents will be angry.\n8) Drivers … go over the speed limit at any point.\n9) Detectives in many countries … wear a uniform, but traffic officers usually do.\n10) If you see an accident, you … go to the police station and give a statement as a witness.",
+   "ans": "1) must / have to / need to\n2) don’t have to / needn’t\n3) must\n4) mustn’t\n5) don’t have to / needn’t\n6) have to\n7) mustn’t\n8) mustn’t\n9) don’t have to / needn’t\n10) need to",
+   "steps": [
+    "Sentences 2, 5 and 9 all start with There’s / You / Detectives…, so the situation is not a prohibition → don’t have to or needn’t.",
+    "Sentences 4, 7 and 8 are prohibitions → mustn’t only.",
+    "Sentence 6 is a general duty of the job → have to."
+   ],
+   "ref": "AB p31"
+  },
+  {
+   "id": "e12u2t4-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Put the words in order to form the sentences.\n1) to eat / we / board / get / something / Shall / before / we / ?\n2) newspaper, / you / me / get / please / Can / a / ?\n3) passport / please / you / open / the photo page, / Would / your / on / ?\n4) you / your bag, / take / out of / please / your laptop / Could / ?\n5) will / for you / I / that bag / carry / if / want / you / .\n6) pack / You / yourself / should / bags / always / your / .",
+   "ans": "1) Shall we get something to eat before we board?\n2) Can you get me a newspaper, please?\n3) Would you open your passport on the photo page, please?\n4) Could you take your laptop out of your bag, please?\n5) I’ll carry that bag for you if you want.\n6) You should always pack your bags yourself.",
+   "steps": [
+    "Shall we …? asks for a joint decision (a suggestion); I’ll … if you want offers help; You should … gives advice."
+   ],
+   "ref": "AB p32"
+  },
+  {
+   "id": "e12u2t5-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Choose the correct option to complete the sentences (AB p33).\n1) Could / Do you give me your passport?\n2) Shall / Would I help you with your baggage?\n3) You should / shouldn’t keep your passport in a safe place.\n4) Can / Shall I see your ticket, please?\n5) She should / couldn’t go to the shops before the plane leaves.\n6) Shall / Must we take a taxi to the airport?",
+   "ans": "1) Could you give me your passport?\n2) Shall I help you with your baggage?\n3) You should keep your passport in a safe place.\n4) Can I see your ticket, please?\n5) She shouldn’t go to the shops before the plane leaves.\n6) Must we take a taxi to the airport?",
+   "steps": [
+    "1, 2, 4: subject + auxiliary; Could is used for requests, Shall I …? for an offer, Can I …? for a request.",
+    "3: keeping a passport in a safe place is good advice → should.",
+    "5: the plane leaves soon, so going to the shops is a bad idea → shouldn’t.",
+    "6: Must we …? asks about an obligation, not a joint decision."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u2t6-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Match the beginnings and endings.\n1) You shouldn’t have any trouble doing the work\n2) It shouldn’t take me more than 15 minutes to drive there\n3) They should be very comfortable …\n4) I can speak English and Arabic, …\n5) If he’s used computers before, …\n6) If you send the letter today, …",
+   "ans": "1 – b (because it’s very easy)\n2 – d (because there isn’t much traffic)\n3 – e (because it’s a very nice hotel)\n4 – f (so I should be able to talk to most of the visitors)\n5 – c (he should know how to use this software)\n6 – a (she should get it by Monday)",
+   "steps": [
+    "Each completion must contain should or shouldn’t to express an expectation.",
+    "The cause after each sentence is the reason for the expectation."
+   ],
+   "ref": "AB p35"
+  },
+  {
+   "id": "e12u2t6:e0",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "example",
+   "text": "Rewrite the abbreviations without them.",
+   "ans": "office buildings; 18 years; speak English and Arabic; available at weekends; driving licence.",
+   "steps": [
+    "office bldgs.",
+    "18 yrs.",
+    "spk. Engl. and Arab.",
+    "avail. at wknds.",
+    "driving lic."
+   ],
+   "title": "Reading an advert"
+  },
+  {
+   "id": "e12u2t7-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Rewrite the sentences with should or shouldn’t, as in the example.\nExample: You have always wanted to fly. I think you will like the Air Force. → You have always wanted to fly. You should like the Air Force.\n1) I’ve studied hard for the test, so I think I’ll pass.\n2) You like exercising, so I don’t think you’ll have trouble getting fit.\n3) They learnt a lot in the military, so I don’t think they’ll have trouble getting a job.\n4) This is a new computer, so I think it is faster than the other one.",
+   "ans": "1) You should pass.\n2) You shouldn’t have trouble getting fit.\n3) They shouldn’t have trouble getting a job.\n4) It should be faster than the other one.",
+   "steps": [
+    "should = positive expectation (will happen).",
+    "shouldn’t = negative expectation (won’t happen)."
+   ],
+   "ref": "AB p37"
+  },
+  {
+   "id": "e12u2t8-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Rewrite the sentences with the correct form of have, get or make.\nExample: Somebody stole my television. → I had my television stolen.\n1) I asked somebody to cut my hair.\n2) Someone is repairing my computer. Can I borrow yours?\n3) He looked outside because he heard a noise.\n4) The leaves fell because of the wind.\n5) A photographer took a picture of the witness.",
+   "ans": "1) I had my hair cut.\n2) I’m getting my computer repaired. Can I borrow yours?\n3) The noise made him look outside.\n4) The wind made the leaves fall.\n5) The witness had a picture taken.",
+   "steps": [
+    "Sentences 1, 2 and 5: the person receives the action → have / get + object + past participle.",
+    "Sentences 3 and 4: something causes something to happen → make + object + infinitive."
+   ],
+   "ref": "AB p39"
+  },
+  {
+   "id": "e12u2t9-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Find a word or phrase in the brochure that means the following.\n1) expensive items like gold rings and necklaces =\n2) how you feel about an object =\n3) things you do for a specific reason =\n4) thieves who break into homes =\n5) extremely, so much that you can’t believe it =\n6) very important =",
+   "ans": "1) jewellery\n2) sentimental value\n3) measures\n4) burglars\n5) unbelievably\n6) essential",
+   "steps": [
+    "Scan the paragraphs for a noun phrase that matches each definition, not for a single word only."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u2t10-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "You are going to write a leaflet about road safety for new drivers. Complete the advice and give a reason for each one, using the topics in the box: brakes, driving licence, keys, lights, parking, speeding, valuables.\nExample: You shouldn’t leave your keys in the ignition. — Someone could take them and steal your car.",
+   "ans": "See the table above: each topic must appear once with an advice phrase from the box (shouldn’t / have to / ought to / It’s always better to) and a supporting reason.",
+   "steps": [
+    "Every advice must be followed by a reason or example — that is what the right-hand column requires.",
+    "Use at least three different recommendation phrases so the leaflet does not repeat itself."
+   ],
+   "ref": "AB p42"
+  },
+  {
+   "id": "e12u2t11-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Complete the dialogues with the words from the box: could / got / if / let’s / shall / should / shouldn’t / sure.\n1) … we take the train to the airport? — No, we’ve got too many bags. Let’s get a taxi.\n2) … you get me something to eat? — It’s easier if you go and see the menu. I’ll stay here with the bags if you want.\n3) We … be there in about two hours. — Really? The roads are empty, so it shouldn’t take that long. I’d say about an hour and a half at most.\n4) You’ve … to get the car checked before the trip on Sunday. — I will. But make sure you check our insurance, too, OK?",
+   "ans": "1) Shall / let’s / sure\n2) Could / if\n3) should / shouldn’t\n4) got",
+   "steps": [
+    "Each box word is used once only.",
+    "Shall is used to make a joint suggestion; Could to ask a favour; should / shouldn’t for expectation; got to for obligation."
+   ],
+   "ref": "AB p46"
+  },
+  {
+   "id": "k12c6-p1",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "أكمل التفاعلات الآتية مع ذكر صفات النواتج: 1- Hg2^2+ + HCl (مخفف). 2- Bi3+ + H2S (بوجود HCl مخفف). 3- Al3+ + NH4OH (بوجود NH4Cl). 4- Mn2+ + H2S (بوجود NH4OH).",
+   "ans": "1- راسب أبيض Hg2Cl2. 2- راسب أسود Bi2S3. 3- راسب أبيض Al(OH)3. 4- راسب وردي فاتح MnS.",
+   "steps": [
+    "1- Hg2^2+ + 2Cl- → Hg2Cl2 (راسب أبيض من كلوريد الزئبق (I)).",
+    "2- 2Bi3+ + 3H2S → Bi2S3 (راسب أسود) + 6H+.",
+    "3- Al3+ + 3NH4OH → Al(OH)3 (راسب أبيض) + 3NH4+.",
+    "4- Mn2+ + H2S + 2NH4OH → MnS (راسب وردي فاتح) + 2NH4+ + 2H2O."
+   ],
+   "ref": "تمرين 1-6"
+  },
+  {
+   "id": "k12c6-q1",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "كيف يمكن الفصل بين الأيونات الموجبة الأكثر شيوعًا؟",
+   "ans": "تُقسم الأيونات الموجبة الأكثر شيوعًا إلى خمس مجاميع لكل منها عامل مرسب واحد، ويُفصل بينها بالإضافة النظامية للعوامل المرسبة ابتداءً من المجموعة الأولى، ثم مجموعة ثانية، ثم ثالثة A و B، ثم رابعة، وتبقى أيونات المجموعة الخامسة في المحلول النهائي بدون ترسيب (هذا الجواب غير مطبوع في الكتاب وحُلَّ من نص الموضوع 2-6 والجدول 1-6).",
+   "steps": [
+    "تضاف العوامل المرسبة للمجاميع حسب الترتيب ابتداءً من الأولى (I) إلى الرابعة (IV).",
+    "I: حامض HCl المخفف فيرسب AgCl و Hg2Cl2 و PbCl2.",
+    "II: كبريتيد الهيدروجين بوجود HCl المخفف فيرسب كبريتيدات المجموعة الثانية على شكل راسب.",
+    "IIIA و IIIB: هيدروكسيد الأمونيوم مع كلوريد الأمونيوم ثم H2S بوجودهما.",
+    "IV: (NH4)2CO3 بوجود NH4OH و NH4Cl، وتبقى أيونات المجموعة V (Mg2+، Na+، K+، NH4+) ذائبة بدون ترسيب.",
+    "يفصل راسب كل مجموعة بعملية الترشيح عن الراشح ثم يُكشف عن كل أيون على حدة."
+   ],
+   "ref": "أسئلة الفصل 1-6"
+  },
+  {
+   "id": "k12c6-q2",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "عدد الأيونات الموجبة المصنفة ضمن المجموعة الثانية مع ذكر العامل المرسب لها، ثم بيّن كيف يمكن فصل أيون النحاس عن أيون الحديديك عند وجودهما في نفس المحلول.",
+   "ans": "أيونات المجموعة الثانية هي: Hg2+، Cu2+، Bi3+، Cd2+، Pb2+، As3+، Sb3+، Sn2+، وعاملها المرسب كبريتيد الهيدروجين بوجود HCl المخفف. ويُفصل أيون النحاس Cu2+ عن أيون الحديديك Fe3+ بإمرار غاز H2S بوجود HCl المخفف فيترسب النحاس على هيئة CuS (راسب أسود) ويفصل بالترشيح، بينما يبقى أيون الحديد (III) في المحلول لأنه يصنف ضمن المجموعة الثالثة A (هذا الجواب غير مطبوع وحُلَّ من نص الموضوع 2-6).",
+   "steps": [
+    "العامل المرسب للمجموعة الثانية هو كبريتيد الهيدروجين بوجود حامض HCl المخفف.",
+    "أيونات المجموعة الثانية ثمانية كما في الجدول (1-6).",
+    "في محلول يحوي Cu2+ و Fe3+: يُمرر غاز H2S في وسط HCl مخفف فيترسب CuS (أسود) ويُفصل بالترشيح.",
+    "يبقى Fe3+ في الراشح (المجموعة IIIA) ويمكن ترسيبه لاحقًا على هيئة Fe(OH)3 بهيدروكسيد الأمونيوم وكلوريد الأمونيوم."
+   ],
+   "ref": "أسئلة الفصل 2-6"
+  },
+  {
+   "id": "k12c6-q3",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "أكمل التفاعلات الآتية مع ذكر صفات النواتج: 1- PbCl2 + (ماء مغلي ثم K2CrO4). 2- AgCl + NH3 ثم HNO3. 3- Hg2^2+ + HCl (مخفف) ثم NH3 ثم ماء ملكي ثم SnCl2 ثم SnCl2.",
+   "ans": "1- يذوب PbCl2 بالماء المغلي، ومع K2CrO4 يتكون راسب أصفر PbCrO4. 2- يذوب AgCl بالأمونيا معطيًا المعقد الذائب [Ag(NH3)2]Cl، ومع HNO3 يعطي راسب أبيض AgCl. 3- مع HCl المخفف يتكون راسب أبيض Hg2Cl2، ومع NH3 مزيج أسود (Hg)، ومع الماء الملكي يتكون HgCl2 الذائب الذي يتحول مع SnCl2 إلى راسب أبيض ثم أسود (هذا الجواب غير مطبوع وحُلَّ من تفاعلات التجربة 1-2-6).",
+   "steps": [
+    "PbCl2 + K2CrO4 → PbCrO4 (راسب أصفر) + 2KCl (بعد إذابته بالماء المغلي).",
+    "AgCl + 2NH3 → [Ag(NH3)2]Cl (ذائب)، ثم [Ag(NH3)2]Cl + 2HNO3 → AgCl (راسب أبيض) + 2NH4NO3.",
+    "Hg2^2+ + 2Cl- → Hg2Cl2 (راسب أبيض)، ثم Hg2Cl2 + 2NH3 → Hg(NH2)Cl + Hg (أسود) + NH4Cl.",
+    "بالماء الملكي يتحول إلى HgCl2 الذائب، ثم 2HgCl2 + SnCl2 → SnCl4 + Hg2Cl2 (راسب أبيض)، ثم Hg2Cl2 + SnCl2 → SnCl4 + 2Hg (راسب أسود)."
+   ],
+   "ref": "أسئلة الفصل 3-6"
+  },
+  {
+   "id": "k12c6-q4",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "كيف يمكن الفصل بين أيوني Hg2+ و Hg2^2+؟",
+   "ans": "يمكن الفصل بتمرير غاز كبريتيد الهيدروجين بوجود HCl المخفف: فيترسب أيون الزئبق (II) Hg2+ على هيئة كبريتيد الزئبق HgS (راسب أسود) ويُفصل بالترشيح، بينما لا يتأثر أيون Hg2^2+ فيبقى في الراشح (هذا الجواب غير مطبوع وحُلَّ من مجاميع التحليل الوصفي).",
+   "steps": [
+    "يصنف Hg2+ ضمن المجموعة الثانية (العامل المرسب H2S بوجود HCl المخفف).",
+    "يصنف Hg2^2+ ضمن المجموعة الأولى (العامل المرسب HCl المخفف).",
+    "لذلك بإمرار H2S في وسط HCl مخفف يترسب Hg2+ على هيئة HgS ويُفصل بالترشيح ويبقى Hg2^2+ في الراشح."
+   ],
+   "ref": "أسئلة الفصل 4-6"
+  },
+  {
+   "id": "k12c6-q5",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "أكمل الفراغات الآتية: 1- أيون Cr3+ يصنف ضمن الأيونات الموجبة للمجموعة ....... ويترسب عند إضافة ........ بوجود ........ 2- العامل المرسب للأيونات الموجبة في المجموعة الرابعة هو ........ بوجود العوامل المساعدة ....... و ...... 3- محلول من Al2(SO4)3 عيارته 0.3N فإن مولارية المحلول = ..... 4- محلول من مركب مولاريته 0.2M وعيارته 1 eq/L فإن قيمة ɳ للمركب = ......",
+   "ans": "1- المجموعة IIIA، ويترسب عند إضافة هيدروكسيد الأمونيوم NH4OH بوجود كلوريد الأمونيوم NH4Cl. 2- (NH4)2CO3 بوجود NH4OH و NH4Cl. 3- 0.05 M. 4- ɳ = 5 eq/mol. (لا يوجد جواب مطبوع لهذا السؤال وأُكمل من الجدول 1-6 ومن العلاقتين N = ɳ × M و ɳ = العيارية/المولارية).",
+   "steps": [
+    "1- حسب الجدول (1-6): Cr3+ من أيونات المجموعة IIIA وعاملها المرسب NH4OH مع NH4Cl.",
+    "2- العامل المرسب للمجموعة IV هو (NH4)2CO3 بوجود NH4OH و NH4Cl.",
+    "3- Al2(SO4)3: عدد أيونات الألمنيوم الموجبة = 2 وشحنة الأيون الفلزي = 3، إذن ɳ = 2 × 3 = 6 eq/mol، ومن N = ɳ × M يكون M = 0.3/6 = 0.05 mol/L.",
+    "4- من N = ɳ × M يكون ɳ = N/M = 1/0.2 = 5 eq/mol."
+   ],
+   "ref": "أسئلة الفصل 5-6"
+  },
+  {
+   "id": "k12c6t2:e0",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "example",
+   "text": "كيف يمكن الفصل بين أيونات الفضة والكادميوم والحديد (III)؟",
+   "ans": "يُفصل Ag+ أولًا بحامض HCl المخفف على هيئة AgCl، ثم يُفصل Cd2+ بغاز H2S على هيئة CdS، ثم يُجمع Fe3+ بهيدروكسيد الأمونيوم وكلوريد الأمونيوم على هيئة Fe(OH)3.",
+   "steps": [
+    "بما أن أيون الفضة Ag+ يصنف ضمن المجموعة الأولى وأيون الكادميوم Cd2+ يصنف ضمن المجموعة الثانية وأيون الحديد (III) Fe3+ يصنف ضمن المجموعة الثالثة A، لذلك يمكن الفصل بين هذه الأيونات حسب الإضافة النظامية للعوامل المرسبة لهذه المجاميع وكالآتي:",
+    "1- يضاف العامل المرسب للمجموعة الأولى (حامض HCl المخفف) فيتفاعل مع أيون الفضة فقط ويرسبه على هيئة AgCl بينما لا تترسب أيونات الكادميوم والحديد (III) بل تبقى ذائبة في المحلول. وهكذا يمكن فصل راسب كلوريد الفضة عن بقية مكونات المحلول بعملية الترشيح.",
+    "2- يمرر غاز كبريتيد الهيدروجين على المحلول المحمض لمزيج أيوني الكادميوم والحديد (III) فيترسب أيون الكادميوم على هيئة كبريتيد الكادميوم CdS ويفصل عن المحلول بالترشيح.",
+    "3- يبقى أيون الحديد (III) في المحلول لوحده بعد ترسيب أيون الفضة وأيون الكادميوم، حيث يمكن جمعه أيضًا بترسيبه على هيئة هيدروكسيد الحديد (III) Fe(OH)3 وذلك بإضافة محلول هيدروكسيد الأمونيوم ومحلول كلوريد الأمونيوم."
+   ],
+   "title": "مثال 1-6"
+  },
+  {
+   "id": "k12c6-p2",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "تم تحليل سبيكة النيكروم (سبيكة مكونة من عنصرين أساسيين هما النيكل والكروم إضافة إلى كمية قليلة جدًا من الكاربون) وزنيًا بطريقة التطاير وذلك بحرق 1.4 g منها بوجود الاوكسجين. وقد وُجد أن كتلة غاز ثنائي اوكسيد الكاربون المتحرر الذي تم جمعه بعد انتهاء عملية الاحراق كانت تساوي 2.2 mg. احسب النسبة المئوية لعنصر الكاربون في السبيكة.",
+   "ans": "0.043%",
+   "steps": [
+    "حساب كتلة الكاربون من كتلة CO2: mC = mCO2 × M(C)/M(CO2) = 2.2 mg × 12/44 = 0.6 mg.",
+    "وحدة كتلة العينة تكون بالمليغرام: 1.4 g = 1400 mg.",
+    "النسبة المئوية للكاربون = (mC / m(العينة)) × 100% = (0.6 / 1400) × 100% = 0.043%."
+   ],
+   "ref": "تمرين 2-6"
+  },
+  {
+   "id": "k12c6-q7",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "عند حرق 5.71 mg من مركب عضوي نتج 14.41 mg من غاز ثنائي اوكسيد الكاربون و 2.5 mg من بخار الماء. احسب النسبة المئوية للكاربون والهيدروجين في المركب.",
+   "ans": "68.9% للكاربون و 4.9% للهيدروجين.",
+   "steps": [
+    "mC = mCO2 × 12/44 = 14.41 × 12/44 = 3.93 mg، إذن %C = (3.93 / 5.71) × 100 ≈ 68.9%.",
+    "mH = mH2O × 2/18 = 2.5 × 2/18 = 0.278 mg، إذن %H = (0.278 / 5.71) × 100 ≈ 4.9%."
+   ],
+   "ref": "أسئلة الفصل 7-6"
+  },
+  {
+   "id": "k12c6-q10",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "عند حرق 5.7 mg من مركب عضوي هيدروكاربوني ينتج من عملية احتراقه التام 15.675 mg من غاز CO2. ما النسبة المئوية للهيدروجين في المركب؟",
+   "ans": "25% (لا يوجد جواب مطبوع لهذا السؤال وحُلَّ حسابيًا).",
+   "steps": [
+    "كتلة الكاربون: mC = mCO2 × 12/44 = 15.675 × 12/44 = 4.275 mg.",
+    "كتلة الهيدروجين = كتلة العينة – كتلة الكاربون = 5.7 – 4.275 = 1.425 mg.",
+    "النسبة المئوية للهيدروجين = (1.425 / 5.7) × 100% = 25%."
+   ],
+   "ref": "أسئلة الفصل 10-6"
+  },
+  {
+   "id": "k12c6t4:e0",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "example",
+   "text": "تم تحليل عينة كتلتها 1.4511g من ملح كلوريد الباريوم المائي النقي (BaCl2.2H2O) لمعرفة النسبة المئوية لماء التبلور فيها وذلك باتباع طريقة التطاير غير المباشرة. تم تسخين العينة لمدة كافية عند درجة حرارة 125°C، وبعد التبريد في محيط جاف، وُجد أن كتلة الجزء غير المتطاير كانت تساوي 1.2361g. احسب النسبة المئوية لماء التبلور في العينة.",
+   "ans": "14.81%.",
+   "steps": [
+    "يحسب أولًا كتلة ماء التبلور من الفرق: كتلة ماء التبلور = كتلة العينة قبل التسخين – كتلة العينة بعد التسخين، أي mH2O (g) = m(BaCl2.2H2O) – m(BaCl2) = 1.451 – 1.236 = 0.215 g.",
+    "النسبة المئوية لماء التبلور = (كتلة ماء التبلور / كتلة العينة) × 100% = (0.215 / 1.451) × 100% = 14.81%."
+   ],
+   "title": "مثال 2-6"
+  },
+  {
+   "id": "k12c6t4:e1",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "example",
+   "text": "تم تحليل مركب عضوي لمعرفة النسبة المئوية للكاربون فيه بطريقة التطاير المباشرة. فبعد حرق 15.24 mg من المركب بوجود الاوكسجين وامتصاص غاز CO2 في وسط مناسب، وُجد أن كتلة CO2 تساوي 22.36 mg. احسب النسبة المئوية لعنصر الكاربون في المركب.",
+   "ans": "40%.",
+   "steps": [
+    "من المعادلة يظهر أن حرق مول واحد من C ينتج مولًا واحدًا من CO2، إذن: mC = mCO2 × M(C)/M(CO2) = 22.36 mg × 12/44 = 6.1 mg.",
+    "النسبة المئوية للكاربون = (mC / m(المركب)) × 100% = (6.1 / 15.24) × 100% = 40%."
+   ],
+   "title": "مثال 3-6"
+  },
+  {
+   "id": "k12c6-p3",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "احسب المعامل الوزني للحديد (M = 56 g/mole) في Fe2O3 (M = 160 g/mole).",
+   "ans": "0.7",
+   "steps": [
+    "الصيغة الوزنية Fe2O3 تحتوي على ذرتي حديد، ولجعل الصيغتين تحتويان نفس العدد من ذرات الحديد نأخذ a = 2 و b = 1.",
+    "Gf = (a/b) × M(Fe)/M(Fe2O3) = (2/1) × 56/160 = 112/160 = 0.7."
+   ],
+   "ref": "تمرين 3-6"
+  }
+ ]
+}

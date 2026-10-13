@@ -1,0 +1,649 @@
+{
+ "part": "part-25",
+ "subjects": "الفيزياء",
+ "count": 40,
+ "items": [
+  {
+   "id": "p12c7t4:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Calculate the energy of an ionic bond using Coulomb's law.",
+   "ans": "The energy of an ionic bond is given by E = kq₁q₂/r, where it depends on the charges of the atoms and the distance between them.",
+   "steps": [
+    "Energy depends on charges and distance",
+    "E = kq₁q₂/r",
+    "Units: joules"
+   ],
+   "title": "Ionic Bond Energy"
+  },
+  {
+   "id": "p12c7t5-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Calculate the binding energy between two protons separated by 1 fm (1×10⁻¹⁵ m) using Coulomb's law.",
+   "ans": "E = kqq/r = (9×10⁹)(1.6×10⁻¹⁹)²/(1×10⁻¹⁵) = 2.3×10⁻¹⁴ J",
+   "steps": [
+    "k=9×10⁹",
+    "q=1.6×10⁻¹⁹ C",
+    "r=1 fm=1×10⁻¹⁵ m",
+    "E = 2.3×10⁻¹⁴ J"
+   ],
+   "ref": "Page 207"
+  },
+  {
+   "id": "p12c7t5-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "How does binding energy change if the distance between atoms triples?",
+   "ans": "Since E ∝ 1/r, if r triples, E becomes one-third. The binding energy decreases by factor of 3.",
+   "steps": [
+    "E ∝ 1/r",
+    "If r → 3r, then E → E/3"
+   ],
+   "ref": "Page 207"
+  },
+  {
+   "id": "p12c7t5:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Calculate the binding energy between two charged particles.",
+   "ans": "Binding energy between two charges is calculated using Coulomb's law E = kq₁q₂/r, showing it depends on the magnitude of charges and inversely on the distance between them.",
+   "steps": [
+    "E = kq₁q₂/r",
+    "Depends on charge and distance",
+    "Units: joules"
+   ],
+   "title": "Binding Energy Calculation"
+  },
+  {
+   "id": "p12c7t6-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Calculate the band gap energy given E_c = 1.1 eV and E_v = -0.5 eV.",
+   "ans": "E_g = E_c - E_v = 1.1 - (-0.5) = 1.6 eV",
+   "steps": [
+    "E_c = 1.1 eV",
+    "E_v = -0.5 eV",
+    "E_g = 1.6 eV"
+   ],
+   "ref": "Page 209"
+  },
+  {
+   "id": "p12c7t6-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "If the band gap of a material is 3.5 eV, what type of material is it?",
+   "ans": "A material with E_g > 3 eV is typically an insulator, while 0 < E_g < 3 eV is a semiconductor. 3.5 eV indicates an insulator.",
+   "steps": [
+    "E_g = 3.5 eV",
+    "Material type: insulator"
+   ],
+   "ref": "Page 209"
+  },
+  {
+   "id": "p12c7t6:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Calculate the band gap energy given conduction and valence band energies.",
+   "ans": "The band gap energy is calculated as E_g = E_c - E_v, where E_c is the conduction band minimum and E_v is the valence band maximum. It determines whether a material is a conductor, semiconductor, or insulator.",
+   "steps": [
+    "E_g = E_c - E_v",
+    "Typical values: 0.1-15 eV",
+    "Determines material properties"
+   ],
+   "title": "Band Gap Calculation"
+  },
+  {
+   "id": "p12c7t7-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "What happens to the conductivity of a semiconductor when it is heated?",
+   "ans": "Conductivity increases with temperature because more electrons gain enough energy to jump from the valence band to the conduction band.",
+   "steps": [
+    "Temperature increases",
+    "More electrons excitable",
+    "Conductivity increases"
+   ],
+   "ref": "Page 211"
+  },
+  {
+   "id": "p12c7t7-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Differentiate between intrinsic and extrinsic semiconductors.",
+   "ans": "Intrinsic: pure semiconductor. Extrinsic: doped semiconductor with added impurities to enhance conductivity.",
+   "steps": [
+    "Intrinsic: pure",
+    "Extrinsic: doped with impurities"
+   ],
+   "ref": "Page 211"
+  },
+  {
+   "id": "p12c7t7:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Explain the conductivity range of semiconductors compared to conductors and insulators.",
+   "ans": "Semiconductors have electrical conductivity between that of conductors and insulators, and their conductivity can be modified by doping and is temperature dependent.",
+   "steps": [
+    "Conductivity between conductors and insulators",
+    "Can be modified by doping",
+    "Temperature dependent"
+   ],
+   "title": "Semiconductor Properties"
+  },
+  {
+   "id": "p12c7t8-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "What is the depletion region in a p-n junction?",
+   "ans": "The depletion region is an area around the p-n junction where mobile charge carriers have been eliminated, creating an electric field that prevents further diffusion.",
+   "steps": [
+    "Electric field",
+    "No mobile carriers",
+    "Forms at junction"
+   ],
+   "ref": "Page 211"
+  },
+  {
+   "id": "p12c7t8-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Explain the forward bias condition for a p-n junction.",
+   "ans": "In forward bias, the p-side is connected to positive voltage and n-side to negative, reducing the barrier and allowing current flow.",
+   "steps": [
+    "P-side positive",
+    "N-side negative",
+    "Barrier reduced",
+    "Current flows"
+   ],
+   "ref": "Page 211"
+  },
+  {
+   "id": "p12c7t8:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Explain how a p-n junction is formed and its basic properties.",
+   "ans": "A p-n junction is obtained by doping a pure semiconductor crystal (silicon or germanium) with trivalent impurities (like boron) to get a P-type region, and with pentavalent impurities (like antimony) to get an N-type region.",
+   "steps": [
+    "Doping silicon with impurities",
+    "P-type and N-type regions",
+    "Depletion layer formation"
+   ],
+   "title": "PN Junction"
+  },
+  {
+   "id": "p12c7t9-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Name three types of diodes and their applications.",
+   "ans": "1. PN junction diode: general rectification. 2. Zener diode: voltage regulation. 3. LED: light emission.",
+   "steps": [
+    "PN junction",
+    "Zener",
+    "LED",
+    "Rectification, regulation, illumination"
+   ],
+   "ref": "Page 214"
+  },
+  {
+   "id": "p12c7t9-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "How does a Zener diode maintain constant voltage?",
+   "ans": "A Zener diode operated in reverse breakdown maintains a constant voltage across its terminals despite current changes.",
+   "steps": [
+    "Reverse breakdown",
+    "Constant voltage",
+    "Current changes"
+   ],
+   "ref": "Page 214"
+  },
+  {
+   "id": "p12c7t9:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Explain the different types of diodes used in electronic devices.",
+   "ans": "We previously learned that the energy source needed to generate electron-hole pairs in semiconductors is thermal energy, and in most cases this energy is supplied by room heat.",
+   "steps": [
+    "PN junction diode",
+    "Zener diode",
+    "Light-emitting diode",
+    "Applications in circuits"
+   ],
+   "title": "Diode Types"
+  },
+  {
+   "id": "p12c7t10-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "What are the three regions of a transistor and their functions?",
+   "ans": "Emitter (E): emits charge carriers. Base (B): thin region that controls flow. Collector (C): collects carriers. Amplification occurs when small base current controls large collector current.",
+   "steps": [
+    "Emitter",
+    "Base",
+    "Collector",
+    "Current amplification"
+   ],
+   "ref": "Page 217"
+  },
+  {
+   "id": "p12c7t10-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "problem",
+   "text": "Explain the difference between NPN and PNP transistors.",
+   "ans": "NPN has electron majority carriers; PNP has hole majority carriers. Current directions are opposite in the two types.",
+   "steps": [
+    "NPN: electrons",
+    "PNP: holes",
+    "Opposite current directions"
+   ],
+   "ref": "Page 217"
+  },
+  {
+   "id": "p12c7t10:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c7",
+   "chName": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "kind": "example",
+   "text": "Explain the structure and operation of a bipolar junction transistor.",
+   "ans": "A transistor is a device consisting of three regions manufactured from semiconductor material (silicon or germanium), separated by two junctions. The three regions are: emitter (E), base (B), and collector (C).",
+   "steps": [
+    "Three regions: emitter, base, collector",
+    "Two junctions: emitter-base and base-collector",
+    "Amplification and switching functions"
+   ],
+   "title": "Transistor"
+  },
+  {
+   "id": "p12c8-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب طول موجة خط طيفي في ذرة الهيدروجين للانتقال من n=٤ إلى n=٢.",
+   "ans": "λ = ٤٨٦ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/٤ - ١/١٦)",
+    "λ = ٤٨٦ نانومتر"
+   ],
+   "ref": "ص ٢٢٨"
+  },
+  {
+   "id": "p12c8t1:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب طول موجة خط طيفي في ذرة الهيدروجين للانتقال من n=٣ إلى n=٢",
+   "ans": "λ = ٦٥٦ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/٤ - ١/٩)",
+    "λ = ٦٥٦ نانومتر"
+   ],
+   "title": "حساب طول موجة خط طيفي"
+  },
+  {
+   "id": "p12c8-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب طول موجة خط باشين الأول في ذرة الهيدروجين.",
+   "ans": "λ = ١٨٧٥ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/٩ - ١/١٦)",
+    "λ = ١٨٧٥ نانومتر"
+   ],
+   "ref": "ص ٢٣٠"
+  },
+  {
+   "id": "p12c8t2:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب طول موجة خط ليمان الأول في ذرة الهيدروجين",
+   "ans": "λ = ١٢١.٥ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/١ - ١/٤)",
+    "λ = ١٢١.٥ نانومتر"
+   ],
+   "title": "حساب طول موجة خط ليمان"
+  },
+  {
+   "id": "p12c8-p3",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب طاقة المدار الثاني في ذرة الهيدروجين.",
+   "ans": "E₂ = -٣.٤ إلكترون فولت",
+   "steps": [
+    "Eₙ = -١٣.٦/n²",
+    "E₂ = -١٣.٦/٢²",
+    "E₂ = -٣.٤ إلكترون فولت"
+   ],
+   "ref": "ص ٢٣٢"
+  },
+  {
+   "id": "p12c8t3:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب طاقة المدار الأول في ذرة الهيدروجين",
+   "ans": "E₁ = -١٣.٦ إلكترون فولت",
+   "steps": [
+    "Eₙ = -١٣.٦/n²",
+    "E₁ = -١٣.٦/١²",
+    "E₁ = -١٣.٦ إلكترون فولت"
+   ],
+   "title": "حساب طاقة المدار الأول"
+  },
+  {
+   "id": "p12c8-p4",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب طاقة الفوتون المنبعث عند انتقال الإلكترون من n=٤ إلى n=٢.",
+   "ans": "E = ٢.٥٥ إلكترون فولت",
+   "steps": [
+    "E = E₄ - E₂",
+    "E = (-٠.٨٥) - (-٣.٤)",
+    "E = ٢.٥٥ إلكترون فولت"
+   ],
+   "ref": "ص ٢٣٤"
+  },
+  {
+   "id": "p12c8t4:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب طاقة الفوتون المنبعث عند انتقال الإلكترون من n=٣ إلى n=٢",
+   "ans": "E = ١.٩ إلكترون فولت",
+   "steps": [
+    "E = E₃ - E₂",
+    "E = (-١.٥) - (-٣.٤)",
+    "E = ١.٩ إلكترون فولت"
+   ],
+   "title": "حساب طاقة الفوتون المنبعث"
+  },
+  {
+   "id": "p12c8-p5",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب تردد الفوتون المنبعث عند انتقال الإلكترون من n=٤ إلى n=٢.",
+   "ans": "ν = ٦.١٦ × ١٠١٤ هرتز",
+   "steps": [
+    "E = E₄ - E₂ = ٢.٥٥ إلكترون فولت",
+    "ν = E/h = ٢.٥٥ × ١.٦ × ١٠⁻١٩ / ٦.٦٢٦ × ١٠⁻٣٤",
+    "ν = ٦.١٦ × ١٠١٤ هرتز"
+   ],
+   "ref": "ص ٢٣٦"
+  },
+  {
+   "id": "p12c8t5:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب تردد الفوتون المنبعث عند انتقال الإلكترون من n=٣ إلى n=٢",
+   "ans": "ν = ٤.٥٩ × ١٠١٤ هرتز",
+   "steps": [
+    "E = E₃ - E₂ = ١.٩ إلكترون فولت",
+    "ν = E/h = ١.٩ × ١.٦ × ١٠⁻١٩ / ٦.٦٢٦ × ١٠⁻٣٤",
+    "ν = ٤.٥٩ × ١٠١٤ هرتز"
+   ],
+   "title": "حساب تردد الفوتون المنبعث"
+  },
+  {
+   "id": "p12c8-p6",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب طول موجة خط براكيت الأول في ذرة الهيدروجين.",
+   "ans": "λ = ٤٠٥٠ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/١٦ - ١/٢٥)",
+    "λ = ٤٠٥٠ نانومتر"
+   ],
+   "ref": "ص ٢٣٨"
+  },
+  {
+   "id": "p12c8t6:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب طول موجة خط بالمر الثاني في ذرة الهيدروجين",
+   "ans": "λ = ٤٨٦ نانومتر",
+   "steps": [
+    "1/λ = R(1/n₁² - 1/n₂²)",
+    "1/λ = ١.٠٩٧ × ١٠٧ (١/٤ - ١/١٦)",
+    "λ = ٤٨٦ نانومتر"
+   ],
+   "title": "حساب طول موجة خط بالمر الثاني"
+  },
+  {
+   "id": "p12c8-p7",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب تردد الأشعة السينية المنبعثة من ذرة عددها الذري ٤٧.",
+   "ans": "ν = ٥.٢٩ × ١٠١٨ هرتز",
+   "steps": [
+    "√ν = a(Z - b)",
+    "√ν = ٥ × ١٠٧ (٤٧ - ١)",
+    "ν = ٥.٢٩ × ١٠١٨ هرتز"
+   ],
+   "ref": "ص ٢٤٠"
+  },
+  {
+   "id": "p12c8t7:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب تردد الأشعة السينية المنبعثة من ذرة عددها الذري ٢٩",
+   "ans": "ν = ١.٩٦ × ١٠١٨ هرتز",
+   "steps": [
+    "√ν = a(Z - b)",
+    "√ν = ٥ × ١٠٧ (٢٩ - ١)",
+    "ν = ١.٩٦ × ١٠١٨ هرتز"
+   ],
+   "title": "حساب تردد الأشعة السينية"
+  },
+  {
+   "id": "p12c8-p8",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "اذكر أهم مكونات الليزر ووظيفة كل منها.",
+   "ans": "الوسط النشط ينتج الانبعاث والمضخ يثير الذرات والمرآتان تعكسان الفوتونات",
+   "steps": [
+    "الوسط النشط: ينتج الانبعاث المحفز",
+    "مصدر الضخ: يثير الذرات",
+    "المرآتان: تعكس الفوتونات وتضخم الشعاع"
+   ],
+   "ref": "ص ٢٤٢"
+  },
+  {
+   "id": "p12c8t8:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "اذكر مكونات الليزر",
+   "ans": "وسط نشط، مصدر ضخ، مرآتين عاكستين",
+   "steps": [
+    "وسط نشط",
+    "مصدر ضخ",
+    "مرآتين عاكستين"
+   ],
+   "title": "مكونات الليزر"
+  },
+  {
+   "id": "p12c8-p9",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "اذكر أهم الاختلافات بين الانبعاث التلقائي والانبعاث المحفز.",
+   "ans": "الانبعاث المحفز ينتج فوتونات متماسكة ومتماثلة",
+   "steps": [
+    "التلقائي: انبعاث عشوائي",
+    "المحفز: انبعاث محفز بفوتون",
+    "المحفز ينتج فوتونات متماسكة"
+   ],
+   "ref": "ص ٢٤٤"
+  },
+  {
+   "id": "p12c8t9:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "قارن بين النوعين",
+   "ans": "الانبعاث المحفز ينتج فوتونات متماسكة",
+   "steps": [
+    "التلقائي: انبعاث عشوائي",
+    "المحفز: انبعاث محفز بفوتون",
+    "المحفز ينتج فوتونات متماسكة"
+   ],
+   "title": "مقارنة بين الانبعاث التلقائي والمحفز"
+  },
+  {
+   "id": "p12c8-p10",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب شدة شعاع ليزر قدرته ٢ ميلي واط ومساحة مقطعه ١ مم².",
+   "ans": "I = ٢٠٠٠ واط/م²",
+   "steps": [
+    "I = P/A",
+    "I = ٢ × ١٠⁻٣ / ١ × ١٠⁻٦",
+    "I = ٢٠٠٠ واط/م²"
+   ],
+   "ref": "ص ٢٤٦"
+  },
+  {
+   "id": "p12c8t10:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب شدة شعاع ليزر قدرته ١ ميلي واط ومساحة مقطعه ١ مم²",
+   "ans": "I = ١٠٠٠ واط/م²",
+   "steps": [
+    "I = P/A",
+    "I = ١ × ١٠⁻٣ / ١ × ١٠⁻٦",
+    "I = ١٠٠٠ واط/م²"
+   ],
+   "title": "حساب شدة الليزر"
+  },
+  {
+   "id": "p12c8-p11",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "اذكر أهم تطبيقات الليزر في الصناعة.",
+   "ans": "القطع واللحام والنقش",
+   "steps": [
+    "القطع",
+    "اللحام",
+    "النقش"
+   ],
+   "ref": "ص ٢٤٨"
+  }
+ ]
+}

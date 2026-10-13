@@ -1,0 +1,3663 @@
+{
+ "الفيزياء": [
+  {
+   "id": "p12c1t1",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "p12c1t2",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c1t3",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 7,
+   "examples": 0
+  },
+  {
+   "id": "p12c1t4",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 6,
+   "examples": 0
+  },
+  {
+   "id": "p12c1t5",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 7,
+   "examples": 2
+  },
+  {
+   "id": "p12c1t6",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 11,
+   "examples": 3
+  },
+  {
+   "id": "p12c1t7",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 8,
+   "examples": 2
+  },
+  {
+   "id": "p12c1t8",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c1t9",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "p12c1t10",
+   "chapter": "p12c1",
+   "chapterTitle": "الفصل الأول: المتسعات",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t1",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t2",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t3",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t4",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t5",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t6",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t7",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t8",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t9",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 6,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t10",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t11",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t12",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 6,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t13",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t14",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t15",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t16",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t17",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "p12c2t18",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c2t19",
+   "chapter": "p12c2",
+   "chapterTitle": "الفصل الثاني: الحث الكهرومغناطيسي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t1",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t2",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t3",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t4",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t5",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t6",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t7",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t8",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t9",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t10",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t11",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c3t12",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c3t13",
+   "chapter": "p12c3",
+   "chapterTitle": "الفصل الثالث: التيار المتناوب",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "p12c4t1",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t2",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t3",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t4",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "p12c4t5",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t6",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t7",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t8",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t9",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "p12c4t10",
+   "chapter": "p12c4",
+   "chapterTitle": "الفصل الرابع: الموجات الكهرومغناطيسية",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "p12c5t1",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c5t2",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "p12c5t3",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "p12c5t4",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c5t5",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "p12c5t6",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c5t7",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "p12c5t8",
+   "chapter": "p12c5",
+   "chapterTitle": "الفصل الخامس: البصريات الفيزيانية",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t1",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t2",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t3",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t4",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t5",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t6",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t7",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t8",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t9",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t10",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t11",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c6t12",
+   "chapter": "p12c6",
+   "chapterTitle": "الفصل السادس: الفيزياء الحديثة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "p12c7t1",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t2",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t3",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t4",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t5",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t6",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t7",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t8",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t9",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c7t10",
+   "chapter": "p12c7",
+   "chapterTitle": "الفصل السابع: إلكترونيات الحالة الصلبة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t1",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t2",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t3",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t4",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t5",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t6",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t7",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t8",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t9",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t10",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t11",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t12",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t13",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t14",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c8t15",
+   "chapter": "p12c8",
+   "chapterTitle": "الفصل الثامن: الأطياف الذرية والليزر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t1",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t2",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t3",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t4",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t5",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t6",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t7",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t8",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t9",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "p12c9t10",
+   "chapter": "p12c9",
+   "chapterTitle": "الفصل التاسع: الفيزياء النووية",
+   "problems": 2,
+   "examples": 1
+  }
+ ],
+ "الكيمياء": [
+  {
+   "id": "k12c1t1",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t2",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t3",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t4",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "k12c1t5",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t6",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t7",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t8",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t9",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "k12c1t10",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t11",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t12",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 5,
+   "examples": 4
+  },
+  {
+   "id": "k12c1t13",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 8,
+   "examples": 2
+  },
+  {
+   "id": "k12c1t14",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c1t15",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 5,
+   "examples": 2
+  },
+  {
+   "id": "k12c1t16",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 7,
+   "examples": 2
+  },
+  {
+   "id": "k12c1t17",
+   "chapter": "k12c1",
+   "chapterTitle": "الفصل الأول: الثرموداينمك",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t1",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t2",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t3",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t4",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t5",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 3,
+   "examples": 3
+  },
+  {
+   "id": "k12c2t6",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 5,
+   "examples": 4
+  },
+  {
+   "id": "k12c2t7",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 9,
+   "examples": 2
+  },
+  {
+   "id": "k12c2t8",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 6,
+   "examples": 2
+  },
+  {
+   "id": "k12c2t9",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "k12c2t10",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c2t11",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 7,
+   "examples": 0
+  },
+  {
+   "id": "k12c2t12",
+   "chapter": "k12c2",
+   "chapterTitle": "الفصل الثاني: الاتزان الكيميائي",
+   "problems": 4,
+   "examples": 2
+  },
+  {
+   "id": "k12c3t1",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c3t2",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 1,
+   "examples": 2
+  },
+  {
+   "id": "k12c3t3",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 3,
+   "examples": 3
+  },
+  {
+   "id": "k12c3t4",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c3t5",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 3,
+   "examples": 3
+  },
+  {
+   "id": "k12c3t6",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 2,
+   "examples": 3
+  },
+  {
+   "id": "k12c3t7",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c3t8",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 2,
+   "examples": 3
+  },
+  {
+   "id": "k12c3t9",
+   "chapter": "k12c3",
+   "chapterTitle": "الفصل الثالث: الاتزان الأيوني",
+   "problems": 27,
+   "examples": 5
+  },
+  {
+   "id": "k12c4t1",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c4t2",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c4t3",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c4t4",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c4t5",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c4t6",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "k12c4t7",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 8,
+   "examples": 4
+  },
+  {
+   "id": "k12c4t8",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c4t9",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "k12c4t10",
+   "chapter": "k12c4",
+   "chapterTitle": "الفصل الرابع: تفاعلات التأكسد والاختزال والكيمياء الكهربائية",
+   "problems": 34,
+   "examples": 0
+  },
+  {
+   "id": "k12c5t1",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c5t2",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "k12c5t3",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "k12c5t4",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c5t5",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "k12c5t6",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "k12c5t7",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c5t8",
+   "chapter": "k12c5",
+   "chapterTitle": "الفصل الخامس: الكيمياء التناسقية",
+   "problems": 13,
+   "examples": 0
+  },
+  {
+   "id": "k12c6t1",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c6t2",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 6,
+   "examples": 1
+  },
+  {
+   "id": "k12c6t3",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c6t4",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "k12c6t5",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 6,
+   "examples": 2
+  },
+  {
+   "id": "k12c6t6",
+   "chapter": "k12c6",
+   "chapterTitle": "الفصل السادس: طرائق التحليل الكيميائي",
+   "problems": 14,
+   "examples": 3
+  },
+  {
+   "id": "k12c7t1",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 2,
+   "examples": 2
+  },
+  {
+   "id": "k12c7t2",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c7t3",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c7t4",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "k12c7t5",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c7t6",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c7t7",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c7t8",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "k12c7t9",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "k12c7t10",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 5,
+   "examples": 2
+  },
+  {
+   "id": "k12c7t11",
+   "chapter": "k12c7",
+   "chapterTitle": "الفصل السابع: الكيمياء العضوية للهيدروكاربونات المعوضة",
+   "problems": 24,
+   "examples": 0
+  },
+  {
+   "id": "k12c8t1",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "k12c8t2",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t3",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 5,
+   "examples": 2
+  },
+  {
+   "id": "k12c8t4",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t5",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t6",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t7",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t8",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t9",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "k12c8t10",
+   "chapter": "k12c8",
+   "chapterTitle": "الفصل الثامن: الكيمياء الحياتية",
+   "problems": 4,
+   "examples": 1
+  }
+ ],
+ "الرياضيات": [
+  {
+   "id": "m12c1t1",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "m12c1t2",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 4,
+   "examples": 2
+  },
+  {
+   "id": "m12c1t3",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 4,
+   "examples": 3
+  },
+  {
+   "id": "m12c1t4",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 2,
+   "examples": 2
+  },
+  {
+   "id": "m12c1t5",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 4,
+   "examples": 3
+  },
+  {
+   "id": "m12c1t6",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 4,
+   "examples": 3
+  },
+  {
+   "id": "m12c1t7",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "m12c1t8",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 3,
+   "examples": 4
+  },
+  {
+   "id": "m12c1t9",
+   "chapter": "a12c1",
+   "chapterTitle": "الفصل الأول: الأعداد المركبة",
+   "problems": 4,
+   "examples": 3
+  },
+  {
+   "id": "m12c2t1",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "m12c2t2",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "m12c2t3",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "m12c2t4",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "m12c2t5",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "m12c2t6",
+   "chapter": "a12c2",
+   "chapterTitle": "الفصل الثاني: القطوع المخروطية",
+   "problems": 2,
+   "examples": 2
+  },
+  {
+   "id": "m12c4t1",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "m12c4t2",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 7,
+   "examples": 2
+  },
+  {
+   "id": "m12c4t3",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 8,
+   "examples": 3
+  },
+  {
+   "id": "m12c4t4",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 7,
+   "examples": 8
+  },
+  {
+   "id": "m12c4t5",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 9,
+   "examples": 6
+  },
+  {
+   "id": "m12c4t6",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 10,
+   "examples": 4
+  },
+  {
+   "id": "m12c4t7",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 8,
+   "examples": 5
+  },
+  {
+   "id": "m12c4t8",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 11,
+   "examples": 11
+  },
+  {
+   "id": "m12c4t9",
+   "chapter": "a12c4",
+   "chapterTitle": "الفصل الرابع: التكامل",
+   "problems": 6,
+   "examples": 6
+  },
+  {
+   "id": "m12c5t1",
+   "chapter": "a12c5",
+   "chapterTitle": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "problems": 7,
+   "examples": 3
+  },
+  {
+   "id": "m12c5t2",
+   "chapter": "a12c5",
+   "chapterTitle": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "m12c5t3",
+   "chapter": "a12c5",
+   "chapterTitle": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "problems": 8,
+   "examples": 6
+  },
+  {
+   "id": "m12c5t4",
+   "chapter": "a12c5",
+   "chapterTitle": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "m12c5t5",
+   "chapter": "a12c5",
+   "chapterTitle": "الفصل الخامس: المعادلات التفاضلية الاعتيادية",
+   "problems": 14,
+   "examples": 6
+  },
+  {
+   "id": "m12c3t1",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 5,
+   "examples": 6
+  },
+  {
+   "id": "m12c3t2",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 10,
+   "examples": 16
+  },
+  {
+   "id": "m12c3t3",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 4,
+   "examples": 2
+  },
+  {
+   "id": "m12c3t4",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 4,
+   "examples": 3
+  },
+  {
+   "id": "m12c3t5",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 4,
+   "examples": 4
+  },
+  {
+   "id": "m12c3t6",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 7,
+   "examples": 8
+  },
+  {
+   "id": "m12c3t7",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 7,
+   "examples": 4
+  },
+  {
+   "id": "m12c3t8",
+   "chapter": "a12c3",
+   "chapterTitle": "الفصل الثالث: تطبيقات التفاضل",
+   "problems": 12,
+   "examples": 6
+  },
+  {
+   "id": "m12c6t1",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 2,
+   "examples": 2
+  },
+  {
+   "id": "m12c6t2",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 7,
+   "examples": 3
+  },
+  {
+   "id": "m12c6t3",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 6,
+   "examples": 2
+  },
+  {
+   "id": "m12c6t4",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "m12c6t5",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "m12c6t6",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 4,
+   "examples": 2
+  },
+  {
+   "id": "m12c6t7",
+   "chapter": "a12c6",
+   "chapterTitle": "الفصل السادس: الهندسة الفضائية",
+   "problems": 4,
+   "examples": 3
+  }
+ ],
+ "الأحياء": [
+  {
+   "id": "b12c1t1",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "b12c1t2",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t3",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 4,
+   "examples": 2
+  },
+  {
+   "id": "b12c1t4",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t5",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t6",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t7",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 6,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t8",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 5,
+   "examples": 1
+  },
+  {
+   "id": "b12c1t9",
+   "chapter": "b12c1",
+   "chapterTitle": "الفصل الأول: الخلية",
+   "problems": 6,
+   "examples": 1
+  },
+  {
+   "id": "b12c2t1",
+   "chapter": "b12c2",
+   "chapterTitle": "الفصل الثاني: الأنسجة",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "b12c2t2",
+   "chapter": "b12c2",
+   "chapterTitle": "الفصل الثاني: الأنسجة",
+   "problems": 11,
+   "examples": 5
+  },
+  {
+   "id": "b12c2t3",
+   "chapter": "b12c2",
+   "chapterTitle": "الفصل الثاني: الأنسجة",
+   "problems": 31,
+   "examples": 5
+  },
+  {
+   "id": "b12c4t1",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t2",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t3",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t4",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t5",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 13,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t6",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t7",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t8",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t9",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t10",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "b12c4t11",
+   "chapter": "b12c4",
+   "chapterTitle": "الفصل الرابع: التكوين الجنيني",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "b12c5t1",
+   "chapter": "b12c5",
+   "chapterTitle": "الفصل الخامس: علم الوراثة",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "b12c5t2",
+   "chapter": "b12c5",
+   "chapterTitle": "الفصل الخامس: علم الوراثة",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "b12c5t3",
+   "chapter": "b12c5",
+   "chapterTitle": "الفصل الخامس: علم الوراثة",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "b12c5t4",
+   "chapter": "b12c5",
+   "chapterTitle": "الفصل الخامس: علم الوراثة",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "b12c5t5",
+   "chapter": "b12c5",
+   "chapterTitle": "الفصل الخامس: علم الوراثة",
+   "problems": 5,
+   "examples": 3
+  },
+  {
+   "id": "b12c3t1",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "b12c3t2",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 3,
+   "examples": 2
+  },
+  {
+   "id": "b12c3t3",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 6,
+   "examples": 3
+  },
+  {
+   "id": "b12c3t4",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 3,
+   "examples": 1
+  },
+  {
+   "id": "b12c3t5",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 5,
+   "examples": 2
+  },
+  {
+   "id": "b12c3t6",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 6,
+   "examples": 3
+  },
+  {
+   "id": "b12c3t7",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 2,
+   "examples": 1
+  },
+  {
+   "id": "b12c3t8",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 22,
+   "examples": 5
+  },
+  {
+   "id": "b12c3t9",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 17,
+   "examples": 5
+  },
+  {
+   "id": "b12c3t10",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 4,
+   "examples": 1
+  },
+  {
+   "id": "b12c3t11",
+   "chapter": "b12c3",
+   "chapterTitle": "الفصل الثالث: التكاثر",
+   "problems": 4,
+   "examples": 2
+  }
+ ],
+ "اللغة العربية": [
+  {
+   "id": "r12u1t1",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t2",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "r12u1t3",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u1t4",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t5",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 5,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t6",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 5,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t7",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t8",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t9",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t10",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t11",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t1",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t2",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "r12u1t3",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u1t4",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t5",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 5,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t6",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 5,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t7",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 3,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t8",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t9",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t10",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u1t11",
+   "chapter": "r12u1",
+   "chapterTitle": "الوحدة الأولى: بغداد حاضرة الدنيا",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t1",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t2",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u2t3",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t4",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t5",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t1",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t2",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u2t3",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t4",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u2t5",
+   "chapter": "r12u2",
+   "chapterTitle": "الوحدة 2: التضحية طريق النصر",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t1",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t2",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "r12u3t3",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t4",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t5",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t6",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t7",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t8",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t9",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t10",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t11",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t1",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t2",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 1
+  },
+  {
+   "id": "r12u3t3",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t4",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t5",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t6",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 2
+  },
+  {
+   "id": "r12u3t7",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 4,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t8",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t9",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t10",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 2,
+   "examples": 0
+  },
+  {
+   "id": "r12u3t11",
+   "chapter": "r12u3",
+   "chapterTitle": "الوحدة 3: الأمل مفتاح النجاح",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t1",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t2",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t3",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t4",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t5",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t6",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t7",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t8",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t9",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t1",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t2",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t3",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t4",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t5",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t6",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t7",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t8",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u4t9",
+   "chapter": "r12u4",
+   "chapterTitle": "الوحدة 4: نِعمة المطر",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t1",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t2",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u5t3",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t4",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t5",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t1",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t2",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u5t3",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t4",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u5t5",
+   "chapter": "r12u5",
+   "chapterTitle": "الوحدة 5: فلسطين",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t1",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t2",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u6t3",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t4",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t5",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t1",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t2",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "r12u6t3",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t4",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "r12u6t5",
+   "chapter": "r12u6",
+   "chapterTitle": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "problems": 1,
+   "examples": 0
+  }
+ ],
+ "التربية الإسلامية": [
+  {
+   "id": "i12u1t0",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 8,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t1",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t2",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t3",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t4",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t5",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t0",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 8,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t1",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t2",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t3",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t4",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u1t5",
+   "chapter": "i12u1",
+   "chapterTitle": "التجويد + الوحدة الأولى",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt1",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt2",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt3",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt4",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt5",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt1",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt2",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt3",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt4",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u2tt5",
+   "chapter": "i12u2",
+   "chapterTitle": "الوحدة الثانية: قصة موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt1",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt2",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt3",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt4",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt5",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt1",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt2",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt3",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt4",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u3tt5",
+   "chapter": "i12u3",
+   "chapterTitle": "الوحدة الثالثة: سورة النساء + موسى والعبد الصالح + محاسبة النفس + النظام الاقتصادي + الرجولة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt1",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt2",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt3",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt4",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt5",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt1",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt2",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt3",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt4",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u4tt5",
+   "chapter": "i12u4",
+   "chapterTitle": "الوحدة الرابعة: سورة الإسراء + قصة شعيب + الجهاد + الوظائف الاقتصادية + التكبر",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt1",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt2",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt3",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt4",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt5",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt1",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt2",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt3",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt4",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "i12u5tt5",
+   "chapter": "i12u5",
+   "chapterTitle": "الوحدة الخامسة: سورة الأنبياء + نبأ الفاسق + حسن الخلق + التسامح والتعايش السلمي + القناعة",
+   "problems": 0,
+   "examples": 0
+  }
+ ],
+ "اللغة الإنكليزية": [
+  {
+   "id": "e12u1t1",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t2",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t3",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t4",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t5",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t6",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t7",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t8",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t9",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t1",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t2",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t3",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t4",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t5",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t6",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t7",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t8",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u1t9",
+   "chapter": "e12u1",
+   "chapterTitle": "Unit 1: Health",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t1",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u2t2",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t3",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t4",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t5",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t6",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u2t7",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t8",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t9",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t10",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t11",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t1",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u2t2",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t3",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t4",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t5",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t6",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u2t7",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t8",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t9",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t10",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u2t11",
+   "chapter": "e12u2",
+   "chapterTitle": "Unit 2: Law and order",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t1",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t2",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t3",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t4",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u3t5",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t6",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t7",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t8",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t9",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t10",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t11",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t1",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t2",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t3",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t4",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u3t5",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t6",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t7",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t8",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t9",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t10",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u3t11",
+   "chapter": "e12u3",
+   "chapterTitle": "Unit 3: I’d like to work in the tourist industry",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t1",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t2",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u4t3",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t4",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t5",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t6",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t7",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t8",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t9",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t10",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t1",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t2",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 1
+  },
+  {
+   "id": "e12u4t3",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t4",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t5",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t6",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t7",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t8",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t9",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u4t10",
+   "chapter": "e12u4",
+   "chapterTitle": "Unit 4: Rashid & Rana Designs",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t1",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t2",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t3",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t4",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t5",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t6",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t7",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t8",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t9",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t10",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t11",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t1",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t2",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t3",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t4",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t5",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t6",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t7",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t8",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t9",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t10",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 1,
+   "examples": 0
+  },
+  {
+   "id": "e12u5t11",
+   "chapter": "e12u5",
+   "chapterTitle": "Unit 5: Holidays and Sightseeing",
+   "problems": 0,
+   "examples": 0
+  }
+ ]
+}

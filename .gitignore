@@ -11,6 +11,10 @@ _ocr/
 السادس الابتدائي/
 *.pdf
 
+# صور الصفحات المحمّلة من iraqedu.net — كاش قابل لإعادة التوليد
+# (official-exams/download-pages.cjs و download-series.cjs يعيدان تنزيلها)
+official-exams/pages/
+
 # استثناء: ملفات حلول أرشيف الوزاري (PDF ننشرها عمدًا داخل official-exams)
 !official-exams/
 !official-exams/solutions/

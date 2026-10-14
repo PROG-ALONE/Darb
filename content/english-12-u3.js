@@ -57,6 +57,7 @@
     T({ id: 'e12u3t2', sec: 'Lesson 2', page: '31, AB 54–55', title: 'If you come round tomorrow, I’ll help you', en: 'Zero and first conditional',
       why: 'أول شريطين شرطيين في الكتاب: الصفر للنتائج الدائمة، والأول للنتائج المستقبلية — وهما أساس الوحدة كلها.',
       explain: [
+        { t: 'fig', k: 'conditionalLadder', cap: 'الشكل: الأشرطة الشرطية الأربعة — zero وfirst وsecond وthird conditional مرتّبةً بحسب درجة الواقع' },
         P('Ramiz is having an interview with a careers adviser at school.'),
         P('Adviser: What would you like to do when you finish studying? Ramiz: I’m not sure yet. But I’m very interested in ecology and the environment. Adviser: If you’re good at Science and Geography, there are lots of jobs to choose from. Adviser: Well, how about a career in water technology? That’s really important in this country. Ramiz: What exactly does water technology involve? Adviser: If you work in water technology, you look for ways of conserving water and purifying it. Adviser: First of all, you need to get a degree. You could choose from Environmental Science, Geology or even Engineering. Adviser: If you come back next week, I’ll have the answer.'),
         HD('Zero conditional'),
@@ -262,7 +263,7 @@
         Q('“If I ____ passed the test, I would have become a pilot.”', ['had', 'was', 'have', 'would'], 'الشريط الثالث يستلزم perfect past في جملة الشرط: had + اسم المفعول، والجملة الرئيسية would have + اسم المفعول.'),
         Q('“If we had trained harder, we ____ won the match.”', ['might have', 'might', 'would', 'will'], 'الكتاب يذكر possibility و could have و might have مع perfect، أما would وحدها أو will فلا تستعملان لتعبير الاحتمال.'),
         Q('Which sentence is in the third conditional?', ['If I had known about her problems, I would have lent her some money.', 'If I were you, I wouldn’t ask his advice.', 'If you heat ice, it melts.', 'If you pass, what will you do next year?'], 'الأولى فيها had + اسم المفعول و would have + اسم المفعول؛ أما الثانية فشريط ثانٍ، والثالثة فصفرية، والرابعة فأولى.'),
-        Q('Why wasn’t the director a good tour guide?', ['because he couldn’t have been a good tour guide if he’d spoken more languages', 'because he refused to speak at all', 'because he became a policeman instead', 'because he failed the eye test'], 'الصورة الخامسة في النص تربط总公司 inability بالدور، والتمرين يضع الحل: I couldn’t have been a good tour guide if I’d spoken more languages.'),
+        Q('Why wasn’t the director a good tour guide?', ['because he couldn’t have been a good tour guide if he’d spoken more languages', 'because he refused to speak at all', 'because he became a policeman instead', 'because he failed the eye test'], 'الصورة الخامسة في النص تربط بين عدم القدرة (inability) على العمل بالدور، والتمرين يضع الحل: I couldn’t have been a good tour guide if I’d spoken more languages.'),
         TF('In the third conditional the if clause never uses the present perfect.', true, 'الشريط الثالث قاعدته حاسمة: The verb in the if clause is in the past perfect tense، أي had + اسم المفعول لا has + اسم المفعول.')] }),
 
     T({ id: 'e12u3t8', sec: 'Lesson 7', page: '36, AB 64–65', title: 'Learn English in the UK', en: 'Reading: Birchwood International College advert',
@@ -347,7 +348,7 @@
       quiz: [
         Q('Hamed wrote to Basim in order to:', ['invite him to do a summer job together', 'arrange camping in the mountains', 'offer help with his studies', 'ask for money back'], 'الإجابة c من السؤال المباشر في الكتاب، وتؤكدها الرسالة: there’s one I found really interesting, and we could do together.'),
         Q('“They say which three options we would prefer to work at, in order of preference.” This means:', ['the camp then decides which of those three it can give them', 'they can work in any of the 12 camps', 'they must work in all three camps', 'the camp chooses one camp for them'], 'الفرق جوهري: التقديم ثلاث خيارات بالأولوية، والقرار النهائي للمخيّم هو تحديد أيها يناسبهم فعلًا، لذلك ب خاطئة.'),
-        Q('Which costs do they have to pay themselves?', ['only the plane ticket', 'food and accommodation', 'the whole salary', 'the course fees'], 'النص: we don’t have to spend much – apart from the plane ticket،公司和 Camp يوفّر الطعام والإقامة مجانًا.'),
+        Q('Which costs do they have to pay themselves?', ['only the plane ticket', 'food and accommodation', 'the whole salary', 'the course fees'], 'النص: we don’t have to spend much – apart from the plane ticket، والمخيم يوفّر الطعام والإقامة مجانًا.'),
         Q('Why does Hamed prefer eight weeks to ten weeks?', ['so they can take an English course before they come back', 'so they can earn more money', 'so the camp can choose another camp', 'so they can work two weekends off every month'],
           'اختيار المدة في الرسالة مبرر بخطوة دراسية لاحقة: we could take an English course for a couple of weeks before we come back، أما كسب المال فلم يُذكر كسبب للمدّة العشرة.'),
         TF('Hamed thinks the experience will look good on their CV.', true, 'هذه الجملة الأخيرة من الرسالة: We’ll also learn lots of skills, and it’ll look great on our CV.')] }),

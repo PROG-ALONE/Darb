@@ -81,6 +81,7 @@
     T({ id: 'e12u2t3', sec: 'Lesson 2 — Grammar', page: '19, AB 31', title: 'have to, must, need to and their negatives', en: 'Grammar: necessity, prohibition and obligation',
       why: 'ستّ صيغ تدل على معانٍ متقاربة ومختلفة دقيقة: إلزام، منع، وغياب الضرورة — ويخطئ فيها الطالب كثيرًا.',
       explain: [
+        { t: 'fig', k: 'modalObligation', cap: 'The chart: obligation (must / have to / need to) vs no obligation (don’t have to / needn’t) vs prohibition (mustn’t)' },
         HD('The rules (AB Exercise E)'),
         LI(['Use mustn’t to say it’s important not to do something.', 'Use don’t have to and needn’t to say it’s not necessary to do something.', 'Use must, have to and need to to say it’s necessary to do something.']),
         TB('Meaning of each form', ['Form', 'Meaning', 'Example from the texts'], [

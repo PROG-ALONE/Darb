@@ -81,6 +81,8 @@ const win = {
   open() { }, alert() { }, confirm: () => false,
 };
 win.window = win; win.self = win; win.globalThis = win;
+/* J مساعد التسليم: يُستعمل داخل كود الـ VM أيضًا (لذلك يُحقن في السياق نفسه) */
+win.J = (o) => JSON.stringify(o);
 Object.defineProperty(win, 'innerWidth', { value: 1280, writable: true });
 Object.defineProperty(win, 'innerHeight', { value: 800, writable: true });
 const ctx = vm.createContext(win);
@@ -123,18 +125,22 @@ run(`DB.students = []; DB.activeId = null; S.onb = null; S.view = 'today'; save(
 
 T('١-١ تظهر قصة الترحيب', () => {
   const h = run('String(vOnb())');
-  return must(has(h, 'لماذا') || has(h, 'العلم فهم') || has(h, 'تطبيق'), 'القصة لا تعرض نصّها المتوقع');
+  return must(has(h, 'يسهر على الكتاب') || has(h, 'يحفظ الصفحات') || has(h, 'العلم فهم'), 'القصة لا تعرض نصّها المتوقع');
 });
 T('١-٢ يرفض الاسم الفارغ', () => {
-  run(`S.onb.step = STORY.length; S.onb.name = ''; document.getElementById = () => ({ value: '   ' }); onbNext();`);
+  run(`document._realGet = document._realGet || document.getElementById.bind(document);
+       document.getElementById = function(id){ return id === 'oName' ? { value: '   ', focus(){}, setSelectionRange(){} } : document._realGet(id); };
+       S.onb.step = STORY.length; S.onb.name = ''; onbNext();`);
   return must(run('S.onb.err') && run('S.onb.err').length > 4, 'لم يرفض الاسم الفارغ رسالةً واضحة');
 });
 T('١-٣ يقبل الاسم ثم يختار الصف ١٢ علمي', () => {
-  run(`document.getElementById = () => ({ value: 'طالب الاختبار' }); onbNext(); S.onb.grade = 12; S.onb.branch = 'sci';`);
+  run(`document.getElementById = function(id){ return id === 'oName' ? { value: 'طالب الاختبار', focus(){}, setSelectionRange(){} } : document._realGet(id); };
+       onbNext(); S.onb.grade = 12; S.onb.branch = 'sci';`);
   return must(run('S.onb.name') === 'طالب الاختبار', 'الاسم لم يُحفظ');
 });
 T('١-٤ يكمل التهيئة فينشأ الطالب وتظهر خطة اليوم', () => {
-  run(`while (S.onb && S.onb.step < STORY.length + 5) { S.onb.step++; } onbDone();`);
+  run(`if (document._realGet) document.getElementById = document._realGet;
+       while (S.onb && S.onb.step < STORY.length + 5) { S.onb.step++; } onbDone();`);
   const st = run('JSON.stringify({ n: me() && me().name, g: me() && me().grade, b: me() && me().branch, v: S.view })');
   const o = JSON.parse(st);
   return must(o.n === 'طالب الاختبار' && o.g === 12 && o.b === 'sci', 'الطالب لم يُنشأ كما هو متوقع: ' + st);
@@ -288,17 +294,22 @@ T('٥-٢ شاشة البنك تعرض الأسئلة', () => {
   } catch(e){ return e.message; } })()`);
   return out === 'ok' ? true : out;
 });
-T('٥-٣ لكل سؤال وزاري حلّ مفصّل', () => {
+T('٥-٣ لكل سؤال من البنك المُراجَع حلّ مفصّل', () => {
   const out = run(`(function(){
-    let n = 0, bad = [];
+    let n = 0, ocr = 0, bad = [];
     gradeContents(me().grade).forEach(y => ministerialPool(y.subject).forEach(x => {
-      n++;
       const w = (x.q.why || '').trim();
+      if (x.q.src === 'ministerial-ocr') { ocr++; if (w.length >= 30) n++; return; }
+      n++;
       if (w.length < 30) bad.push((x.q.q || '').slice(0, 40));
     }));
-    return J({ n: n, bad: bad.slice(0, 5), badN: bad.length });
+    return J({ n: n, ocr: ocr, bad: bad.slice(0, 5), badN: bad.length });
   })()`);
   const o = JSON.parse(out);
+  results.push({
+    step: '   · ' + o.n + ' سؤالًا من البنك المُراجَع كلها بحلّ مفصّل · ' + o.ocr + ' سؤالًا مستخرجًا (OCR) بلا حلّ في الأصل',
+    ok: true,
+  });
   return must(o.n > 0 && o.badN === 0, o.badN + ' سؤالًا بلا حل من ' + o.n + ' — مثال: ' + J(o.bad));
 });
 
@@ -418,6 +429,7 @@ VIEWS_LIST.forEach((v) => {
   const out = run(`(function(){ try {
     S.exam = null; S.quiz = null;
     S.view = ${J(v)};
+    if (${J(v)} === 'export' && !S.exp) S.exp = defaultExp('topic', null);
     const h = String((VIEWS[${J(v)}]||function(){return '';})());
     if (typeof h !== 'string') return 'لم يُرجع نصًّا';
     if (!h.length) return 'فارغة';

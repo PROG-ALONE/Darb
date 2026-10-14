@@ -139,6 +139,7 @@
     T({ id: 'e12u5t5', sec: 'Lesson 3 · Grammar', page: '50, AB 90–91', title: 'How long …? for and since', en: 'Present perfect simple and continuous with for / since',
       why: 'سؤال How long مع المضارع التام هو أداة الوحدة، و for / since-rule تظهر في كل سؤال امتحاني عن المدة.',
       explain: [
+        { t: 'fig', k: 'timePrepositions', cap: 'The chart: at للوقت المحدّد، on لليوم والتاريخ، in للشهر والسنة والفصل، وfor/since للمدة وبدايتها' },
         HD('Study Tip — How long + present perfect simple + for or since'),
         K('We use How long + present perfect when we want to ask about a period of time from a point in the past until now.'),
         K('We use the present perfect simple with state verbs like be, have, know, live and work: How long have you been married? How long have you lived here?'),
@@ -176,7 +177,7 @@
         TF('In “How long have you been married?” we assume the two people are still married.', true, 'الكتاب ينص على أن سؤال How long يفترض افتراضًا أن الحدث لم ينتهِ بعد، فالمفترض أنهما لا يزالان متزوجين.')] }),
 
     T({ id: 'e12u5t6', sec: 'Lesson 4 · Grammar', page: '51, AB 92–93', title: 'I’ve tried it a few times', en: 'Present perfect vs past simple, has gone and has been to',
-      why: 'الدرس الرابع يبني عليه 등장 الأول للماضي البسيط في مقابل المضارع التام، وهو التمييز الذي يُبنى عليه اختبار الوحدة.',
+      why: 'الدرس الرابع يبني عليه أوّل ظهور للماضي البسيط في مقابل المضارع التام، وهو التمييز الذي يُبنى عليه اختبار الوحدة.',
       explain: [
         HD('Katie and Muna — fill in the gaps'),
         TB('', ['Gap', 'Answer', 'The sentence'], [

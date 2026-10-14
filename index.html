@@ -809,6 +809,8 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 <script src="content/h.js"></script>
 <script src="content/figs.js"></script>
 <script src="content/figs-3.js"></script>
+<script src="content/figs-2.js"></script>
+<script src="content/figs-4.js"></script>
 <script src="content/figs-5.js"></script>
 <script src="content/physics-12-c1.js"></script>
 <script src="content/physics-12-c1-more.js"></script>
@@ -868,7 +870,12 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 <script src="content/ministerial-الكيمياء-2.js"></script>
 <script src="content/ministerial-اللغة الإنكليزية-2.js"></script>
 <script src="content/ministerial-الرياضيات-2.js"></script>
-<script src="content/ministerial-extracted.js"></script>
+<script src="content/ministerial-الأحياء-2.js"></script>
+<script src="content/ministerial-الفيزياء-2.js"></script>
+<script src="content/ministerial-extracted-اللغة العربية.js"></script>
+<script src="content/ministerial-extracted-الأحياء.js"></script>
+<script src="content/ministerial-extracted-الرياضيات.js"></script>
+<script src="content/ministerial-extracted-الفيزياء.js"></script>
 <script src="content/guides-all-1.js"></script>
 <script src="content/guides-all-2.js"></script>
 <script src="content/guides-all-3.js"></script>
@@ -4670,14 +4677,14 @@ function figDrawHTML(k) {
 function figTools(k, full) {
   return '<div class="fig-tools">' +
     '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="-1" aria-label="تصغير">−</button>' +
-    '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="1" aria-label="تكبير">＋</button>' +
+    '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="1" aria-label="تكبير">+</button>' +
     '<button class="icon-btn" data-act="figZoom" data-k="' + k + '" data-d="0" aria-label="إعادة الحجم">⟲</button>' +
     (full ? '<button class="icon-btn" data-act="figDraw" data-k="' + k + '" aria-label="رسمه خطوة بخطوة">✎</button>' : '') +
     '<button class="icon-btn" data-act="figFull" data-k="' + k + '" aria-label="ملء الشاشة">' + ico('search', 1.6) + '</button>' +
     '</div>';
 }
 function figHint() {
-  return '<div class="fig-hint"><span><b>التقريب</b>: عجلة الفأرة أو أزرار ＋ −</span><span><b>التحريك</b>: اسحب الإطار</span><span><b>الفهم</b>: اضغط رقمًا على الرسم</span><span><b>البناء</b>: زرّ ✎ يرسمه أمامك خطوة خطوة</span></div>';
+  return '<div class="fig-hint"><span><b>التقريب</b>: عجلة الفأرة أو أزرار + و−</span><span><b>التحريك</b>: اسحب الإطار</span><span><b>الفهم</b>: اضغط رقمًا على الرسم</span><span><b>البناء</b>: زرّ ✎ يرسمه أمامك خطوة خطوة</span></div>';
 }
 
 /* بطاقة الرسم داخل الموضوع — قابلة للتقريب والسحب والشرح والبناء */

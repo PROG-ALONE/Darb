@@ -59,7 +59,7 @@ function loadCorpus() {
   // ── الأساسي: محتوى الكتب + بنوك الوزارة المكتوبة يدويًا
   const cdir = path.join(ROOT, 'content');
   for (const f of fs.readdirSync(cdir)) {
-    if (!f.endsWith('.js') || f === 'ministerial-extracted.js' || f === 'h.js') continue;
+    if (!f.endsWith('.js') || f.startsWith('ministerial-extracted') || f === 'h.js') continue;
     const code = fs.readFileSync(path.join(cdir, f), 'utf-8')
       .replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
     nPrimary++;
@@ -102,7 +102,7 @@ const TYPES = [
   [/أعرب|اعرب|أعرب\s+ما|إعراب/u, 'أعرب', 180],
   [/استخرج|أكد|أشير\s+إلى|حدّ?د|حددي/u, 'حدّد', 90],
   [/احسب|احسبي|ناتج|المقدار|بالجرام|ممول|مليتر/u, 'احسب', 180],
-  [/رتّ?ب|رتب|أ排序|تسلسل/u, 'رتّب', 90],
+  [/رتّ?ب|رتب|أترتيب|تسلسل/u, 'رتّب', 90],
   [/صحّ?ح|صوّ?ب|ضع\s+علامة|صحح/u, 'صحّح', 90],
   [/قارن|قارني|الفرق\s+بين|الفرق\s+عن/u, 'قارن', 150],
   [/اقرأ|اقرائي|النص\s+(?:الكريم|الشاعري|الادبي)|البيت\s+الشاعري|قال\s+تعالى|قال\s+الشاعر/u, 'نصوص', 180],

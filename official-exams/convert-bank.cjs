@@ -2,6 +2,8 @@
 /**
  * محوّل بنك الأسئلة المستخرج إلى صيغة MINISTERIAL_BANK
  * يقرأ bank-atomic.json (المدقّق والمُقسَّم) ويولّد content/ministerial-extracted.js
+ * ثم يقسّمه فورًا إلى content/ministerial-extracted-<المادة>.js (ملفات التطبيق
+ * الفعلية) ويحذف الملف المدمج حتى لا تتكرّر الأسئلة مرتين.
  */
 const fs = require('fs');
 const path = require('path');
@@ -135,6 +137,18 @@ window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
     console.log(`  ${p.key.split(':')[2]}: ${p.totalQuestions} سؤالًا (${p.withSolution} بحل)`);
   }
   console.log(`\n📁 الحجم: ${(fs.statSync(OUT).size / 1024).toFixed(0)} ك.ب`);
+
+  /* التقسيم فوري: التطبيق يحمّل content/ministerial-extracted-<المادة>.js فقط
+     (لأن الملف المدمج الكبير واحدٌ لا يمكن تعديله بالتوازي)، فلا يبقى نسختان
+     متطابقتان فتضاعف أسئلة البنك ويضاعف عدّ الأسئلة بلا حلّ في الفحوصات. */
+  try {
+    const { execFileSync } = require('child_process');
+    execFileSync(process.execPath, [path.join(__dirname, 'split-extracted.cjs')], { stdio: 'inherit' });
+    fs.unlinkSync(OUT);
+    console.log(`🗑️  حُذف الملف المدمج بعد التقسيم — تبقى الملفات المفصولة فقط`);
+  } catch (e) {
+    console.warn('⚠️ تعذّر التقسيم التلقائي — شغّل official-exams/split-extracted.cjs يدويًّا');
+  }
 }
 
 main();

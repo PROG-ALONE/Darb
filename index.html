@@ -100,7 +100,7 @@ a{color:var(--acc)}
 .hint-purpose{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:12px;border:1px dashed var(--gold-line);background:var(--gold-soft);color:var(--gold);line-height:1.7}
 .hint-purpose b{color:var(--gold)}
 .hint-purpose .small{color:var(--muted)}
-.hint-purpose svg{flex-shrink:0;margin-top:3px}
+.hint-purpose svg{flex-shrink:0;margin-top:3px;width:22px;height:22px}
 /* ── رفوف اليوم في خطة الأسبوع ──
    كل يوم دراسة رفٌّ بمواضيعه: رفوف فارغة يملؤها الطالب من الخطة المقسّمة أمامه.
    لا نظام يملأها عنه؛ وهو يضغط الرفّ فيأخذ أول موضوع متبقٍّ ثم يرتبه كما يشاء. */
@@ -1594,9 +1594,10 @@ function ministerialChapterBest(subject, chId) {
    تُرجع سبب القفل، أو null إذا كان مفتوحًا. */
 function chTestUnlocked(ts, ch) {
   const open = ts.filter(t => !isHidden(t.id));
-  if (!open.length) return 'لا مواضيع مفتوحة في هذا الفصل بعد';
+  if (!open.length) return null;
   const left = open.filter(t => { const p = progOf(t.id); return !(p.quiz && p.quiz.at) || topicPct(t) < 60; });
-  if (left.length) return 'بقي ' + ar(left.length) + ' من ' + ar(open.length) + ' مواضيع لم تكتمل دراستها أو اختبارها بعد';
+  if (left.length === open.length) return 'لم تدرس أي موضوع في هذا الفصل بعد — ابدأ بدراسة المواضيع الـ' + ar(open.length) + ' ثم اختبرها';
+  if (left.length) return 'بقيت ' + ar(left.length) + ' من ' + ar(open.length) + ' مواضيع لم تكتمل دراستها أو اختبارها';
   return null;
 }
 function vChapter() {
@@ -1617,8 +1618,8 @@ function vChapter() {
   const doneT = ts.filter(t => topicPct(t) >= 90).length;
   return topBar(ch.title.split(':')[0], { back: true }) + '<main class="page">' +
     '<div class="t-head"><span class="chap-no">' + ar(ch.no) + '</span><div><h1>' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '')) + '</h1><span class="small muted">' + esc(S.viewSubject || 'الفيزياء') + ' · ' + esc(ch.en) + ' · الكتاب ص' + ar(ch.pages) + '</span></div></div>' +
-    '<div class="strip"><span>بعد كل موضوع اختبار تختار عدد أسئلته، وفي آخر الفصل اختبار شامل</span><b class="num">' + ar(doneT) + ' من ' + ar(ts.length) + ' · ' + ar(pct) + '٪</b></div>' +
-    (() => { const lock = chTestUnlocked(ts); return lock ? '<div class="lock-note">' + ico('tests', 1.4) + '<span><b>اختبار الفصل الشامل مقفل</b><br><span class="small">يُفتح بعد ' + esc(lock) + '. ادرس كل موضوع ثم اختبره، فيفتح لك الاختبار الذي يجمع الفصل كله.</span></span></div>' : ''; })() +
+    '<div class="strip"><span>بعد كل موضوع اختبار تختار عدد أسئلته، وفي آخر الفصل اختبار شامل</span><b class="num">' + (doneT === ts.length ? 'أكملت كل المواضيع ✓' : ar(doneT) + ' من ' + ar(ts.length) + ' مواضيع مكتملة') + '</b></div>' +
+    (() => { const lock = chTestUnlocked(ts); return lock ? '<div class="lock-note">' + ico('tests', 1.4) + '<span><b>اختبار الفصل الشامل مقفل</b><br><span class="small">' + esc(lock) + ' — بعد ذلك يُفتح الاختبار الذي يجمع الفصل كله.</span></span></div>' : ''; })() +
     ((ch.goals||[]).length ? '<details class="fold"><summary>ماذا ستتعلم في هذا الفصل؟</summary><div class="inner"><ul class="lst">' + (ch.goals||[]).map(x => '<li>' + fm(x) + '</li>').join('') + '</ul></div></details>' : '') +
     ((ch.terms||[]).length ? '<details class="fold"><summary>المصطلحات العلمية (عربي وإنكليزي)</summary><div class="inner"><div class="tbl-wrap"><table class="tbl"><tbody>' + (ch.terms||[]).map(x => '<tr><td>' + esc(x[0]) + '</td><td>' + fm(x[1]) + '</td></tr>').join('') + '</tbody></table></div></div></details>' : '') +
     '<section class="map-card"><div class="map-h"><h2>مواضيع الفصل</h2>' + playBtn + '</div>' + pathMap(items, 'c:' + ch.id) + '</section>' +

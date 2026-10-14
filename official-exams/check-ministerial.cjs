@@ -34,11 +34,11 @@ const prefixes = args.filter((a) => a !== '--all');
 const files = fs
   .readdirSync(DIR)
   .filter((f) => f.startsWith('ministerial-') && f.endsWith('.js'))
-  /* ministerial-extracted.js مصنوع آليًّا من OCR ويرث نقصًا تاريخيًّا
-     (why فارغ + معرّفات p12bioexN غير مربوطة بالمنهج)، فلا يُحسب ضمن
+  /* ministerial-extracted*.js مصنوعة آليًّا من OCR ويرث نقصًا تاريخيًّا
+     (why فارغ + معرّفات p12bioexN غير مربوطة بالمنهج)، فلا تُحسب ضمن
      الفحص الصارم ما لم يُطلَب --all. الملفات المكتوبة من الامتحانات
      الرسمية يجب أن تمرّ كاملة. */
-  .filter((f) => ALL || f !== 'ministerial-extracted.js')
+  .filter((f) => ALL || !f.startsWith('ministerial-extracted'))
   .filter((f) => !prefixes.length || prefixes.some((p) => f.includes(p)));
 
 const errors = [];
@@ -117,6 +117,41 @@ for (const f of files) {
     }
 
     stats.push({ file: f, key, n: qs.length, open: nOpen, mcq: nMcq, chapters: Object.keys(realCh).length });
+  }
+}
+
+/* ── فحص اكتمال الحلول في ملفات OCR الإرثية ─────────────────────────────
+   هذه الملفات مصنوعة آليًّا من bank-atomic.json، ويرثت tid إرثيًّا
+   (p12bioexN) لا يطابق فهرس المواضيع. لذلك لا تُفحص صِلتها بالموضوع
+   هنا، بل يُفحص ما يهمّ المستخدم فعلًا: أن لكل سؤال حلًّا مفصّلًا.
+   الحدّ: 30 حرفًا خطًّا أحمر (خطأ)، و60 حرفًا هدفًا (تحذير). */
+const LEGACY = fs
+  .readdirSync(DIR)
+  .filter((f) => f.startsWith('ministerial-extracted') && f.endsWith('.js'));
+
+let legN = 0, legEmpty = [], legShort = 0;
+for (const f of LEGACY) {
+  global.window = {};
+  for (const k of Object.keys(require.cache)) delete require.cache[k];
+  try { require(path.join(DIR, f)); } catch (e) { errors.push(f + ': تعذّر التحميل — ' + e.message); continue; }
+  const parts = (global.window.MINISTERIAL_BANK || []).filter((p) => p && p.questions);
+  parts.forEach((part) => (part.questions || []).forEach((q, i) => {
+    legN++;
+    const why = (q.why || '').trim();
+    if (why.length < 30) legEmpty.push(f + '#' + i + ' (' + why.length + ' حرفًا) — ' + (q.q || '').slice(0, 48));
+    else if (why.length < 60) legShort++;
+  }));
+}
+if (LEGACY.length) {
+  stats.push({ file: LEGACY.join(' · '), key: 'OCR إرثي (فحص الحلول)', n: legN, open: legN, mcq: 0, chapters: 0 });
+  if (legEmpty.length) {
+    /* هذه ملفات مصنوعة آليًّا من OCR: غياب الحلّ فيها هدف مستقبلي موثّق،
+       لا عائق على صحة البنك المكتوب يدويًّا. تُعرض تنبيهات خطًّا أحمر
+       إلا مع --all فتصبح أخطاء (فحوص الإرث الشامل). */
+    const line = (msg) => (ALL ? errors : warns).push(msg);
+    line('اكتمال الحلول: ' + legEmpty.length + ' سؤالًا بلا حلّ مفصّل في ملفات OCR الإرثية');
+    legEmpty.slice(0, 15).forEach((e) => line('  ↳ ' + e));
+    if (legEmpty.length > 15) line('  … و' + (legEmpty.length - 15) + ' سؤالًا آخر بلا حل');
   }
 }
 

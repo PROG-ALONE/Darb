@@ -774,6 +774,11 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
   .tbl-wrap{scrollbar-width:thin}
   /* منع انعكاس الأقواس في النصوص العربية RTL */
   [dir="rtl"]{unicode-bidi:plaintext}
+  /* المعادلات لا تخرج عن الشاشة: تصغير الخط + التفاف النص */
+  .eqbox,.law-f{font-size:.88em;word-break:break-word}
+  .eqbox .math.eq,.law-f .math.eq{white-space:normal}
+  /* املأ الفراغات: النص الرياضي من اليسار لليمين */
+  .blank-math{direction:ltr;text-align:left;unicode-bidi:plaintext}
 }
 @media (max-width:390px){
   :root{--fsk:.9}
@@ -1544,7 +1549,7 @@ const chPct = ch => { const ts = ch.topics.filter(t => !isHidden(t.id)); return 
 function vSubject() {
   const g = GRADES[S.viewGrade - 1], s = S.viewSubject, c = contentOf(S.viewGrade, s);
   const st0 = me(), key = contentKey(S.viewGrade, g.branch ? (S.viewGrade === st0.grade ? st0.branch : (st0.branch || 'sci')) : null, s);
-  const outline = OUTLINES[key] || (c ? c.chapters.map(ch => [ch.title.replace(/^الفصل [^:]+:\s*/, ''), ch.pages]) : []);
+  const outline = OUTLINES[key] || (c ? c.chapters.slice().sort((a, b) => (a.no || 0) - (b.no || 0)).map(ch => [ch.title.replace(/^الفصل [^:]+:\s*/, ''), ch.pages]) : []);
   let map = '';
   if (outline.length) {
     let curSet = false;
@@ -2895,7 +2900,9 @@ function blanksHTML(t) {
       parts.forEach((p, j) => { html += fm(p); if (j < parts.length - 1) { const res = st.res ? st.res[j] : null, val = (st.vals || [])[j] || '';
         html += st.shown ? '<b class="blank-ans">' + fm(blankAnswers(b, j)[0]) + '</b>' : '<input class="blank' + (res === true ? ' ok' : res === false ? ' bad' : '') + '" data-k="' + k + '" data-j="' + j + '" value="' + esc(val) + '" aria-label="الفراغ ' + ar(j + 1) + '" autocomplete="off">'; } });
       const allOk = st.res && st.res.every(Boolean);
-      return '<section class="qa"><p class="q blank-line">' + html + '</p>' +
+      /* نص فراغ رياضي/إنجليزي (حروف لاتينية أو رموز) يُعرض من اليسار لليمين */
+      const isLTR = /[A-Za-z=+\-×÷√²³⁰¹⁴-⁹∑∞≤≥≈∂∫]/.test(b.s.replace(/____/g, ''));
+      return '<section class="qa"><p class="q blank-line' + (isLTR ? ' blank-math' : '') + '">' + html + '</p>' +
         (st.shown ? '' : '<div class="chips"><button class="chip" data-act="blankCheck" data-k="' + k + '">تحقق</button><button class="chip" data-act="blankShow" data-k="' + k + '">أظهر الجواب</button>' + (allOk ? '<span class="okmark">أحسنت ✓</span>' : st.res ? '<span class="badmark">راجع الفراغ الملوّن</span>' : '') + '</div>') + '</section>'; }).join('');
 }
 function blankAnswers(b, j) { const n = b.s.split(BLANK).length - 1; return n === 1 ? b.a : String(b.a[j]).split('|'); }

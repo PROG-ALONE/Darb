@@ -2376,7 +2376,7 @@ function findTopic(id) { return IDX_TOPIC.get(id) || null; }
 /* تجميع سؤال: مربوط بموضوعه إن أمكن، وإلا يُجمع حسب دورة الاختبار */
 function qGroup(x) {
   const t = x.tid ? findTopic(x.tid) : null;
-  if (t) return { chId: t.ch.id, chTitle: t.ch.title, tKey: x.tid, tLabel: ft(t.t.title) };
+  if (t) return { chId: t.ch.id, chTitle: t.ch.title, tKey: x.tid, tLabel: t.t.title };
   const yr = x.q && x.q.year;
   return { chId: 'bank', chTitle: 'أسئلة الدورات الوزارية', tKey: yr ? 'y' + yr : 'general', tLabel: yr ? 'دورة ' + ar(yr) : 'أسئلة عامة' };
 }
@@ -2386,7 +2386,7 @@ function qTid(x) { return qGroup(x).tKey; }
 function bankMeta(x) {
   const q = x.q || {}, t = x.tid ? findTopic(x.tid) : null;
   const chTitle = q.ch || (t ? t.ch.title : '');
-  const tpTitle = q.tpT || (t ? ft(t.t.title) : '');
+  const tpTitle = q.tpT || (t ? t.t.title : '');
   const conf = q.mc || (q.ch ? q.mc || 'chapter' : (t ? 'high' : 'none'));
   const year = q.year || 0, role = q.role && q.role !== 'غير محدد' ? q.role : '';
   const isMCQ = q.o && q.o.length;
@@ -3095,7 +3095,7 @@ function testsRecordHTML(exams, subject) {
         '<div class="qdet">' + e.ks.map((key, i) => {
           const v = e.ok[i], t = (e.times || [])[i] || 0;
           const f = key.indexOf(':') > 0 ? findTopic(key.split(':')[0]) : null;
-          const name = f ? ft(f.t.title) : key;
+          const name = f ? f.t.title : key;
           const cls = v === 1 ? 'ok' : v === 2 ? 'mid' : 'bad';
           const word = v === 1 ? 'أصاب' : v === 2 ? 'مراجعة' : 'أخطأ';
           return '<span class="qchip ' + cls + '" title="' + esc(name) + '">' +
@@ -3882,7 +3882,7 @@ function vBank() {
     let inner = '', n = 0;
     Object.keys(g.subs).forEach(sKey => {
       const grp = g.subs[sKey];
-      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + esc(grp.label) +
+      inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + ft(grp.label) +
         ' <span class="muted num">· ' + ar(grp.items.length) + ' سؤال</span></p>';
       grp.items.forEach(x => {
         const q = x.q, m = bankMeta(x);

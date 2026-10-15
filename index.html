@@ -395,6 +395,16 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 
 .dialog-back{position:fixed;inset:0;background:rgba(10,15,20,.45);z-index:25;display:flex;align-items:flex-end;justify-content:center}
 .dialog{background:var(--card);color:var(--ink);width:min(100%,640px);border-radius:24px 24px 0 0;padding:24px max(20px,4vw) calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;animation:rise .25s both}
+/* نافذة منبثقة مركزية: للخطط والسجل والمكتبة والبنك والامتحانات */
+.modal-back{position:fixed;inset:0;background:rgba(10,15,20,.55);z-index:40;display:flex;align-items:center;justify-content:center;padding:18px;animation:fadeIn .18s both}
+.modal{background:var(--card);color:var(--ink);width:min(100%,680px);max-height:88vh;border-radius:22px;padding:20px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 60px rgba(0,0,0,.4);animation:popIn .22s cubic-bezier(.2,.9,.3,1.2) both;overflow:hidden}
+.modal-h{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.modal-h h2{font-size:1.05em;margin:0}
+.modal-x{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--soft);color:var(--ink);font-size:1em;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-x:hover{background:var(--bad);color:#fff;border-color:var(--bad)}
+.modal-b{overflow-y:auto;padding:4px 2px;min-height:80px;-webkit-overflow-scrolling:touch}
+@keyframes popIn{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 
 /* التقييم */
@@ -1221,9 +1231,10 @@ function vToday() {
   return topBar('أهلاً، ' + st.name, { log: 'today', avatar: st.id }) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
     '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    accSec('plan-daily', 'الخطة اليومية', dailySummary, dailyBody, !(S.acc && S.acc['plan-week'])) +
-    accSec('plan-week', 'خطة الأسبوع', weekSummary, weeklyPlanHTML(st), !!(S.acc && S.acc['plan-week'])) +
-    '<div class="grid2"><button class="btn" data-act="openLog" data-v="stats"><b>سجلّي والتقييم</b><span class="small muted">تقويم أيامك وإحصاء كل يوم على حدة</span></button>' +
+    '<button class="btn" data-act="openPlanPopup" data-plan="daily"><b>الخطة اليومية</b><span class="small muted">' + dailySummary + '</span></button>' +
+    '<button class="btn" data-act="openPlanPopup" data-plan="week"><b>خطة الأسبوع</b><span class="small muted">' + weekSummary + '</span></button>' +
+    (function(){ S.dailyPlanHTML = dailyBody; S.weekPlanHTML = weeklyPlanHTML(st); return ''; })() +
+    '<div class="grid2"><button class="btn" data-act="go" data-v="review" data-popup="1" data-popup-title="سجلّي والتقييم"><b>سجلّي والتقييم</b><span class="small muted">تقويم أيامك وإحصاء كل يوم على حدة</span></button>' +
       '<button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button></div>' +
     '<div class="grid2"><button class="btn quiet" data-act="expRevLog">صدّر سجل المراجعة</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div>' +
     '</main>';
@@ -3837,7 +3848,11 @@ function bankInsights(subject) {
     '<div class="plist">' + rows.slice(0, 8).map(r => '<div class="pitem" style="pointer-events:none"><span class="st">' + ar(r.n) + '</span><span style="flex:1;min-width:0"><b>' + ft(r.title) + '</b><br><span class="small muted">' + ar(r.tf) + ' صح/خطأ · ' + ar(r.n - r.tf) + ' اختيار</span></span></div>').join('') + '</div></section>';
 }
 function vBank() {
-  const subject = S.bankSubject, pool = ministerialPool(subject), subs = gradeContents(me().grade).map(y => y.subject);
+  const subject = S.bankSubject, pool = ministerialPool(subject).slice().sort((a, b) => {
+    const ca = parseInt((a.tid || '').match(/c(\d+)t/)?.[1] || '0', 10);
+    const cb = parseInt((b.tid || '').match(/c(\d+)t/)?.[1] || '0', 10);
+    return ca - cb;
+  }), subs = gradeContents(me().grade).map(y => y.subject);
   if (!pool.length) return topBar('بنك الأسئلة الوزارية', { back: true }) + '<main class="page">' +
     empty('library', 'بنك هذه المادة قيد البناء', 'يُبنى بنك الأسئلة الوزارية الكامل من دورات ٢٠١٦ إلى ٢٠٢٦، ويخدم الطالب (تصفّح وتدريب) والنظام (تهيئة وقياس التطور). تابع تحديثات المحتوى.') +
     (subs.length > 1 ? '<div class="chips">' + subs.map(s => '<button class="chip" data-act="openBank" data-s="' + esc(s) + '" aria-pressed="' + (s === subject) + '">' + esc(s) + '</button>').join('') + '</div>' : '') +
@@ -4060,7 +4075,7 @@ function ministerialLibraryHTML(st) {
   return '<section class="card"><h2>بنك الأسئلة الوزارية</h2><p class="small muted">بنك كامل لأسئلة الدورات الوزارية. يخدم الطالب: يتصفّح ويتدرّب؛ ويخدم النظام: يبني منه جلسات «التهيئة للوزاري» والامتحان الوزاري الكامل، ويقيس تطورك ومعدلك ويكشف مواضيع الضعف.</p>' +
     '<p class="small num">' + (total ? ar(total) + ' سؤالًا متوفرًا' : 'قيد البناء من دورات ٢٠١٦ إلى ٢٠٢٦') + '</p>' +
     (have.length ? '<div class="grid2">' + have.map(r => '<button class="btn" data-act="ministerialFull" data-s="' + esc(r.s) + '">الامتحان الوزاري الكامل · ' + esc(r.s) + (r.avg ? ' · معدلك ' + ar(r.avg) + '٪' : '') + '</button>').join('') + '</div>' : '') +
-    '<div class="plist" style="margin-top:10px">' + rows.map(r => '<button class="pitem" data-act="openBank" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
+    '<div class="plist" style="margin-top:10px">' + rows.map(r => '<button class="pitem" data-act="go" data-v="bank" data-popup="1" data-popup-title="بنك ' + esc(r.s) + '" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
 }
 
 /* =================== خطة اليوم: توزيع المواضيع المتبقية على أيام الدراسة =================== */
@@ -5392,6 +5407,22 @@ function vDialog() {
     : '<div class="grid2"><button class="btn ' + (d.danger ? 'danger' : '') + '" data-act="dlgOk">' + esc(d.ok) + '</button><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div></div>');
 }
 
+/* =================== النافذة المنبثقة المركزية =================== */
+function showPopup(title, bodyHTML) {
+  S.popup = { title, body: bodyHTML };
+  render();
+}
+function closePopup() {
+  S.popup = null;
+  render();
+}
+function vPopup() {
+  const p = S.popup; if (!p) return '';
+  return '<div class="modal-back" data-act="closePopupBg"><div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">' +
+    '<div class="modal-h"><h2>' + esc(p.title) + '</h2><button class="modal-x" data-act="closePopup" aria-label="إغلاق">✕</button></div>' +
+    '<div class="modal-b">' + p.body + '</div></div></div>';
+}
+
 /* =================== الرسم =================== */
 const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim, fig: vFig };
 function render(scrollTop) {
@@ -5399,7 +5430,7 @@ function render(scrollTop) {
   const app = document.getElementById('app');
   if (S.onb) { app.innerHTML = vOnb(); const f = document.getElementById('oName'); if (f) f.focus(); return; }
   if (!me()) { startOnb('first'); render(); return; }
-  app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.dialog ? vDialog() : '');
+  app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.popup ? vPopup() : '') + (S.dialog ? vDialog() : '');
   if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
   mountSims(); mountPhotos(); mountFigs();
   bindHintHover(app);
@@ -5416,7 +5447,14 @@ document.addEventListener('click', e => {
   const a = el.dataset.act, st = me();
   switch (a) {
     case 'tab': tabTo(el.dataset.v); break;
-    case 'go': if (el.dataset.v === 'settings') S.setTab = el.dataset.t || 'acc'; go(el.dataset.v); break;
+    case 'go': if (el.dataset.v === 'settings') S.setTab = el.dataset.t || 'acc';
+      if (el.dataset.popup) {
+        const v = el.dataset.v;
+        const viewFn = VIEWS[v] || vToday;
+        const title = el.dataset.popupTitle || el.textContent.trim().slice(0, 40) || 'تفاصيل';
+        showPopup(title, viewFn());
+      } else go(el.dataset.v);
+      break;
     case 'back': if (!back()) tabTo('today'); break;
     case 'grade': go('grade', { viewGrade: +el.dataset.g }); break;
     case 'subject': go('subject', { viewGrade: +el.dataset.g, viewSubject: el.dataset.s }); break;
@@ -5446,6 +5484,8 @@ document.addEventListener('click', e => {
       render(); break;
     }
     case 'closeDialog': S.dialog = null; render(); break;
+    case 'closePopupBg': if (e.target === el) { S.popup = null; render(); } break;
+    case 'closePopup': S.popup = null; render(); break;
     case 'dlgOk': { const r = S.dialog.run; S.dialog = null; r(); render(); break; }
     case 'branch': st.branch = el.dataset.v; save(); render(); break;
     case 'rest': { const i = +el.dataset.i; st.rest = st.rest.includes(i) ? st.rest.filter(x => x !== i) : st.rest.concat(i); if (st.rest.length > 3) { st.rest = st.rest.filter(x => x !== i); toast('ثلاثة أيام راحة في الأسبوع هي الحد الأعلى.'); } save(); render(); break; }
@@ -5543,6 +5583,7 @@ document.addEventListener('click', e => {
     case 'calDay': S.calD = el.dataset.d; { const p = parseD(el.dataset.d); S.calY = p.getFullYear(); S.calM = p.getMonth(); } S.acc = S.acc || {}; S.acc['cal-day'] = true; render(); break;
     case 'revLog': S.revLog = el.dataset.v; render(); break;
     case 'openLog': S.logFor = el.dataset.v; S.logSubject = null; go('log'); break;
+    case 'openPlanPopup': showPopup(el.dataset.plan === 'week' ? 'خطة الأسبوع' : 'الخطة اليومية', el.dataset.plan === 'week' ? (S.weekPlanHTML || '') : (S.dailyPlanHTML || '')); break;
     case 'testsLog': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     case 'chapterTest': { const n = quizPool(el.dataset.src).length; if (!n) { toast('لا أسئلة في هذا الفصل بعد. عُد بعد اكتمال محتواه.'); break; } startQuiz(el.dataset.src, Math.min(+el.dataset.n || n, n)); break; }
     case 'ansNum': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); if (cur === 'أدخل إجابتك بالرقم') d.textContent = el.dataset.v; else if (cur.length < 12) d.textContent = cur + el.dataset.v; break; }

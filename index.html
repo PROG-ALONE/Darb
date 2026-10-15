@@ -2870,7 +2870,7 @@ function blockHTML(b, key) {
     case 'poem': return '<div class="poem">' + (b.end ? '<div class="mstart">▼ بداية الحفظ</div>' : '') + b.x.map((l, li) => '<div class="bt' + (b.end && li >= b.end ? ' out' : '') + '"><span>' + esc(l[0]) + '</span><span>' + esc(l[1] || '') + '</span></div>' + (b.end && li === b.end - 1 ? '<div class="mend">■ هنا ينتهي الحفظ' + (b.end < b.x.length ? ' — ما بعده للقراءة والفهم' : '') + '</div>' : '')).join('') + '</div>';
     case 'mstart': return '<div class="mstart">▼ بداية الحفظ' + (b.x ? ': ' + esc(b.x) : '') + '</div>';
     case 'mend': return '<div class="mend">■ هنا ينتهي الحفظ' + (b.x ? ' — ' + esc(b.x) : '') + '</div>';
-    case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(x.replace(/^\d+[.)]\s*/, '')) + '</li>').join('') + '</ol>';
+    case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(x.replace(/^[0-9٠-٩]+[.)\-–—]\s*/, '').replace(/^[ء-ي]\s*[.)\-–—]\s*/, '')) + '</li>').join('') + '</ol>';
     case 'think': return '<details class="think"><summary><b>فكّر</b> ' + fm(b.q) + '</summary><div>' + fm(b.a) + '</div></details>';
     case 'fig': return figHTML(b.k, b.cap, false);
     case 'sim': return '<div class="sim" data-sim="' + b.k + '" data-key="' + key + '"></div>';

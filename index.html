@@ -396,13 +396,16 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .dialog-back{position:fixed;inset:0;background:rgba(10,15,20,.45);z-index:25;display:flex;align-items:flex-end;justify-content:center}
 .dialog{background:var(--card);color:var(--ink);width:min(100%,640px);border-radius:24px 24px 0 0;padding:24px max(20px,4vw) calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;animation:rise .25s both}
 /* نافذة منبثقة مركزية: للخطط والسجل والمكتبة والبنك والامتحانات */
-.modal-back{position:fixed;inset:0;background:rgba(10,15,20,.55);z-index:40;display:flex;align-items:center;justify-content:center;padding:18px;animation:fadeIn .18s both}
-.modal{background:var(--card);color:var(--ink);width:min(100%,680px);max-height:88vh;border-radius:22px;padding:20px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 60px rgba(0,0,0,.4);animation:popIn .22s cubic-bezier(.2,.9,.3,1.2) both;overflow:hidden}
-.modal-h{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px}
-.modal-h h2{font-size:1.05em;margin:0}
-.modal-x{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--soft);color:var(--ink);font-size:1em;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.modal-x:hover{background:var(--bad);color:#fff;border-color:var(--bad)}
-.modal-b{overflow-y:auto;padding:4px 2px;min-height:80px;-webkit-overflow-scrolling:touch}
+.modal-back{position:fixed;inset:0;background:rgba(10,15,20,.6);backdrop-filter:blur(3px);z-index:40;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .18s both}
+.modal{background:var(--card);color:var(--ink);width:min(100%,760px);max-height:92vh;border-radius:24px;padding:0;display:flex;flex-direction:column;gap:0;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:popIn .22s cubic-bezier(.2,.9,.3,1.2) both;overflow:hidden;border:1px solid var(--line)}
+.modal-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;flex-shrink:0;background:linear-gradient(135deg,var(--acc-soft),transparent);border-bottom:1px solid var(--line);position:relative}
+.modal-h::before{content:'';position:absolute;inset-inline-start:0;top:0;bottom:0;width:5px;background:var(--acc);border-radius:0 4px 4px 0}
+.modal-h h2{font-size:1.25em;margin:0;font-family:var(--display);font-weight:800}
+.modal-x{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.05em;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s ease}
+.modal-x:hover{background:var(--bad);color:#fff;border-color:var(--bad);transform:rotate(90deg)}
+.modal-b{overflow-y:auto;padding:16px 18px 20px;min-height:80px;-webkit-overflow-scrolling:touch;flex:1}
+.modal-b .page{padding:0;gap:12px}
+@media (max-width:480px){.modal{max-height:94vh;border-radius:20px}.modal-h{padding:14px 14px}.modal-b{padding:14px 14px 18px}}
 @keyframes popIn{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
@@ -5416,6 +5419,7 @@ function vDialog() {
 
 /* =================== النافذة المنبثقة المركزية =================== */
 function showPopup(title, bodyHTML) {
+  /* يقبل نصًا جاهزًا أو دالة تُنادى عند كل رسم (لتخطيطات متغيّرة داخليًا) */
   S.popup = { title, body: bodyHTML };
   render();
 }
@@ -5423,11 +5427,19 @@ function closePopup() {
   S.popup = null;
   render();
 }
+/* يستخرج جسم العرض: يحذف الترويسة ويحوّل <main> إلى <div> ليتناسب داخل النافذة */
+function popupBody(viewHTML) {
+  return String(viewHTML)
+    .replace(/<header class="top">[\s\S]*?<\/header>/, '')
+    .replace(/<main[^>]*class="page"[^>]*>/, '<div class="page">')
+    .replace(/<\/main>/, '</div>');
+}
 function vPopup() {
   const p = S.popup; if (!p) return '';
+  const body = typeof p.body === 'function' ? p.body() : p.body;
   return '<div class="modal-back" data-act="closePopupBg"><div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">' +
     '<div class="modal-h"><h2>' + esc(p.title) + '</h2><button class="modal-x" data-act="closePopup" aria-label="إغلاق">✕</button></div>' +
-    '<div class="modal-b">' + p.body + '</div></div></div>';
+    '<div class="modal-b">' + body + '</div></div></div>';
 }
 
 /* =================== الرسم =================== */
@@ -5800,7 +5812,7 @@ document.addEventListener('click', e => {
       examConfig('ministerial', subj);
       break;
     }
-    case 'subExams': go('subexams'); break;
+    case 'subExams': showPopup('امتحانات المواد', () => popupBody(vSubExams())); break;
     case 'minPrep': go('minprep'); break;
     case 'minPrepSubj': S.minPrepSubj = el.dataset.s || null; go('minprep'); break;
     /* ٨) الرسم التفاعلي: تقريب، تحريك، شرح بالضغط، وبناء خطوة بخطوة */
@@ -5815,11 +5827,11 @@ document.addEventListener('click', e => {
     case 'figStep': { const k = el.dataset.k, d = +el.dataset.d, st = figSt(k), n = ((FIGS[k] || {}).steps || []).length;
       if (d === 0) st.step = 0; else st.step = Math.max(0, Math.min(n - 1, st.step + d));
       S.figDraw = k; render(); break; }
-    case 'figFull': { S.figK = el.dataset.k; S.figCap = ''; S.figDraw = null; go('fig'); break; }
+    case 'figFull': { S.figK = el.dataset.k; S.figCap = ''; S.figDraw = null; showPopup((FIGS[S.figK] || {}).title || 'رسم تفاعلي', () => popupBody(vFig())); break; }
     case 'figDraw': { const k = el.dataset.k; S.figDraw = (S.figDraw === k ? null : k); if (S.figDraw === k) figSt(k).step = Math.max(0, figSt(k).step); render(); break; }
     case 'weakOf': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     /* ٧-ز) سجل «تطوّرك الوزاري» في تبويب الاختبارات */
-    case 'minRec': go('minrec'); break;
+    case 'minRec': showPopup('علامات تطورك الوزاري', () => popupBody(vMinrec())); break;
     case 'minRecSubj': S.minRecSubj = el.dataset.s || null; S.minRecTab = 'all'; render(); break;
     case 'minRecTab': S.minRecSubj = el.dataset.s; S.minRecTab = el.dataset.t; render(); break;
     case 'expRevLog': exportLogDoc('review'); break;

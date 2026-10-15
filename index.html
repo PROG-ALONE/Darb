@@ -491,7 +491,7 @@ details.think div{border-top:1px solid var(--line);padding-top:8px}
 /* عرض الطبقة = عرض الـsvg بالضبط، وإلّا انزلقت النقاط عن مواضعها (نسبة من الطبقة) */
 .fig-layer{position:relative;width:100%;max-width:520px;margin:0 auto;transform-origin:50% 50%;transition:transform .12s ease-out;will-change:transform}
 .fig-layer svg{display:block;width:100%;max-width:none;height:auto}
-.fig.ix .fhot{position:absolute;width:26px;height:26px;border-radius:50%;border:2px solid var(--acc);background:var(--card);color:var(--acc);font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.22);z-index:3;padding:0;line-height:1;transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)));transition:transform .12s ease-out}
+.fig.ix .fhot{position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid var(--acc);background:var(--card);color:var(--acc);font-size:.74em;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.35),0 0 0 2px #fff;z-index:5;padding:0;line-height:1;transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)));transition:transform .12s ease-out}
 .fig.ix .fhot:hover,.fig.ix .fhot.on{background:var(--acc);color:#fff;transform:translate(-50%,-50%) scale(calc(1.18 / var(--fz,1)))}
 .fig-hint{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.72em;color:var(--muted);line-height:1.7}
 .fig-hint b{color:var(--acc)}
@@ -756,6 +756,14 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
   .metrics{grid-template-columns:repeat(auto-fit,minmax(min(100%,104px),1fr))}
   .tabs{padding-inline:4px}
   .tab{font-size:.72em}
+  /* الجداول لا تنكمش: التفاف النص + تصغير الحشوة + تمرير أفقي سلس */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;overscroll-behavior-x:contain;display:block}
+  .tbl{font-size:.82em}
+  .tbl th,.tbl td{padding:7px 8px;word-break:break-word;overflow-wrap:anywhere}
+  .tbl-wrap > .tbl{min-width:100%}
+  .tbl-wrap{scrollbar-width:thin}
+  /* منع انعكاس الأقواس في النصوص العربية RTL */
+  [dir="rtl"]{unicode-bidi:plaintext}
 }
 @media (max-width:390px){
   :root{--fsk:.9}
@@ -2843,7 +2851,7 @@ function blockHTML(b, key) {
     case 'poem': return '<div class="poem">' + (b.end ? '<div class="mstart">▼ بداية الحفظ</div>' : '') + b.x.map((l, li) => '<div class="bt' + (b.end && li >= b.end ? ' out' : '') + '"><span>' + esc(l[0]) + '</span><span>' + esc(l[1] || '') + '</span></div>' + (b.end && li === b.end - 1 ? '<div class="mend">■ هنا ينتهي الحفظ' + (b.end < b.x.length ? ' — ما بعده للقراءة والفهم' : '') + '</div>' : '')).join('') + '</div>';
     case 'mstart': return '<div class="mstart">▼ بداية الحفظ' + (b.x ? ': ' + esc(b.x) : '') + '</div>';
     case 'mend': return '<div class="mend">■ هنا ينتهي الحفظ' + (b.x ? ' — ' + esc(b.x) : '') + '</div>';
-    case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol>';
+    case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(x.replace(/^\d+[.)]\s*/, '')) + '</li>').join('') + '</ol>';
     case 'think': return '<details class="think"><summary><b>فكّر</b> ' + fm(b.q) + '</summary><div>' + fm(b.a) + '</div></details>';
     case 'fig': return figHTML(b.k, b.cap, false);
     case 'sim': return '<div class="sim" data-sim="' + b.k + '" data-key="' + key + '"></div>';
@@ -3791,7 +3799,7 @@ function examDoneView(z, title) {
     h += '<h2 style="font-size:1.1em;margin-top:16px">أسئلة مراجعة (' + ar(openItems.length) + ')</h2>' +
       '<p class="small muted">هذه أسئلة وزارية مفتوحة — قارن إجابتك بالحل النموذجي:</p>' +
       openItems.map(x => { const q = x.it.q; return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner">' +
-        (q.why ? '<p class="a"><b>الحل النموذجي:</b> ' + fm(q.why) + '</p>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
+        (q.why ? '<details class="fold"><summary>أظهر الحل النموذجي</summary><div class="inner"><p class="a"><b>الحل:</b> ' + fm(q.why) + '</p></div></details>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
         (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' · ' + esc(q.role) : '') + '</p>' : '') +
         '</div></details>'; }).join('');
   }
@@ -4501,7 +4509,7 @@ function contentBlocks(t, seg) {
     laws: () => L('القوانين', (t.laws || []).map(l => '<div class="blk"><div class="eqbox">' + fe(l.f) + '</div><b class="t">' + xe(l.name) + '</b>' + (l.read ? '<br>' + xe(l.read) : '') + (l.vars ? '<br><span class="muted">' + l.vars.map(v => Array.isArray(v) ? xe(v[0]) + ' ' + esc(v[1]) + (v[2] ? ' (' + xe(v[2]) + ')' : '') : xe(v)).join(' · ') + '</span>' : '') + '</div>').join('')),
     reasons: () => L('التعليلات', (t.reasons || []).map(r => '<div class="blk">' + (/^علل/.test(r.q) ? '' : '<b class="t">علّل:</b> ') + xe(r.q) + '<br><b class="t">لأن:</b> ' + xe(r.a) + '</div>').join('')),
     blanks: () => L('املأ الفراغ', (t.blanks || []).map(b => { const n = (b.s.match(/____/g) || []).length; let k = 0; const s = b.s.replace(/____/g, () => '<u><b>' + esc(n > 1 ? [].concat(b.a[k++])[0] : [].concat(b.a)[0]) + '</b></u>'); return '<div class="blk">' + s + '</div>'; }).join('')),
-    examples: () => L('أمثلة الكتاب', (t.examples || []).map(e => '<div class="blk"><b class="t">' + xe(e.title) + '</b> <span class="muted">ص' + ar(e.page) + '</span><br>' + xe(e.text) + '<ol>' + e.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol><b>الجواب:</b> ' + xe(e.ans) + '</div>').join('')),
+    examples: () => L('أمثلة الكتاب', (t.examples || []).map(e => '<div class="blk"><b class="t">' + xe(e.title) + '</b> <span class="muted">ص' + ar(e.page) + '</span><br>' + xe(e.text) + '<ol>' + e.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol>' + (e.ans ? '<details class="fold"><summary>أظهر الجواب</summary><div class="inner"><b>الجواب:</b> ' + xe(e.ans) + '</div></details>' : '') + '</div>').join('')),
     problems: () => L('مسائل الموضوع', t.problems.map((p, i) => '<div class="blk"><b class="t">' + ar(i + 1) + '.</b> ' + xe(p.text) + '</div>').join('')),
     quiz: () => L('أسئلة الاختبار مع أجوبتها', t.quiz.map((q, i) => '<div class="blk"><b class="t">' + ar(i + 1) + '.</b> ' + xe(q.q) + '<br><b>الجواب:</b> ' + xe(q.o[q.c]) + '<div class="muted">' + xe(q.why) + '</div></div>').join(''))
   };

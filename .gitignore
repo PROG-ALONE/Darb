@@ -21,3 +21,4 @@ official-exams/pages/
 !official-exams/solutions/**
 !official-exams/solutions/**/*.pdf
 official-exams/year-sim/sim_out.json
+graphify-out/

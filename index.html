@@ -2766,7 +2766,12 @@ function vSettings() {
    { key: '12:sci:الفيزياء', questions: [{ q, o:[...], c, why, tid?, year? }] }، ويخدم الطالب (تصفّح وتدريب) والنظام (جلسات التهيئة الوزارية والتطور). */
 window.MINISTERIAL_BANK = window.MINISTERIAL_BANK || [];
 const CONTENT = {};
-(window.CONTENT_PARTS || []).forEach(p => { (CONTENT[p.key] = CONTENT[p.key] || { chapters: [] }).chapters.push(p.chapter); });
+/* درس خاص بفرع واحد (مثل «النقد الأدبي — للفرع الأدبي فقط») يحمل branch:'lit'، فلا يظهر في مفتاح الفرع الآخر */
+(window.CONTENT_PARTS || []).forEach(p => {
+  const br = String(p.key).split(':')[1], ch = p.chapter;
+  const own = ch.topics && ch.topics.some(t => t.branch && t.branch !== br) ? Object.assign({}, ch, { topics: ch.topics.filter(t => !t.branch || t.branch === br) }) : ch;
+  (CONTENT[p.key] = CONTENT[p.key] || { chapters: [] }).chapters.push(own);
+});
 Object.values(CONTENT).forEach(c => c.chapters.sort((a, b) => a.no - b.no));
 /* فهرس بحث سريع O(1) يُبنى مرة واحدة بعد تجميع المحتوى، بدل المسح الخطي في كل استدعاء */
 const IDX_TOPIC = new Map(), IDX_CH = new Map(), IDX_PROB = new Map();

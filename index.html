@@ -1232,6 +1232,16 @@ main.page>*:nth-child(2){animation-delay:.03s}main.page>*:nth-child(3){animation
 .thm-prev{width:100%;height:64px;border-radius:12px;background:var(--b);display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px;border:1px solid rgba(0,0,0,.08)}
 .thm-prev i{border-radius:7px;background:color-mix(in srgb,var(--a) 20%,#fff)}
 .thm-prev i:first-child{grid-column:span 2;background:var(--a)}
+
+.fieldrow{display:flex;gap:8px}.fieldrow .input{flex:1;min-width:0}
+.codebox{min-height:84px;padding:10px 12px;font-family:ui-monospace,monospace;font-size:.75em;resize:vertical;word-break:break-all}
+details.lb>summary{list-style:none}details.lb>summary::-webkit-details-marker{display:none}
+details.lb+details.lb{border-top:1px solid var(--line)}
+.lb-rank{width:32px;height:32px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+.lb-rank.top1{background:#F2C46D;color:#4a3300}.lb-rank.top2{background:#C9D1DC;color:#2a3340}.lb-rank.top3{background:#E3A97A;color:#4a2400}
+.lb-b{padding:4px 16px 14px;display:flex;flex-direction:column;gap:8px;background:var(--soft)}
+.lb-s .bar{display:block;height:7px;border-radius:9px;background:var(--line);overflow:hidden}.lb-s .bar>span{display:block;height:100%;border-radius:9px}
+.lb-s{display:grid;grid-template-columns:minmax(110px,40%) 1fr auto;gap:8px;align-items:center;font-size:.85em}
 </style>
 </head>
 <body>
@@ -2518,11 +2528,77 @@ function figsLibBody() {
         '<span style="flex:1;min-width:0"><b>' + esc(FIGS[k].title) + '</b><br><span class="small muted">' + esc(String(FIGS[k].teaches).slice(0, 96)) + '…</span></span></button>').join('') +
       '</div></div>').join('');
 }
+/* ═════════ مجموعتي: تنافس بلا خادم ═════════
+   صاحب المجموعة ينشئها فيُولَّد «رمز المجموعة» (معرّف + مفتاح سرّي). كل عضو يصدر «بطاقة إنجازه»:
+   إحصاءات فقط (تقدّم كل مادة، الدروس المتقنة، معدّل الاختبارات والوزاري، أيام المواظبة، دقائق الأسبوع)
+   موقّعة بمفتاح المجموعة (HMAC). يرسلها لزملائه بأي وسيلة، فيلصقونها فتظهر لوحة الترتيب.
+   لا يخرج من الجهاز اسم حقيقي ولا محتوى دفاتر — وبطاقة لا تحمل توقيع المجموعة تُرفض. */
+const b64e = str => btoa(unescape(encodeURIComponent(str))).replace(/=+$/, '');
+const b64d = str => decodeURIComponent(escape(atob(str)));
+async function hmac(key, msg) {
+  try { const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(key), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']); const sig = await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg)); return [...new Uint8Array(sig)].slice(0, 12).map(x => x.toString(16).padStart(2, '0')).join(''); }
+  catch (e) { let h = 0; const t = key + '|' + msg; for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return (h >>> 0).toString(16); }
+}
+function myGroupStats() {
+  const st = me(), subs = evalSubjects(), wk = isoD(weekStart0());
+  const subj = {}; gradeContents(st.grade).forEach(y => { let n = 0, sum = 0; y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; n++; sum += topicPct(t); })); if (n) subj[y.subject] = Math.round(sum / n); });
+  const avg = a => a.length ? Math.round(a.reduce((x, y) => x + y, 0) / a.length) : 0;
+  const q = subs.map(x => x.testAvg != null ? x.testAvg : x.quizAvg).filter(x => x != null);
+  const m = subs.map(x => x.mAvg).filter(x => x != null);
+  const weekMin = Math.round((st.log || []).filter(x => x.d >= wk).reduce((a, x) => a + (x.sec || 0), 0) / 60);
+  return { done: subs.reduce((a, x) => a + x.done, 0), total: subs.reduce((a, x) => a + x.tot, 0), subj, quiz: avg(q), mins: avg(m), nMin: m.length, streak: streakDays(), weekMin };
+}
+const groupScore = s => Math.round(s.done * 3 + s.quiz * 0.6 + s.mins * 0.8 + s.streak * 2 + s.weekMin / 10);
+async function makeMyCard(g) {
+  const st = me(), body = { g: g.id, u: st.id, n: st.name, at: Date.now(), s: myGroupStats() }, js = JSON.stringify(body);
+  return 'DARB-C.' + b64e(js) + '.' + await hmac(g.token, js);
+}
+async function readCard(g, code) {
+  const m = String(code).trim().match(/^DARB-C\.([A-Za-z0-9+/]+)\.([0-9a-f]+)$/); if (!m) return { err: 'هذا ليس رمز بطاقة من دَرْب.' };
+  let js, o; try { js = b64d(m[1]); o = JSON.parse(js); } catch (e) { return { err: 'البطاقة تالفة.' }; }
+  if (o.g !== g.id) return { err: 'البطاقة لمجموعة أخرى.' };
+  if (await hmac(g.token, js) !== m[2]) return { err: 'توقيع البطاقة لا يطابق رمز هذه المجموعة.' };
+  return { card: o };
+}
+function curGroup() { const st = me(); st.groups = Array.isArray(st.groups) ? st.groups : []; if (S.groupId === '__new') return null; return st.groups.find(x => x.id === S.groupId) || st.groups[0] || null; }
 function vGroups() {
-  return topBar('مجموعتي') + '<main class="page">' +
-    empty('group', 'ادرس مع زملائك بالتنافس', 'أنشئ مجموعة فيعطيك التطبيق رمزًا من ٦ خانات، شاركه مع صفك، وتظهر لوحة المتصدرين: الاختبارات المجتازة، والساعات، والمواظبة.') +
-    '<div class="grid2"><button class="btn" disabled>أنشئ مجموعة | قريبًا</button><button class="btn ghost" disabled>انضم برمز | قريبًا</button></div>' +
-    '<div class="card" style="flex-direction:row;gap:12px;align-items:flex-start">' + '<span style="width:24px;flex-shrink:0;color:var(--acc)">' + ico('shield') + '</span><p class="small">لا يظهر لأحد إلا اسمك المستعار وتقدمك. لا اسم حقيقي، ولا مدرسة، ولا رقم، ولا دردشة.</p></div></main>';
+  const st = me(), groups = Array.isArray(st.groups) ? st.groups : (st.groups = []), g = curGroup();
+  let h = topBar('مجموعتي', { back: true, sub: 'تنافس في الدراسة والامتحانات فقط' }) + '<main class="page">';
+  if (!g) return h + '<section class="hero"><span class="r-ic big" style="--c:var(--acc)">' + ico('group', 1.9) + '</span><div class="hero-t"><span class="eyebrow">ادرس مع زملائك</span><h2>أنشئ مجموعة أو انضم إليها</h2><p class="muted small">لا يُشارَك إلا إحصاءات إنجازك: تقدّم كل مادة ونتائج الاختبارات والمواظبة. لا دفاتر ولا بيانات شخصية.</p></div></section>' +
+    sect('مجموعة جديدة', '<div class="fieldrow"><input id="gName" class="input" placeholder="اسم المجموعة، مثلًا: سادس علمي أ"><button class="btn" data-act="gCreate">أنشئ</button></div>') +
+    sect('انضم برمز', '<div class="fieldrow"><input id="gJoin" class="input" dir="ltr" placeholder="DARB-G…"><button class="btn quiet" data-act="gJoin">انضم</button></div>') + '</main>';
+  const members = Object.values(g.members || {}); const mine = { u: st.id, n: st.name, at: Date.now(), s: myGroupStats(), me: true };
+  const rows = members.filter(m => m.u !== st.id).concat([mine]).sort((a, b) => groupScore(b.s) - groupScore(a.s));
+  h += (groups.length > 1 ? '<div class="hscroll">' + groups.map(x => '<button class="chip" data-act="gPick" data-id="' + x.id + '" aria-pressed="' + (x.id === g.id) + '">' + esc(x.name) + '</button>').join('') + '<button class="chip" data-act="gNew">+ مجموعة</button></div>' : '') +
+    '<section class="hero"><span class="r-ic big" style="--c:var(--acc)">' + ico('group', 1.9) + '</span><div class="hero-t"><span class="eyebrow">' + (g.owner ? 'أنت صاحب المجموعة' : 'عضو') + '</span><h2>' + esc(g.name) + '</h2><p class="muted small">' + ar(rows.length) + ' أعضاء في اللوحة</p></div></section>' +
+    sect('لوحة الترتيب', '<div class="list">' + rows.map((m, i) => { const s = m.s, old = !m.me && Date.now() - m.at > 7 * 864e5;
+      return '<details class="lb"><summary class="row2"><span class="lb-rank' + (i < 3 ? ' top' + (i + 1) : '') + '">' + ar(i + 1) + '</span><span class="r-tx"><b>' + esc(m.n) + (m.me ? ' (أنت)' : '') + '</b><small>' + ar(s.done) + ' درسًا متقنًا | اختبارات ' + ar(s.quiz) + '٪ | وزاري ' + (s.nMin ? ar(s.mins) + '٪' : '—') + ' | ' + ar(s.streak) + ' أيام متتالية' + (old ? ' | قديمة' : '') + '</small></span><span class="r-end num">' + ar(groupScore(s)) + '</span></summary>' +
+        '<div class="lb-b">' + Object.entries(s.subj || {}).map(([sj, v]) => '<div class="lb-s"><span><span class="r-dot" style="--c:' + scol(sj) + '"></span>' + esc(sj) + '</span><span class="bar"><span style="width:' + Math.max(2, v) + '%;background:' + scol(sj) + '"></span></span><b class="num">' + ar(v) + '٪</b></div>').join('') +
+        '<p class="small muted">دقائق هذا الأسبوع: ' + ar(s.weekMin) + ' | آخر تحديث: ' + fmtD(new Date(m.at)) + '</p>' + (!m.me ? '<button class="link" data-act="gDrop" data-u="' + m.u + '">أزل من لوحتي</button>' : '') + '</div></details>'; }).join('') + '</div>' +
+      '<p class="small muted">النقاط = الدروس المتقنة ×٣ + معدّل الاختبارات + معدّل الوزاري + أيام المواظبة ×٢ + دقائق الأسبوع.</p>') +
+    sect('شارك بطاقتك', '<p class="small muted">أرسل بطاقتك لزملائك (واتساب أو تليغرام)، وحدّثها كل أسبوع.</p><div class="grid2"><button class="btn" data-act="gCard">' + ico('download', 2) + '<span>انسخ بطاقة إنجازي</span></button><button class="btn quiet" data-act="gInvite">انسخ رمز الدعوة</button></div>' +
+      '<textarea id="gOut" class="input codebox" dir="ltr" readonly placeholder="يظهر الرمز هنا بعد النسخ"></textarea>') +
+    sect('أضف بطاقة زميل', '<textarea id="gIn" class="input codebox" dir="ltr" placeholder="DARB-C…  (يمكن لصق عدة بطاقات معًا)"></textarea><button class="btn quiet wide" data-act="gAdd">أضف إلى اللوحة</button>') +
+    '<div class="list">' + row2({ act: 'gLeave', ico: 'shield', color: 'var(--bad)', title: 'غادر المجموعة', sub: 'تُحذف اللوحة من جهازك فقط' }) + '</div></main>';
+  return h;
+}
+async function groupAct(a, el) {
+  const st = me(); st.groups = Array.isArray(st.groups) ? st.groups : [];
+  const g = curGroup();
+  const copy = async (txt, msg) => { const o = document.getElementById('gOut'); if (o) { o.value = txt; o.select(); } try { await navigator.clipboard.writeText(txt); toast(msg); } catch (e) { toast('انسخ الرمز من المربع.'); } };
+  if (a === 'gCreate') { const n = (document.getElementById('gName') || {}).value || ''; if (!n.trim()) { toast('اكتب اسمًا للمجموعة.'); return; }
+    const ng = { id: uid(), name: n.trim().slice(0, 40), token: uid() + uid(), owner: true, members: {}, at: Date.now() }; st.groups.push(ng); S.groupId = ng.id; save(); render(); toast('أُنشئت المجموعة. انسخ رمز الدعوة وأرسله لزملائك.'); }
+  if (a === 'gJoin') { const v = ((document.getElementById('gJoin') || {}).value || '').trim(); const m = v.match(/^DARB-G\.([A-Za-z0-9+/]+)$/); if (!m) { toast('رمز الدعوة غير صحيح.'); return; }
+    try { const o = JSON.parse(b64d(m[1])); if (st.groups.some(x => x.id === o.id)) { toast('أنت في هذه المجموعة.'); return; } st.groups.push({ id: o.id, name: o.name, token: o.token, owner: false, members: {}, at: Date.now() }); S.groupId = o.id; save(); render(); toast('انضممت إلى ' + o.name + '.'); } catch (e) { toast('رمز الدعوة تالف.'); } }
+  if (a === 'gInvite' && g) copy('DARB-G.' + b64e(JSON.stringify({ id: g.id, name: g.name, token: g.token })), 'نُسخ رمز الدعوة.');
+  if (a === 'gCard' && g) copy(await makeMyCard(g), 'نُسخت بطاقة إنجازك.');
+  if (a === 'gAdd' && g) { const txt = (document.getElementById('gIn') || {}).value || ''; const codes = txt.match(/DARB-C\.[A-Za-z0-9+/]+\.[0-9a-f]+/g) || []; if (!codes.length) { toast('الصق بطاقة تبدأ بـ DARB-C'); return; }
+    let ok = 0, last = ''; for (const c of codes) { const r = await readCard(g, c); if (r.card) { if (r.card.u !== st.id) { const prev = g.members[r.card.u]; if (!prev || prev.at <= r.card.at) g.members[r.card.u] = r.card; ok++; } } else last = r.err; }
+    save(); render(); toast(ok ? 'أضيفت ' + ar(ok) + ' بطاقة.' : last || 'لم تُضف أي بطاقة.'); }
+  if (a === 'gPick') { S.groupId = el.dataset.id; render(); }
+  if (a === 'gNew') { S.groupId = '__new'; render(); }
+  if (a === 'gDrop' && g) { delete g.members[el.dataset.u]; save(); render(); }
+  if (a === 'gLeave' && g) { S.dialog = { title: 'مغادرة ' + g.name + '؟', text: 'تُحذف اللوحة وبطاقات الزملاء من جهازك.', ok: 'غادر', danger: true, run: () => { st.groups = st.groups.filter(x => x.id !== g.id); S.groupId = null; save(); } }; render(); }
 }
 
 function searchResults() {
@@ -6080,7 +6156,8 @@ function vMe() {
       row2({ act: 'go', data: { v: 'eval' }, ico: 'chart', title: 'قيّمني', sub: 'معدّلك المتوقّع (' + ar(E.predicted) + '٪) وخطة الأيام المتبقية ونصائحك' }) +
       row2({ act: 'openLog', data: { v: 'stats' }, ico: 'cal', title: 'سجلّي والتقويم', sub: 'كل يوم بنشاطه ودقائقه' }) +
       row2({ act: 'go', data: { v: 'review' }, ico: 'review', title: 'المراجعة المتباعدة', sub: ar(revAll().filter(x => revOver(x.r)).length) + ' مستحقة الآن' }) +
-      row2({ act: 'go', data: { v: 'minrec' }, ico: 'star', title: 'تطوّري الوزاري', sub: 'كل جلساتك الوزارية ومعدّلها لكل مادة' }) + '</div>') +
+      row2({ act: 'go', data: { v: 'minrec' }, ico: 'star', title: 'تطوّري الوزاري', sub: 'كل جلساتك الوزارية ومعدّلها لكل مادة' }) +
+      row2({ act: 'go', data: { v: 'groups' }, ico: 'group', title: 'مجموعتي والتنافس', sub: (Array.isArray(me().groups) && me().groups.length ? ar(me().groups.length) + ' مجموعة' : 'أنشئ مجموعة مع زملائك') }) + '</div>') +
     sect('مكتبتي', '<div class="list">' +
       row2({ act: 'go', data: { v: 'library' }, ico: 'pen', title: 'دفاتري والكتب', sub: 'حلولك وملاحظاتك وأخطاؤك لكل مادة' }) +
       row2({ act: 'go', data: { v: 'exportall' }, ico: 'download', title: 'التصدير والاسترجاع', sub: 'نسخة كاملة مضغوطة مرتبة، واسترجاعها' }) + '</div>') +
@@ -6500,6 +6577,7 @@ document.addEventListener('click', e => {
     case 'openLog': S.logFor = el.dataset.v; S.logSubject = null; go('log'); break;
     case 'seg2': if (el.dataset.k === 'weekMode') { me().weekMode = el.dataset.v; me().dayPlan = null; save(); render(); break; } S[el.dataset.k] = el.dataset.v; render(true); break;
     case 'noop': break;
+    case 'gCreate': case 'gJoin': case 'gInvite': case 'gCard': case 'gAdd': case 'gPick': case 'gNew': case 'gDrop': case 'gLeave': groupAct(a, el); break;
     case 'zipAll': exportZip().then(r => { S.zipMsg = ''; render(); toast('جُهّزت النسخة الكاملة (' + ar(Math.round(r.size / 1024)) + ' ك.ب).'); }).catch(e => { S.zipMsg = ''; toast(e.message || 'تعذّر التصدير'); render(); }); render(); break;
     case 'wpRemove': wpAssign(el.dataset.tid, -1); break;
     case 'wpClear': { const aw = autoWeek(me()); aw.days.forEach(d => d.length = 0); me().dayPlan = null; save(); render(); break; }

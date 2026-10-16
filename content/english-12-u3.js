@@ -87,7 +87,7 @@
       quiz: [
         Q('“Plants die if you don’t water them.” This is:', ['the zero conditional', 'the first conditional', 'the second conditional', 'the third conditional'], 'كلا الفعلين في المضارع البسيط، وهذا تعريف الشريط الصفري في الكتاب، بينما الشريط الأول يجعل الثاني في المستقبل.'),
         Q('“If you come round tomorrow, I’ll help you.” The verb in the if clause is:', ['in the present simple', 'in the future simple', 'in the past simple', 'in the past perfect'], 'قاعدة الشريط الأول تنص صراحةً: The verb in the if clause is in the present tense، ثم يأتي المستقبل في الجملة الأخرى فقط.'),
-        Q('Choose the correct form: If they don’t leave soon, they ____ catch the train.', ['won’t', 'will not to', 'don’t', 'didn’t'], 'الشريط الأول يفرض futuroًا مع will/won’t في الجملة الثانية، ولا يصح وضع don’t في الجملة الثانية ولا استعمال will not to.'),
+        Q('Choose the correct form: If they don’t leave soon, they ____ catch the train.', ['won’t', 'will not to', 'don’t', 'didn’t'], 'الشريط الأول يفرض زمن المستقبل مع will/won’t في الجملة الثانية، ولا يصح وضع don’t في الجملة الثانية ولا استعمال will not to.'),
         Q('“I’ll be at home around four, unless there’s an emergency at work.” Here unless means:', ['if not', 'if', 'because', 'although'], 'كتاب النشاطات ينص: We can also use unless instead of if, meaning if not، والقيمة الشرطية تبقى نفسها فيبقى صيغة الشرط الأول.'),
         TF('In the first conditional we can use an imperative in the main clause: If he asks you for money, don’t give him any.', true, 'دراسة الفرع الأول تذكر أنّ الجملة الثانية تقبل صيغة الأمر، ومنها المثال المذكور حرفيًا في كتاب النشاطات.')] }),
 
@@ -171,7 +171,7 @@
           ['“What are you doing?”', 'He asked me what I was doing.'],
           ['“When did you decide to be an architect?”', 'Latifa asked Zaha when she had decided to be an architect.'],
           ['“Can Iraqi women always be as successful as men?”', 'Latifa asked Zaha whether Iraqi women could always be as successful as men in their careers.']]),
-        N('ملحوظة دلالية: suggest لا تأخذ to + مصدر في الإنكليزية British (نستعمل suggest doing)، أما advise فتقبل to + مصدر ومع not too.'),
+        N('ملحوظة دلالية: في الإنكليزية البريطانية لا تأتي suggest بعدَها to + مصدر، بل نستعمل suggest doing؛ أمّا advise فتقبل to + مصدر ومع not to.'),
         TH('Report this sentence with each verb: “I’ll sign the contract.”', 'He promised to sign the contract. / He advised me to sign the contract. / He refused to sign the contract.')],
       defs: [
         D('to suggest', 'to put forward an idea — يقترح'),
@@ -188,10 +188,10 @@
         '1) Hazem suggested that Samir apply for the job.\n2) Layla promised to help with the project tomorrow.\n3) Malik advised (me) not to speak to the manager now.\n4) Maryam refused to stay late to finish the report.\n5) Saeed agreed to sign the contract.',
         ['Each box word is used once only.', 'suggest is followed by -ing or by that + subject + base verb; promise / refuse / agree are followed by to + infinitive; advise is followed by an object then (not) to + infinitive.'])],
       quiz: [
-        Q('“I’ll buy him the video game.” → His mum ____ to buy him the video game.', ['promised', 'suggested', 'refused', 'advised'], 'الوعد بحدث مؤكَّد في المستقبل، ولذلك فعل التقرير هو promise الذي يأخذ to + مصدر؛ أما suggest و advise فخطابان opinion أما refuse فينفي الفعل.'),
+        Q('“I’ll buy him the video game.” → His mum ____ to buy him the video game.', ['promised', 'suggested', 'refused', 'advised'], 'الوعد بحدث مؤكَّد في المستقبل، ولذلك فعل التقرير هو promise الذي يأخذ to + مصدر؛ أمّا suggest و advise فيعبّران عن الرأي، وrefuse ينفي الفعل.'),
         Q('The doctor said: “You mustn’t go to school for a few days.” The best report is:', ['The doctor advised me not to go to school for a few days.', 'The doctor suggested not going to school.', 'The doctor promised not to go to school.', 'The doctor refused to go to school.'], 'النصيحة تأخذ advise + object + not to + مصدر، وهذا هو النموذج الوارد حرفيًا في كتاب النشاطات بعد الجمل الثلاث الأولى.'),
         Q('“I’ll help with the project tomorrow.” → She ____ to help with the project.', ['promised', 'advised', 'suggested', 'refused'], 'الوعد بحدث سيتحقق هو promised، أما refused فتنفي فعلًا مستقبليًا و suggested تقترح فعلًا غير مضمون.'),
-        Q('Which verb is followed by -ing?', ['suggest', 'promise', 'refuse', 'agree'], 'في الإنكليزية synchronize with suggest joining by -ing: suggested fixing، بينما البقية تأخذ to + مصدر بعد الفعل مباشرة.'),
+        Q('Which verb is followed by -ing?', ['suggest', 'promise', 'refuse', 'agree'], 'في الإنكليزية يأتي بعد suggest فعل بصيغة ing: suggested fixing، بينما البقية تأخذ to + مصدر بعد الفعل مباشرة.'),
         TF('In a reported Yes/No question we can use if or whether.', true, 'قاعدة الكتاب: We use if or whether for reported Yes/No questions، والمثال: Have you seen Rasha? → She asked me if/whether I had seen Rasha.')] }),
 
     T({ id: 'e12u3t6', sec: 'Lesson 5', page: '34, AB 60–61', title: 'I wish I’d brought my sunglasses', en: 'Talking about regrets: I wish / If only',
@@ -292,7 +292,7 @@
         N('انتبه: experience التي تصف شخصًا تأتي experienced، أما التي تصف شيئًا مجردًا فتبقى experience (a lot of experience).')],
       defs: [
         D('accommodation', 'a place to live and stay — إقامة'),
-        D('a canteen', 'a place where students buy and eat food — مطعم Students'),
+        D('a canteen', 'a place where students buy and eat food — مقصف الطلاب'),
         D('a homestay', 'staying in a private home — إقامة عند عائلة'),
         D('a hostel', 'cheap shared accommodation for students — نزل'),
         D('tailored', 'made to fit a person’s needs — مخصص'),
@@ -309,7 +309,7 @@
       quiz: [
         Q('All our teachers are qualified and highly ____.', ['experienced', 'experiance', 'experience', 'experiencings'], 'الصفة المطلوبة هي experienced ووصف الأساتذة، والكلمة experience تصف شيئًا مجردًا لا شخصًا، أما الصياغات الأخرى فلا وجود لها في النص.'),
         Q('If you choose homestay you will:', ['stay in an English home and experience family life in Britain', 'stay in a student hostel', 'eat all your meals at the on-site canteen', 'pay for a single room only'],
-          'الفقرة تقول صراحةً: you will stay in an English home، وستحصل على نوع منبرة family life in Britain، وهذا هو الفرق بين homestay و residential accommodation.'),
+          'الفقرة تقول صراحةً: you will stay in an English home، وستحصل على فرصة عيش الحياة الأسرية في بريطانيا، وهذا هو الفرق بين homestay و residential accommodation.'),
         Q('You can choose from courses of:', ['one week to three months’ duration', 'one day only', 'exactly one year', 'three years only'], 'الجملة في الإعلان: Choose from courses of one week to three months’ duration، وهذا يبيّن أن مدد الدورات متدرجة وليست سنة واحدة.'),
         Q('“Our courses are ____ to your needs.”', ['tailored', 'tailors', 'tailoring', 'tailoredly'], 'الصفة المشتقة من الفعل tailor هي tailored، ومعناها مخصصة، والنص يوظّفها للدورات والدروس معًا.'),
         TF('Breakfast is provided in the residential accommodation.', true, 'الجملة الأخيرة من فقرة الإقامة السكنية تقول: Breakfast is provided, and students can buy other meals in the on-site canteen.')] }),
@@ -317,7 +317,9 @@
     T({ id: 'e12u3t9', sec: 'Lesson 8', page: '37, AB 66–67', title: 'Summer jobs', en: 'Reading: Hamed’s email to Basim',
       why: 'رسالة شخصية طويلة تجيب عن ستة استفسارات صح/خطأ، وهي تدريب مباشر على مهارة الفهم الاستنتاجي.',
       explain: [
-        P('Why did Hamed write to Basim? a) to arrange to go camping together b) to offer to help Basim with his studies c) to invite Basim to do a summer job together. — Answer: c.'),
+        P('Why did Hamed write to Basim?'),
+        LI(['to arrange to go camping together', 'to offer to help Basim with his studies', 'to invite Basim to do a summer job together.']),
+        K('Answer: option 3 — to invite Basim to do a summer job together.'),
         P('Hamed says he has just got his exam result (that one Basim helped him study for) and got a much better mark than last time. He looked at some jobs, and there is one they could do together: it is at summer camps for children with special needs in the USA. They have 12 camps around the country. When applying, we say which three options we would prefer to work at, in order of preference. Then they say which of those camps they can fit us in.'),
         P('Hamed thinks activity supervisor would be ideal. It involves taking the children out on walks and doing fun activities, like kayaking and climbing. It is hard work, but they get some time off during the day to relax. They also get two weekends off every month, so they could visit big cities in the area. The salary is really good, and they don’t have to spend much — apart from the plane ticket. All their meals and accommodation are provided by the camp.'),
         P('They’re offering contracts for six, eight or ten weeks. Hamed is thinking eight weeks would be better, because they could take an English course for a couple of weeks before they come back. He says it will be a great experience they can have together abroad, they’ll learn lots of skills, and it’ll look great on their CV.'),
@@ -375,7 +377,7 @@
       defs: [
         D('a conference', 'a big meeting where people give talks — مؤتمر'),
         D('to interpret', 'to say what somebody says in another language immediately — يترجم فوريًا'),
-        D('a booth', 'a small room where interpreters work — كبو'),
+        D('a booth', 'a small room where interpreters work — كابينة المترجم'),
         D('a freelance interpreter', 'self-employed — يعمل لحسابه'),
         D('under pressure', 'in a difficult situation — تحت ضغط'),
         D('to convey the sense', 'to give an idea of the meaning — ينقل المعنى'),
@@ -397,8 +399,8 @@
         ['Each word is used once and must fit the grammar of the sentence (e.g. on … leave needs an adjective; found themselves … needs an adjective phrase).'])],
       quiz: [
         Q('Samira had to read about the subject of a conference beforehand in order to:', ['know the technical terms and use the exact words', 'memorize all the figures', 'find a better job', 'learn a third language'], 'النص يبرر ذلك بأن استخدام كلمة عامة مثل the ground بدل the source rock غير دقيق، ولهذا تتعرّف على المصطلحات التقنية قبل البدء.'),
-        Q('Which two languages does Samira usually interpret?', ['from Arabic into English (she occasionally goes into Arabic)', 'from English into Arabic only', 'from English into French', 'from Arabic into Persian'], 'النص يذكر أن لغتها النشطة العربية وأحيانًا الإنجليزية، وقد كانت تترجم في هذا tragedkahresh من الإنجليزية إلى العربية.'),
-        Q('A literal translation is not always the best option because:', ['it may not be clear to the listeners', 'it is always too long', 'it breaks the rules of grammar', 'it takes too much time'], 'النص يعرض مثال “Grapes are eaten one by one” ويقول إن الترجمة الحرفية لن تكون واضحة لسامعي الإنجليزية، فاختارت Ona step at a time.'),
+        Q('Which two languages does Samira usually interpret?', ['from English into Arabic (and occasionally into English)', 'from Arabic into French', 'from English into French', 'from Arabic into Persian'], 'النص يذكر أنها تترجم من الإنجليزية إلى العربية وأحيانًا بالعكس، وقد كانت تترجم في هذا المؤتمر من الإنجليزية إلى العربية.'),
+        Q('A literal translation is not always the best option because:', ['it may not be clear to the listeners', 'it is always too long', 'it breaks the rules of grammar', 'it takes too much time'], 'النص يعرض مثال “Grapes are eaten one by one” ويقول إن الترجمة الحرفية لن تكون واضحة لسامعي الإنجليزية، فاختارت One step at a time.'),
         Q('How much of the interpreting students who are accepted finish the course?', ['50%', 'all of them', '90%', '100%'], 'النص صريح: only 50% of the students who were accepted passed their final diploma exams، والمنافسة على الالتحاق بالدورة كبيرة.'),
         TF('You don’t have to come from an international family to become an interpreter.', true, 'الفقرة الأخيرة تؤكد ذلك: Even if you have lived all your life in Iraq and don’t come from an international family like Samira’s, it is still possible to become an interpreter.')] }),
 
@@ -437,7 +439,7 @@
         Q('“I won’t speak to Noura again unless she apologizes to me.” Here unless means:', ['if not', 'if', 'because', 'so that'], 'المراجعة تنقل هذه الجملة تحت عنوان الشريطين الصفر والأول، و unless هي بديل if not كما شرحه كتاب النشاطات.'),
         Q('Which sentence is in the second conditional?', ['We could buy a new video game if we had a little more money.', 'I would have helped you if you had asked me.', 'If I go to bed late, I don’t pay much attention.', 'I wish it hadn’t rained so much earlier.'], 'الأولى فيها if + ماضٍ البسيط مع could، وهي الشريط الثاني؛ والثانية الشريط الثالث، والثالثة الصفرية، والرابعة الندم على الماضي بـ perfect past.'),
         Q('“I wish I hadn’t thrown away the receipt.” The verb after had is:', ['the past participle', 'the infinitive', 'the present simple', 'a gerund only'], 'صيغة الندم هي I wish + had + اسم المفعول، والاسم هنا thrown والتزمنا به لأن الفعل throw غير منتظم.'),
-        Q('In the essay task, a strong first paragraph about the advantages of studying English in Britain would say:', ['You can hear English all day in many situations and practise speaking, especially in a British home.', 'The weather in Britain is cold in winter.', 'British food is expensive.', 'The United Kingdom has four capital cities.'], 'الملاحظات المعطاة في الكتاب تبدأколо السماع الإنكلي طوال اليوم وممارسة النطق والسكن مع عائلة بريطانية، أما الطقس والطعام والعواصم فلا صلة لها بالأهداف.'),
+        Q('In the essay task, a strong first paragraph about the advantages of studying English in Britain would say:', ['You can hear English all day in many situations and practise speaking, especially in a British home.', 'The weather in Britain is cold in winter.', 'British food is expensive.', 'The United Kingdom has four capital cities.'], 'الملاحظات المعطاة في الكتاب تبدأ بالسماع الإنكلي طوال اليوم وممارسة النطق والسكن مع عائلة بريطانية، أما الطقس والطعام والعواصم فلا صلة لها بالأهداف.'),
         TF('Faisal asked me whether we wanted to meet him at the park after school.', true, 'هذه جملة من مراجعة الوحدة نفسها تحت عنوان Reporting questions، وتُظهر تحويل سؤال نعم/لا إلى whether + بقاء النية داخل الكلام غير المباشر.')] })
   ];
   window.H.push(['12:sci:اللغة الإنكليزية', '12:lit:اللغة الإنكليزية'], { id: 'e12u3', no: 3, title: 'Unit 3: I’d like to work in the tourist industry', en: 'I’d like to work in the tourist industry', pages: 'SB 29–39',

@@ -39,14 +39,14 @@
         ['Sentence 1 and 7: the habit existed in the past and is finished now → used to + infinitive.', 'Sentences 2, 3, 6, 8: one long action in progress in the past (were speeding, was walking, was watching) → was/were + verb-ing.', 'Sentences 4 and 5: the situation has changed → didn’t use to have (no longer true) and didn’t have (a single past moment).'])],
       examples: [E('Choosing the right tense', 'AB p29', 'While I was moving, I found some old photos.', ['The two things are in the past.', 'One of them (moving) is the longer action happening at the same time as the other.', 'The shorter action that appears in the sentence (found) is past simple; the longer one is past continuous.'], 'While I was moving (past continuous), I found (past simple) some old photos.')],
       quiz: [
-        Q('The police use … to identify the criminal after a burglary.', ['fingerprints and footprints', 'luggage and tickets', 'manuals and licences', 'receipts and invoices'], 'نص الدرس الثاني يذكر أن الأدلة (evidence) مثل البصمات وآثار الأقدام تُستعمل لتحديد هوية المجرم وتوقيفه، أما الأمتعة والتذاكر فليست أدلة جنائية.'),
+        Q('The police use … to identify the criminal after a burglary.', ['fingerprints and footprints', 'luggage and tickets', 'manuals and licences', 'receipts and invoices'], 'نص الدرس الثاني يذكر أن الأدلة [evidence] مثل البصمات وآثار الأقدام تُستعمل لتحديد هوية المجرم وتوقيفه، أما الأمتعة والتذاكر فليست أدلة جنائية.'),
         Q('Which device can measure how fast a car is travelling?', ['a radar speed gun', 'an X-ray machine', 'a metal detector', 'a security camera'], 'الرادار يقيس سرعة السيارة عبر موجات الراديو التي ترتد عن المركبة، أما جهاز الأشعة فيفحص الأمتعة وكاشف المعادن يبحث عن المعدن في بوابة المطار.'),
         Q('Choose the correct form: We … security cameras, but now we have six of them.', ['didn’t use to have', 'didn’t had', 'wasn’t use to have', 'not used to had'], 'الوضع تغيّر وانتهى الآن، فالتعبير الصحيح هو didn’t use to have؛ وبعد didn’t تُكتب use بلا حرف d ويأتي بعدها have في المصدر.'),
         Q('“While my baggage was going through the X-ray machine, I ____ through the metal detector.”', ['was walking', 'walked', 'have walked', 'am walking'], 'الحدث الطويل في الماضي هو المرور بجهاز الأشعة، والحدث الذي يقاطعه هو المرور بكاشف المعادن؛ والأول يستقبل was + المصدر والثاني الماضي البسيط.'),
         TF('A fingerprint is the pattern of lines on your finger.', true, 'التعريف الوارد في الكتاب هو أن البصمة هي النقش الخطوطي على الإصبع، وهي التي يتركها المجرم على السطح.')] }),
 
     T({ id: 'e12u2t2', sec: 'Lesson 2', page: '19, AB 30', title: 'A police officer’s duties', en: 'Reading: three texts on police work',
-      why: 'ثلاثة نصوص قصيرة (A/B/C) تعرض مهام شرطي الشرطة: تنظيم المرور، حل الجرائم، ومنعها — وهي أساس أسئلة الفهم في الامتحان.',
+      why: 'ثلاثة نصوص قصيرة [A/B/C] تعرض مهام شرطي الشرطة: تنظيم المرور، حل الجرائم، ومنعها — وهي أساس أسئلة الفهم في الامتحان.',
       explain: [
         P('Text A — People have to follow the law so that we can all live together safely. There are a lot of different laws, so police officers have a lot of different duties. Some officers direct traffic to make sure that drivers can use the roads easily and without having accidents. They also use radar speed guns to identify people who are driving too fast. This is very important. Drivers mustn’t speed because speeding is one of the leading causes of death on the road. Police officers also check that drivers and passengers are wearing their seat belts.'),
         P('Text B — Of course, police officers also investigate crimes like robberies. When there has been a crime, police officers are sent to the place where it happened. They need to look for evidence, like fingerprints and footprints, which can be used to identify and arrest the criminal. Of course, they don’t have to recognize the fingerprints themselves! There are fingerprint experts who do that. Police officers also have to ask a lot of questions. They interview witnesses who they think might have information about the crime.'),
@@ -107,10 +107,10 @@
         '1) must / have to / need to\n2) don’t have to / needn’t\n3) must\n4) mustn’t\n5) don’t have to / needn’t\n6) have to\n7) mustn’t\n8) mustn’t\n9) don’t have to / needn’t\n10) need to',
         ['Sentences 2, 5 and 9 all start with There’s / You / Detectives…, so the situation is not a prohibition → don’t have to or needn’t.', 'Sentences 4, 7 and 8 are prohibitions → mustn’t only.', 'Sentence 6 is a general duty of the job → have to.'])],
       quiz: [
-        Q('Please put out your cigarette. You ____ smoke in the police station.', ['mustn’t', 'don’t must', 'don’t have to', 'needn’t'], 'الموقف هنا تحريم صريح لا مجرد عدم ضرورة،، والكتاب يخصص mustn’t لقول: Use mustn’t to say it’s important not to do something.'),
+        Q('Please put out your cigarette. You ____ smoke in the police station.', ['mustn’t', 'don’t must', 'don’t have to', 'needn’t'], 'الموقف هنا تحريم صريح لا مجرد عدم ضرورة، والكتاب يخصص mustn’t لقول: Use mustn’t to say it’s important not to do something.'),
         Q('There’s petrol in the car, so you ____ go to the petrol station.', ['don’t have to', 'mustn’t', 'must', 'shouldn’t'], 'نقص الوقود سبب كافٍ للتخلّي عن التوقّف، أي لا ضرورة للذهاب؛ و mustn’t كانت ستمنع الذهاب نهائيًا وهو أبعد عن نية الجملة.'),
         Q('People have to follow the law. Here “have to” expresses:', ['an obligation that comes from outside', 'a personal wish', 'a possibility', 'a past habit'], 'have to يستدعي قانونًا أو نظامًا خارجيًّا على الفرد، وهذا منطق نص duties: There are a lot of different laws, so police officers have a lot of different duties.'),
-        Q('Which sentence is NOT correct?', ['You don’t must speed.', 'You mustn’t speed.', 'You don’t have to speed.', 'You needn’t speed.'], 'نفي must هو mustn’t ولا يوجد_star صيغة don’t must في الإنكليزية؛ أما الباقي فصِيغ سليمة: have to و need to تنفيهما don’t have to و needn’t.'),
+        Q('Which sentence is NOT correct?', ['You don’t must speed.', 'You mustn’t speed.', 'You don’t have to speed.', 'You needn’t speed.'], 'نفي must هو mustn’t ولا توجد صيغة don’t must في الإنكليزية؛ أما الباقي فصِيغ سليمة: have to و need to تنفيهما don’t have to و needn’t.'),
         TF('mustn’t means “it is not necessary”.', false, 'mustn’t تعني الحظر: من المهم ألا تفعل الشيء، أما معنى عدم الضرورية فمرتبط بـ don’t have to و needn’t.')] }),
 
     T({ id: 'e12u2t4', sec: 'Lesson 3', page: '20, AB 32', title: 'Airport security', en: 'Vocabulary at the airport',
@@ -144,14 +144,14 @@
         '1) Shall we get something to eat before we board?\n2) Can you get me a newspaper, please?\n3) Would you open your passport on the photo page, please?\n4) Could you take your laptop out of your bag, please?\n5) I’ll carry that bag for you if you want.\n6) You should always pack your bags yourself.',
         ['Shall we …? asks for a joint decision (a suggestion); I’ll … if you want offers help; You should … gives advice.'])],
       quiz: [
-        Q('The officer said: “Could you empty your pockets, please?” The word “unattended” in this context means:', ['without someone looking after it', 'full of money', 'carried by hand', 'checked by customs'], 'التعريف في كتاب النشاطات: without someone looking after it، وهو يعني الشيء الذي يُترك دون مراقبة.'),
+        Q('The airport notice says: “Never leave your baggage unattended.” The word “unattended” means:', ['without someone looking after it', 'full of money', 'carried by hand', 'checked by customs'], 'التعريف في كتاب النشاطات: without someone looking after it، وهو يعني الشيء الذي يُترك دون مراقبة.'),
         Q('Which word means “throw away or get rid of”?', ['dispose of', 'declare', 'screen', 'board'], 'الكتاب يعرّف dispose of بـ throw away/get rid of، أما declare فهو التصريح عن بضاعة خاضعة للرسوم و screen هو الفحص الأمني.'),
         Q('At the airport, before you board the plane you must go through:', ['security screening', 'the gift shop', 'customs only', 'the lost-property office'], 'الطالب يمرّ بفحص أمني (جهاز الأشعة وكاشف المعادن) قبل الصعود، أما الجمارك فيكون بعد الهبوط عند استلام الأمتعة عند خروج الطائرة.'),
         Q('The “liquids rule” is about:', ['the amount of liquid you are allowed to carry in your bag', 'the price of drinks on board', 'the temperature of the cabin', 'the size of your suitcase'], 'التعريف حرفيًا: the amount of liquid people are allowed to carry in their bags، أي كمية السوائل المسموح بها لا ثمن المشروبات ولا حجم الحقائب.'),
-        TF('You should always have your baggage with you.', true, 'هذه جملة نصيحة من حوار الدرس نفسه، وترد حرفيًا في نص الكتاب alongside الجمل الأخرى عن المطار.')] }),
+        TF('You should always have your baggage with you.', true, 'هذه جملة نصيحة من حوار الدرس نفسه، وترد حرفيًا في نص الكتاب مع الجمل الأخرى عن المطار.')] }),
 
     T({ id: 'e12u2t5', sec: 'Lesson 3 — Functions', page: '20, AB 33', title: 'Polite requests, suggestions, advice and offers', en: 'Functions: PR / S / A / O',
-      why: 'طالب المرحلة Sixth Secondary يخلط بين هذه الوظائف الأربع في الامتحان، والكتاب يصنّف اثنتي عشرة جملة في تمارين B و C.',
+      why: 'الطالب يخلط بين هذه الوظائف الأربع في الامتحان، والكتاب يصنّف اثنتي عشرة جملة في تمارين B و C.',
       explain: [
         HD('The four functions'),
         TB('', ['Code', 'Function', 'Typical pattern', 'Example'], [
@@ -189,8 +189,8 @@
         '1) Could you give me your passport?\n2) Shall I help you with your baggage?\n3) You should keep your passport in a safe place.\n4) Can I see your ticket, please?\n5) She shouldn’t go to the shops before the plane leaves.\n6) Must we take a taxi to the airport?',
         ['1, 2, 4: subject + auxiliary; Could is used for requests, Shall I …? for an offer, Can I …? for a request.', '3: keeping a passport in a safe place is good advice → should.', '5: the plane leaves soon, so going to the shops is a bad idea → shouldn’t.', '6: Must we …? asks about an obligation, not a joint decision.'])],
       quiz: [
-        Q('“Let’s get some drinks, too.” is an example of:', ['a suggestion', 'a polite request', 'an offer', 'advice'], 'صيغة Let’s + مصدر تعرض فكرة مشتركة على الطرف الآخر، وهي من تصنيف S (suggestion) في تمارين الكتاب.'),
-        Q('“I’ll carry that bag for you if you want.” is:', ['an offer', 'a polite request', 'a suggestion', 'advice'], 'الجملة تتعهّد بفعل نيابة عن الطرف الآخر، وهي عرض؛ أما could you فطلب، و shall we … then اقتراح.'),
+        Q('“Let’s get some drinks, too.” is an example of:', ['a suggestion', 'a polite request', 'an offer', 'advice'], 'صيغة Let’s + مصدر تعرض فكرة مشتركة على الطرف الآخر، وهي من تصنيف S [suggestion] في تمارين الكتاب.'),
+        Q('“I’ll carry that bag for you if you want.” is:', ['an offer', 'a polite request', 'a suggestion', 'advice'], 'الجملة تتعهّد بفعل نيابة عن الطرف الآخر، وهي عرض؛ أما could you فطلب، و shall we … اقتراح.'),
         Q('Which sentence is giving advice?', ['You should always pack your bags yourself.', 'Could you open your bag, please?', 'Shall we get a taxi?', 'I’ll carry it for you.'], 'You should + المصدر هي البنية التي تعطي نصيحة، بينما البنى الثلاث الأخرى هي طلب واقتراح وعرض على التوالي.'),
         Q('Choose the correct question: “____ you mind opening your passport, please?”', ['Would', 'Must', 'Shall', 'Did'], 'الكتاب يستعمل Would you mind … for a polite request؛ أما Must للإلزام و Shall لمقترح مشترك و Did للماضي.'),
         TF('“Shall we get some magazines before boarding?” and “Let’s get some drinks” have the same function.', true, 'كلاهما اقتراح: الأول بصيغة Shall we والثاني بصيغة Let’s، وكلاهما ضمن خانة S في التصنيف.')] }),
@@ -243,7 +243,7 @@
           ['4', 'The military gives you a chance to get a better job.'],
           ['5', 'The military teaches you skills you can use in civilian life.']])],
       defs: [
-        D('branch', 'one of the main parts of an organization (Land Force, Navy, Air Force) — فرع'),
+        D('branch', 'one of the main parts of an organization [Land Force, Navy, Air Force] — فرع'),
         D('install', 'to put something in place so it works — يركّب'),
         D('maintain', 'to keep something in good condition — يصون'),
         D('officer', 'a person with a high rank and a lot of responsibility — ضابط'),
@@ -277,7 +277,7 @@
         HD('have / get / make (Study Tip)'),
         K('Use have and get + object + past participle when something is done to or for someone: We get our car washed once a month. / My father had his computer stolen. / My father is getting the lock replaced today.'),
         K('Use make + object + infinitive when someone or something causes something to happen: This weather makes me feel sleepy. / My father made me go back to my room. / Don’t worry. I’ll make him come to the party.'),
-        N('الاختبار السريع: بعد have/get يأتي اسم ثم اسم المفعول (had the lock replaced)، وبعد make يأتي اسم ثم to + مصدر (made me go).')],
+        N('الاختبار السريع: بعد have/get يأتي اسم ثم اسم المفعول [had the lock replaced]، وبعد make يأتي اسم ثم to + مصدر [made me go].')],
       defs: [
         D('a burglary', 'the act of stealing from a building — سطو'),
         D('a burglar', 'a person who breaks into houses — لص'),
@@ -336,14 +336,14 @@
         '1) jewellery\n2) sentimental value\n3) measures\n4) burglars\n5) unbelievably\n6) essential',
         ['Scan the paragraphs for a noun phrase that matches each definition, not for a single word only.'])],
       quiz: [
-        Q('The purpose of the brochure is:', ['to persuade people to take security measures in their home', 'to sell burglar alarms', 'to give information about different types of crime', 'to describe famous robberies'], 'ال booklet صادر عن شرطة — النص يحدّد خطوات وقائية (أقفال، أبواب، نوافذ) ويخاطب القارئ مباشرة: EVERYONE SHOULD THINK ABOUT HOME SAFETY.'),
+        Q('The purpose of the brochure is:', ['to persuade people to take security measures in their home', 'to sell burglar alarms', 'to give information about different types of crime', 'to describe famous robberies'], 'الكتيّب الصادر عن شرطة — النص يحدّد خطوات وقائية (أقفال، أبواب، نوافذ) ويخاطب القارئ مباشرة: EVERYONE SHOULD THINK ABOUT HOME SAFETY.'),
         Q('Which sentence is an exclamation?', ['But a good lock is almost impossible to unlock without the key!', 'Get good locks for your doors, too.', 'Thieves take money, jewellery and computers.', 'Have your house examined by an expert.'], 'العلامة الفارقة للتعجّب هي علامة التعجب (!)، وهي موجودة في جملة القفل؛ أما الباقي فعبارات أمر أو خبر عادي بلا علامة تعجب.'),
-        Q('Why can’t insurance replace everything that is stolen?', ['Because some things can’t be replaced, like jewellery with sentimental value or hours of work.', 'Because insurance companies are closed at night.', 'Because thieves take the insurance papers too.', 'Because TVs are not insured.'], 'النص يميّز بين ما يعوّضه التأمين وما لا يعوّض: some things can’t be replaced، ثم يعطي المثال jewelry و hours of work.'),
+        Q('Why can’t insurance replace everything that is stolen?', ['Because some things can’t be replaced, like jewellery with sentimental value or hours of work.', 'Because insurance companies are closed at night.', 'Because thieves take the insurance papers too.', 'Because TVs are not insured.'], 'النص يميّز بين ما يعوّضه التأمين وما لا يعوّض: some things can’t be replaced، ثم يعطي المثال jewellery و hours of work.'),
         Q('Why should you not plant trees near your windows?', ['Because burglars can hide behind them.', 'Because they block the light.', 'Because they make the house colder.', 'Because they damage the locks.'], 'هذا سبب مباشر من النص: Burglars can hide behind trees and bushes, so don’t plant any near your windows.'),
         TF('The brochure gives financial advice about how to claim money from an insurance company.', false, 'النص يذكر التأمين كمثال على ما يُعوَّض، لكنه ينتقل فورًا إلى ما لا يمكن استرجاعه؛ أما التفاصيل المالية وإجراءات المطالبة، فلا وجود لها في النص.')] }),
 
     T({ id: 'e12u2t10', sec: 'Lesson 8', page: '25, AB 42–43', title: 'Road safety', en: 'Giving advice and writing an essay',
-      why: 'عبارات التوصية الست في الدرس الثامن (Never forget to… You’ve got to…) مفتاح إنشاء نصّ الطريق، ومقالة ١٠٠–١٢٠ كلمة وهي مهمة الكتابة في الوحدة.',
+      why: 'عبارات التوصية الست في الدرس الثامن [Never forget to… You’ve got to…] مفتاح إنشاء نصّ الطريق، ومقالة ١٠٠–١٢٠ كلمة وهي مهمة الكتابة في الوحدة.',
       explain: [
         P('Hamzah is having his first driving lesson. Listen to the dialogue and try to remember all the recommendations the instructor gave him.'),
         HD('Six recommendation phrases (SB Lesson 8)'),

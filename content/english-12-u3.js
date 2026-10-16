@@ -55,9 +55,9 @@
         TF('A journalist writes articles for newspapers and magazines.', true, 'هذه المهمة مقابلة لكلمة journalist في جدول مطابقة المهن بالوظائف، وتظهر حرفيًا في نص الكتاب.')] }),
 
     T({ id: 'e12u3t2', sec: 'Lesson 2', page: '31, AB 54–55', title: 'If you come round tomorrow, I’ll help you', en: 'Zero and first conditional',
-      why: 'أول شريطين شرطيين في الكتاب: الصفر للنتائج الدائمة، والأول للنتائج المستقبلية — وهما أساس الوحدة كلها.',
+      why: 'أول جملتين شرطيتين في الكتاب: الصفرية للنتائج الدائمة، والأول للنتائج المستقبلية — وهما أساس الوحدة كلها.',
       explain: [
-        { t: 'fig', k: 'conditionalLadder', cap: 'الشكل: الأشرطة الشرطية الأربعة — zero وfirst وsecond وthird conditional مرتّبةً بحسب درجة الواقع' },
+        { t: 'fig', k: 'conditionalLadder', cap: 'الشكل: الجمل الشرطية الأربع (Zero, First, Second, Third) مرتّبةً بحسب درجة الواقع' },
         P('Ramiz is having an interview with a careers adviser at school.'),
         P('Adviser: What would you like to do when you finish studying? Ramiz: I’m not sure yet. But I’m very interested in ecology and the environment. Adviser: If you’re good at Science and Geography, there are lots of jobs to choose from. Adviser: Well, how about a career in water technology? That’s really important in this country. Ramiz: What exactly does water technology involve? Adviser: If you work in water technology, you look for ways of conserving water and purifying it. Adviser: First of all, you need to get a degree. You could choose from Environmental Science, Geology or even Engineering. Adviser: If you come back next week, I’ll have the answer.'),
         HD('Zero conditional'),
@@ -85,21 +85,21 @@
         '1) If anyone needs advice about their application forms, I’ll be here tomorrow to help.\n2) If they don’t leave soon, they won’t catch the train.\n3) If you want to do a degree in Britain, you’ll have to do a one-year foundation course first.\n4) Unless he makes a big effort this term, he won’t get through the end-of-year exams.\n5) If you are offered a place at Carnegie University, will you accept it?',
         ['The if clause never takes will → present simple (needs / don’t leave / want / makes).', 'The main clause takes will/won’t or an auxiliary (I’ll be / won’t catch / you’ll have to / will you accept?).', 'Sentence 4 uses unless, which replaces if not; the result is still negative → won’t.'])],
       quiz: [
-        Q('“Plants die if you don’t water them.” This is:', ['the zero conditional', 'the first conditional', 'the second conditional', 'the third conditional'], 'كلا الفعلين في المضارع البسيط، وهذا تعريف الشريط الصفري في الكتاب، بينما الشريط الأول يجعل الثاني في المستقبل.'),
-        Q('“If you come round tomorrow, I’ll help you.” The verb in the if clause is:', ['in the present simple', 'in the future simple', 'in the past simple', 'in the past perfect'], 'قاعدة الشريط الأول تنص صراحةً: The verb in the if clause is in the present tense، ثم يأتي المستقبل في الجملة الأخرى فقط.'),
-        Q('Choose the correct form: If they don’t leave soon, they ____ catch the train.', ['won’t', 'will not to', 'don’t', 'didn’t'], 'الشريط الأول يفرض زمن المستقبل مع will/won’t في الجملة الثانية، ولا يصح وضع don’t في الجملة الثانية ولا استعمال will not to.'),
+        Q('“Plants die if you don’t water them.” This is:', ['the zero conditional', 'the first conditional', 'the second conditional', 'the third conditional'], 'كلا الفعلين في المضارع البسيط، وهذا تعريف الشرطية الصفرية في الكتاب، بينما الشرطية الأولى يجعل الثاني في المستقبل.'),
+        Q('“If you come round tomorrow, I’ll help you.” The verb in the if clause is:', ['in the present simple', 'in the future simple', 'in the past simple', 'in the past perfect'], 'قاعدة الشرطية الأولى تنص صراحةً: The verb in the if clause is in the present tense، ثم يأتي المستقبل في الجملة الأخرى فقط.'),
+        Q('Choose the correct form: If they don’t leave soon, they ____ catch the train.', ['won’t', 'will not to', 'don’t', 'didn’t'], 'الشرطية الأولى يفرض زمن المستقبل مع will/won’t في الجملة الثانية، ولا يصح وضع don’t في الجملة الثانية ولا استعمال will not to.'),
         Q('“I’ll be at home around four, unless there’s an emergency at work.” Here unless means:', ['if not', 'if', 'because', 'although'], 'كتاب النشاطات ينص: We can also use unless instead of if, meaning if not، والقيمة الشرطية تبقى نفسها فيبقى صيغة الشرط الأول.'),
         TF('In the first conditional we can use an imperative in the main clause: If he asks you for money, don’t give him any.', true, 'دراسة الفرع الأول تذكر أنّ الجملة الثانية تقبل صيغة الأمر، ومنها المثال المذكور حرفيًا في كتاب النشاطات.')] }),
 
     T({ id: 'e12u3t3', sec: 'Lesson 3', page: '32, AB 56–57', title: 'If you could choose any job …', en: 'Second conditional',
-      why: 'الشريط الثاني للموقف غير الواقعي في الحاضر؛ وحوار كاثي ومريم في الدرس يوظّفه أربع مرات.',
+      why: 'الشرطية الثانية للموقف غير الواقعي في الحاضر؛ وحوار كاثي ومريم في الدرس يوظّفه أربع مرات.',
       explain: [
         P('Cathy: If you could have any career in the world, what would you choose? Maryam: I’d like to be a pilot. Cathy: Do you think that dream is ever going to come true? Maryam: No, I don’t. It’s just a dream. My parents wouldn’t approve of it. They want me to train as a doctor. Cathy: What if you refused? Maryam: They’d be really upset if I refused. Maryam: But I could never be a successful pilot, anyway. Cathy: Why not? Maryam: Because I’m a bit scared of heights! Cathy: If I were you, I’d train as a doctor and have flying lessons in my free time.'),
         HD('Grammar: second conditional'),
         K('We use the second conditional to talk about unreal situations.'),
         TB('', ['Part', 'Form'], [['If clause', 'If + past tense'], ['Main clause', '’d / would / could / might + verb stem']]),
         LI(['If I had enough money, I would go to Britain to study.', 'If she studied harder, she would pass her exams.', 'If I were you, I’d apply to two or three colleges.', 'If I was a pilot, nobody would fly with me.', 'If I were you, I’d train as a doctor and have flying lessons in my free time.', 'Where would you choose to live if you could live anywhere in the world?']),
-        N('لاحظ صيغة التمني: I’d like to be a pilot و I’d like to work in the water industry — هذه في الحاضر، أما If I was / were + اسم profession فصيغة الشريط الثاني.'),
+        N('لاحظ صيغة التمني: I’d like to be a pilot و I’d like to work in the water industry — هذه في الحاضر، أما If I was / were + اسم profession فصيغة الشرطية الثانية.'),
         HD('Questions from the dialogue'),
         TB('', ['Question', 'Answer'], [['a) What is Maryam going to study?', 'She is going to train as a doctor.'], ['b) What career would she prefer to have?', 'She would like to be a pilot.']])],
       defs: [
@@ -117,10 +117,10 @@
         '1) I wouldn’t have to spend so long on my homework if I had a computer of my own.\n2) Where would you choose to live if you could live anywhere in the world?\n3) I would learn to parachute if my friend said she would do it with me.\n4) If I were you, I wouldn’t ask for his advice about anything.\n5) She would look much nicer if she wore contact lenses instead of glasses.\n6) He would be more attractive if he shaved his beard off.\n7) I wouldn’t marry him even if he were the last man on earth!',
         ['The if clause takes the past simple (had / could / said / were / wore / shaved / were) with no auxiliary.', 'The main clause takes would / wouldn’t + verb stem.', 'In 1 the if clause is not first, so it becomes an if clause; the inversion wouldn’t … if I had … shows the emphasis.'])],
       quiz: [
-        Q('“If I ____ you, I’d train as a doctor.”', ['were', 'am', 'will be', 'have been'], 'صيغة التمني في الشريط الثاني هي If I were you، و were تُستعمل مع الضمير I في هذه الصيغة القصيرة.'),
-        Q('Which sentence is in the second conditional?', ['If she studied harder, she would pass her exams.', 'If you pass, what will you do next year?', 'If you heat ice, it melts.', 'If I had passed the test, I would have become a pilot.'], 'الجملة الأولى فيها if + ماضٍ البسيط و would + المصدر، وهي الشريط الثاني؛ أما الثانية فالأول، والثالثة فالصفرية، والرابعة فالثالثة (had + would have).'),
+        Q('“If I ____ you, I’d train as a doctor.”', ['were', 'am', 'will be', 'have been'], 'صيغة التمني في الشرطية الثانية هي If I were you، و were تُستعمل مع الضمير I في هذه الصيغة القصيرة.'),
+        Q('Which sentence is in the second conditional?', ['If she studied harder, she would pass her exams.', 'If you pass, what will you do next year?', 'If you heat ice, it melts.', 'If I had passed the test, I would have become a pilot.'], 'الجملة الأولى فيها if + ماضٍ البسيط و would + المصدر، وهي الشرطية الثانية؛ أما الثانية فالأول، والثالثة فالصفرية، والرابعة فالثالثة (had + would have).'),
         Q('Maryam says she could never be a successful pilot because:', ['she is a bit scared of heights', 'she doesn’t have a degree', 'she doesn’t like hospitals', 'she failed her eye test'], 'الحوار يذكر السبب مباشرة: Because I’m a bit scared of heights، وهي جملة سببية تعلّل عدم واقعية الحلم.'),
-        TF('In the second conditional we say “If I was a pilot” as well as “If I were a pilot”.', true, 'النص نفسه يستخدم الصيغتين: If I was a pilot … في كلام مريم، و If I were you … في كلام كاثي، وكلاهما من الشريط الثاني.')] }),
+        TF('In the second conditional we say “If I was a pilot” as well as “If I were a pilot”.', true, 'النص نفسه يستخدم الصيغتين: If I was a pilot … في كلام مريم، و If I were you … في كلام كاثي، وكلاهما من الشرطية الثانية.')] }),
 
     T({ id: 'e12u3t4', sec: 'Lesson 4', page: '33, AB 58', title: 'She asked when she had decided', en: 'Reported speech: statements',
       why: 'الكلام المنقول شرط أساسي في امتحان الوحدة، وأول قاعدة فيه هي تقديم tense بمقدار درجة واحدة.',
@@ -195,7 +195,7 @@
         TF('In a reported Yes/No question we can use if or whether.', true, 'قاعدة الكتاب: We use if or whether for reported Yes/No questions، والمثال: Have you seen Rasha? → She asked me if/whether I had seen Rasha.')] }),
 
     T({ id: 'e12u3t6', sec: 'Lesson 5', page: '34, AB 60–61', title: 'I wish I’d brought my sunglasses', en: 'Talking about regrets: I wish / If only',
-      why: 'تعبير عن الندم على الماضي بـ I wish و If only + perfect past — وهو الفرق الدقيق عن الشريطين الأول والثاني.',
+      why: 'تعبير عن الندم على الماضي بـ I wish و If only + perfect past — وهو الفرق الدقيق عن الشرطيتين الأولى والثانية.',
       explain: [
         P('Match each sentence with a photo:'),
         LI(['a) I wish I’d brought my sunglasses with me.', 'b) I wish I’d remembered to turn the oven off.', 'c) I wish I’d listened to the weather forecast before I left.', 'd) If only I hadn’t tripped over that rock.', 'e) If only he hadn’t tried to overtake that car.', 'f) If only you’d checked the oil before we left.']),
@@ -203,7 +203,7 @@
         HD('Grammar: regrets'),
         K('We use If only or I wish + past perfect to express regret about the past.'),
         LI(['If only you had told me about your problem. (= Then I could have helped.)', 'I wish I hadn’t gone to bed so late. (= Then I wouldn’t have been so tired.)', 'I wish I had driven more carefully. (= Then I wouldn’t have crashed the car.)', 'I wish I hadn’t eaten three bars of chocolate. (= Then I wouldn’t have felt sick.)', 'If only they had trained every day. (= Then they wouldn’t have lost the match.)']),
-        N('الفرق عن الشريط الثاني: الشريط الثاني يتكلم عن الحاضر غير الواقعي (If I were you)، أما هنا فنحن نتكلم عن الماضي الحقيقي الذي ندم عليه، ولذلك يأتي perfect past بعد I wish و If only.'),
+        N('الفرق عن الشرطية الثانية: الشرطية الثانية يتكلم عن الحاضر غير الواقعي (If I were you)، أما هنا فنحن نتكلم عن الماضي الحقيقي الذي ندم عليه، ولذلك يأتي perfect past بعد I wish و If only.'),
         TH('Write two regrets for this situation: Your mum told you to take a jacket to the park, but you didn’t. Now you’re cold and wet.', 'I wish I’d taken a jacket to the park. / If only I had taken a jacket with me.')],
       defs: [
         D('a regret', 'a feeling of sorry about something you did — ندم'),
@@ -220,16 +220,16 @@
         '1) If only he hadn’t fallen over during the race.\n2) If only you hadn’t been rude to your brother.\n3) If only I hadn’t spent all my money at the weekend.\n4) If only they had trained every day.\n5) If only I hadn’t left my camera at Faten’s house.\n6) If only she hadn’t lost their address.',
         ['Use I wish + had + past participle, or If only + had + past participle.', 'The tense is past perfect because the action is finished; the result is mentioned in the second sentence (that’s why …).'])],
       quiz: [
-        Q('Sajida failed her driving test. She says:', ['I wish I’d learnt the Highway Code.', 'If I were you, I would learn the Highway Code.', 'If I learn the Highway Code, I will pass.', 'I wish I will learn the Highway Code.'], 'تقرير الاختبار يخصّ الماضي، ولذلك يعبّر عنه I wish + perfect past؛ أما الشريط الثاني فيخصّ الحاضر غير الواقعي، والأول فيخصّ المستقبل.'),
-        Q('Choose the correct form: If only I ____ tripped over that rock.', ['hadn’t tripped', 'didn’t trip', 'wouldn’t trip', 'wasn’t tripping'], 'الندم على فعل ماضٍ منجز يستلزم had + اسم المفعول في النفي: hadn’t tripped؛ أما didn’t trip فماضٍ البسيط بلا ندم، و wouldn’t في الشريط الثاني.'),
+        Q('Sajida failed her driving test. She says:', ['I wish I’d learnt the Highway Code.', 'If I were you, I would learn the Highway Code.', 'If I learn the Highway Code, I will pass.', 'I wish I will learn the Highway Code.'], 'تقرير الاختبار يخصّ الماضي، ولذلك يعبّر عنه I wish + perfect past؛ أما الشرطية الثانية فيخصّ الحاضر غير الواقعي، والأول فيخصّ المستقبل.'),
+        Q('Choose the correct form: If only I ____ tripped over that rock.', ['hadn’t tripped', 'didn’t trip', 'wouldn’t trip', 'wasn’t tripping'], 'الندم على فعل ماضٍ منجز يستلزم had + اسم المفعول في النفي: hadn’t tripped؛ أما didn’t trip فماضٍ البسيط بلا ندم، و wouldn’t في الشرطية الثانية.'),
         Q('Both If only and I wish are followed by:', ['the past perfect', 'will + infinitive', 'a present simple verb', 'the present continuous'],
           'القاعدة الصريحة: We use If only or I wish + past perfect to express regret about the past، وكلاهما يقبل الصيغة نفسها بلا فرق دلالي.'),
         Q('Which sentence is NOT a regret?', ['If I were you, I’d take a doctor’s appointment.', 'I wish I’d listened to the weather forecast before I left.', 'If only he hadn’t tried to overtake that car.', 'If only you’d checked the oil before we left.'],
-          'If I were you … من الشريط الثاني لأنه يتكلم عن الحاضر غير الواقعي، بينما البقية كلها تعبّر عن ندم على ماضٍ منجز بـ perfect past.'),
+          'If I were you … من الشرطية الثانية لأنه يتكلم عن الحاضر غير الواقعي، بينما البقية كلها تعبّر عن ندم على ماضٍ منجز بـ perfect past.'),
         TF('In the sentence “If only you had told me about your problem”, the result is that I could have helped.', true, 'هذا هو التفسير الذي يقدّمه الكتاب مباشرة بين قوسين بعد كل مثال على الندم، وهو ما يجعل الأسلوب ذا فائدة عملية.')] }),
 
     T({ id: 'e12u3t7', sec: 'Lesson 6', page: '35, AB 62–63', title: 'If I’d been fitter', en: 'Third conditional',
-      why: 'الشريط الثالث للموقف غير الواقعي في الماضي، وهو أصعب أشرطة الوحدة وأكثرها ورودًا في أسئلة الامتحان.',
+      why: 'الشرطية الثالثة للموقف غير الواقعي في الماضي، وهو أصعب أشرطة الوحدة وأكثرها ورودًا في أسئلة الامتحان.',
       explain: [
         P('A movie director is talking about finding the right career. Complete the captions under each picture.'),
         LI(['I wanted to be a pilot, but I failed the eye test.', 'I started training to be a doctor, but …', 'I considered studying engineering, but …', 'I tried being a policeman, but …', 'I wasn’t a good tour guide because …']),
@@ -260,11 +260,11 @@
         '1) If we had left a little earlier, we wouldn’t have missed the bus.\n2) We wouldn’t have eaten at that restaurant if we had known it was so expensive.\n3) I would have studied medicine if my parents had had enough money to pay for the course.\n4) What would you have done if nobody had come to rescue you?\n5) We would have died of thirst in the desert if Adam and Ali hadn’t come for us in their truck.\n6) If Salwa hadn’t told me about the new time for the class, I would have been really late.',
         ['Every verb in the if clause takes had + past participle (had left, had known, had had, had come, had died).', 'Every verb in the main clause takes would have / wouldn’t have + past participle.', 'In 3 notice the double had: had had enough money.'])],
       quiz: [
-        Q('“If I ____ passed the test, I would have become a pilot.”', ['had', 'was', 'have', 'would'], 'الشريط الثالث يستلزم perfect past في جملة الشرط: had + اسم المفعول، والجملة الرئيسية would have + اسم المفعول.'),
+        Q('“If I ____ passed the test, I would have become a pilot.”', ['had', 'was', 'have', 'would'], 'الشرطية الثالثة يستلزم perfect past في جملة الشرط: had + اسم المفعول، والجملة الرئيسية would have + اسم المفعول.'),
         Q('“If we had trained harder, we ____ won the match.”', ['might have', 'might', 'would', 'will'], 'الكتاب يذكر possibility و could have و might have مع perfect، أما would وحدها أو will فلا تستعملان لتعبير الاحتمال.'),
-        Q('Which sentence is in the third conditional?', ['If I had known about her problems, I would have lent her some money.', 'If I were you, I wouldn’t ask his advice.', 'If you heat ice, it melts.', 'If you pass, what will you do next year?'], 'الأولى فيها had + اسم المفعول و would have + اسم المفعول؛ أما الثانية فشريط ثانٍ، والثالثة فصفرية، والرابعة فأولى.'),
+        Q('Which sentence is in the third conditional?', ['If I had known about her problems, I would have lent her some money.', 'If I were you, I wouldn’t ask his advice.', 'If you heat ice, it melts.', 'If you pass, what will you do next year?'], 'الأولى فيها had + اسم المفعول و would have + اسم المفعول؛ أما الثانية فشرطية ثانية، والثالثة فصفرية، والرابعة فأولى.'),
         Q('Why wasn’t the director a good tour guide?', ['because he couldn’t have been a good tour guide if he’d spoken more languages', 'because he refused to speak at all', 'because he became a policeman instead', 'because he failed the eye test'], 'الصورة الخامسة في النص تربط بين عدم القدرة (inability) على العمل بالدور، والتمرين يضع الحل: I couldn’t have been a good tour guide if I’d spoken more languages.'),
-        TF('In the third conditional the if clause never uses the present perfect.', true, 'الشريط الثالث قاعدته حاسمة: The verb in the if clause is in the past perfect tense، أي had + اسم المفعول لا has + اسم المفعول.')] }),
+        TF('In the third conditional the if clause never uses the present perfect.', true, 'الشرطية الثالثة قاعدته حاسمة: The verb in the if clause is in the past perfect tense، أي had + اسم المفعول لا has + اسم المفعول.')] }),
 
     T({ id: 'e12u3t8', sec: 'Lesson 7', page: '36, AB 64–65', title: 'Learn English in the UK', en: 'Reading: Birchwood International College advert',
       why: 'إعلان college له اثنا عشر فراغًا، يجمع مفردات مشتقات الكلمات ومفردات خريطة الكلمات (word web) التي يحتاجها الإنشاء في الوحدة.',
@@ -405,7 +405,7 @@
         TF('You don’t have to come from an international family to become an interpreter.', true, 'الفقرة الأخيرة تؤكد ذلك: Even if you have lived all your life in Iraq and don’t come from an international family like Samira’s, it is still possible to become an interpreter.')] }),
 
     T({ id: 'e12u3t11', sec: 'Round up + Writing', page: '39, AB 70–71', title: 'Round up', en: 'Unit revision and the writing task',
-      why: 'مراجعة الوحدة كاملة: كل الشريط والقواعد والوظائف، ومعها مهمة الكتابة في اختبار الوحدة.',
+      why: 'مراجعة الوحدة كاملة: كل الجمل الشرطية والقواعد والوظائف، ومعها مهمة الكتابة في اختبار الوحدة.',
       explain: [
         HD('The five skills of Unit 3 (SB Round up)'),
         TB('', ['Skill', 'Examples'], [
@@ -436,14 +436,14 @@
         '1) My teacher advised me to work in the oil industry.\n2) The interviewer asked Faisal whether/if he had experience in the area.\n3) Noura suggested having a meeting to discuss the issue.\n4) My mum asked my dad how he had managed to forget to check the oil.\n5) I told my mother that I wouldn’t stay in student accommodation next year.',
         ['Choose the reporting verb that matches the meaning: should → advised / suggested; do you have … ? → asked whether/if; how … ? → asked how.', 'In reported questions the question form disappears and the verb moves back one tense.'])],
       quiz: [
-        Q('“I won’t speak to Noura again unless she apologizes to me.” Here unless means:', ['if not', 'if', 'because', 'so that'], 'المراجعة تنقل هذه الجملة تحت عنوان الشريطين الصفر والأول، و unless هي بديل if not كما شرحه كتاب النشاطات.'),
-        Q('Which sentence is in the second conditional?', ['We could buy a new video game if we had a little more money.', 'I would have helped you if you had asked me.', 'If I go to bed late, I don’t pay much attention.', 'I wish it hadn’t rained so much earlier.'], 'الأولى فيها if + ماضٍ البسيط مع could، وهي الشريط الثاني؛ والثانية الشريط الثالث، والثالثة الصفرية، والرابعة الندم على الماضي بـ perfect past.'),
+        Q('“I won’t speak to Noura again unless she apologizes to me.” Here unless means:', ['if not', 'if', 'because', 'so that'], 'المراجعة تنقل هذه الجملة تحت عنوان الشرطيتين الصفرية والأولى، و unless هي بديل if not كما شرحه كتاب النشاطات.'),
+        Q('Which sentence is in the second conditional?', ['We could buy a new video game if we had a little more money.', 'I would have helped you if you had asked me.', 'If I go to bed late, I don’t pay much attention.', 'I wish it hadn’t rained so much earlier.'], 'الأولى فيها if + ماضٍ البسيط مع could، وهي الشرطية الثانية؛ والثانية الشرطية الثالثة، والثالثة الصفرية، والرابعة الندم على الماضي بـ perfect past.'),
         Q('“I wish I hadn’t thrown away the receipt.” The verb after had is:', ['the past participle', 'the infinitive', 'the present simple', 'a gerund only'], 'صيغة الندم هي I wish + had + اسم المفعول، والاسم هنا thrown والتزمنا به لأن الفعل throw غير منتظم.'),
         Q('In the essay task, a strong first paragraph about the advantages of studying English in Britain would say:', ['You can hear English all day in many situations and practise speaking, especially in a British home.', 'The weather in Britain is cold in winter.', 'British food is expensive.', 'The United Kingdom has four capital cities.'], 'الملاحظات المعطاة في الكتاب تبدأ بالسماع الإنكلي طوال اليوم وممارسة النطق والسكن مع عائلة بريطانية، أما الطقس والطعام والعواصم فلا صلة لها بالأهداف.'),
         TF('Faisal asked me whether we wanted to meet him at the park after school.', true, 'هذه جملة من مراجعة الوحدة نفسها تحت عنوان Reporting questions، وتُظهر تحويل سؤال نعم/لا إلى whether + بقاء النية داخل الكلام غير المباشر.')] })
   ];
   window.H.push(['12:sci:اللغة الإنكليزية', '12:lit:اللغة الإنكليزية'], { id: 'e12u3', no: 3, title: 'Unit 3: I’d like to work in the tourist industry', en: 'I’d like to work in the tourist industry', pages: 'SB 29–39',
     goals: ['Talk about cause and result using the zero and first conditional.', 'Talk about unreal situations using the second conditional.', 'Report statements and questions.', 'Talk about past wishes and regrets using I wish and If only.', 'Talk about unreal situations in the past using the third conditional.'],
-    terms: [['zero / first conditional', 'الشريطان الصفر والأول'], ['second conditional', 'الشريط الثاني'], ['reported speech', 'الكلام المنقول'], ['I wish / If only', 'التمني والندم'], ['third conditional', 'الشريط الثالث']],
+    terms: [['zero / first conditional', 'الشرطيتان الصفرية والأولى'], ['second conditional', 'الشرطية الثانية'], ['reported speech', 'الكلام المنقول'], ['I wish / If only', 'التمني والندم'], ['third conditional', 'الشرطية الثالثة']],
     test: { title: 'Unit 3 test', useTopicQuiz: true }, topics });
 })();

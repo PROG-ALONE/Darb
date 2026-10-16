@@ -406,7 +406,7 @@ T('سجل الاختبارات + مسار الحفظ', () => {
     ['كل المواد', 'data-act="back"', 'data-act="memoGo"', 'pbar', 'srows'].forEach(k => {
       if (list1.indexOf(k) < 0) throw new Error('عنصر مفقود في مسار الحفظ: ' + k);
     });
-    if (list1.indexOf('اختبارات الحفظ · ' + first.subject) < 0) throw new Error('عنوان المادة المختارة غير ظاهر');
+    if (list1.indexOf('اختبارات الحفظ | ' + first.subject) < 0) throw new Error('عنوان المادة المختارة غير ظاهر');
     S.memoSubj = null;
     return { subs: 1, detail: st.exams.filter(e => e.ks).length };
   } catch(e){ return { error: e.message }; } })()`);
@@ -626,7 +626,7 @@ T('الرسوم التفاعلية', () => {
     st.step = 0; st.part = -1;
     /* مكتبة الرسوم: كل رسم مصنّف بحسب مادته ومُتاح من هناك */
     S.view = 'library';
-    const lib = String(VIEWS.library());
+    const lib = String(VIEWS.library()) + String(typeof figsLibBody === 'function' ? figsLibBody() : '');
     ['الرسوم التفاعلية', 'لماذا هذا القسم', 'fig-grp', 'data-act="figFull"'].forEach(k => {
       if (lib.indexOf(k) < 0) throw new Error('عنصر مفقود في مكتبة الرسوم: ' + k);
     });

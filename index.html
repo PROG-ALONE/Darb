@@ -93,6 +93,8 @@ a{color:var(--acc)}
 .hp{display:flex;flex-direction:column;gap:8px}
 .hp-row{display:flex;gap:10px;flex-wrap:wrap}
 .hp-row .btn{flex:1;min-width:140px}
+.btn svg{width:22px;height:22px;flex-shrink:0}
+.hp-row .btn b{line-height:1.45;word-break:keep-all}
 .hp-hint{margin:0;padding:9px 12px;border-radius:12px;border:1px dashed var(--line);background:var(--soft);color:var(--muted);font-size:.87em;line-height:1.75;min-height:2.4em;animation:hpIn .18s ease}
 @keyframes hpIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
 .hp-hint b{color:var(--acc);font-weight:700}
@@ -539,6 +541,7 @@ details.think div{border-top:1px solid var(--line);padding-top:8px}
 .tbl caption{caption-side:top;text-align:right;padding:10px 12px;font-weight:600;font-size:.92em}
 .tbl th,.tbl td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
 .tbl th{background:var(--soft);font-weight:600}
+.tbl [dir=ltr]{text-align:left}
 .activity{background:var(--card);border:1px solid var(--line);border-inline-start:5px solid var(--gold);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .defcard{text-align:right;width:100%;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;cursor:pointer}
 .defcard>b{font-size:1.12em;color:var(--acc)}
@@ -773,7 +776,8 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
   /* الجداول لا تنكمش: التفاف النص + تصغير الحشوة + تمرير أفقي سلس */
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;overscroll-behavior-x:contain;display:block}
   .tbl{font-size:.82em}
-  .tbl th,.tbl td{padding:7px 8px;word-break:break-word;overflow-wrap:anywhere}
+  .tbl th,.tbl td{padding:7px 8px;word-break:normal;overflow-wrap:break-word;min-width:4.2em}
+  .tbl td:first-child,.tbl th:first-child{min-width:3.2em}
   .tbl-wrap > .tbl{min-width:100%}
   .tbl-wrap{scrollbar-width:thin}
   /* منع انعكاس الأقواس في النصوص العربية RTL */
@@ -781,6 +785,9 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
   /* المعادلات لا تخرج عن الشاشة: تصغير الخط + التفاف النص */
   .eqbox,.law-f{font-size:.88em;word-break:break-word}
   .eqbox .math.eq,.law-f .math.eq{white-space:normal}
+  .eqbox,.law-f{direction:ltr}
+  .law-f.ar{direction:rtl}
+  .law-f .math.eq{font-size:1.2em}
   /* املأ الفراغات: النص الرياضي من اليسار لليمين */
   .blank-math{direction:ltr;text-align:left;unicode-bidi:plaintext}
 }
@@ -853,6 +860,10 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 .ev-gauge{display:flex;flex-direction:column;align-items:center;gap:6px}
 .ev-arc{position:relative;width:190px;height:110px;overflow:hidden}
 .ev-arc svg{width:190px;height:190px}
+.ev-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,130px),1fr));gap:10px}
+.ev-tiles .tile{padding:12px;border-radius:14px;background:var(--soft);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;text-align:center}
+.ev-tiles .tile b{font-size:1.5em;color:var(--acc);line-height:1.2}
+.ev-tiles .tile span{font-size:.85em;color:var(--muted)}
 .ev-arc .ev-num{position:absolute;inset-inline:0;bottom:0;text-align:center;font-family:var(--display);font-weight:800;font-size:2.3em;line-height:1}
 .ev-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ev-row .bar{flex:1;min-width:90px}
@@ -1272,10 +1283,10 @@ function vToday() {
      أهداف اليوم وكل ما يخصّه اختزل داخل القائمة الأولى، فلا يبقى شيء مفتوحًا أمام الطالب */
   const planNow = planToday();
   const dailySummary = planNow.total
-    ? ar(planNow.picks.length) + ' مواضيع اليوم · ' + ar(planNow.reviews.length) + ' مراجعة · ' + ar(pct) + '٪ من هدفك'
+    ? ar(planNow.picks.length) + ' مواضيع اليوم | ' + ar(planNow.reviews.length) + ' مراجعة | ' + ar(pct) + '٪ من هدفك'
     : 'لا محتوى متبقٍ';
   const wk = weeklyGoals(st), wkFill = weekFill(st);
-  const weekSummary = wk.left ? ar(wk.perWeek) + ' موضوعًا · ' + ar(wkFill.days.length) + ' أيام' : 'مكتمل';
+  const weekSummary = wk.left ? ar(wk.perWeek) + ' موضوعًا | ' + ar(wkFill.days.length) + ' أيام' : 'مكتمل';
 
   return topBar('أهلاً، ' + st.name, { log: 'today', avatar: st.id }) + '<main class="page">' +
     '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
@@ -1420,11 +1431,11 @@ function activityChartsHTML() {
     const hBad = x.probs ? Math.max(4, Math.round(H * x.bad / max)) : 0;
     const h = Math.max(hOk + hBad, acts ? 8 : 0);
     const day = DAYS[new Date(x.d + 'T12:00:00').getDay()].slice(0, 2);
-    const tip = fmtD(parseD(x.d)) + ' — ' + (x.probs ? ar(x.ok) + ' صحيحة · ' + ar(x.bad) + ' خطأ · نسبة ' + ar(x.pct) + '٪' : 'لا مسائل') + (x.rev ? ' · ' + ar(x.rev) + ' مراجعة' : '') + (x.study ? ' · ' + ar(Math.round(x.study / 60)) + ' د دراسة' : '');
+    const tip = fmtD(parseD(x.d)) + ' — ' + (x.probs ? ar(x.ok) + ' صحيحة | ' + ar(x.bad) + ' خطأ | نسبة ' + ar(x.pct) + '٪' : 'لا مسائل') + (x.rev ? ' | ' + ar(x.rev) + ' مراجعة' : '') + (x.study ? ' | ' + ar(Math.round(x.study / 60)) + ' د دراسة' : '');
     return '<div class="dcol" title="' + esc(tip) + '"><div class="dbar" style="height:' + h + 'px">' +
       (hBad ? '<i class="bad" style="height:' + hBad + 'px"></i>' : '') +
       (hOk ? '<i class="ok" style="height:' + hOk + 'px"></i>' : '') +
-      '</div><span class="dlbl">' + (x.probs ? ar(x.pct) + '٪' : '·') + '</span><span class="dday">' + day + '</span></div>';
+      '</div><span class="dlbl">' + (x.probs ? ar(x.pct) + '٪' : '–') + '</span><span class="dday">' + day + '</span></div>';
   }).join('') + '</div>';
   const totOk = ds.reduce((a, x) => a + x.ok, 0), totBad = ds.reduce((a, x) => a + x.bad, 0);
   const active = ds.filter(x => x.probs || x.rev || x.study).length;
@@ -1456,7 +1467,7 @@ function calendarStripHTML() {
     const d = isoD(new Date(t.getTime() - i * 864e5));
     const s = ds.find(x => x.d === d);
     const cls = !s || (!s.probs && !s.rev && !s.study) ? '' : s.pct >= 80 ? ' good' : s.pct >= 50 ? ' mid' : ' weak';
-    h += '<span class="kday' + cls + '" title="' + fmtD(parseD(d)) + (s && s.probs ? ' · ' + ar(s.pct) + '٪' : '') + '">' + (+d.slice(8)) + '</span>';
+    h += '<span class="kday' + cls + '" title="' + fmtD(parseD(d)) + (s && s.probs ? ' | ' + ar(s.pct) + '٪' : '') + '">' + (+d.slice(8)) + '</span>';
   }
   return h + '</div><div class="dlegend"><span><i class="good"></i> نشاط عالٍ</span><span><i class="mid"></i> متوسط</span><span><i class="weak"></i> أخطاء أكثر</span></div>';
 }
@@ -1488,19 +1499,19 @@ function problemCard(st) {
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><span class="small muted num">' + ar(used) + ' من ' + ar(goal) + ' دقيقة</span></div>' +
     '<div class="bar"><span style="width:' + pct + '%"></span></div>' +
     '<p class="small muted">' + lead + '</p><div class="plist">' +
-    show.map(x => '<button class="pitem" data-act="prob" data-id="' + x.next + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b>' + (x.tPending ? '<span class="small" style="color:var(--acc);font-weight:700"> · ' + ar(x.tPending) + ' من دروس اليوم</span>' : '') + '<br><span class="small muted num">' + ar(x.pending) + ' مسائل متبقية من ' + ar(x.total) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div></section>';
+    show.map(x => '<button class="pitem" data-act="prob" data-id="' + x.next + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b>' + (x.tPending ? '<span class="small" style="color:var(--acc);font-weight:700"> | ' + ar(x.tPending) + ' من دروس اليوم</span>' : '') + '<br><span class="small muted num">' + ar(x.pending) + ' مسائل متبقية من ' + ar(x.total) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div></section>';
 }
 function vPath() {
   const st = me(), g = GRADES[st.grade - 1];
   const subs = subjectsOf(st.grade, st.branch);
   const prev = GRADES.filter(x => x.id < st.grade).reverse();
   return topBar('مساري', { log: 'path' }) + '<main class="page">' +
-    '<section class="grade-hero"><span class="small" style="opacity:.8">صفك هذه السنة</span><h2>' + esc(g.name) + (st.branch ? ' · ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') + '</h2>' +
+    '<section class="grade-hero"><span class="small" style="opacity:.8">صفك هذه السنة</span><h2>' + esc(g.name) + (st.branch ? ' | ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') + '</h2>' +
       '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><p style="opacity:.85">ماذا ستدرس هذه السنة، وكيف، وبماذا ستخرج منها.</p>' +
       '<button class="btn" data-act="intro" data-g="' + st.grade + '" style="background:var(--star);color:#15202B">افتح مقدمة الصف</button></div></section>' +
     '<section style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:1.15em">المواد</h2><div class="grid4">' +
       subs.map(s => { const c = contentOf(st.grade, s); let pct = 0, line = 'لم يُضف المحتوى بعد';
-        if (c) { const all = allProblems(c), ok = all.filter(x => (solveOf(x.p.id) || {}).self === 'ok').length; pct = Math.round(ok / Math.max(1, all.length) * 100); line = (c.demo ? 'نموذج للتجربة · ' : '') + 'حللت ' + ar(ok) + ' من ' + ar(all.length) + ' مسائل'; }
+        if (c) { const all = allProblems(c), ok = all.filter(x => (solveOf(x.p.id) || {}).self === 'ok').length; pct = Math.round(ok / Math.max(1, all.length) * 100); line = (c.demo ? 'نموذج للتجربة | ' : '') + 'حللت ' + ar(ok) + ' من ' + ar(all.length) + ' مسائل'; }
         return '<button class="subject" data-act="subject" data-g="' + st.grade + '" data-s="' + esc(s) + '"' + (c ? ' style="border-color:var(--acc)"' : '') + '><b>' + esc(s) + '</b><span class="small muted">' + line + '</span><span class="bar"><span style="width:' + pct + '%"></span></span></button>'; }).join('') +
     '</div><p class="note">قائمة المواد أولية، وتُطابَق مع منهج وزارة التربية لهذه السنة عند بناء المحتوى. مقررات الحفظ تجدها داخل كل موضوع، واختباراتها في «الاختبارات».</p></section>' +
     (prev.length ? '<section style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:1.15em">الصفوف السابقة <span class="small muted" style="font-weight:400">ارجع لأساس أي موضوع</span></h2><div class="chips">' +
@@ -1624,10 +1635,10 @@ function vSubject() {
     let curSet = false;
     const items = outline.map((o, i) => {
       const ch = c && c.chapters.find(x => x.no === i + 1);
-      if (!ch) return { k: 'big', st: 'lock', mark: ar(i + 1), name: outlineName(o[0], i), sub: 'يُبنى قريبًا · ص' + ar(o[1]), attrs: 'data-act="soon"' };
+      if (!ch) return { k: 'big', st: 'lock', mark: ar(i + 1), name: outlineName(o[0], i), sub: 'يُبنى قريبًا | ص' + ar(o[1]), attrs: 'data-act="soon"' };
       const pct = chPct(ch), tb = (st0.tests || {})['c:' + ch.id], done = pct >= 90 && tb;
       const stt = done ? 'done' : curSet ? 'next' : (curSet = true, 'cur');
-      return { k: 'big', st: stt, mark: done ? '✓' : ar(i + 1), name: outlineName(o[0], i), sub: (stt === 'cur' ? 'أنت هنا · ' : '') + ar(ch.topics.filter(t => !isHidden(t.id)).length) + ' مواضيع · ' + ar(pct) + '٪', attrs: 'data-act="chapter" data-id="' + ch.id + '"' };
+      return { k: 'big', st: stt, mark: done ? '✓' : ar(i + 1), name: outlineName(o[0], i), sub: (stt === 'cur' ? 'أنت هنا | ' : '') + ar(ch.topics.filter(t => !isHidden(t.id)).length) + ' مواضيع | ' + ar(pct) + '٪', attrs: 'data-act="chapter" data-id="' + ch.id + '"' };
     });
     /* محطة «الوزاري» في نهاية المسار: تعرض عدد أسئلة البنك реальًا وتفتحه */
     const mN = ministerialPool(s).length;
@@ -1638,7 +1649,7 @@ function vSubject() {
     });
     const starSt = (mT && mT.best != null && mT.best >= 60) ? 'done' : (mN && chDone ? 'next' : 'lock');
     const starSub = mN
-      ? ar(mN) + ' سؤالًا · ' + (mT && mT.best != null ? 'أفضل ' + ar(mT.best) + '٪' : (starSt === 'lock' ? 'يُفتح بعد إتمام كل الفصول' : 'ابدأ تهيئتك'))
+      ? ar(mN) + ' سؤالًا | ' + (mT && mT.best != null ? 'أفضل ' + ar(mT.best) + '٪' : (starSt === 'lock' ? 'يُفتح بعد إتمام كل الفصول' : 'ابدأ تهيئتك'))
       : 'قيد البناء';
     items.push({ k: 'star', st: starSt, mark: starSt === 'done' ? '✓' : '★', name: 'الوزاري', sub: starSub,
       attrs: !mN ? 'data-act="soon"' : starSt === 'lock' ? 'data-act="minLocked" data-s="' + esc(s) + '"' : 'data-act="openBank" data-s="' + esc(s) + '"' });
@@ -1658,7 +1669,7 @@ function chMemoHTML(ts, subject) {
   const mt = ts.flatMap(t => memosOf(t).map((M, bi) => ({ t, M, bi }))).filter(x => x.M && x.M.units && x.M.units.length); if (!mt.length) return '';
   return '<section class="card"><h2>الحفظ في نهاية هذا الفصل</h2><p class="small muted">كل نص مقرّر للحفظ في هذا الفصل: قصائد وأبيات، وسور، وأحاديث، ومعاني الآيات. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
     mt.map(x => { const m = memoOf(x.t.id, x.bi), U = x.M.units, ok = U.filter((u, i) => m.ok[i]).length, isB = U.some(Array.isArray);
-      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / (U.length || 1) * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ar(U.length) + (isB ? ' أبيات' : x.M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' · ' + (m.passed ? 'اجتزت اختبار الحفظ' : 'احفظ ثم اختبر نفسك') + '</span></span></button>'; }).join('') + '</section>';
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (m.passed ? '✓' : ar(Math.round(ok / (U.length || 1) * 100)) + '٪') + '</span><span style="flex:1"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> | ' + ar(U.length) + (isB ? ' أبيات' : x.M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' | ' + (m.passed ? 'اجتزت اختبار الحفظ' : 'احفظ ثم اختبر نفسك') + '</span></span></button>'; }).join('') + '</section>';
 }
 /* أسئلة البنك الوزاري التي تخص فصلًا بعينه: إما مربوطة بموضوعاته مباشرة (tid)
    أو مُحلّلة نصًّا إلى هذا الفصل (ch). الفصل المكتمل يفتح اختباره الوزاري */
@@ -1683,7 +1694,7 @@ function chapterMinisterialHTML(f, ch, pct, doneT, tsLen) {
   let h = '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
     '<h2>اختبار وزاري على هذا الفصل</h2><span class="muted small num">' + ar(items.length) + ' سؤال</span></div>' +
     '<p class="small muted">أسئلة الدورات الوزارية التي تخص ' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '').replace(/^الوحدة [^:]+:\s*/, '')) + ' وحدها — لا تخلط بفصول أخرى. كل سؤال بوقته المناسب ثم حلّه.</p>' +
-    (years.length ? '<p class="small muted num">الدورات: ' + years.map(y => ar(y)).join(' · ') + '</p>' : '') +
+    (years.length ? '<p class="small muted num">الدورات: ' + years.map(y => ar(y)).join(' | ') + '</p>' : '') +
     '<p class="small muted">' + ar(withSol) + ' سؤالًا منها بحل نموذجي.</p>';
   if (lastBest) h += '<p class="small" style="color:var(--ok);font-weight:600">أفضل نتيجة لك: ' + ar(lastBest) + '٪</p>';
   h += unlock
@@ -1716,7 +1727,7 @@ function vChapter() {
   ts.forEach((t, ti) => {
     const tp = topicPct(t), q = progOf(t.id).quiz, shortSec = /^[0-9-]{1,5}$/.test(t.sec);
     const s1 = mk(tp >= 90);
-    items.push({ k: 'big', st: s1, mark: s1 === 'done' ? '✓' : ar(ti + 1), name: ft(t.title), sub: bsec(t.sec) + ' · ' + (s1 === 'cur' ? 'أنت هنا · ' : '') + (t.problems.length ? ar(t.problems.length) + ' مسائل · ' : '') + ar(tp) + '٪', attrs: 'data-act="topic" data-id="' + t.id + '"' });
+    items.push({ k: 'big', st: s1, mark: s1 === 'done' ? '✓' : ar(ti + 1), name: ft(t.title), sub: bsec(t.sec) + ' | ' + (s1 === 'cur' ? 'أنت هنا | ' : '') + (t.problems.length ? ar(t.problems.length) + ' مسائل | ' : '') + ar(tp) + '٪', attrs: 'data-act="topic" data-id="' + t.id + '"' });
     const s2 = mk(!!q);
     items.push({ k: 'small', st: s2, mark: q ? '✓' : '؟', name: 'اختبار ' + t.title, aria: 'اختبار بعد موضوع ' + t.title, sub: q ? ar(q.best) + '٪' : '', attrs: 'data-act="tQuiz" data-id="' + t.id + '"' });
   });
@@ -1725,7 +1736,7 @@ function vChapter() {
     : { k: 'star', st: 'lock', mark: '★', name: 'اختبار الفصل الشامل', sub: 'مقفل حتى تكمل ما قبله', attrs: 'data-act="chTestLocked" data-id="' + ch.id + '"' });
   const doneT = ts.filter(t => topicPct(t) >= 90).length;
   return topBar(ch.title.split(':')[0], { back: true }) + '<main class="page">' +
-    '<div class="t-head"><span class="chap-no">' + ar(ch.no) + '</span><div><h1>' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '')) + '</h1><span class="small muted">' + esc(S.viewSubject || 'الفيزياء') + ' · ' + esc(ch.en) + ' · الكتاب ص' + ar(ch.pages) + '</span></div></div>' +
+    '<div class="t-head"><span class="chap-no">' + ar(ch.no) + '</span><div><h1>' + esc(ch.title.replace(/^الفصل [^:]+:\s*/, '')) + '</h1><span class="small muted">' + esc(S.viewSubject || 'الفيزياء') + ' | ' + esc(ch.en) + ' | الكتاب ص' + ar(ch.pages) + '</span></div></div>' +
     '<div class="strip"><span>بعد كل موضوع اختبار تختار عدد أسئلته، وفي آخر الفصل اختبار شامل</span><b class="num">' + (doneT === ts.length ? 'أكملت كل المواضيع ✓' : ar(doneT) + ' من ' + ar(ts.length) + ' مواضيع مكتملة') + '</b></div>' +
     (() => { const lock = chTestUnlocked(ts); return lock ? '<div class="lock-note">' + ico('tests', 1.4) + '<span><b>اختبار الفصل الشامل مقفل</b><br><span class="small">' + esc(lock) + ' — بعد ذلك يُفتح الاختبار الذي يجمع الفصل كله.</span></span></div>' : ''; })() +
     ((ch.goals||[]).length ? '<details class="fold"><summary>ماذا ستتعلم في هذا الفصل؟</summary><div class="inner"><ul class="lst">' + (ch.goals||[]).map(x => '<li>' + fm(x) + '</li>').join('') + '</ul></div></details>' : '') +
@@ -1840,7 +1851,7 @@ function vReview() {
     '</div></section>';
 
   /* ٢) المواد: أيها يستحق وقت اليوم */
-  h += accSec('rev-subjects', 'حسب المادة', ar(subjScores.length) + ' مواد · ' + ar(overPct) + '٪ مستحقّ',
+  h += accSec('rev-subjects', 'حسب المادة', ar(subjScores.length) + ' مواد | ' + ar(overPct) + '٪ مستحقّ',
     '<p class="small muted">نسبة المستحقّ من كل مادة ونسبة إتقانها — ابدأ بالأعلى خطرًا.</p>' +
     '<div class="srows">' + subjScores.map(([s, b]) =>
       '<div class="srow"><span class="slab">' + esc(s) + '<br><span class="small muted num">' + b.strong + ' من ' + b.all + ' متقن</span></span>' +
@@ -1857,17 +1868,17 @@ function vReview() {
       pctBar('حفظ (قصائد وسور وأحاديث)', types.memo / tTot * 100, 'good') +
       pctBar('عامة', types.other / tTot * 100, 'bad') +
     '</div>' +
-    '<p class="small muted" style="margin-top:8px">العدد المطلق: ' + ar(types.probs) + ' مسائل · ' + ar(types.und) + ' فهم · ' + ar(types.memo) + ' حفظ · ' + ar(types.other) + ' عام.</p>', false);
+    '<p class="small muted" style="margin-top:8px">العدد المطلق: ' + ar(types.probs) + ' مسائل | ' + ar(types.und) + ' فهم | ' + ar(types.memo) + ' حفظ | ' + ar(types.other) + ' عام.</p>', false);
 
   /* ٤) القوائم المنسدلة الفعلية للمراجعة */
   const problemsDue = over.filter(x => x.t.problems && x.t.problems.length);
   const understandingDue = over.filter(x => x.t.explain && x.t.explain.length);
   const memoDue = over.filter(x => memosOf(x.t).length);
   const otherDue = over.filter(x => !problemsDue.includes(x) && !understandingDue.includes(x) && !memoDue.includes(x));
-  if (problemsDue.length) h += accSec('rev-problems', 'مراجعة المسائل', ar(problemsDue.length) + ' · ' + ar(Math.round(problemsDue.length / (over.length || 1) * 100)) + '٪ من مستحقّ اليوم', problemsDue.map(x => revItemHTML(x)).join(''), false);
-  if (understandingDue.length) h += accSec('rev-understanding', 'مراجعة الفهم والشرح', ar(understandingDue.length) + ' · ' + ar(Math.round(understandingDue.length / (over.length || 1) * 100)) + '٪', understandingDue.map(x => revItemHTML(x)).join(''), false);
-  if (memoDue.length) h += accSec('rev-memo', 'مراجعة الحفظ', ar(memoDue.length) + ' · ' + ar(Math.round(memoDue.length / (over.length || 1) * 100)) + '٪', memoDue.map(x => revItemHTML(x)).join(''), false);
-  if (otherDue.length) h += accSec('rev-other', 'مراجعة عامة', ar(otherDue.length) + ' · ' + ar(Math.round(otherDue.length / (over.length || 1) * 100)) + '٪', otherDue.map(x => revItemHTML(x)).join(''), false);
+  if (problemsDue.length) h += accSec('rev-problems', 'مراجعة المسائل', ar(problemsDue.length) + ' | ' + ar(Math.round(problemsDue.length / (over.length || 1) * 100)) + '٪ من مستحقّ اليوم', problemsDue.map(x => revItemHTML(x)).join(''), false);
+  if (understandingDue.length) h += accSec('rev-understanding', 'مراجعة الفهم والشرح', ar(understandingDue.length) + ' | ' + ar(Math.round(understandingDue.length / (over.length || 1) * 100)) + '٪', understandingDue.map(x => revItemHTML(x)).join(''), false);
+  if (memoDue.length) h += accSec('rev-memo', 'مراجعة الحفظ', ar(memoDue.length) + ' | ' + ar(Math.round(memoDue.length / (over.length || 1) * 100)) + '٪', memoDue.map(x => revItemHTML(x)).join(''), false);
+  if (otherDue.length) h += accSec('rev-other', 'مراجعة عامة', ar(otherDue.length) + ' | ' + ar(Math.round(otherDue.length / (over.length || 1) * 100)) + '٪', otherDue.map(x => revItemHTML(x)).join(''), false);
 
   h += accSec('rev-soon', 'قادمة في أيامها', ar(soon.length) + ' موضوعًا',
     soon.length ? '<p class="small muted">ستعود إليك حين يحين وقتها:</p><div class="plist">' + soon.map(x => revItemHTML(x, true)).join('') + '</div>' : '<p class="small muted">لا شيء في الانتظار — كل شيء مستحقّ الآن.</p>', false);
@@ -1894,7 +1905,7 @@ function reviewLogHTML() {
   return h + '<div class="plist" style="margin-top:10px">' + days.map(([d, list]) => {
     const probs = list.filter(x => x.subject).length;
     const body = '<div class="plist">' + list.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('review', 1.4) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + (x.sec ? ar(Math.round(x.sec / 60)) + ' دقيقة' : 'مراجعة') + '</span></span></div>').join('') + '</div>';
-    return accSec('revlog-d-' + d, fmtD(parseD(d)), ar(list.length) + ' مراجعة · ' + ar(probs) + ' موضوع', body, false);
+    return accSec('revlog-d-' + d, fmtD(parseD(d)), ar(list.length) + ' مراجعة | ' + ar(probs) + ' موضوع', body, false);
   }).join('') + '</div>';
 }
 function vTests() {
@@ -1915,7 +1926,7 @@ function vTests() {
       const bs = chs.map(ch => (st.tests || {})['c:' + ch.id]).filter(Boolean);
       const avg = bs.length ? Math.round(bs.reduce((a, b) => a + b.best, 0) / bs.length) : null;
       const tested = bs.length, cover = chs.length ? Math.round(tested / chs.length * 100) : 0;
-      return accSec('mytests-' + y.subject, esc(y.subject), avg == null ? ar(chs.length) + ' فصول' : 'معدّلك ' + ar(avg) + '٪ · غطية ' + ar(cover) + '٪',
+      return accSec('mytests-' + y.subject, esc(y.subject), avg == null ? ar(chs.length) + ' فصول' : 'معدّلك ' + ar(avg) + '٪ | غطية ' + ar(cover) + '٪',
         '<div class="srows" style="margin-bottom:10px">' +
           pctBar('نسبة الفصول التي اختبرتها', cover, cover >= 80 ? 'good' : cover >= 40 ? 'gold' : 'bad') +
           (avg != null ? pctBar('معدّل نتائجك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') : '') +
@@ -1924,15 +1935,15 @@ function vTests() {
           const n = ch.topics.reduce((k, t) => k + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0);
           const tb = (st.tests || {})['c:' + ch.id];
           const last = tb ? tb.last : null, best = tb ? tb.best : null;
-          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? (best >= 70 ? 'ok' : 'bad') : '') + '">' + (tb ? ar(best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا' + (tb ? ' · أفضل ' + ar(best) + '٪ · آخر ' + ar(last) + '٪ · ' + ar(Math.max(0, best - last)) + '٪ تحسّن' : ' · لم تختره بعد') + '</span>' + (tb ? '<span class="pbar"><i style="width:' + Math.min(100, best) + '%"></i></span>' : '') + '</span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
+          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? (best >= 70 ? 'ok' : 'bad') : '') + '">' + (tb ? ar(best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا' + (tb ? ' | أفضل ' + ar(best) + '٪ | آخر ' + ar(last) + '٪ | ' + ar(Math.max(0, best - last)) + '٪ تحسّن' : ' | لم تختره بعد') + '</span>' + (tb ? '<span class="pbar"><i style="width:' + Math.min(100, best) + '%"></i></span>' : '') + '</span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
         }).join('') + '</div>' +
         '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="testsLog" data-s="' + esc(y.subject) + '">سجل ' + esc(y.subject) + ' التفصيلي</button>' +
-        (pool.length >= 5 ? '<button class="btn ghost" data-act="mixQuiz" data-n="10">سريع مما درسته · ١٠</button>' : '') + '</div>',
+        (pool.length >= 5 ? '<button class="btn ghost" data-act="mixQuiz" data-n="10">سريع مما درسته | ١٠</button>' : '') + '</div>',
         false);
     }).join(''),
     false);
   /* ٧-ج: «آخر نتائجك» له سبب: يشرح أين أنت الآن وماذا يعني كل رقم */
-  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة · ' + (exams[0] ? ar(exams[0].pct) + '٪ الأخيرة' : ''),
+  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة | ' + (exams[0] ? ar(exams[0].pct) + '٪ الأخيرة' : ''),
     '<div class="hint-purpose">' + ico('star', 1.6) +
     '<span><b>لماذا هذا القسم موجود؟</b><br><span class="small">يعرض آخر ١٢ نتيجة لك حتى تعرف اتجاهك: النتائج المتقاربة فوق ٧٠٪ تعني أنك أتقنت ما اختبرته، وما دون ذلك يعني أن الموضع يحتاج عودة. اضغط أي نتيجة لإعادة الاختبار نفسه فورًا.</span></span></div>' +
     '<div class="srows" style="margin:10px 0">' + (() => {
@@ -1944,7 +1955,7 @@ function vTests() {
         '<p class="small muted">' + (dir > 5 ? 'أنت في تحسّن مستمر — واصِل.' : dir < -5 ? 'نتائجك تنخفض — أعد مراجعة المواضيع التي أخطأت فيها.' : 'نتائجك ثابتة — تحتاج تنويعًا في المصادر لتتجاوز ٧٠٪.') + '</p>';
     })() + '</div>' +
     '<div class="plist">' +
-      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + examLabel(e.src) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' · ' + ar(e.n) + ' أسئلة · ' + (e.pct >= 70 ? 'ناجح' : 'يحتاج مراجعة') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
+      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' | ' + ar(e.n) + ' أسئلة | ' + (e.pct >= 70 ? 'ناجح' : 'يحتاج مراجعة') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
       '</div>', false) : '';
   /* ٧-هـ: زرّان فقط + شرح فائدته أسفلهما — النمط نفسه يُطبَّق في كل النظام */
   const examSecs = '<section class="card"><h2>امتحانات المواد</h2>' +
@@ -1999,7 +2010,7 @@ function minPrepRecordHTML(subject) {
     '<span><b>لماذا هذا السجل؟</b><br><span class="small">لأن الوزاري مادة تُبنى بالجلسة لا بالقراءة: هنا ترى معدّلك ومدتك ومواضيع ضعفك في كل جلسة، فتعرف أي فصل تحتاج جلسةً ثانية قبل الامتحان الحقيقي.</span></span></div>';
   h += '<div class="sgrid" style="margin-top:10px">' +
     '<div class="stat"><span class="muted small">معدّلك التراكمي</span><b class="num">' + ar(avg) + '٪</b></div>' +
-    '<div class="stat"><span class="muted small">أفضل / أضعف جلسة</span><b class="num">' + ar(best) + '٪ · ' + ar(worst) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">أفضل / أضعف جلسة</span><b class="num">' + ar(best) + '٪ | ' + ar(worst) + '٪</b></div>' +
     '<div class="stat"><span class="muted small">عدد الجلسات</span><b class="num">' + ar(arr.length) + '</b></div>' +
     '<div class="stat"><span class="muted small">معدّل مدتك</span><b class="num">' + fmtDur(avgSec) + '</b></div></div>';
   h += '<div class="srows" style="margin-top:12px">' +
@@ -2021,7 +2032,7 @@ function minPrepRecordHTML(subject) {
     arr.slice().reverse().map(x => {
       const f = x.chId ? findChapter(x.chId) : null;
       return '<div class="pitem" style="pointer-events:none"><span class="st ' + (x.pct >= 80 ? 'ok' : x.pct >= 60 ? '' : 'bad') + '">' + ar(x.pct) + '٪</span>' +
-        '<span style="flex:1;min-width:0"><b>' + (f ? esc(f.ch.title.split(':')[0]) : 'المادة كاملة') + '</b><br><span class="small muted num">' + fmtD(new Date(x.at)) + ' · ' + ar(x.n) + ' أسئلة · ' + fmtDur(x.sec || 0) + '</span></span></div>';
+        '<span style="flex:1;min-width:0"><b>' + (f ? esc(f.ch.title.split(':')[0]) : 'المادة كاملة') + '</b><br><span class="small muted num">' + fmtD(new Date(x.at)) + ' | ' + ar(x.n) + ' أسئلة | ' + fmtDur(x.sec || 0) + '</span></span></div>';
     }).join('') + '</div>';
   h += '<div class="grid2" style="margin-top:10px">' +
     '<button class="btn ghost" data-act="weakOf" data-s="' + esc(subject) + '">مواضيع ضعفك</button>' +
@@ -2034,7 +2045,7 @@ function vMinPrep() {
   const cur = S.minPrepSubj && subs.some(y => y.subject === S.minPrepSubj) ? S.minPrepSubj : null;
   if (cur) {
     const bank = ministerialPool(cur).length, subj = subjQuizPool(cur).length, n = bank || subj;
-    return topBar('التهيئة للوزاري · ' + cur, { back: true, noTools: true }) + '<main class="page">' +
+    return topBar('التهيئة للوزاري | ' + cur, { back: true, noTools: true }) + '<main class="page">' +
       '<div class="chips" style="margin-bottom:10px"><button class="chip" data-act="minPrepSubj" data-s=""><b>↩ كل المواد</b></button>' +
       '<button class="chip" data-act="back">رجوع</button></div>' +
       '<section class="card"><h2>كيف تُحاكى الجلسة الوزارية؟</h2><p class="small muted">امتحان وزاري حقيقي ثلاث ساعات (١٨٠ دقيقة) من أسئلة الدورات، موزّعة على المنهج. تختار امتحان فصل واحد، أو فصولًا تختارها، أو المادة كاملة. يُغلق النظام على الأسئلة ولا يمكن الرجوع إليها، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيع ضعفك. زمن كل سؤال مشتقّ من صعوبته (كتاب ٣ دقائق، وزاري ٥) ومن زمنك الفعلي في المسائل.</p>' +
@@ -2042,10 +2053,10 @@ function vMinPrep() {
         '<div class="stat"><span class="muted small">' + (bank ? 'أسئلة الوزاري' : 'أسئلة المادة') + '</span><b class="num">' + ar(n) + '</b></div>' +
         '<div class="stat"><span class="muted small">معدّلك</span><b class="num">' + ar(ministerialAvg(cur)) + '٪</b></div></div>' +
         '<div class="grid2" style="margin-top:10px">' +
-        '<button class="btn" data-act="ministerialFull" data-s="' + esc(cur) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة · ١٠٠ نقطة</span></button>' +
+        '<button class="btn" data-act="ministerialFull" data-s="' + esc(cur) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة | ١٠٠ نقطة</span></button>' +
         '<button class="btn ghost" data-act="examCfg" data-kind="ministerial" data-s="' + esc(cur) + '"><b>جلسة بفصل محدد</b><span class="small muted">اختر فصلًا أو فصولًا ومواضيع</span></button>' +
         '</div></section>' +
-      '<section class="card"><h2>سجل التهيئة الشامل · ' + esc(cur) + '</h2>' + minPrepRecordHTML(cur) + '</section>' +
+      '<section class="card"><h2>سجل التهيئة الشامل | ' + esc(cur) + '</h2>' + minPrepRecordHTML(cur) + '</section>' +
       '</main>';
   }
   return topBar('التهيئة للوزاري', { back: true, noTools: true }) + '<main class="page">' +
@@ -2063,10 +2074,10 @@ function vMinPrep() {
         (arr.length ? '<div class="srows" style="margin-top:10px">' +
           pctBar('معدّل جلساتك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') +
           pctBar('جلساتك فوق ٨٠٪', arr.length ? arr.filter(x => x.pct >= 80).length / arr.length * 100 : 0, 'good') +
-          '</div><p class="small muted num">' + ar(arr.length) + ' جلسة' + (last ? ' · آخرها ' + ar(last.pct) + '٪ في ' + fmtD(new Date(last.at)) : '') + '</p>' : '<p class="note">لا جلسة بعد — أول جلسة تفتح لك السجل.</p>') +
+          '</div><p class="small muted num">' + ar(arr.length) + ' جلسة' + (last ? ' | آخرها ' + ar(last.pct) + '٪ في ' + fmtD(new Date(last.at)) : '') + '</p>' : '<p class="note">لا جلسة بعد — أول جلسة تفتح لك السجل.</p>') +
         '<div class="grid2" style="margin-top:10px">' +
         '<button class="btn" data-act="minPrepSubj" data-s="' + esc(y.subject) + '"><b>سجل وتهيئة ' + esc(y.subject) + '</b><span class="small muted">السجل الكامل + الجلسات</span></button>' +
-        '<button class="btn ghost" data-act="ministerialFull" data-s="' + esc(y.subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة · ١٠٠ نقطة</span></button>' +
+        '<button class="btn ghost" data-act="ministerialFull" data-s="' + esc(y.subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">٥–٦ أسئلة | ١٠٠ نقطة</span></button>' +
         '</div></section>';
     }).join('') + '</main>';
 }
@@ -2126,7 +2137,7 @@ function calGridHTML(y, m) {
     const sel = ds === S.calD;
     h += '<button class="cday' + (lvl ? ' ' + lvl : '') + (sel ? ' sel' : '') + (future ? ' out' : '') + '"' +
       (future ? ' disabled' : ' data-act="calDay" data-d="' + ds + '"') +
-      ' aria-label="' + fmtD(parseD(ds)) + (lvl ? ' · نشاط' : ' · بلا نشاط') + '"' + (sel ? ' aria-current="date"' : '') + '>' +
+      ' aria-label="' + fmtD(parseD(ds)) + (lvl ? ' | نشاط' : ' | بلا نشاط') + '"' + (sel ? ' aria-current="date"' : '') + '>' +
       '<b>' + ar(n) + '</b>' + (lvl ? '<i class="cdot"></i>' : '') +
       (isCur && n === t.getDate() ? '<em class="ctoday"></em>' : '') + '</button>';
   }
@@ -2146,7 +2157,7 @@ function dayDetailHTML(d) {
     h += '<h3 class="sub">المسائل (' + ar(f.problems.length) + ')</h3><div class="plist">' + f.problems.map(x => {
       const info = x.info, ok = x.v.self === 'ok';
       return '<div class="pitem" style="pointer-events:none"><span class="st ' + (ok ? 'ok' : x.v.self ? 'bad' : '') + '">' + (ok ? '✓' : x.v.self ? '!' : '•') + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + (info ? esc(info.subject) : 'مسائل') + '</b><br><span class="small muted">' + (info ? esc(String(info.p.text).replace(/\s+/g, ' ').slice(0, 90)) : esc(x.k)) + (x.v.used ? ' · ' + mmss(x.v.used) : '') + '</span></span>' +
+        '<span style="flex:1;min-width:0"><b>' + (info ? esc(info.subject) : 'مسائل') + '</b><br><span class="small muted">' + (info ? esc(String(info.p.text).replace(/\s+/g, ' ').slice(0, 90)) : esc(x.k)) + (x.v.used ? ' | ' + mmss(x.v.used) : '') + '</span></span>' +
         '<span class="small muted">' + (ok ? 'صحيحة' : x.v.self === 'bad' ? 'خطأ' : x.v.self === 'none' ? 'لم أصل للحل' : 'بدأها فقط') + '</span></div>';
     }).join('') + '</div>';
   }
@@ -2161,11 +2172,11 @@ function dayDetailHTML(d) {
   if (f.exams.length) {
     h += '<h3 class="sub">امتحانات (' + ar(f.exams.length) + ')</h3><div class="plist">' + f.exams.map(e =>
       '<div class="pitem" style="pointer-events:none"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span>' +
-      '<span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + ar(e.n) + ' سؤالًا · ' + fmtD(new Date(e.at)) + '</span></span></div>').join('') + '</div>';
+      '<span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + ar(e.n) + ' سؤالًا | ' + fmtD(new Date(e.at)) + '</span></span></div>').join('') + '</div>';
   }
   const logs = f.log.filter(x => x.type !== 'review');
   if (logs.length) h += '<h3 class="sub">أخرى (' + ar(logs.length) + ')</h3><div class="plist">' + logs.map(x =>
-    '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc({ problem: 'مسألة', study: 'دراسة', quiz: 'اختبار' }[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span></div>').join('') + '</div>';
+    '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc({ problem: 'مسألة', study: 'دراسة', quiz: 'اختبار' }[x.type] || x.type) + (x.sec ? ' | ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span></div>').join('') + '</div>';
   if (f.rev) h += '<p class="small muted">' + ar(f.rev) + ' مراجعة استحقّها جدول المراجعة في هذا اليوم.</p>';
   return h;
 }
@@ -2188,7 +2199,7 @@ function monthStatsHTML(y, m) {
 function vLog() {
   const st = me(), src = S.logFor || 'today', subject = S.logSubject || null;
   const types = { problem: 'مسألة', review: 'مراجعة', study: 'دراسة', quiz: 'اختبار' };
-  const row = x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>';
+  const row = x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 1.6) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' | ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>';
   let title = 'السجل', body = '';
   if (src === 'review') {
     title = 'سجل المراجعة';
@@ -2206,7 +2217,7 @@ function vLog() {
     }).join('');
     const dayList = [...act].filter(d => d.startsWith(c.y + '-' + String(c.m + 1).padStart(2, '0') + '-')).sort().reverse();
     body =
-      accSec('cal-pick', 'اختر يومًا', MONTHS[c.m] + ' ' + ar(c.y) + ' · ' + ar(dayList.length) + ' يوم نشِط',
+      accSec('cal-pick', 'اختر يومًا', MONTHS[c.m] + ' ' + ar(c.y) + ' | ' + ar(dayList.length) + ' يوم نشِط',
         '<p class="small muted">السنة ثم الشهر ثم يومًا من التقويم. كل مربع يوم، ولونه يدلّ على ما أنجزته فيه.</p>' +
         '<div class="chips">' + years.map(y => '<button class="chip" data-act="calYear" data-y="' + y + '" aria-pressed="' + (y === c.y) + '">' + ar(y) + '</button>').join('') + '</div>' +
         '<div class="chips">' + months + '</div>' +
@@ -2240,7 +2251,7 @@ function vLog() {
       y.c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const p = (st.progress || {})[t.id] || {}; if (p.quiz && p.quiz.at) { studied++; best = Math.max(best, p.quiz.best || 0); } }));
       const total = y.c.chapters.reduce((k, ch) => k + ch.topics.filter(t => !isHidden(t.id)).length, 0);
       const pct = total ? Math.round(studied / total * 100) : 0;
-      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (pct >= 70 ? 'ok' : '') + '">' + ar(pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصول · اختبرت ' + ar(studied) + ' من ' + ar(y.c.chapters.reduce((k, ch) => k + ch.topics.filter(t => !isHidden(t.id)).length, 0)) + ' موضوعًا' + '</span></span></div>';
+      return '<div class="pitem" style="pointer-events:none"><span class="st ' + (pct >= 70 ? 'ok' : '') + '">' + ar(pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(y.subject) + '</b><br><span class="small muted">' + ar(y.c.chapters.length) + ' فصول | اختبرت ' + ar(studied) + ' من ' + ar(y.c.chapters.reduce((k, ch) => k + ch.topics.filter(t => !isHidden(t.id)).length, 0)) + ' موضوعًا' + '</span></span></div>';
     }).join('');
     const totalTopics = gradeContents(st.grade).reduce((k, y) => k + y.c.chapters.reduce((j, ch) => j + ch.topics.filter(t => !isHidden(t.id)).length, 0), 0);
     const studiedTopics = Object.values(st.progress || {}).filter(p => p && ((p.quiz && p.quiz.at) || (p.seen && Object.keys(p.seen).some(k => p.seen[k])))).length;
@@ -2281,7 +2292,7 @@ function figsLibBody() {
   const figGroups = Object.keys(FIGS).reduce((acc, k) => { const g = FIG_SUBJ[k] || 'أخرى'; (acc[g] = acc[g] || []).push(k); return acc; }, {});
   return '<div class="hint-purpose">' + ico('bulb', 1.7) + '<span><b>لماذا هذا القسم؟</b><br><span class="small">بدل أن تبحث عن الشكل في الكتاب، تفتحه هنا مكبّرًا: اضغط رقمًا من نقاطه فيشرح نفسه، واضغط «كيف أرسمه؟» فيبنيه أمامك خطوة خطوة — وهذا ما يُطلب منك في سؤال «ارسم واشرح».</span></span></div>' +
     Object.keys(figGroups).map(subj =>
-      '<div class="fig-grp"><b class="fig-grp-t">' + esc(subj) + ' · ' + ar(figGroups[subj].length) + '</b><div class="plist">' +
+      '<div class="fig-grp"><b class="fig-grp-t">' + esc(subj) + ' | ' + ar(figGroups[subj].length) + '</b><div class="plist">' +
       figGroups[subj].map(k => '<button class="pitem" data-act="figFull" data-k="' + k + '" data-from="lib"><span class="st">' + ico('grid') + '</span>' +
         '<span style="flex:1;min-width:0"><b>' + esc(FIGS[k].title) + '</b><br><span class="small muted">' + esc(String(FIGS[k].teaches).slice(0, 96)) + '…</span></span></button>').join('') +
       '</div></div>').join('');
@@ -2289,7 +2300,7 @@ function figsLibBody() {
 function vGroups() {
   return topBar('مجموعتي') + '<main class="page">' +
     empty('group', 'ادرس مع زملائك بالتنافس', 'أنشئ مجموعة فيعطيك التطبيق رمزًا من ٦ خانات، شاركه مع صفك، وتظهر لوحة المتصدرين: الاختبارات المجتازة، والساعات، والمواظبة.') +
-    '<div class="grid2"><button class="btn" disabled>أنشئ مجموعة · قريبًا</button><button class="btn ghost" disabled>انضم برمز · قريبًا</button></div>' +
+    '<div class="grid2"><button class="btn" disabled>أنشئ مجموعة | قريبًا</button><button class="btn ghost" disabled>انضم برمز | قريبًا</button></div>' +
     '<div class="card" style="flex-direction:row;gap:12px;align-items:flex-start">' + '<span style="width:24px;flex-shrink:0;color:var(--acc)">' + ico('shield') + '</span><p class="small">لا يظهر لأحد إلا اسمك المستعار وتقدمك. لا اسم حقيقي، ولا مدرسة، ولا رقم، ولا دردشة.</p></div></main>';
 }
 
@@ -2304,8 +2315,8 @@ function searchResults() {
       subjectsOf(g.id, br).forEach(s => { if (s.includes(q) || (WHY[s] || '').includes(q)) res.push({ kind: 'مادة', title: s, where: g.name, act: 'subject:' + g.id + ':' + s });
         const c = contentOf(g.id, s); if (!c) return;
         const nq = normA(q);
-        c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const where = s + ' · ' + arSec(t.sec) + ' ' + t.title, hit = x => normA(x).includes(nq);
-          if (hit(t.title)) res.push({ kind: 'موضوع', title: arSec(t.sec) + ' ' + t.title, where: s + ' · ' + ch.title, act: 'topic:' + t.id + ':explain' });
+        c.chapters.forEach(ch => ch.topics.forEach(t => { if (isHidden(t.id)) return; const where = s + ' | ' + arSec(t.sec) + ' ' + t.title, hit = x => normA(x).includes(nq);
+          if (hit(t.title)) res.push({ kind: 'موضوع', title: arSec(t.sec) + ' ' + t.title, where: s + ' | ' + ch.title, act: 'topic:' + t.id + ':explain' });
           t.defs.forEach(d => { if (hit(d.term) || hit(d.text)) res.push({ kind: 'تعريف', title: d.term, where, act: 'topic:' + t.id + ':defs' }); });
           t.laws.forEach(l => { if (hit(l.name) || hit(l.f)) res.push({ kind: 'قانون', title: l.name + '  ' + l.f, where, act: 'topic:' + t.id + ':laws' }); });
           t.reasons.forEach(r => { if (hit(r.q)) res.push({ kind: 'تعليل', title: r.q, where, act: 'topic:' + t.id + ':reasons' }); });
@@ -2339,13 +2350,13 @@ function aboutHTML() {
       '<p class="small muted">يُضاف المحتوى فصلًا بعد فصل، ويصلك التحديث تلقائيًا عند فتح التطبيق.</p></section>' +
     '<section class="card"><h2>مبادئ ' + APP + '</h2><ul class="lst"><li>المحتوى من الكتب الوزارية المعتمدة، وكل موضوع يذكر صفحته في الكتاب.</li><li>الفهم أولًا: المعدل العالي نتيجة طبيعية للفهم، لا للحفظ وحده.</li><li>بياناتك على جهازك فقط، ولا يُطلب منك حساب ولا رقم هاتف.</li><li>بلا إعلانات ولا اشتراكات.</li></ul></section>' +
     '<section class="card about-foot"><div><span class="small muted">تصميم وتطوير</span><br><b>حيدر نصيف</b></div><a class="btn ghost" href="https://prog-alone.github.io/portfolio/" target="_blank" rel="noopener">أعمالي الأخرى</a>' +
-      '<p class="small muted" style="width:100%;border-top:1px solid var(--line);padding-top:10px;margin:0">© ' + APP + ' · الإصدار ' + APP_VER + ' · ' + APP_UPDATED + ' · تصميم وتطوير حيدر نصيف</p></section>';
+      '<p class="small muted" style="width:100%;border-top:1px solid var(--line);padding-top:10px;margin:0">© ' + APP + ' | الإصدار ' + APP_VER + ' | ' + APP_UPDATED + ' | تصميم وتطوير حيدر نصيف</p></section>';
 }
 function logHTML() {
   const st = me(), log = (st.log || []).slice().reverse().slice(0, 100);
   if (!log.length) return '<p class="muted">لا نشاط مسجل بعد. ابدأ الدراسة أو الاختبار أو المراجعة وسيظهر هنا.</p>';
   const types = { problem: 'مسائل', review: 'مراجعة', study: 'دراسة', quiz: 'اختبار' };
-  return '<div class="plist">' + log.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>').join('') + '</div>';
+  return '<div class="plist">' + log.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + esc(types[x.type] || x.type) + (x.sec ? ' | ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</span></span><span class="small muted num">' + fmtD(parseD(x.d)) + '</span></div>').join('') + '</div>';
 }
 function studentDetailsHTML() {
   const st = me(), log = (st.log || []).slice().reverse();
@@ -2383,7 +2394,7 @@ function vSettings() {
   if (tab === 'acc') body =
     '<section class="card"><h2>بطاقتي</h2>' + myCardHTML(st) + '</section>' +
     '<section class="card"><h2>الطلاب على هذا الجهاز</h2>' +
-      DB.students.map(s => '<div class="row" style="' + (s.id === DB.activeId ? 'background:var(--acc-soft)' : '') + '"><span style="display:flex;align-items:center;gap:10px">' + avatarHTML(s.id, 34) + '<span><b>' + esc(s.name) + '</b> <span class="small muted">· ' + esc(GRADES[s.grade - 1].name) + '</span></span></span>' +
+      DB.students.map(s => '<div class="row" style="' + (s.id === DB.activeId ? 'background:var(--acc-soft)' : '') + '"><span style="display:flex;align-items:center;gap:10px">' + avatarHTML(s.id, 34) + '<span><b>' + esc(s.name) + '</b> <span class="small muted">| ' + esc(GRADES[s.grade - 1].name) + '</span></span></span>' +
         (s.id === DB.activeId ? '<span class="small" style="color:var(--acc);font-weight:600">نشط الآن</span>' : '<span style="display:flex;gap:6px"><button class="btn ghost" style="min-height:40px;padding:0 14px" data-act="switch" data-id="' + s.id + '">بدّل إليه</button><button class="btn quiet" style="min-height:40px;padding:0 12px" data-act="delStudent" data-id="' + s.id + '" aria-label="احذف ' + esc(s.name) + '">حذف</button></span>') + '</div>').join('') +
       '<button class="btn quiet" data-act="addStudent">+ أضف طالبًا</button></section>' +
     '<section class="card"><h2>صفي وهدفي</h2>' +
@@ -2463,7 +2474,7 @@ Object.values(CONTENT).forEach(c => c.chapters.sort((a, b) => a.no - b.no));
 const IDX_TOPIC = new Map(), IDX_CH = new Map(), IDX_PROB = new Map();
 Object.entries(CONTENT).forEach(([k, c]) => c.chapters.forEach(ch => {
   IDX_CH.set(ch.id, { key: k, ch });
-  ch.topics.forEach(t => { IDX_TOPIC.set(t.id, { key: k, ch, t }); (t.problems || []).forEach(p => IDX_PROB.set(p.id, { key: k, ch, t, p, subject: k.split(':')[2] })); });
+  ch.topics.forEach(t => { IDX_TOPIC.set(t.id, { key: k, ch, t, subject: k.split(':')[2] }); (t.problems || []).forEach(p => IDX_PROB.set(p.id, { key: k, ch, t, p, subject: k.split(':')[2] })); });
 }));
 const contentKey = (gid, branch, subject) => gid + ':' + (branch || '-') + ':' + subject;
 function contentOf(gid, subject) {
@@ -2499,23 +2510,25 @@ function bankMeta(x) {
 /* سطر هينت يظهر عند المرور على السؤال: مصدره في الدورات + نوعه + زمنه */
 function bankHint(x) {
   const m = bankMeta(x), bits = [];
-  bits.push(m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'سؤال من إعداد المنهج لا من دورة سابقة');
+  bits.push(m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' | ' + m.role : '') : 'سؤال من إعداد المنهج لا من دورة سابقة');
   if (m.type) bits.push('النوع: ' + m.type);
   bits.push('زمن مقترح: ' + Math.round(m.sec / 60) + ' دقيقة');
   if (m.chTitle) bits.push('الفصل: ' + m.chTitle.replace(/^[^:]*[:：]\s*/, ''));
-  if (m.letter) bits.push('الفرع ' + m.letter + (m.num ? ' · رقم ' + ar(m.num) : ''));
-  return bits.join(' · ');
+  if (m.letter) bits.push('الفرع ' + m.letter + (m.num ? ' | رقم ' + ar(m.num) : ''));
+  return bits.join(' | ');
 }
 function findChapter(id) { return IDX_CH.get(id) || null; }
 function findProblem(id) { return IDX_PROB.get(id) || null; }
 /* يعزل كل معادلة داخل النص العربي حتى لا ينقلب ترتيبها */
 const MATH_RE = /[A-Za-zΔΦεπΩµ½√(0-9⁰¹²³⁴-⁹ωθφαβλℂ‖±][A-Za-zΔΦεπΩµ½√∝≈∥…ωθφαβλℂ‖±^⁄⁰¹²³⁴-⁹⁻⁺₀-₉0-9=×÷+\-−().²³ \/.,_{}·'°→⇌⟸<>]*[A-Za-z0-9µΩ⁰¹²³⁴-⁹₀-₉)}'°ωθφπ‖]|[A-Za-zΔΦεπΩµ0-9ωθφℂ]/g;
-const subs = s => s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>').replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>');
+const subs = s => s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>').replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>').replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>').replace(/\^(\(?-?[0-9A-Za-z]+\)?)/g, '<sup>$1</sup>');
 /* يعزل كل معادلة أو رمز لاتيني داخل النص العربي في عنصر LTR، ويُهرّب النص قبل التغليف */
 const arSec = x => /[A-Za-z]/.test(String(x)) ? String(x) : ar(String(x));
 const bsec = x => '<bdi' + (/[\u0621-\u064A]/.test(String(x)) ? '' : ' dir="ltr"') + '>' + esc(arSec(x)) + '</bdi>';
 const ft = t => /[_^=]/.test(t) ? fm(t) : esc(t).replace(/\d+(?:\s*[–\-]\s*\d+)+/g, m => '<bdi dir="ltr">' + m + '</bdi>');
-const fm = t => { t = String(t == null ? '' : t); if (!/[\u0600-\u06FF]/.test(t) && /[a-z]{2,}[\s,’'][^=]*[a-z]{2,}/i.test(t)) return '<span class="lt lt-b" dir="ltr">' + esc(t).replace(/\n/g, '<br>') + '</span>'; let out = '', last = 0; t.replace(MATH_RE, (m, off) => { if (!/[=+×÷√]/.test(m) && /[a-z]{3,}\s+[a-z]{2,}/i.test(m)) { out += esc(t.slice(last, off)) + '<span class="lt" dir="ltr">' + esc(m) + '</span>'; last = off + m.length; return m; } out += esc(t.slice(last, off)) + '<span class="math' + (m.length <= 28 ? ' eq' : '') + '">' + subs(esc(m)) + '</span>'; last = off + m.length; return m; }); return (out + esc(t.slice(last))).replace(/\n/g, '<br>'); };
+const fm = t => { t = String(t == null ? '' : t); if (!/[\u0600-\u06FF]/.test(t) && /[a-z]{2,}[\s,’'][^=]*[a-z]{2,}/i.test(t)) return '<span class="lt lt-b" dir="ltr">' + esc(t).replace(/\n/g, '<br>') + '</span>'; /* الإحالات القرآنية والكتابية «(ق: 4)» «(البقرة: 153–157)» تُكتب بالأرقام العربية فتستقيم في السطر */ t = t.replace(/\(([\u0621-\u064A][\u0621-\u064A\u064B-\u0652\s]{0,24}):\s*(\d+(?:\s*[–\-]\s*\d+)?)\)/g, (m, a, b) => '(' + a + ': ' + ar(b.replace(/\s+/g, '')) + ')'); let out = '', last = 0; t.replace(MATH_RE, (m0, off0) => { let m = m0, off = off0; const cnt = (x, c) => x.split(c).length - 1; while (m.length > 1 && m.endsWith(')') && cnt(m, ')') > cnt(m, '(')) m = m.slice(0, -1); while (m.length > 1 && m.startsWith('(') && cnt(m, '(') > cnt(m, ')')) { m = m.slice(1); off++; } m = m.replace(/[\s.,]+$/, '') || m; if (!/[=+×÷√]/.test(m) && /[a-z]{3,}\s+[a-z]{2,}/i.test(m)) { out += esc(t.slice(last, off)) + '<span class="lt" dir="ltr">' + esc(m) + '</span>'; last = off + m.length; return m; } out += esc(t.slice(last, off)) + '<span class="math' + (m.length <= 28 ? ' eq' : '') + '">' + subs(esc(m)) + '</span>'; last = off + m.length; return m; }); return brIn((out + esc(t.slice(last))).replace(/\n/g, '<br>')); };
+/* القوس المحيط بكلمات لاتينية يدخل معها في العزل حتى لا ينقلب: [hurt, sore] و(exoskeleton) */
+const brIn = h => h.replace(/([\[(])<span class="(math[^"]*|lt)"( dir="ltr")?>([^<]*)<\/span>([\])])/g, '<span class="$2"$3>$1$4$5</span>').replace(/\(<span class="(math[^"]*|lt)"( dir="ltr")?>([^<()]*)\)<\/span>/g, '<span class="$1"$2>($3)</span>');
 const fe = t => '<span class="math eq">' + subs(esc(t)) + '</span>';
 /* خطوات الحل الوزاري (المعطيات/المطلوب/القانون/التبسيط/الناتج) كلٌّ منها على سطره — لا سطر طويل متلاصق */
 const solLines = s => String(s == null ? '' : s)
@@ -2557,14 +2570,14 @@ function rateSection() {
       '<a class="s-ig" href="' + SOCIAL.instagram + '" target="_blank" rel="noopener">' + IC_IG + '<span>إنستغرام</span></a>' +
       '<a class="s-li" href="' + SOCIAL.linkedin + '" target="_blank" rel="noopener">' + IC_LI + '<span>لينكدإن</span></a>' +
       '<a class="s-em" href="mailto:' + SOCIAL.email + '">' + IC_EM + '<span>البريد</span></a></div></section>' +
-    '<p class="note" style="text-align:center">© ' + APP + ' · الإصدار ' + APP_VER + ' · تصميم وتطوير <a href="https://github.com/PROG-ALONE" target="_blank" rel="noopener">حيدر نصيف</a></p>';
+    '<p class="note" style="text-align:center">© ' + APP + ' | الإصدار ' + APP_VER + ' | تصميم وتطوير <a href="https://github.com/PROG-ALONE" target="_blank" rel="noopener">حيدر نصيف</a></p>';
 }
 const SOCIAL = { instagram: 'https://www.instagram.com/h.nj2', linkedin: 'https://www.linkedin.com/in/hnj2', email: 'haidernassef4@gmail.com' };
 const IC_IG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>';
 const IC_LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>';
 const IC_EM = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 
-/* =================== التصحيح الذكي بالصورة (اختياري · يحتاج إنترنت) =================== */
+/* =================== التصحيح الذكي بالصورة (اختياري | يحتاج إنترنت) =================== */
 /* المطابقة الرقمية أعلاه تعمل دون إنترنت وتبقى الافتراضية. هذه ميزة إضافية إرشادية فقط. */
 const AI_PROVIDERS = {
   gemini: { name: 'Gemini (Google)', model: 'gemini-2.5-flash', keyUrl: 'https://aistudio.google.com/app/apikey' },
@@ -2668,7 +2681,7 @@ function aiResultHTML(r) {
   return '<div class="card" style="text-align:start;margin-top:10px">' +
     '<div style="display:flex;justify-content:space-between;align-items:center"><b>حكم إرشادي</b><span class="small muted">ثقة ' + ar(conf) + '٪</span></div>' +
     (r.verdict ? '<p>' + esc(r.verdict) + '</p>' : '') +
-    '<p class="small">' + aiMark(r.final_ok) + ' الناتج · ' + aiMark(r.steps_ok) + ' الخطوات · ' + aiMark(r.units_ok) + ' الوحدات</p>' +
+    '<p class="small">' + aiMark(r.final_ok) + ' الناتج | ' + aiMark(r.steps_ok) + ' الخطوات | ' + aiMark(r.units_ok) + ' الوحدات</p>' +
     (r.laws && r.laws.length ? '<p class="small muted">قوانين رصدها: ' + esc(r.laws.join('، ')) + '</p>' : '') +
     (r.errors && r.errors.length ? '<ul class="small" style="padding-inline-start:20px;line-height:1.8">' + r.errors.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
     (r.advice ? '<p class="small">' + esc(r.advice) + '</p>' : '') +
@@ -2722,11 +2735,11 @@ function guideHTML(f) {
   if (g && g.setup) {
     body =
       '<p class="small muted">اكتب في ورقتك بالترتيب: رقم الخطوة، ثم المعطيات، ثم (؟) للمطلوب، ثم القانون، ثم التعويض والتبسيط (على أكثر من سطر)، ثم الناتج مع وحدته.</p>' +
-      hdr('١ · المعطيات') + L(g.setup) +
-      (g.find ? hdr('٢ · المطلوب') + eq(g.find) : '') +
-      (g.law ? hdr('٣ · القانون') + eq(g.law) : '') +
-      (g.work && g.work.length ? hdr('٤ · التعويض والتبسيط') + L(g.work) : '') +
-      (g.result ? hdr('٥ · الناتج مع الوحدة') + eq(g.result) : '');
+      hdr('١ | المعطيات') + L(g.setup) +
+      (g.find ? hdr('٢ | المطلوب') + eq(g.find) : '') +
+      (g.law ? hdr('٣ | القانون') + eq(g.law) : '') +
+      (g.work && g.work.length ? hdr('٤ | التعويض والتبسيط') + L(g.work) : '') +
+      (g.result ? hdr('٥ | الناتج مع الوحدة') + eq(g.result) : '');
   } else if (g && g.how) {
     body = '<b class="small">كيف تُحلّ:</b><ol class="small" style="line-height:1.9;padding-inline-start:20px">' + g.how.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol>';
   } else {
@@ -2735,7 +2748,7 @@ function guideHTML(f) {
   return '<details class="fold"><summary>دليل الحل وطريقة كتابته في الورقة</summary><div class="inner">' + body +
     (g && g.watch && g.watch.length ? ul('أخطاء شائعة يجب تجنّبها', g.watch) : '') +
     ul('معايير صورة الحل', photo) +
-    hdr('ما يتحقق منه التصحيح') + '<p class="small muted">' + checks.map(esc).join(' · ') + '</p>' +
+    hdr('ما يتحقق منه التصحيح') + '<p class="small muted">' + checks.map(esc).join(' | ') + '</p>' +
     '</div></details>';
 }
 
@@ -2817,9 +2830,9 @@ function memoHTML(t, bi) {
   const all = memosOf(t);
   const mode = S.mmode || 'read';
   let h = '';
-  if (all.length > 1) h += '<div class="chips memo-tabs">' + all.map((x, i) => '<button class="chip" data-act="memoTab" data-b="' + i + '" aria-pressed="' + (i === bi) + '">' + esc(x.kind || 'حفظ') + ' · ' + esc(x.title.replace(/^(حفظ|معاني)\s*/, '').slice(0, 26)) + '</button>').join('') + '</div>';
-  h += '<section class="card memo-head"><span class="memo-kind">' + esc(M.kind || 'حفظ') + '</span><h2>' + ft(M.title) + '</h2><p class="small muted">' + ar(U.length) + (isB ? ' أبيات' : M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' · حفظتَ ' + ar(okN) + ' من ' + ar(U.length) +
-    (m.passed ? ' · <b class="ok-t">اجتزت اختبار الحفظ ✓</b>' : '') + '</p><div class="mbar"><i style="width:' + Math.round(okN / (U.length || 1) * 100) + '%"></i></div>' +
+  if (all.length > 1) h += '<div class="chips memo-tabs">' + all.map((x, i) => '<button class="chip" data-act="memoTab" data-b="' + i + '" aria-pressed="' + (i === bi) + '">' + esc(x.kind || 'حفظ') + ' | ' + esc(x.title.replace(/^(حفظ|معاني)\s*/, '').slice(0, 26)) + '</button>').join('') + '</div>';
+  h += '<section class="card memo-head"><span class="memo-kind">' + esc(M.kind || 'حفظ') + '</span><h2>' + ft(M.title) + '</h2><p class="small muted">' + ar(U.length) + (isB ? ' أبيات' : M.kind === 'معنى' ? ' مقطعًا' : ' آيات') + ' | حفظتَ ' + ar(okN) + ' من ' + ar(U.length) +
+    (m.passed ? ' | <b class="ok-t">اجتزت اختبار الحفظ ✓</b>' : '') + '</p><div class="mbar"><i style="width:' + Math.round(okN / (U.length || 1) * 100) + '%"></i></div>' +
     '<nav class="segs">' + MEMO_MODES.map(x => '<button class="seg" data-act="mmode" data-v="' + x[0] + '" aria-pressed="' + (x[0] === mode) + '">' + x[1] + '</button>').join('') + '</nav></section>';
   if (mode === 'read') {
     h += '<p class="small muted">اقرأ كل ' + (isB ? 'بيت' : 'آية') + ' بصوت مسموع، واضغط عليه بعد كل قراءة. ثلاث قراءات تملأ النقاط.</p>' +
@@ -2831,7 +2844,7 @@ function memoHTML(t, bi) {
     const el = Math.min(dur, M.acc + (M.playing ? Date.now() - M.start : 0));
     h += '<p class="small muted">يتقدّم السرد من وحدة إلى أخرى أمامك بحركة هادئة، وعينك على النص لا تفارقه. أوقفه متى شئت وامنح نفسك وقتًا لإتمام الحفظ.</p>' +
       '<div class="mo"><div class="mo-stage"><div class="mo-bar"><i style="animation-duration:' + dur + 'ms;animation-delay:' + (-el) + 'ms;animation-play-state:' + (M.playing ? 'running' : 'paused') + '"></i></div>' +
-      '<div class="mo-cap">' + esc(M.kind || 'حفظ') + ' · ' + (isB ? 'البيت' : 'الآية') + ' ' + ar(mi + 1) + ' من ' + ar(U.length) + '</div>' +
+      '<div class="mo-cap">' + esc(M.kind || 'حفظ') + ' | ' + (isB ? 'البيت' : 'الآية') + ' ' + ar(mi + 1) + ' من ' + ar(U.length) + '</div>' +
       '<div class="mo-scene" key="' + mi + '" style="text-align:center">' +
       (mi > 0 ? '<p class="small muted mprev">' + esc(U[mi - 1].b || U[mi - 1].a) + '</p>' : '') +
       (u.b ? '<span class="mb" style="justify-content:center;font-size:1.2em;line-height:2.2"><span>' + esc(u.a) + '</span><span>' + esc(u.b) + '</span></span>' : '<span class="mq" style="font-size:1.25em;line-height:2.4">' + esc(u.a) + '</span>') +
@@ -2857,7 +2870,7 @@ function memoHTML(t, bi) {
   if (mode === 'cards') {
     const i = Math.min(S.mcard || 0, U.length - 1), u = U[i], open = S.mopen;
     const cue = u.b ? u.a : u.a.split(/\s+/).slice(0, 3).join(' ') + ' …';
-    h += '<div class="mcard' + (open ? ' open' : '') + '"><span class="small muted">' + (u.b ? 'البيت ' : 'الآية ') + ar(i + 1) + ' من ' + ar(U.length) + (m.ok[i] ? ' · محفوظ ✓' : '') + '</span>' +
+    h += '<div class="mcard' + (open ? ' open' : '') + '"><span class="small muted">' + (u.b ? 'البيت ' : 'الآية ') + ar(i + 1) + ' من ' + ar(U.length) + (m.ok[i] ? ' | محفوظ ✓' : '') + '</span>' +
       (i > 0 ? '<p class="mprev small muted">' + esc(U[i - 1].b || U[i - 1].a) + '</p>' : '') +
       '<p class="mcue">' + esc(cue) + '</p>' +
       (open ? '<p class="mans">' + esc(u.b || u.a) + '</p><div class="grid2"><button class="btn" data-act="mrate" data-v="1">حفظته ✓</button><button class="btn ghost" data-act="mrate" data-v="0">أعِده لاحقًا</button></div>'
@@ -2886,10 +2899,10 @@ function memoBuild(t, bi) {
 function memoTestHTML(t, m, U) {
   const T = S.mt && S.mt.tid === t.id && (S.mt.bi || 0) === (S.mbi || 0) ? S.mt : null;
   if (!T) return '<section class="card"><h2>اختبار الحفظ</h2><p class="small">أسئلة تكمل فيها الكلمة الناقصة، وتختار ما يأتي بعد ' + (U.some(u => u.b) ? 'البيت، وعجز كل بيت.' : 'كل آية.') + '</p><p class="note">النجاح ١٠٠٪ فقط: أي خطأ يعيد الاختبار من البداية، كما في ذُرى.</p>' +
-    (m.best != null ? '<p class="small num">آخر محاولة: ' + ar(m.best) + '٪' + (m.passed ? ' · اجتزته ✓' : '') + '</p>' : '') + '<button class="btn" data-act="mtest">ابدأ اختبار الحفظ</button></section>';
+    (m.best != null ? '<p class="small num">آخر محاولة: ' + ar(m.best) + '٪' + (m.passed ? ' | اجتزته ✓' : '') + '</p>' : '') + '<button class="btn" data-act="mtest">ابدأ اختبار الحفظ</button></section>';
   if (T.done) return '<section class="card mwin"><h2>أحسنت! حفظك تام ١٠٠٪</h2><p>أجبت عن ' + ar(T.qs.length) + ' سؤالًا دون خطأ.</p><button class="btn ghost" data-act="mtest">أعد الاختبار</button></section>';
   const q = T.qs[T.i];
-  return '<section class="card"><div class="mbar"><i style="width:' + Math.round(T.i / T.qs.length * 100) + '%"></i></div><span class="small muted">السؤال ' + ar(T.i + 1) + ' من ' + ar(T.qs.length) + ' · ' + q.k + '</span>' +
+  return '<section class="card"><div class="mbar"><i style="width:' + Math.round(T.i / T.qs.length * 100) + '%"></i></div><span class="small muted">السؤال ' + ar(T.i + 1) + ' من ' + ar(T.qs.length) + ' | ' + q.k + '</span>' +
     '<p class="mq big">' + esc(q.q) + '</p><div class="opts">' + q.o.map((o, j) => {
       const cls = T.pick == null ? '' : j === q.c ? ' right' : j === T.pick ? ' wrong' : '';
       return '<button class="opt' + cls + '" data-act="mans" data-v="' + j + '"' + (T.pick != null ? ' disabled' : '') + '>' + esc(o) + '</button>'; }).join('') + '</div>' +
@@ -2948,17 +2961,17 @@ function memoProgressHTML() {
   const rows = Object.entries(bySub);
   const units = rows.reduce((a, b) => a + b[1].units, 0), done = rows.reduce((a, b) => a + b[1].ok, 0);
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2 style="font-size:1.15em">تقدم الحفظ</h2>' +
-    '<span class="small muted num">حفظت ' + ar(done) + ' من ' + ar(units) + ' مقطعًا · ' + ar(units ? Math.round(done / units * 100) : 0) + '٪</span></div>' +
+    '<span class="small muted num">حفظت ' + ar(done) + ' من ' + ar(units) + ' مقطعًا | ' + ar(units ? Math.round(done / units * 100) : 0) + '٪</span></div>' +
     '<p class="small muted">ما هو مقرر للحفظ في مواد صفك، حسب كل مادة. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' +
     '<div class="plist">' + rows.map(([s, b]) => '<button class="pitem" data-act="tab" data-v="tests"><span class="st">' + (b.pass ? '✓' : ar(b.units ? Math.round(b.ok / b.units * 100) : 0) + '٪') + '</span>' +
-      '<span style="flex:1;min-width:0"><b>' + esc(s) + '</b><br><span class="small muted">' + ar(b.n) + ' موضوع · حفظت ' + ar(b.ok) + ' من ' + ar(b.units) + (b.pass ? ' · اجتزت اختباره ✓' : '') + '</span></span>' +
+      '<span style="flex:1;min-width:0"><b>' + esc(s) + '</b><br><span class="small muted">' + ar(b.n) + ' موضوع | حفظت ' + ar(b.ok) + ' من ' + ar(b.units) + (b.pass ? ' | اجتزت اختباره ✓' : '') + '</span></span>' +
       '<span class="small" style="color:var(--acc);font-weight:600">اختبر حفظك</span></button>').join('') + '</div></section>';
 }
 
 function ytLink(t, subject, f) {
   const g = GRADES[(+f.key.split(':')[0]) - 1], gname = g ? g.name : '';
   const q = (subject === 'اللغة الإنكليزية' ? 'English ' + gname + ' ' + t.title + ' ' + (t.en || '') : t.title + ' ' + subject + ' ' + gname).replace(/[«»()]/g, ' ').replace(/\s+/g, ' ').trim();
-  return '<a class="yt" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="#e53935"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg><span><b>شرح على يوتيوب</b> <span class="small muted">اختياري للاستزادة · يفتح نتائج البحث عن هذا الموضوع</span></span></a>';
+  return '<a class="yt" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="#e53935"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg><span><b>شرح على يوتيوب</b> <span class="small muted">اختياري للاستزادة | يفتح نتائج البحث عن هذا الموضوع</span></span></a>';
 }
 function vTopic() {
   const f = findTopic(S.viewTopic); if (!f) return vToday();
@@ -2978,7 +2991,7 @@ function vTopic() {
   const segs = SEGS.filter(s => segHas(t, s[0]));
   const i = segs.findIndex(s => s[0] === seg), nx = segs[i + 1];
   return topBar(f.ch.title.split(':')[0], { back: true }) + '<main class="page">' +
-    '<div class="t-head"><span class="t-sec">' + bsec(t.sec) + '</span><div><h2>' + ft(t.title) + '</h2><p class="muted small">' + esc(subject) + ' · ' + esc(f.ch.title) + ' · الكتاب ص' + ar(t.page) + '</p></div></div>' +
+    '<div class="t-head"><span class="t-sec">' + bsec(t.sec) + '</span><div><h2>' + ft(t.title) + '</h2><p class="muted small">' + esc(subject) + ' | ' + esc(f.ch.title) + ' | الكتاب ص' + ar(t.page) + '</p></div></div>' +
     ytLink(t, subject, f) +
     '<button class="btn" data-act="motion" data-id="' + t.id + '">▶ شرح متحرك: شاهد الفكرة تتحرك أمامك</button>' +
     '<nav class="segs" aria-label="أجزاء الموضوع">' + segs.map(s => '<button class="seg" data-act="tseg" data-v="' + s[0] + '" aria-pressed="' + (s[0] === seg) + '">' + (progOf(t.id).seen[s[0]] && s[0] !== seg ? '<i class="dot" aria-hidden="true"></i>' : '') + s[1] + '</button>').join('') + '</nav>' +
@@ -2993,21 +3006,24 @@ function explainHTML(t) {
   return '<section class="why"><span class="lbl">لماذا ندرسه؟</span><p>' + fm(t.why) + '</p></section>' +
     '<article class="lesson">' + t.explain.map((b, i) => blockHTML(b, t.id + '-' + i)).join('') + '</article>';
 }
+/* اتجاه الكتلة بحسب غالب حروفها: الجملة الإنكليزية تُعرض من اليسار، والعربية من اليمين */
+const isLatinish = x => { const t = String(x == null ? '' : x).replace(/<[^>]+>/g, ''); const la = (t.match(/[A-Za-z]/g) || []).length, arN = (t.match(/[ء-ي]/g) || []).length; return la > 3 && la > arN * 1.5; };
+const dA = x => isLatinish(x) ? ' dir="ltr"' : '';
 function blockHTML(b, key) {
   switch (b.t) {
-    case 'h': return '<h3>' + fm(b.x) + '</h3>';
-    case 'p': return '<p>' + fm(b.x) + '</p>';
+    case 'h': return '<h3' + dA(b.x) + '>' + fm(b.x) + '</h3>';
+    case 'p': return '<p' + dA(b.x) + '>' + fm(b.x) + '</p>';
     case 'eq': return '<div class="eqbox">' + fe(b.x) + '</div>';
-    case 'key': return '<div class="keybox">' + fm(b.x) + '</div>';
-    case 'note': return '<div class="notebox">' + fm(b.x) + '</div>';
+    case 'key': return '<div class="keybox"' + dA(b.x) + '>' + fm(b.x) + '</div>';
+    case 'note': return '<div class="notebox"' + dA(b.x) + '>' + fm(b.x) + '</div>';
     case 'poem': return '<div class="poem">' + (b.end ? '<div class="mstart">▼ بداية الحفظ</div>' : '') + b.x.map((l, li) => '<div class="bt' + (b.end && li >= b.end ? ' out' : '') + '"><span>' + esc(l[0]) + '</span><span>' + esc(l[1] || '') + '</span></div>' + (b.end && li === b.end - 1 ? '<div class="mend">■ هنا ينتهي الحفظ' + (b.end < b.x.length ? ' — ما بعده للقراءة والفهم' : '') + '</div>' : '')).join('') + '</div>';
     case 'mstart': return '<div class="mstart">▼ بداية الحفظ' + (b.x ? ': ' + esc(b.x) : '') + '</div>';
     case 'mend': return '<div class="mend">■ هنا ينتهي الحفظ' + (b.x ? ' — ' + esc(b.x) : '') + '</div>';
-    case 'list': return '<ol class="lst">' + b.x.map(x => '<li>' + fm(String(x).replace(/^(?:\s*(?:[0-9٠-٩]{1,3}|[a-hA-H])[.)\-–—]\s*)+/, '').replace(/^(?:\s*[ء-ي]\s*[.)\-–—]\s*)+/, '')) + '</li>').join('') + '</ol>';
-    case 'think': return '<details class="think"><summary><b>فكّر</b> ' + fm(b.q) + '</summary><div>' + fm(b.a) + '</div></details>';
+    case 'list': return '<ol class="lst"' + dA(b.x.join(' ')) + '>' + b.x.map(x => '<li>' + fm(String(x).replace(/^(?:\s*(?:[0-9٠-٩]{1,3}|[a-hA-H])[.)\-–—]\s*)+/, '').replace(/^(?:\s*[ء-ي]\s*[.)\-–—]\s*)+/, '')) + '</li>').join('') + '</ol>';
+    case 'think': return '<details class="think"><summary><b>فكّر</b> <span' + dA(b.q) + '>' + fm(b.q) + '</span></summary><div' + dA(b.a) + '>' + fm(b.a) + '</div></details>';
     case 'fig': return figHTML(b.k, b.cap, false);
     case 'sim': return '<div class="sim" data-sim="' + b.k + '" data-key="' + key + '"></div>';
-    case 'table': return '<div class="tbl-wrap"><table class="tbl"><caption>' + fm(b.cap) + '</caption><thead><tr>' + b.head.map(h => '<th>' + fm(h) + '</th>').join('') + '</tr></thead><tbody>' + b.rows.map(r => '<tr>' + r.map(c => '<td>' + fm(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
+    case 'table': return '<div class="tbl-wrap"><table class="tbl"><caption' + dA(b.cap) + '>' + fm(b.cap) + '</caption><thead><tr>' + b.head.map(h => '<th' + dA(h) + '>' + fm(h) + '</th>').join('') + '</tr></thead><tbody>' + b.rows.map(r => '<tr>' + r.map(c => '<td' + dA(c) + '>' + fm(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
     case 'activity': return '<section class="activity"><span class="lbl">نشاط</span><h3>' + fm(b.title.replace(/^نشاط[:\s—-]*/, '')) + '</h3><p class="small"><b>أدوات النشاط:</b> ' + fm(b.tools) + '</p><ol class="lst">' + b.steps.map(x => '<li>' + fm(x) + '</li>').join('') + '</ol><details class="think"><summary><b>نستنتج من النشاط</b> فكّر أولًا، ماذا تتوقع؟</summary><div>' + fm(b.result) + '</div></details></section>';
   }
   return '';
@@ -3019,9 +3035,11 @@ function defsHTML(t) {
       return '<button class="defcard" data-act="open" data-k="' + k + '" aria-expanded="' + !!open + '"><b>' + fm(d.term) + '</b>' + (open ? '<span class="deftext">' + fm(d.text) + '</span><span class="understand"><b>افهمه:</b> ' + fm(d.think) + '</span>' : '<span class="small muted">اكتب التعريف في ذهنك أولًا، ثم اضغط</span>') + '</button>'; }).join('');
 }
 function lawsHTML(t) {
-  return t.laws.map(l => '<section class="law"><div class="law-f">' + fe(l.f) + '</div><h3>' + fm(l.name) + '</h3><p class="small"><b>تُقرأ:</b> ' + fm(l.read) + '</p>' +
-    (l.vars.length ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>الرمز</th><th>معناه</th><th>الوحدة</th></tr></thead><tbody>' + l.vars.map(v => '<tr><td>' + fe(v[0]) + '</td><td>' + fm(v[1]) + '</td><td>' + fm(v[2]) + '</td></tr>').join('') + '</tbody></table></div>' : '') +
-    '<p class="small"><b>متى تستعمله:</b> ' + fm(l.when) + '</p><p class="small warn"><b>انتبه:</b> ' + fm(l.note) + '</p></section>').join('');
+  /* بعض الفصول (فيزياء ٨، أحياء ٥) قوانينها بلا قراءة/رموز/متى/انتبه — كانت تُسقط التبويب كله */
+  return (t.laws || []).map(l => '<section class="law">' + (/[\u0621-\u064A]/.test(l.f || '') ? '<div class="law-f ar">' + fm(l.f) : '<div class="law-f">' + fe(l.f || '')) + '</div><h3>' + fm(l.name) + '</h3>' +
+    (l.read ? '<p class="small"><b>تُقرأ:</b> ' + fm(l.read) + '</p>' : '') +
+    ((l.vars || []).length ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>الرمز</th><th>معناه</th><th>الوحدة</th></tr></thead><tbody>' + l.vars.map(v => '<tr><td>' + fe(v[0]) + '</td><td>' + fm(v[1]) + '</td><td>' + fm(v[2]) + '</td></tr>').join('') + '</tbody></table></div>' : '') +
+    (l.when ? '<p class="small"><b>متى تستعمله:</b> ' + fm(l.when) + '</p>' : '') + (l.note ? '<p class="small warn"><b>انتبه:</b> ' + fm(l.note) + '</p>' : '') + '</section>').join('');
 }
 function reasonsHTML(t) {
   return '<p class="small muted">التعليل سلسلة «لأن». فكّر بالسبب أولًا، ثم اكشف الجواب وقارنه بما في ذهنك.</p>' +
@@ -3054,7 +3072,7 @@ function checkBlank(k) {
 function examplesHTML(t) {
   return '<p class="small muted">أمثلة الكتاب المحلولة كما هي. اقرأ السؤال، فكّر بالخطوة التالية، ثم اكشفها خطوة خطوة — أو حلّلها بنفسك بالرقم لتقيس إتقانك.</p>' +
     t.examples.map((e, i) => { const k = t.id + ':e' + i, n = S.exStep[k] || 0, all = n >= e.steps.length;
-      return '<section class="example"><div class="ex-h"><b>' + esc(e.title) + '</b><span class="small muted">ص' + ar(e.page) + '</span></div><p>' + fm(e.text) + '</p>' +
+      return '<section class="example"><div class="ex-h"><b>' + esc(e.title || 'مثال ' + ar(i + 1)) + '</b>' + (e.page ? '<span class="small muted">ص' + ar(e.page) + '</span>' : '') + '</div><p>' + fm(e.text) + '</p>' +
         (n ? '<ol class="steps">' + e.steps.slice(0, n).map(s => '<li>' + fm(s) + '</li>').join('') + '</ol>' : '') +
         (all ? '<p class="ex-ans"><b>الجواب:</b> ' + fm(e.ans) + '</p>' : '<div class="chips"><button class="chip" data-act="exNext" data-k="' + k + '">' + (n ? 'الخطوة التالية' : 'ابدأ الحل') + ' (' + ar(n) + ' من ' + ar(e.steps.length) + ')</button><button class="chip" data-act="exAll" data-k="' + k + '" data-n="' + e.steps.length + '">اعرض الحل كاملًا</button></div>') + (hasFinalNumber(e.ans) ? '<button class="chip" data-act="solveExample" data-t="' + t.id + '" data-i="' + i + '">حلّلها بنفسك وأدخل الجواب الرقمي</button>' : '') + '</section>'; }).join('');
 }
@@ -3064,7 +3082,7 @@ function problemsHTML(t, subject) {
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2>المسائل</h2><span class="muted small num">حللت ' + ar(solved) + ' من ' + ar(t.problems.length) + '</span></div>' +
     '<p class="small muted">لكل مسألة وقت مقترح. اضغط «ابدأ الحل» فتظهر خطوات الحل مرشدةً والرقم النهائي مخفيًا (؟). حلها في دفتر ' + esc(subject) + '، ثم أدخل رقم جوابك النهائي في «المطابقة». إذا صحّ ظهر الحل المضبوط وتُسجَّل مُتقنة، وإلا أُضيف الموضوع للمراجعة.</p>' +
     '<div class="plist">' + t.problems.map((p, i) => { const v = solveOf(p.id) || {}; const cls = v.self === 'ok' ? 'ok' : (v.self === 'bad' || v.self === 'none') ? 'bad' : ''; const mark = v.self === 'ok' ? '✓' : cls ? '!' : ar(i + 1);
-      return '<button class="pitem" data-act="prob" data-id="' + p.id + '"><span class="st ' + cls + '">' + mark + '</span><span style="flex:1;min-width:0"><span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من الكتاب · ' + esc(p.ref) : 'تدريب إضافي') + '</span><br>' + fm(p.text) + '</span><span class="small muted num" style="white-space:nowrap">' + mmss(suggestSec(p.steps)) + '</span></button>'; }).join('') + '</div></section>' +
+      return '<button class="pitem" data-act="prob" data-id="' + p.id + '"><span class="st ' + cls + '">' + mark + '</span><span style="flex:1;min-width:0"><span class="src ' + (p.src === 'book' ? 'bk' : '') + '">' + (p.src === 'book' ? 'من الكتاب | ' + esc(p.ref) : 'تدريب إضافي') + '</span><br>' + fm(p.text) + '</span><span class="small muted num" style="white-space:nowrap">' + mmss(suggestSec(p.steps)) + '</span></button>'; }).join('') + '</div></section>' +
     '<button class="btn ghost" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button>';
 }
 
@@ -3082,7 +3100,7 @@ function quizStartHTML(src, total, prev) {
   const counts = [5, 10, 20].filter(n => n < total).concat([total]);
   return '<section class="card"><h2>اختبر فهمك</h2><p class="small muted">أسئلة من الكتاب ومن الشرح، كل سؤال بعده سبب الجواب. اختر عدد الأسئلة:</p>' +
     '<div class="chips">' + counts.map(n => '<button class="chip" data-act="quizStart" data-src="' + src + '" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ')' : ar(n) + ' أسئلة') + '</button>').join('') + '</div>' +
-    (prev && prev.best != null ? '<p class="small num">أفضل نتيجة: <b>' + ar(prev.best) + '٪</b> · آخر نتيجة: ' + ar(prev.last) + '٪</p>' : '') + '</section>';
+    (prev && prev.best != null ? '<p class="small num">أفضل نتيجة: <b>' + ar(prev.best) + '٪</b> | آخر نتيجة: ' + ar(prev.last) + '٪</p>' : '') + '</section>';
 }
 let SHUF = 0;
 function shuffle(a, seed) { a = a.slice(); let s = seed || ((Date.now() + (++SHUF) * 7919 + Math.floor(Math.random() * 1e5)) % 233280); for (let i = a.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; const j = Math.floor(s / 233280 * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
@@ -3117,7 +3135,7 @@ function finishQuiz() {
   if (z.src[0] === 't') { const p = progOf(z.src.slice(2)); p.quiz = { best: Math.max(pct, (p.quiz || {}).best || 0), last: pct, n: z.items.length, at: Date.now() }; revDone(z.src.slice(2), pct >= 70); }
   else { const st = me(); st.tests = st.tests || {}; const prev = st.tests[z.src] || {}; st.tests[z.src] = { best: Math.max(pct, prev.best || 0), last: pct, at: Date.now() }; }
   z.items.forEach((it, i) => { const [tid, qi] = it.key.split(':'), w = wrongOf(tid); if (z.picks[i] === quizQ(it).c) delete w[qi]; else w[qi] = { n: ((w[qi] || {}).n || 0) + 1, at: Date.now() }; });
-  const st = me(); st.exams = st.exams || []; st.exams.push({ src: z.src, pct, n: z.items.length, at: Date.now() }); if (st.exams.length > 500) st.exams = st.exams.slice(-500);
+  const st = me(); st.exams = st.exams || []; st.exams.push({ src: z.src, pct, n: z.items.length, at: Date.now() }); if (st.exams.length > 3000) st.exams = st.exams.slice(-3000);
   save();
 }
 
@@ -3166,7 +3184,7 @@ function revItemHTML(x, next) {
   const lab = next ? 'يعود ' + REV_DAYS[Math.min(x.r.level, REV_DAYS.length - 1)] : 'راجِعه اليوم';
   return '<div class="pitem" style="pointer-events:none;flex-wrap:wrap">' +
     '<span class="st"' + (next ? '' : ' style="color:var(--acc)"') + '>' + ico('review', 2) + '</span>' +
-    '<span style="flex:1;min-width:0;display:flex;flex-direction:column"><b>' + esc(x.subject) + '</b><span class="small muted">' + esc(x.ch.title) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span>' +
+    '<span style="flex:1;min-width:0;display:flex;flex-direction:column"><b>' + esc(x.subject) + '</b><span class="small muted">' + esc(x.ch.title) + ' | ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span>' +
     '<span class="small muted num" style="white-space:nowrap">' + lab + '</span>' +
     '<span class="chips" style="pointer-events:auto;flex-wrap:wrap">' +
       (qn ? '<button class="chip" data-act="revQuiz" data-id="' + x.t.id + '">اختبر نفسك</button>' : '') +
@@ -3215,7 +3233,7 @@ function testsRecordHTML(exams, subject) {
 
   h += '<div class="sgrid" style="margin-top:10px">' +
     '<div class="stat"><span class="muted small">معدّل نتائجك</span><b class="num">' + ar(avg) + '٪</b></div>' +
-    '<div class="stat"><span class="muted small">أفضل / أضعف نتيجة</span><b class="num">' + ar(best) + '٪ · ' + ar(worst) + '٪</b></div>' +
+    '<div class="stat"><span class="muted small">أفضل / أضعف نتيجة</span><b class="num">' + ar(best) + '٪ | ' + ar(worst) + '٪</b></div>' +
     '<div class="stat"><span class="muted small">نسبة نجاحك (٧٠٪+)</span><b class="num">' + ar(Math.round(pass / n * 100)) + '٪</b></div>' +
     '<div class="stat"><span class="muted small">عدد الأسئلة المحلولة</span><b class="num">' + ar(totalQ) + '</b></div>' +
     '</div>';
@@ -3244,8 +3262,8 @@ function testsRecordHTML(exams, subject) {
     let s2 = '<div class="acc"><div class="acc-h" data-act="acc" data-k="' + k + '">' +
       '<span class="acc-ico">▼</span>' +
       '<span class="acc-t"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) +
-      ' · ' + ar(e.n) + ' سؤالًا · ' + ar(okN) + ' صواب · ' + ar(wN) + ' خطأ' +
-      (e.sec ? ' · ' + fmtDur(e.sec) : '') + '</span></span>' +
+      ' | ' + ar(e.n) + ' سؤالًا | ' + ar(okN) + ' صواب | ' + ar(wN) + ' خطأ' +
+      (e.sec ? ' | ' + fmtDur(e.sec) : '') + '</span></span>' +
       '<span class="acc-s num ' + (e.pct >= 70 ? 'ok' : 'bad') + '" style="font-weight:700">' + ar(e.pct) + '٪</span></div>' +
       '<div class="acc-b"><div class="acc-b-in">' +
       '<div class="srows">' +
@@ -3258,10 +3276,10 @@ function testsRecordHTML(exams, subject) {
           const v = e.ok[i], t = (e.times || [])[i] || 0;
           const f = key.indexOf(':') > 0 ? findTopic(key.split(':')[0]) : null;
           const name = f ? f.t.title : key;
-          const cls = v === 1 ? 'ok' : v === 2 ? 'mid' : 'bad';
-          const word = v === 1 ? 'أصاب' : v === 2 ? 'مراجعة' : 'أخطأ';
+          const cls = v === 1 || v === 2 ? 'ok' : v === 3 ? 'mid' : 'bad';
+          const word = v === 1 || v === 2 ? 'أصاب' : v === 3 ? 'جزئي' : 'أخطأ';
           return '<span class="qchip ' + cls + '" title="' + esc(name) + '">' +
-            '<b>' + ar(i + 1) + '</b><i>' + (v === 1 ? '✓' : v === 2 ? '◐' : '✕') + '</i>' +
+            '<b>' + ar(i + 1) + '</b><i>' + (v === 1 || v === 2 ? '✓' : v === 3 ? '◐' : '✕') + '</i>' +
             '<em>' + (t ? (t >= 60 ? mmss(t) : ar(t) + 'ث') : '—') + '</em></span>';
         }).join('') + '</div>' +
         '<p class="small muted">أخطأت في ' + ar(wN) + ' من ' + ar(e.n) + ' — ' + (wN ? 'أعد هذه المواضيع قبل الجلسة التالية.' : 'لا شيء، واصِل.') + '</p>';
@@ -3275,9 +3293,9 @@ function testsRecordHTML(exams, subject) {
   return h;
 }
 function examLabel(src) {
-  if (src[0] === 't') { const f = findTopic(src.slice(2)); return f ? 'اختبار: ' + ft(f.t.title) : src; }
+  if (src[0] === 't') { const f = findTopic(src.slice(2)); return f ? 'اختبار: ' + f.t.title : src; } /* نصّ خام: كل مستدعٍ يهرّبه (كان يُهرَّب مرتين فتظهر <bdi> حرفيًا) */
   if (src[0] === 'c') { const f = findChapter(src.slice(2)); return f ? 'اختبار ' + f.ch.title.split(':')[0] : src; }
-  if (src[0] === 'x') { const p = src.split(':'); return (EXAM_KINDS[p[2]] || 'امتحان') + ' · ' + p[1]; }
+  if (src[0] === 'x') { const p = src.split(':'); return (EXAM_KINDS[p[2]] || 'امتحان') + ' | ' + p[1]; }
   if (src === 'm') return 'اختبار سريع مما درسته';
   return src;
 }
@@ -3380,14 +3398,14 @@ function minRecordHTML(subject, tab) {
   /* منحنى الجلسات الوزارية: كل جلسة رقمنًا ولونًا */
   if (S2.mins.length) {
     h += '<p class="small muted" style="margin-top:14px">جلساتك الوزارية، الأقدم يسارًا:</p><div class="mincurve">' +
-      S2.mins.slice(-14).map(x => '<span class="mink ' + (x.pct >= 80 ? 'good' : x.pct >= 60 ? 'gold' : 'bad') + '" title="' + fmtD(new Date(x.at)) + ' · ' + ar(x.pct) + '٪">' +
+      S2.mins.slice(-14).map(x => '<span class="mink ' + (x.pct >= 80 ? 'good' : x.pct >= 60 ? 'gold' : 'bad') + '" title="' + fmtD(new Date(x.at)) + ' | ' + ar(x.pct) + '٪">' +
         '<i style="height:' + Math.max(6, x.pct) + '%"></i><em class="num">' + ar(x.pct) + '</em></span>').join('') + '</div>' +
-      '<p class="small muted">أعلى جلسة: ' + ar(Math.max.apply(null, S2.mins.map(x => x.pct))) + '٪ · أدنى: ' + ar(Math.min.apply(null, S2.mins.map(x => x.pct))) + '٪ · معدّلك: ' + ar(S2.nAvg) + '٪</p>';
+      '<p class="small muted">أعلى جلسة: ' + ar(Math.max.apply(null, S2.mins.map(x => x.pct))) + '٪ | أدنى: ' + ar(Math.min.apply(null, S2.mins.map(x => x.pct))) + '٪ | معدّلك: ' + ar(S2.nAvg) + '٪</p>';
   }
 
   /* أزرار البدء: جلسة كاملة، أو بفصل محدد */
   h += '<div class="grid2" style="margin-top:12px">' +
-    '<button class="btn" data-act="ministerialFull" data-s="' + esc(subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">المادة كلها · ٣ ساعات</span></button>' +
+    '<button class="btn" data-act="ministerialFull" data-s="' + esc(subject) + '"><b>المحاكاة الكاملة</b><span class="small muted">المادة كلها | ٣ ساعات</span></button>' +
     '<button class="btn ghost" data-act="examCfg" data-kind="ministerial" data-s="' + esc(subject) + '"><b>جلسة بفصل محدد</b><span class="small muted">اختر فصولًا ومواضيع</span></button>' +
     '</div>';
   h += '<div class="grid2" style="margin-top:8px">' +
@@ -3412,12 +3430,12 @@ function vMinrec() {
         return '<button class="pitem" data-act="minRecSubj" data-s="' + esc(y.subject) + '" style="align-items:center;padding:16px 14px">' +
           '<span class="minrec-num num' + (pct >= 80 ? ' ok' : pct >= 60 ? ' mid' : has ? ' low' : '') + '">' + (has ? ar(pct) + '<i>٪</i>' : '<i>—</i>') + '</span>' +
           '<span style="flex:1;min-width:0"><b style="font-size:1.05em">' + esc(y.subject) + '</b><br><span class="small muted num">' +
-          ar(s2.totalAll) + ' نتيجة · ' + ar(s2.mins.length) + ' جلسة وزارية · ' + ar(ministerialPool(y.subject).length) + ' سؤالًا في البنك</span>' +
+          ar(s2.totalAll) + ' نتيجة | ' + ar(s2.mins.length) + ' جلسة وزارية | ' + ar(ministerialPool(y.subject).length) + ' سؤالًا في البنك</span>' +
           '<span class="pbar" style="margin-top:8px"><i style="width:' + Math.min(100, pct) + '%;background:' + (pct >= 80 ? 'var(--ok)' : pct >= 60 ? '#E0A800' : 'var(--bad)') + '"></i></span></span>' +
           '<span class="small" style="color:var(--acc);font-weight:700">افتح السجل ‹</span></button>';
       }).join('') + '</div></section></main>';
   }
-  return topBar('تطوّرك الوزاري · ' + cur, { back: true, noTools: true }) + '<main class="page">' +
+  return topBar('تطوّرك الوزاري | ' + cur, { back: true, noTools: true }) + '<main class="page">' +
     '<div class="chips" style="margin-bottom:10px"><button class="chip" data-act="minRecSubj" data-s=""><b>↩ كل المواد</b></button>' +
     '<button class="chip" data-act="back">رجوع</button></div>' +
     minRecordHTML(cur, S.minRecTab || 'all') + '</main>';
@@ -3493,12 +3511,12 @@ function vMinsim() {
   if (!subj) return vMinPrep();
   const p = simPlan(subj);
   if (!p.n) return topBar('المحاكاة الكاملة', { back: true, noTools: true }) + '<main class="page">' + empty('library', 'لا بنك وزاري لهذه المادة بعد', 'حين يُبنى بنك الدورات تظهر هنا خطة المحاكاة الكاملة: ٥–٦ أسئلة تغطي المادة كلها، ومئتها موزّعة على المسائل والتعريفات والرسوم.') + '</main>';
-  const h = topBar('المحاكاة الكاملة · ' + subj, { back: true, noTools: true }) + '<main class="page">' +
+  const h = topBar('المحاكاة الكاملة | ' + subj, { back: true, noTools: true }) + '<main class="page">' +
     '<section class="card"><h2>خطة المحاكاة كما في الوزاري الحقيقي</h2>' +
     '<p class="small muted">الوزاري الحقيقي خمسة أسئلة أو ستة فقط، لكنها تغطي المادة كلّها. هنا تُبنى من أنماط أسئلة الدورات المستخرجة: ' +
     ar(p.chs) + ' فصلًا في ' + ar(p.n) + ' أسئلة، والمئة نقطة موزّعة على المسائل والتعريفات والرسوم — لا أربعون سؤالًا متناثرًا.</p>' +
     '<div class="srows" style="margin-top:10px">' +
-      Object.keys(p.by).map(b => pctBar(SIM_LABEL[b] || b + ' · ' + ar(p.by[b].n) + ' أسئلة', p.by[b].pts, b === 'prob' ? 'acc' : b === 'draw' ? 'gold' : 'good')).join('') +
+      Object.keys(p.by).map(b => pctBar(SIM_LABEL[b] || b + ' | ' + ar(p.by[b].n) + ' أسئلة', p.by[b].pts, b === 'prob' ? 'acc' : b === 'draw' ? 'gold' : 'good')).join('') +
       pctBar('المجموع', p.total, 'good') +
     '</div>' +
     '<div class="sgrid" style="margin-top:12px">' +
@@ -3509,9 +3527,9 @@ function vMinsim() {
     '<div class="hint-purpose" style="margin-top:12px">' + ico('star', 1.6) +
       '<span><b>لماذا هذه الخطة؟</b><br><span class="small">لأن الوزاري يقيس الفهم لا الحفظ: خمسة أسئلة كبيرة تغطي الفصول كلّها وتُوزَّع بالنقاط، فتتدرب على التفكير في سؤال طويل بدل الإجابة عن أربعين سؤالًا قصيرًا. زمن كل سؤال مشتقّ من صعوبته (كتاب ٣ دقائق، وزاري ٥) ومن زمنك الفعلي.</span></span></div>' +
     '<div class="chips" style="margin-top:12px">' + p.items.map((it, i) =>
-      '<span class="chip" style="cursor:default"><b>' + ar(i + 1) + ' · ' + ar(it.pts) + ' ن</b> <span class="small muted">' + (SIM_LABEL[it.b] || '') + '</span></span>').join('') + '</div>' +
+      '<span class="chip" style="cursor:default"><b>' + ar(i + 1) + ' | ' + ar(it.pts) + ' ن</b> <span class="small muted">' + (SIM_LABEL[it.b] || '') + '</span></span>').join('') + '</div>' +
     '<div class="grid2" style="margin-top:12px">' +
-      '<button class="btn" data-act="minsimStart"><b>ابدأ المحاكاة</b><span class="small muted">' + ar(p.n) + ' أسئلة · ' + fmtDur(p.sec) + '</span></button>' +
+      '<button class="btn" data-act="minsimStart"><b>ابدأ المحاكاة</b><span class="small muted">' + ar(p.n) + ' أسئلة | ' + fmtDur(p.sec) + '</span></button>' +
       '<button class="btn ghost" data-act="back">رجوع</button></div>' +
     '</section></main>';
   return h;
@@ -3603,17 +3621,19 @@ function examFinish() {
   const mcTotal = z.items.filter(it => !isOpenQ(it)).length;
   const openTotal = z.items.filter(isOpenQ).length;
   const ok = z.items.reduce((k, it, i) => k + (!isOpenQ(it) && z.picks[i] === it.q.c ? 1 : 0), 0);
-  /* الأسئلة المفتوحة تُحتسب مراجعة ناجحة إذا عُرض الحل (picks[i] === -2) */
-  const openReviewed = z.items.reduce((k, it, i) => k + (isOpenQ(it) && z.picks[i] === -2 ? 1 : 0), 0);
+  /* الأسئلة المفتوحة: بعد إظهار الحل يقيّم الطالب نفسه (-2 أصاب، -3 جزئي، -4 أخطأ/انتهى الوقت) */
+  /* المفتوح: أصبت = ١، جزئيًا = نصف، أخطأت أو لم يُجب = صفر (يحكم الطالب بعد مقارنة الحل) */
+  const openReviewed = z.items.reduce((k, it, i) => k + (isOpenQ(it) ? (z.picks[i] === -2 ? 1 : z.picks[i] === -3 ? 0.5 : 0) : 0), 0);
   z.ok = ok; z.openTotal = openTotal; z.openReviewed = openReviewed;
   if (z.pts) {
     /* ٧-ط) المحاكاة الكاملة: الدرجة من النقاط الموزّعة (١٠٠) لا من عدد الأسئلة */
     const totPts = z.pts.reduce((a, b) => a + b, 0) || 100;
-    const got = z.items.reduce((k, it, i) => k + ((!isOpenQ(it) && z.picks[i] === it.q.c) || (isOpenQ(it) && z.picks[i] === -2) ? z.pts[i] : 0), 0);
+    const openCr = v => v === -2 ? 1 : v === -3 ? 0.5 : 0;
+    const got = Math.round(z.items.reduce((k, it, i) => k + (isOpenQ(it) ? openCr(z.picks[i]) * z.pts[i] : (z.picks[i] === it.q.c ? z.pts[i] : 0)), 0));
     z.gotPts = got;
     z.pct = Math.round(got / totPts * 100);
   } else {
-    z.pct = mcTotal ? Math.round(ok / mcTotal * 100) : (openTotal ? Math.round(openReviewed / openTotal * 100) : 0);
+    z.pct = total ? Math.round((ok + openReviewed) / total * 100) : 0;
   }
   z.timeSec = Math.round((z.endAt - z.startAt) / 1000);
   const st = me(), src = 'x:' + z.subject + ':' + z.kind;
@@ -3626,9 +3646,9 @@ function examFinish() {
   st.exams.push({ src, pct: z.pct, n: total, at: Date.now(), sec: z.timeSec,
     /* تفصيل سؤال بسؤال: مفتاح السؤال، هل أصاب، والزمن الذي أخذه */
     ks: z.items.map(it => it.key),
-    ok: z.items.map((it, i) => isOpenQ(it) ? (z.picks[i] === -2 ? 2 : 0) : (z.picks[i] === it.q.c ? 1 : 0)),
+    ok: z.items.map((it, i) => isOpenQ(it) ? (z.picks[i] === -2 ? 2 : z.picks[i] === -3 ? 3 : 0) : (z.picks[i] === it.q.c ? 1 : 0)),
     times: z.times.slice(0, total).map(v => Math.max(0, Math.round(v || 0))) });
-  if (st.exams.length > 500) st.exams = st.exams.slice(-500);
+  if (st.exams.length > 3000) st.exams = st.exams.slice(-3000);
   /* التفصيل يبقى لآخر ٦٠ امتحانًا فقط حتى لا تثقل التخزين، والدرجات تبقى كلها */
   trimExamDetails(st);
   if (z.kind === 'ministerial') {
@@ -3637,7 +3657,7 @@ function examFinish() {
     /* chId يُحفظ ليرى الطالب تقدّمه في الفصل الواحد، لا في المادة كلها فقط */
     arr.push({ at: Date.now(), pct: z.pct, sec: z.timeSec, n: total, chId: (S.examScope && S.examScope.chId) || '' });
     if (arr.length > 200) st.ministerial[z.subject] = arr.slice(-200);
-    z.items.forEach((it, i) => { if (it.tid) revDone(it.tid, z.picks[i] === it.q.c); });
+    z.items.forEach((it, i) => { if (it.tid) revDone(it.tid, isOpenQ(it) ? z.picks[i] === -2 : z.picks[i] === it.q.c); });
   } else {
     z.items.forEach((it, i) => {
       if (!it.tid) return;
@@ -3682,7 +3702,7 @@ function startExamClock() {
           /* انتهى وقت سؤال مفتوح: عُرض الحل تلقائيًا */
           S.examRevealed = S.examRevealed || {};
           S.examRevealed[it.key] = 1;
-          z.picks[z.i] = -2;
+          z.picks[z.i] = -4; /* انتهى الوقت قبل الإجابة: لا يُحتسب */
         } else {
           z.picks[z.i] = null;
         }
@@ -3711,7 +3731,7 @@ function studyPaceSec() {
    ثم يُرجَّح بزمنك الفعلي إن وُجد. لا وقت ثابت لأي سؤال. */
 function qSec(q, kind) {
   const open = (!q || !q.o || !q.o.length) && (!q || q.c == null || q.c < 0);
-  let sec = kind === 'ministerial' ? 300 : 180;              /* الصعوبة: وزاري ٥ د · كتاب ٣ د */
+  let sec = kind === 'ministerial' ? 300 : 180;              /* الصعوبة: وزاري ٥ د | كتاب ٣ د */
   const pace = studyPaceSec();
   if (pace) sec = Math.round(sec * Math.max(.5, Math.min(1.6, pace / 180)) / 15) * 15;
   if (!open) sec = Math.round(sec * .55 / 15) * 15;          /* الاختيار من متعدد أسرع */
@@ -3759,7 +3779,7 @@ function examConfigView(z, title) {
   h += '<section class="card">' +
     '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
       '<h3 style="margin:0">نطاق الاختبار: فصول ومواضيع</h3>' +
-      '<span class="small muted num">' + ar(chapters.length) + ' فصلًا · ' + ar(total) + ' سؤالًا</span></div>' +
+      '<span class="small muted num">' + ar(chapters.length) + ' فصلًا | ' + ar(total) + ' سؤالًا</span></div>' +
     '<p class="small muted">اضغط الفصل لتفتح مواضيعه داخله — لا تبويب منفصل. اترك كل الفصول يعني الكل.</p>' +
     '<div class="chips" style="margin:10px 0">' +
       '<button class="chip" data-act="examChAll" data-on="1" aria-pressed="' + allOn + '">كل الفصول</button>' +
@@ -3771,8 +3791,8 @@ function examConfigView(z, title) {
       const canOpen = ch.topics.length > 1;
       let s = '<label class="pitem" style="cursor:pointer;align-items:flex-start;line-height:1.45;padding:11px 14px">' +
         '<span class="st' + (chOn ? '' : ' muted') + '">' + ar(ch.count) + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + esc(ch.title) + '</b><br><span class="small muted">' + ar(ch.topics.length) + ' موضوع · ' + ar(ch.count) + ' سؤالًا</span>' +
-        (chOn && canOpen ? '<span class="small muted">· افتحه لتضييقه على مواضيع محددة</span>' : '') + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(ch.title) + '</b><br><span class="small muted">' + ar(ch.topics.length) + ' موضوع | ' + ar(ch.count) + ' سؤالًا</span>' +
+        (chOn && canOpen ? '<span class="small muted">| افتحه لتضييقه على مواضيع محددة</span>' : '') + '</span>' +
         '<input type="checkbox" data-act="examCh" data-ch="' + esc(ch.chId) + '"' + (chOn ? ' checked' : '') +
         ' style="width:18px;height:18px;accent-color:var(--acc);flex-shrink:0;margin-top:3px"></label>';
       if (canOpen) {
@@ -3814,7 +3834,7 @@ function examConfigView(z, title) {
       '<p class="note">إن اخترت وقت تحضير، تظهر شاشة تحضير بعدد السؤال المختار تعرض عليك المواضيع المختارة، ثم تبدأ رسميًا متى ضغطت «ابدأ الامتحان».</p></section>';
   }
   h += '<section class="card"><p class="small muted">اختر عدد الأسئلة وابدأ — عدد الأسئلة يزيد الزمن تبعًا له:</p><div class="chips">' +
-    counts.map(n => '<button class="chip" data-act="examGo" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ') · ' + fmtDur(Math.round(totalSec * n / (total || 1))) : ar(n) + ' أسئلة · ' + fmtDur(Math.round(totalSec * n / (total || 1)))) + '</button>').join('') + '</div></section></main>';
+    counts.map(n => '<button class="chip" data-act="examGo" data-n="' + n + '">' + (n === total ? 'الكل (' + ar(n) + ') | ' + fmtDur(Math.round(totalSec * n / (total || 1))) : ar(n) + ' أسئلة | ' + fmtDur(Math.round(totalSec * n / (total || 1)))) + '</button>').join('') + '</div></section></main>';
   return h;
 }
 function examPrepView(z, title) {
@@ -3887,7 +3907,13 @@ function examRunView(z, title) {
     body = '<section class="prob"><p class="prob-text">' + fm(q.q) + '</p>' +
       (revealed
         ? '<div class="answer"><b>الحل:</b> ' + fm(q.why || 'لم يُستخرج الحل بعد.') + '</div>' +
-          '<button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>'
+          /* التقييم الذاتي: إظهار الحل وحده لا يعني الإصابة — الطالب يقارن ويحكم بصدق */
+          (picked === -2 && q.why
+            ? '<p class="small muted" style="margin:10px 0 6px">قارن إجابتك بالحل، ثم احكم بصدق:</p><div class="grid3 self-row">' +
+              '<button class="btn" data-act="examSelf" data-v="ok">أصبت</button>' +
+              '<button class="btn quiet" data-act="examSelf" data-v="half">أصبت جزئيًا</button>' +
+              '<button class="btn danger" data-act="examSelf" data-v="bad">أخطأت</button></div>'
+            : '<button class="btn" data-act="examNext">' + (z.i + 1 < z.items.length ? 'السؤال التالي' : 'النتيجة') + '</button>')
         : '<p class="note">فكّر في إجابتك جيدًا، ثم اضغط «أظهر الحل» لتقارن إجابتك بالحل النموذجي.</p>' +
           '<button class="btn" data-act="examReveal">أظهر الحل</button>') +
       '</section>';
@@ -3904,8 +3930,8 @@ function examRunView(z, title) {
   /* بيانات مصدر السؤال إن كان من البنك الوزاري: أي دورة ودور */
   const msrc = (z.kind === 'ministerial' && (q.year || q.type || q.letter))
     ? '<p class="small muted" style="margin:0 0 6px">' +
-      (q.year ? 'دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' · ' + esc(q.role) : '') : 'من إعداد المنهج') +
-      (q.letter ? ' · فرع ' + esc(q.letter) + (q.num ? ' رقم ' + ar(q.num) : '') : '') + '</p>'
+      (q.year ? 'دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' | ' + esc(q.role) : '') : 'من إعداد المنهج') +
+      (q.letter ? ' | فرع ' + esc(q.letter) + (q.num ? ' رقم ' + ar(q.num) : '') : '') + '</p>'
     : '';
   return topBar(title, { back: !lock, noTools: true }) + '<main class="page">' +
     '<div class="bar"><span style="width:' + Math.round(z.i / z.items.length * 100) + '%"></span></div>' +
@@ -3937,14 +3963,14 @@ function examDoneView(z, title) {
   const mcTotal = total - openItems.length;
   let h = topBar(title, { back: true, noTools: z.kind === 'ministerial' }) + '<main class="page">' +
     '<section class="result-hero"><b class="num">' + ar(pct) + '٪</b><span>' +
-    (mcTotal ? ar(ok) + ' صحيحة من ' + ar(mcTotal) : openItems.length ? 'راجعت ' + ar(z.openReviewed || 0) + ' من ' + ar(openItems.length) + ' سؤالاً' : '') + '</span>' +
-    (z.kind === 'ministerial' ? '<p class="num">استغرقت ' + mm + ' · المعدل التراكمي في ' + esc(z.subject) + ' ' + ar(ministerialAvg(z.subject)) + '٪</p>' : '') +
+    (mcTotal ? ar(ok) + ' صحيحة من ' + ar(mcTotal) : openItems.length ? 'أصبت (بتقييمك) ' + ar(z.openReviewed || 0) + ' من ' + ar(openItems.length) + ' سؤالًا مفتوحًا' : '') + '</span>' +
+    (z.kind === 'ministerial' ? '<p class="num">استغرقت ' + mm + ' | المعدل التراكمي في ' + esc(z.subject) + ' ' + ar(ministerialAvg(z.subject)) + '٪</p>' : '') +
     '<p>' + (pct >= 90 ? 'فهمٌ ممتاز. ستعود إليك مواضيعه في المراجعة لتثبت.' : pct >= 70 ? 'جيد. راجع ما أخطأت فيه واقرأ سببه.' : 'لا بأس، هذا هو الغرض. ارجع إلى الشرح ثم أعد المحاولة.') + '</p></section>';
   if (z.kind === 'ministerial') {
     const weak = weakTopicsOf(z);
     h += weak.length
       ? '<section class="card"><h2>مواضيع أضعفت أداءك</h2><p class="small muted">أعادها جدول المراجعة إلى «غدًا» ليزيد تكرارها عليك.</p><div class="plist">' +
-          weak.map(w => '<button class="pitem" data-act="topic" data-id="' + w.tid + '"><span class="st bad-t">!</span><span style="flex:1;min-width:0"><b>' + ft(w.title) + '</b><br><span class="small muted">' + esc(w.ch) + ' · ' + ar(w.n) + ' خطأ</span></span><span class="small" style="color:var(--acc)">راجع</span></button>').join('') + '</div></section>'
+          weak.map(w => '<button class="pitem" data-act="topic" data-id="' + w.tid + '"><span class="st bad-t">!</span><span style="flex:1;min-width:0"><b>' + ft(w.title) + '</b><br><span class="small muted">' + esc(w.ch) + ' | ' + ar(w.n) + ' خطأ</span></span><span class="small" style="color:var(--acc)">راجع</span></button>').join('') + '</div></section>'
       : '<section class="card"><h2>أداء متوازن</h2><p class="small muted">لا مواضيع ضعيفة في هذه الجلسة. أحسنت.</p></section>';
   }
   h += wrong.length
@@ -3956,14 +3982,14 @@ function examDoneView(z, title) {
       '<p class="small muted">هذه أسئلة وزارية مفتوحة — قارن إجابتك بالحل النموذجي:</p>' +
       openItems.map(x => { const q = x.it.q; return '<details class="fold"><summary>' + fm(q.q) + '</summary><div class="inner">' +
         (q.why ? '<details class="fold"><summary>أظهر الحل النموذجي</summary><div class="inner"><p class="a"><b>الحل:</b> ' + fm(solLines(q.why)) + '</p></div></details>' : '<p class="small muted">لم يُستخرج الحل بعد.</p>') +
-        (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' · ' + esc(q.role) : '') + '</p>' : '') +
+        (q.year ? '<p class="small muted num">دورة ' + ar(q.year) + (q.role && q.role !== 'غير محدد' ? ' | ' + esc(q.role) : '') + '</p>' : '') +
         '</div></details>'; }).join('');
   }
   return h + '<div class="grid2"><button class="btn" data-act="examCfg" data-kind="' + z.kind + '" data-s="' + esc(z.subject) + '">امتحان آخر</button><button class="btn quiet" data-act="back">رجوع</button></div></main>';
 }
 function vExam() {
   const z = S.exam; if (!z) return vTests();
-  const title = EXAM_KINDS[z.kind] + ' · ' + z.subject;
+  const title = EXAM_KINDS[z.kind] + ' | ' + z.subject;
   if (z.phase === 'config') return examConfigView(z, title);
   if (z.phase === 'prep') return examPrepView(z, title);
   if (z.phase === 'pledge') return examPledgeView(z, title);
@@ -3990,7 +4016,7 @@ function bankInsights(subject) {
     '<div class="stat"><span class="muted small">أسئلة صح/خطأ</span><b class="num">' + ar(tfTotal) + ' (' + ar(Math.round(tfTotal / total * 100)) + '٪)</b></div>' +
     '</div>' +
     '<p class="small" style="font-weight:600;margin-top:10px">المواضيع الأكثر تكرارًا:</p>' +
-    '<div class="plist">' + rows.slice(0, 8).map(r => '<div class="pitem" style="pointer-events:none"><span class="st">' + ar(r.n) + '</span><span style="flex:1;min-width:0"><b>' + ft(r.title) + '</b><br><span class="small muted">' + ar(r.tf) + ' صح/خطأ · ' + ar(r.n - r.tf) + ' اختيار</span></span></div>').join('') + '</div></section>';
+    '<div class="plist">' + rows.slice(0, 8).map(r => '<div class="pitem" style="pointer-events:none"><span class="st">' + ar(r.n) + '</span><span style="flex:1;min-width:0"><b>' + ft(r.title) + '</b><br><span class="small muted">' + ar(r.tf) + ' صح/خطأ | ' + ar(r.n - r.tf) + ' اختيار</span></span></div>').join('') + '</div></section>';
 }
 function vBank() {
   const subject = S.bankSubject, pool = ministerialPool(subject).slice().sort((a, b) => {
@@ -4013,7 +4039,7 @@ function vBank() {
     if (view === 'ch') {
       gKey = m.chTitle || 'غير مرتبط بفصل';
       gTitle = gKey;
-      sKey = m.tpTitle || (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'أسئلة من إعداد المنهج');
+      sKey = m.tpTitle || (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' | ' + m.role : '') : 'أسئلة من إعداد المنهج');
       sTitle = sKey;
     } else {
       gKey = m.fromExam ? 'دورة ' + ar(m.year) : 'أسئلة من إعداد المنهج (بلا دورة)';
@@ -4059,16 +4085,16 @@ function vBank() {
     Object.keys(g.subs).forEach(sKey => {
       const grp = g.subs[sKey];
       inner += '<p class="small" style="font-weight:600;margin:12px 0 4px">' + ft(grp.label) +
-        ' <span class="muted num">· ' + ar(grp.items.length) + ' سؤال</span></p>';
+        ' <span class="muted num">| ' + ar(grp.items.length) + ' سؤال</span></p>';
       grp.items.forEach(x => {
         const q = x.q, m = bankMeta(x);
         n++;
         const no = '<span class="ol" style="background:transparent;color:var(--muted);border:none;font-weight:700">' + AR_N(n) + '</span>';
         const typeChip = m.type ? ' <span class="chip" style="pointer-events:none;padding:1px 7px;font-size:11px">' + esc(m.type) + '</span>' : '';
-        const timeChip = ' <span class="small muted num" style="white-space:nowrap">⏱ ' + Math.round(m.sec / 60) + ' د</span>';
+        const timeChip = ' <span class="small muted num" style="white-space:nowrap">⏱ ' + ar(Math.max(1, Math.round(m.sec / 60))) + ' د</span>';
         const srcLine = '<span class="small muted" style="display:block;margin-top:4px">' +
-          (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' · ' + m.role : '') : 'من إعداد المنهج — لا يخص دورة معيّنة') +
-          (m.letter ? ' · فرع ' + esc(m.letter) + (m.num ? ' رقم ' + ar(m.num) : '') : '') + '</span>';
+          (m.fromExam ? 'دورة ' + ar(m.year) + (m.role ? ' | ' + m.role : '') : 'من إعداد المنهج — لا يخص دورة معيّنة') +
+          (m.letter ? ' | فرع ' + esc(m.letter) + (m.num ? ' رقم ' + ar(m.num) : '') : '') + '</span>';
         const isOpen = (!q.o || !q.o.length) && (q.c == null || q.c < 0);
         const summaryInner = no + '<span style="flex:1;min-width:0">' + fm(q.q) + typeChip + timeChip + '</span>';
         if (isOpen) {
@@ -4109,11 +4135,11 @@ function memoTestListHTML() {
       arr.forEach(x => { const s = memoStat(x.t, x.bi); units += s.U.length; ok += Math.min(s.ok, s.U.length); if (s.m.passed) pass++; });
       const pct = units ? Math.round(ok / units * 100) : 0;
       return '<button class="pitem" data-act="memoSubj" data-s="' + esc(subject) + '"><span class="st">' + (pass === arr.length && arr.length ? '✓' : ar(pct) + '٪') + '</span>' +
-        '<span style="flex:1;min-width:0"><b>' + esc(subject) + '</b><br><span class="small muted">' + ar(Object.keys(chs).length) + ' فصول · ' + ar(arr.length) + ' مقطع حفظ · حفظت ' + ar(ok) + ' من ' + ar(units) + '</span>' +
+        '<span style="flex:1;min-width:0"><b>' + esc(subject) + '</b><br><span class="small muted">' + ar(Object.keys(chs).length) + ' فصول | ' + ar(arr.length) + ' مقطع حفظ | حفظت ' + ar(ok) + ' من ' + ar(units) + '</span>' +
         '<span class="pbar"><i style="width:' + pct + '%"></i></span></span>' +
         '<span class="small" style="color:var(--acc);font-weight:600">افتح</span></button>';
     }).join('');
-    return accSec('memo', 'اختبارات الحفظ', ar(subs.length) + ' مواد · ' + ar(mt.length) + ' مقطعًا',
+    return accSec('memo', 'اختبارات الحفظ', ar(subs.length) + ' مواد | ' + ar(mt.length) + ' مقطعًا',
       '<p class="small muted">اختر مادة ← افتح فصولها ← اختر مقطعًا لتحفظه وتحتسب فيه. النجاح ١٠٠٪ فقط، وأي خطأ يعيد الاختبار من البداية.</p>' +
       '<div class="plist">' + cards + '</div>', true);
   }
@@ -4148,15 +4174,15 @@ function memoTestListHTML() {
         const s = memoStat(x.t, x.bi), U = s.U.length;
         return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '">' +
           '<span class="st">' + (s.m.passed ? '✓' : ar(s.pct) + '٪') + '</span>' +
-          '<span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ar(U) + ' مقطعًا · ' + ft(x.t.title) + '</span>' +
+          '<span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> | ' + ar(U) + ' مقطعًا | ' + ft(x.t.title) + '</span>' +
           '<span class="pbar"><i style="width:' + Math.min(100, s.pct) + '%"></i></span></span>' +
           '<span class="small" style="color:var(--acc);font-weight:600">' + (s.m.passed ? 'أعِد' : 'احفظ واختبر') + '</span></button>';
       }).join('') + '</div></div></div>';
   }).join('');
 
   return '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
-    '<h2 style="font-size:1.1em;margin:0">اختبارات الحفظ · ' + esc(cur) + '</h2>' +
-    '<span class="small muted num">' + ar(arr.length) + ' مقطعًا · ' + ar(units ? pct : 0) + '٪</span></div>' +
+    '<h2 style="font-size:1.1em;margin:0">اختبارات الحفظ | ' + esc(cur) + '</h2>' +
+    '<span class="small muted num">' + ar(arr.length) + ' مقطعًا | ' + ar(units ? pct : 0) + '٪</span></div>' +
     '<p class="small muted">افتح فصلًا لترى ما فيه من حفظ (قصائد وسور وأحاديث ومعاني)، ثم اختر مقطعًا. الرجوع زرّان: إلى كل المواد أو إلى الشاشة السابقة.</p>' +
     head + body + '</section>';
 }
@@ -4167,7 +4193,7 @@ function subjectMemoHTML(subject) {
   mt.forEach(x => { (byCh[x.ch.id] = byCh[x.ch.id] || { ch: x.ch, items: [] }).items.push(x); });
   const body = Object.values(byCh).map(g => '<p class="small" style="font-weight:600;margin:8px 0 4px">' + esc(g.ch.title) + '</p>' +
     g.items.map(x => { const s = memoStat(x.t, x.bi), U = s.U.length;
-      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (s.m.passed ? '✓' : ar(s.pct) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> · ' + ft(x.t.title) + '</span></span></button>'; }).join('')).join('');
+      return '<button class="pitem" data-act="memoGo" data-id="' + x.t.id + '" data-b="' + x.bi + '"><span class="st">' + (s.m.passed ? '✓' : ar(s.pct) + '٪') + '</span><span style="flex:1;min-width:0"><b>' + ft(x.M.title) + '</b><br><span class="small muted"><em class="memo-kind">' + esc(x.M.kind || 'حفظ') + '</em> | ' + ft(x.t.title) + '</span></span></button>'; }).join('')).join('');
   return accSec('memo-' + subject, 'الحفظ في ' + esc(subject), ar(mt.length) + ' نصًّا', '<p class="small muted">كل ما هو مقرر للحفظ في هذه المادة مقسّمًا على فصولها: القصائد والأبيات، والسور، والأحاديث، ومعاني الآيات. اختبار الحفظ يُجتاز بـ١٠٠٪ فقط، وأي خطأ يعيده من البداية.</p>' + body, true);
 }
 function subjectExamsHTML(subject, st0) {
@@ -4185,7 +4211,7 @@ function subjectExamsHTML(subject, st0) {
     rows.map(r => { const t = tests['x:' + subject + ':' + r[0]];
       return '<button class="pitem" data-act="examCfg" data-kind="' + r[0] + '" data-s="' + esc(subject) + '" style="padding:14px 14px">' +
         '<span class="st">' + ico(r[0] === 'ministerial' ? 'star' : r[0] === 'monthly' ? 'tests' : 'pen', 2) + '</span>' +
-        '<span style="flex:1;min-width:0"><b style="font-size:1.02em">' + r[1] + '</b><br><span class="small muted">' + (t && t.best != null ? 'أفضل ' + ar(t.best) + '٪ · ' : '') + r[2] + '</span></span></button>'; }).join('') + '</div></section>';
+        '<span style="flex:1;min-width:0"><b style="font-size:1.02em">' + r[1] + '</b><br><span class="small muted">' + (t && t.best != null ? 'أفضل ' + ar(t.best) + '٪ | ' : '') + r[2] + '</span></span></button>'; }).join('') + '</div></section>';
   if (arr.length) {
     const last = arr[arr.length - 1];
     h += '<section class="card"><h2>تطوّرك الوزاري في ' + esc(subject) + '</h2>' +
@@ -4211,7 +4237,7 @@ function subjectExamsListHTML(st) {
       return '<div style="margin-top:10px"><b>' + esc(s) + '</b><div class="chips" style="margin-top:6px">' +
         '<button class="chip" data-act="examCfg" data-kind="exam" data-s="' + esc(s) + '">عندي امتحان</button>' +
         '<button class="chip" data-act="examCfg" data-kind="monthly" data-s="' + esc(s) + '">الشهري</button>' +
-        '<button class="chip" data-act="examCfg" data-kind="ministerial" data-s="' + esc(s) + '">التهيئة للوزاري' + (bank ? ' · ' + ar(bank) : '') + '</button>' +
+        '<button class="chip" data-act="examCfg" data-kind="ministerial" data-s="' + esc(s) + '">التهيئة للوزاري' + (bank ? ' | ' + ar(bank) : '') + '</button>' +
         '</div></div>'; }).join('') + '</section>';
 }
 /* بطاقة «الامتحان الوزاري» في تبويب الاختبارات: جلسة وزاري كاملة بوقت محسوب (٣ ساعات) لكل مادة لديها بنك */
@@ -4221,7 +4247,7 @@ function ministerialExamCard(st) {
   return accSec('milExam', 'الامتحان الوزاري', ar(rows.reduce((k, r) => k + r.n, 0)) + ' سؤالًا',
     '<p class="small muted">جلسة وزارية كاملة لكل مادة من أسئلة الدورات، بوقت محسوب (٣ ساعات على الامتحان كلّه). الأسئلة تُغلق ولا يمكن الرجوع إليها حتى «أكملت الامتحان»، ثم تُسجَّل مدتك ويُحسب معدلك وتُحدَّد مواضيعك الضعيفة.</p>' +
     '<div class="plist">' + rows.map(r => '<button class="pitem" data-act="ministerialFull" data-s="' + esc(r.s) + '"><span class="st">' + ar(r.n) + '</span>' +
-      '<span style="flex:1;min-width:0"><b>الوزاري الكامل · ' + esc(r.s) + '</b><br><span class="small muted">' + ar(r.n) + ' سؤالًا من الدورات الوزارية' + (r.avg ? ' · معدلك ' + ar(r.avg) + '٪' : '') + '</span></span>' +
+      '<span style="flex:1;min-width:0"><b>الوزاري الكامل | ' + esc(r.s) + '</b><br><span class="small muted">' + ar(r.n) + ' سؤالًا من الدورات الوزارية' + (r.avg ? ' | معدلك ' + ar(r.avg) + '٪' : '') + '</span></span>' +
       '<span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div>', false);
 }
 function ministerialLibraryHTML(st) {
@@ -4231,8 +4257,8 @@ function ministerialLibraryHTML(st) {
   const have = rows.filter(r => r.n > 0);
   return '<section class="card"><h2>بنك الأسئلة الوزارية</h2><p class="small muted">بنك كامل لأسئلة الدورات الوزارية. يخدم الطالب: يتصفّح ويتدرّب؛ ويخدم النظام: يبني منه جلسات «التهيئة للوزاري» والامتحان الوزاري الكامل، ويقيس تطورك ومعدلك ويكشف مواضيع الضعف.</p>' +
     '<p class="small num">' + (total ? ar(total) + ' سؤالًا متوفرًا' : 'قيد البناء من دورات ٢٠١٦ إلى ٢٠٢٦') + '</p>' +
-    (have.length ? '<div class="grid2">' + have.map(r => '<button class="btn" data-act="ministerialFull" data-s="' + esc(r.s) + '">الامتحان الوزاري الكامل · ' + esc(r.s) + (r.avg ? ' · معدلك ' + ar(r.avg) + '٪' : '') + '</button>').join('') + '</div>' : '') +
-    '<div class="plist" style="margin-top:10px">' + rows.map(r => '<button class="pitem" data-act="go" data-v="bank" data-popup="1" data-popup-title="بنك ' + esc(r.s) + '" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا · تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
+    (have.length ? '<div class="grid2">' + have.map(r => '<button class="btn" data-act="ministerialFull" data-s="' + esc(r.s) + '">الامتحان الوزاري الكامل | ' + esc(r.s) + (r.avg ? ' | معدلك ' + ar(r.avg) + '٪' : '') + '</button>').join('') + '</div>' : '') +
+    '<div class="plist" style="margin-top:10px">' + rows.map(r => '<button class="pitem" data-act="go" data-v="bank" data-popup="1" data-popup-title="بنك ' + esc(r.s) + '" data-s="' + esc(r.s) + '"><span class="st">' + ico('library', 2) + '</span><span style="flex:1;min-width:0"><b>بنك ' + esc(r.s) + '</b><br><span class="small muted">' + (r.n ? ar(r.n) + ' سؤالًا | تصفّح وتدريب' : 'يُبنى قريبًا') + '</span></span>' + (r.n ? '<span class="small" style="color:var(--acc)">افتح</span>' : '') + '</button>').join('') + '</div></section>';
 }
 
 /* =================== خطة اليوم: توزيع المواضيع المتبقية على أيام الدراسة =================== */
@@ -4254,25 +4280,58 @@ function studyLine() {
   }
   return line;
 }
+/* خطة اليوم = شريحة اليوم من خطة الأسبوع.
+   كانت تُبنى من «خط الدراسة» فتعطي الفيزياء والكيمياء كل يوم وتؤجّل بقية المواد حتى تنتهيا.
+   الآن: إن ملأ الطالب رفّ اليوم في «خطة الأسبوع» فهو خطته. وإلا تُوزَّع حصة الأسبوع
+   (المتناسبة مع ما بقي في كل مادة) على أيام دراسته توزيعًا ثابتًا طوال الأسبوع،
+   فيأخذ كل يوم موادّ مختلفة، ويُستكمل من الحصة إن أنهى رفّه مبكرًا. */
+function studyDayIndex(st) {
+  /* ترتيب اليوم بين أيام دراسة الأسبوع الحالي (الأسبوع يبدأ من يوم بدء الدوام) */
+  const t = today0(), start = parseD(st.start);
+  const wStart = new Date(start.getTime() + Math.max(0, Math.floor((t - start) / (7 * 864e5))) * 7 * 864e5);
+  let k = 0; const d = new Date(wStart);
+  while (d < t) { if (!st.rest.includes(d.getDay()) && !inHoliday(d, st.holidays)) k++; d.setDate(d.getDate() + 1); }
+  return k;
+}
+function autoWeek(st) {
+  const g = weeklyGoals(st), n = studyDaysCount(st);
+  if (st.autoWeek && st.autoWeek.weekNo === g.weekNo && st.autoWeek.days && st.autoWeek.days.length === n) return st.autoWeek;
+  const L = weeklyTopicList(st, 'manual'), days = Array.from({ length: n }, () => []);
+  L.forEach((x, i) => days[i % n].push(x.t.id));
+  st.autoWeek = { weekNo: g.weekNo, days }; save();
+  return st.autoWeek;
+}
 function planToday() {
   const st = me(), line = studyLine();
   const K = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
-  const picks = [], seen = new Set();
-  for (const it of line) {
-    if (picks.length >= K) break;
-    if (seen.size >= 2 && !seen.has(it.subject)) continue;
-    seen.add(it.subject); picks.push(it);
+  const notDone = tid => { const f = findTopic(tid); return f && !isHidden(tid) && topicPct(f.t) < 90; };
+  const asItem = tid => { const f = findTopic(tid); return { subject: f.subject, ch: f.ch, t: f.t }; };
+  const di = studyDayIndex(st), picks = [], seen = new Set();
+  const add = tid => { if (picks.length < K && !seen.has(tid) && notDone(tid)) { seen.add(tid); picks.push(asItem(tid)); } };
+  const wf = st.weekFill && st.weekFill.weekNo === weeklyGoals(st).weekNo ? st.weekFill : null;
+  const mine = wf && wf.days[di] && wf.days[di].length ? wf.days[di] : null;
+  if (mine) mine.forEach(add);
+  else {
+    const aw = autoWeek(st), slot = aw.days[Math.min(di, aw.days.length - 1)] || [];
+    slot.forEach(add);
+    /* أنهى رفّه؟ نُكمل من حصة الأسبوع ثم من خط الدراسة، بمادة لم تأخذها اليوم إن أمكن */
+    if (picks.length < K) {
+      const rest = weeklyTopicList(st, 'manual').map(x => x.t.id).concat(line.map(x => x.t.id));
+      const subjToday = new Set(picks.map(p => p.subject));
+      rest.filter(tid => { const f = findTopic(tid); return f && !subjToday.has(f.subject); }).forEach(add);
+      rest.forEach(add);
+    }
   }
   const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6);
-  return { picks, reviews, left: line.length - picks.length, total: line.length };
+  return { picks, reviews, left: Math.max(0, line.length - picks.length), total: line.length };
 }
 /* الهدف الأسبوعي: عدد المواضيع التي يجب تغطيتها أسبوعيًا لإنهاء المنهج قبل الامتحان */
 function weeklyGoal() {
+  /* مصدر واحد للهدف الأسبوعي (weeklyGoals) حتى لا تختلف الأرقام بين البطاقات */
   const st = me(), ti = timeInfo(st);
-  if (!ti.daysLeft || !line_count()) return { perWeek: 0, total: 0, weeksLeft: 0 };
-  const total = studyLine().length;
-  const weeksLeft = Math.max(1, Math.ceil(ti.daysLeft / 7));
-  return { perWeek: Math.ceil(total / weeksLeft), total, weeksLeft };
+  if (!ti.daysLeft || !line_count()) return { perWeek: 0, total: 0, weeksLeft: 0, revWeeks: 0 };
+  const g = weeklyGoals(st);
+  return { perWeek: g.perWeek, total: g.left, weeksLeft: g.contentWeeks, revWeeks: g.revWeeks };
 }
 function line_count() { return studyLine().length; }
 /* ── أهداف الأسبوع ──
@@ -4295,10 +4354,14 @@ function weeklyGoals(st) {
     total += topics.length; left += lft;
     subjects.push({ subject: y.subject, total: topics.length, done, left: lft, topics });
   });
-  const perWeek = Math.ceil(left / weeksLeft);
+  /* ننهي المنهج قبل الامتحان بأسابيع مراجعة (حتى ٤ أسابيع) لا في ليلته: محاكاة السنة كشفت
+     أن التوزيع على كل الأسابيع يُنهي آخر موضوع قبل الامتحان بيوم بلا وقت للمراجعة الشاملة */
+  const revWeeks = Math.min(4, Math.floor(weeksLeft / 5));
+  const contentWeeks = Math.max(1, weeksLeft - revWeeks);
+  const perWeek = Math.ceil(left / contentWeeks);
   const sum = subjects.reduce((a, s) => a + s.left, 0) || 1;
   subjects.forEach(s => { s.perWeek = s.left ? Math.max(1, Math.round(perWeek * s.left / sum)) : 0; });
-  return { weeksLeft, studyDays, perDay, sessionsPerWeek: studyDays * perDay, perWeek, left, total, subjects, weekNo: ti.weekNo };
+  return { weeksLeft, revWeeks, contentWeeks, studyDays, perDay, sessionsPerWeek: studyDays * perDay, perWeek, left, total, subjects, weekNo: ti.weekNo };
 }
 /* مواضيع الحصة القادمة: تُوزَّع بالتناوب بين المواد حسب ما بقي في كل واحدة، فلا تُهمَّل
    مادة كاملة، ثم تُخلط في الوضع العشوائي وتبقى على ترتيب المنهج في اليدوي */
@@ -4391,7 +4454,7 @@ function weeklyPlanHTML(st) {
   /* ── الخطة المقسّمة: تظهر قبل الأيام، فيأخذ الطالب منها ما يملأ رفوفه ── */
   h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
     '<h3 style="margin:0">الخطة المقسّمة</h3>' +
-    '<span class="small muted num">' + ar(list.length) + ' موضوعًا · بترتيب ' + (mode === 'random' ? 'عشوائي' : 'المنهج') + '</span></div>' +
+    '<span class="small muted num">' + ar(list.length) + ' موضوعًا | بترتيب ' + (mode === 'random' ? 'عشوائي' : 'المنهج') + '</span></div>' +
     '<p class="small muted">هذه مواضيع حصتك. اضغط أي موضوع ليأخذ مكانه في أول رفّ فارغ — أو اضغط الرفّ ليأخذ أول موضوع متبقٍّ.</p>' +
     (list.length
       ? '<div class="psrc" style="margin-top:10px">' + list.map((x, i) => {
@@ -4407,7 +4470,7 @@ function weeklyPlanHTML(st) {
   const perDay = g.perDay, used = weekFillUsed(f), need = Math.min(list.length, f.days.length * perDay);
   h += '<section class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">' +
     '<h3 style="margin:0">رفوف أيامك</h3>' +
-    '<span class="small muted num">' + ar(f.days.length) + ' يومًا · ' + ar(perDay) + ' رفوف</span></div>' +
+    '<span class="small muted num">' + ar(f.days.length) + ' يومًا | ' + ar(perDay) + ' رفوف</span></div>' +
     '<p class="small muted">عدد أيامك هنا هو ما حددته في الإعدادات: ' + ar(g.studyDays) + ' أيام دراسة أسبوعيًا — تُحسب بطرح أيام الراحة.</p>' +
     (used ? '<div class="chips" style="margin:10px 0"><button class="chip" data-act="weekFillClear">أفرِغ الأيام</button></div>' : '') +
     '<div style="display:flex;flex-direction:column;gap:14px;margin-top:12px">';
@@ -4451,15 +4514,24 @@ function planCard(st, ti, g, rest) {
   const { picks, reviews, left, total } = planToday();
   const wg = weeklyGoal();
   let h = '<section class="card">';
-  if (!total && !reviews.length) h += '<p>أنجزت كل مواضيع صفك. راجع من تبويب المراجعة حتى الامتحان، وعدّل هدفك من الإعدادات.</p>';
+  if (!total && !reviews.length) {
+    /* أسابيع المراجعة الشاملة: مادة واحدة كل يوم بالتناوب في محاكاة وزارية كاملة */
+    const subsAll = gradeContents(st.grade).map(y => y.subject), todaySubj = subsAll.length ? subsAll[studyDayIndex(st) % subsAll.length] : '';
+    h += '<p>أنجزت كل مواضيع صفك — هذه أسابيع المراجعة الشاملة حتى الامتحان.</p>' +
+      (todaySubj ? '<p class="small muted">اقتراح اليوم: محاكاة وزارية كاملة في <b>' + esc(todaySubj) + '</b>، ثم راجع ما أخطأت فيه.</p><div class="grid2"><button class="btn" data-act="ministerialFull" data-s="' + esc(todaySubj) + '">المحاكاة الكاملة | ' + esc(todaySubj) + '</button><button class="btn quiet" data-act="tab" data-v="review">تبويب المراجعة</button></div>' : '');
+  }
   else {
-    h += '<p class="small muted">في منهجك ' + ar(total) + ' ' + tWord(total) + ' على ' + ar(ti.daysLeft) + ' يوم دراسة · بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا، بالتناوب بين المواد.</p>' +
-      (wg.perWeek ? '<p class="small num">الهدف الأسبوعي: ' + ar(wg.perWeek) + ' ' + tWord(wg.perWeek) + ' في الأسبوع (بقي ' + ar(wg.weeksLeft) + ' أسبوعًا)</p>' : '') +
+    h += '<p class="small muted">في منهجك ' + ar(total) + ' ' + tWord(total) + ' على ' + ar(ti.daysLeft) + ' يوم دراسة | بمعدل ' + ar(st.minutes) + ' دقيقة يوميًا، بالتناوب بين المواد.</p>' +
+      (wg.perWeek ? '<p class="small num">الهدف الأسبوعي: ' + ar(wg.perWeek) + ' ' + tWord(wg.perWeek) + ' في الأسبوع (بقي ' + ar(wg.weeksLeft) + ' أسبوعًا للمنهج' + (wg.revWeeks ? ' ثم ' + ar(wg.revWeeks) + ' أسابيع مراجعة شاملة' : '') + ')</p>' : '') +
       '<div class="plist">' +
-      picks.map(x => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title) + ' · ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ادرس</span></button>').join('') +
+      picks.map(x => '<button class="pitem" data-act="topic" data-id="' + x.t.id + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b><br><span class="small muted">' + esc(x.ch.title) + ' | ' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ادرس</span></button>').join('') +
       reviews.map(x => '<button class="pitem" data-act="revQuiz" data-id="' + x.t.id + '"><span class="st" style="color:var(--acc)">' + ico('review', 2) + '</span><span style="flex:1;min-width:0"><b>مراجعة: ' + esc(x.subject) + '</b><br><span class="small muted">' + bsec(x.t.sec) + ' ' + ft(x.t.title) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">اختبر</span></button>').join('') +
       '</div>';
     if (left) h += '<p class="small muted">' + (left === 1 ? 'بقي موضوع واحد' : 'بقي ' + ar(left) + ' مواضيع') + ' ينتظر دوره في الأيام القادمة.</p>';
+    /* إنذار التأخر: إن صار ما بقي يحتاج أكثر من حصص يومك لتنهي قبل أسابيع المراجعة */
+    const gw = weeklyGoals(st), K = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
+    const needDay = gw.perWeek ? Math.ceil(gw.perWeek / gw.studyDays) : 0;
+    if (needDay > K) h += '<p class="note bad">تأخّرت عن خطتك: تحتاج نحو ' + ar(needDay) + ' مواضيع يوميًا لتُنهي المنهج قبل أسابيع المراجعة، ووقتك الحالي يكفي ' + ar(K) + ' فقط. زد وقتك اليومي إلى نحو ' + ar(Math.min(300, needDay * 40)) + ' دقيقة من الإعدادات، أو استعمل يوم الراحة.</p><button class="btn ghost" data-act="go" data-v="settings" data-t="study">عدّل وقتك اليومي</button>';
   }
   return h + '</section>';
 }
@@ -4556,9 +4628,9 @@ function scopeTopics(x) {
 const LVL = [['topic', 'درس'], ['tab', 'تبويب'], ['chapter', 'فصل'], ['subject', 'مادة'], ['grade', 'الصف'], ['all', 'كامل']];
 function scopeLabel(x) {
   const st = me();
-  if (x.lvl === 'topic' || x.lvl === 'tab') { const f = findTopic(x.tid); return f ? x.subject + ' · ' + arSec(f.t.sec) + ' ' + f.t.title + (x.lvl === 'tab' ? ' · ' + NB_SEG_NAME[x.seg] : '') : ''; }
-  if (x.lvl === 'chapter') { const f = findChapter(x.ch); return f ? x.subject + ' · ' + f.ch.title : ''; }
-  if (x.lvl === 'subject') return x.subject + ' · ' + GRADES[st.grade - 1].name;
+  if (x.lvl === 'topic' || x.lvl === 'tab') { const f = findTopic(x.tid); return f ? x.subject + ' | ' + arSec(f.t.sec) + ' ' + f.t.title + (x.lvl === 'tab' ? ' | ' + NB_SEG_NAME[x.seg] : '') : ''; }
+  if (x.lvl === 'chapter') { const f = findChapter(x.ch); return f ? x.subject + ' | ' + f.ch.title : ''; }
+  if (x.lvl === 'subject') return x.subject + ' | ' + GRADES[st.grade - 1].name;
   if (x.lvl === 'grade') return 'كل مواد ' + GRADES[st.grade - 1].name;
   return 'كل صفوفي حتى ' + GRADES[st.grade - 1].name;
 }
@@ -4586,7 +4658,7 @@ function vNotebook() {
       if (show.probs && e.probs.length) h += '<div class="nb-sec"><span class="nb-tag">مسائلي</span>' + e.probs.map(p => { const v = solveOf(p.id), lbl = { ok: 'صحيح', bad: 'فيه خطأ', none: 'لم أصل' }[v.self] || (v.revealed ? 'قارن حلّك' : 'قيد الحل');
         return '<button class="nb-prob" data-act="prob" data-id="' + p.id + '"><span class="st ' + (v.self === 'ok' ? 'ok' : v.self ? 'bad' : '') + '">' + (v.self === 'ok' ? '✓' : '•') + '</span><span class="nb-pb"><span class="nb-pt">' + fm(p.text) + '</span>' +
           (v.work ? '<span class="nb-w">' + esc(v.work) + '</span>' : '') + (v.photo ? '<img data-photo="' + p.id + '" alt="صورة الحل" class="nb-th" hidden>' : '') +
-          '<span class="small muted num">' + lbl + (v.used ? ' · ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + (v.page ? ' · ص ' + ar(v.page) : '') + (v.attempts > 1 ? ' · محاولات ' + ar(v.attempts) : '') + '</span></span></button>'; }).join('') + '</div>';
+          '<span class="small muted num">' + lbl + (v.used ? ' | ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + (v.page ? ' | ص ' + ar(v.page) : '') + (v.attempts > 1 ? ' | محاولات ' + ar(v.attempts) : '') + '</span></span></button>'; }).join('') + '</div>';
       if (show.wrong && e.wrong.length) h += '<div class="nb-sec"><span class="nb-tag bad">أخطائي في الاختبار</span>' + e.wrong.map(i => { const q = t.quiz[i], w = wrongOf(t.id)[i];
         return '<div class="nb-wrong"><p>' + fm(q.q) + '</p><p class="small"><b>الصحيح:</b> ' + fm(q.o[q.c]) + ' — ' + fm(q.why) + '</p><span class="small muted num">أخطأت فيه ' + ar(w.n) + ' مرة</span></div>'; }).join('') +
         '<button class="chip" data-act="quizStart" data-src="t:' + t.id + '" data-n="' + t.quiz.length + '">أعد اختبار الموضوع</button></div>';
@@ -4595,7 +4667,7 @@ function vNotebook() {
     if (chHTML) body += '<h2 class="nb-ch">' + esc(ch.title) + '</h2>' + chHTML;
   });
   return topBar('دفتر ' + subject, { back: true }) + '<main class="page">' +
-    '<section class="nb-cover"><span class="small">' + esc(GRADES[st.grade - 1].name) + ' · ' + esc(st.name) + '</span><h1>دفتر ' + esc(subject) + '</h1><p class="small">كل ما تكتبه وتحلّه وتخطئ فيه، مرتبًا بالفصل والموضوع.</p></section>' +
+    '<section class="nb-cover"><span class="small">' + esc(GRADES[st.grade - 1].name) + ' | ' + esc(st.name) + '</span><h1>دفتر ' + esc(subject) + '</h1><p class="small">كل ما تكتبه وتحلّه وتخطئ فيه، مرتبًا بالفصل والموضوع.</p></section>' +
     '<div class="grid2"><div class="stat"><span class="muted small">مسائل صحيحة</span><b class="num">' + ar(ok) + ' / ' + ar(all.length) + '</b></div><div class="stat"><span class="muted small">وقتك في المسائل</span><b class="num">' + ar(Math.round(sec / 60)) + ' د</b></div>' +
     '<div class="stat"><span class="muted small">ملاحظاتي</span><b class="num">' + ar(nNotes) + '</b></div><div class="stat"><span class="muted small">أخطاء للمراجعة</span><b class="num">' + ar(nWrong) + '</b></div></div>' +
     '<button class="btn" data-act="openExport" data-lvl="subject" data-s="' + esc(subject) + '">صدّر دفترًا أو تقريرًا</button>' +
@@ -4652,7 +4724,7 @@ function vExport() {
       (need.ch ? '<div class="field"><label for="expCh">الفصل</label>' + sel('expCh', chs.map(y => [y.id, y.title]), x.ch) + '</div>' : '') +
       (need.topic ? '<div class="field"><label for="expTopic">الدرس</label>' + sel('expTopic', ts.map(y => [y.id, arSec(y.sec) + ' ' + y.title]), x.tid) + '</div>' : '') +
       (need.seg ? '<div class="field"><label for="expSeg">التبويب</label>' + sel('expSeg', segs.map(s => [s[0], s[1]]), x.seg) + '</div>' : '') +
-      '<p class="small muted num">النطاق: <b>' + esc(scopeLabel(x)) + '</b> · ' + ar(n) + (n === 1 ? ' درس' : ' دروس') + '</p></section>' +
+      '<p class="small muted num">النطاق: <b>' + esc(scopeLabel(x)) + '</b> | ' + ar(n) + (n === 1 ? ' درس' : ' دروس') + '</p></section>' +
     (x.fmt === 'nb' ? '<section class="card"><h2>يشمل</h2><div class="chips">' + inc.map(i => '<button class="chip" data-act="expInc" data-v="' + i[0] + '" aria-pressed="' + !!x.inc[i[0]] + '">' + i[1] + '</button>').join('') + '</div></section>' : '') +
     '<div class="grid2"><button class="btn" data-act="expPrint">اطبع أو احفظ PDF</button><button class="btn quiet" data-act="expSave">نزّل الملف</button></div>' +
     '<button class="btn ghost" data-act="expPreview">معاينة هنا</button><div id="expPrev"></div>' +
@@ -4678,10 +4750,10 @@ function contentBlocks(t, seg) {
   const parts = {
     explain: () => L('الشرح', '<div class="blk"><b class="t">لماذا ندرسه؟</b> ' + xe(t.why) + '</div>' + t.explain.filter(b => !['sim', 'fig'].includes(b.t)).map(b => b.t === 'think' ? '<div class="blk"><b class="t">فكّر:</b> ' + xe(b.q) + '<br><b class="t">الجواب:</b> ' + xe(b.a) + '</div>' : b.t === 'activity' ? '<div class="blk"><b class="t">' + xe(b.title) + '</b><br>' + xe(b.tools) + '<ol>' + b.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol></div>' : blockHTML(b, '')).join('')),
     defs: () => L('التعاريف', (t.defs || []).map(d => '<div class="blk"><b class="t">' + xe(d.term) + ':</b> ' + xe(d.text) + (d.think ? '<div class="muted">افهمه: ' + xe(d.think) + '</div>' : '') + '</div>').join('')),
-    laws: () => L('القوانين', (t.laws || []).map(l => '<div class="blk"><div class="eqbox">' + fe(l.f) + '</div><b class="t">' + xe(l.name) + '</b>' + (l.read ? '<br>' + xe(l.read) : '') + (l.vars ? '<br><span class="muted">' + l.vars.map(v => Array.isArray(v) ? xe(v[0]) + ' ' + esc(v[1]) + (v[2] ? ' (' + xe(v[2]) + ')' : '') : xe(v)).join(' · ') + '</span>' : '') + '</div>').join('')),
+    laws: () => L('القوانين', (t.laws || []).map(l => '<div class="blk"><div class="eqbox">' + fe(l.f) + '</div><b class="t">' + xe(l.name) + '</b>' + (l.read ? '<br>' + xe(l.read) : '') + (l.vars ? '<br><span class="muted">' + l.vars.map(v => Array.isArray(v) ? xe(v[0]) + ' ' + esc(v[1]) + (v[2] ? ' (' + xe(v[2]) + ')' : '') : xe(v)).join(' | ') + '</span>' : '') + '</div>').join('')),
     reasons: () => L('التعليلات', (t.reasons || []).map(r => '<div class="blk">' + (/^علل/.test(r.q) ? '' : '<b class="t">علّل:</b> ') + xe(r.q) + '<br><b class="t">لأن:</b> ' + xe(r.a) + '</div>').join('')),
     blanks: () => L('املأ الفراغ', (t.blanks || []).map(b => { const n = (b.s.match(/____/g) || []).length; let k = 0; const s = b.s.replace(/____/g, () => '<u><b>' + esc(n > 1 ? [].concat(b.a[k++])[0] : [].concat(b.a)[0]) + '</b></u>'); return '<div class="blk">' + s + '</div>'; }).join('')),
-    examples: () => L('أمثلة الكتاب', (t.examples || []).map(e => '<div class="blk"><b class="t">' + xe(e.title) + '</b> <span class="muted">ص' + ar(e.page) + '</span><br>' + xe(e.text) + '<ol>' + e.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol>' + (e.ans ? '<details class="fold"><summary>أظهر الجواب</summary><div class="inner"><b>الجواب:</b> ' + xe(e.ans) + '</div></details>' : '') + '</div>').join('')),
+    examples: () => L('أمثلة الكتاب', (t.examples || []).map(e => '<div class="blk"><b class="t">' + xe(e.title || 'مثال') + '</b> ' + (e.page ? '<span class="muted">ص' + ar(e.page) + '</span>' : '') + '<br>' + xe(e.text) + '<ol>' + e.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol>' + (e.ans ? '<details class="fold"><summary>أظهر الجواب</summary><div class="inner"><b>الجواب:</b> ' + xe(e.ans) + '</div></details>' : '') + '</div>').join('')),
     problems: () => L('مسائل الموضوع', t.problems.map((p, i) => '<div class="blk"><b class="t">' + ar(i + 1) + '.</b> ' + xe(p.text) + '</div>').join('')),
     quiz: () => L('أسئلة الاختبار مع أجوبتها', t.quiz.map((q, i) => '<div class="blk"><b class="t">' + ar(i + 1) + '.</b> ' + xe(q.q) + '<br><b>الجواب:</b> ' + xe(q.o[q.c]) + '<div class="muted">' + xe(q.why) + '</div></div>').join(''))
   };
@@ -4694,7 +4766,7 @@ async function buildExport(x) {
   const title = (x.fmt === 'nb' ? 'دفتر' : 'تقرير') + ' — ' + scopeLabel(x);
   let h = '<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title) + '</title>' +
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap"><style>' + EXP_CSS + '</style></head><body><div class="wrap">' +
-    '<section class="cover"><div class="meta">' + esc(st.name) + ' · ' + esc(GRADES[st.grade - 1].name) + ' · ' + esc(fmtD(now)) + '</div><h1>' + (x.fmt === 'nb' ? 'دفتر' : 'تقرير') + '</h1><div style="font-size:18px">' + esc(scopeLabel(x)) + '</div></section>';
+    '<section class="cover"><div class="meta">' + esc(st.name) + ' | ' + esc(GRADES[st.grade - 1].name) + ' | ' + esc(fmtD(now)) + '</div><h1>' + (x.fmt === 'nb' ? 'دفتر' : 'تقرير') + '</h1><div style="font-size:18px">' + esc(scopeLabel(x)) + '</div></section>';
   let lastCh = '', lastSub = '';
   const tm = s => ar(Math.round(s / 60)) + ' د';
   if (x.fmt === 'rep') {
@@ -4708,14 +4780,14 @@ async function buildExport(x) {
     list.forEach(it => { const k = it.subject + '|' + it.ch.id; (groups[k] = groups[k] || { it, rows: [] }).rows.push(it); });
     Object.values(groups).forEach(g => {
       const tb = (st.tests || {})['c:' + g.it.ch.id];
-      h += '<h2>' + esc(g.it.subject) + ' · ' + esc(g.it.ch.title) + '</h2>' + (tb ? '<p>اختبار الفصل الشامل: أفضل نتيجة <b>' + ar(tb.best) + '٪</b>، آخر نتيجة ' + ar(tb.last) + '٪</p>' : '') +
+      h += '<h2>' + esc(g.it.subject) + ' | ' + esc(g.it.ch.title) + '</h2>' + (tb ? '<p>اختبار الفصل الشامل: أفضل نتيجة <b>' + ar(tb.best) + '٪</b>، آخر نتيجة ' + ar(tb.last) + '٪</p>' : '') +
         '<table><thead><tr><th>الدرس</th><th>الإنجاز</th><th>الأقسام المقروءة</th><th>أفضل اختبار</th><th>المسائل الصحيحة</th><th>الوقت</th><th>أخطاء</th></tr></thead><tbody>' +
         g.rows.map(it => { const t = it.t, p = progOf(t.id), segs = SEGS.filter(s => segHas(t, s[0])), seen = segs.filter(s => p.seen[s[0]]).length;
           const tr = t.problems.map(q => solveOf(q.id)).filter(Boolean), u = tr.reduce((a, v) => a + (v.used || 0), 0);
           return '<tr><td>' + esc(arSec(t.sec)) + ' ' + xe(t.title) + '</td><td class="n">' + ar(topicPct(t)) + '٪</td><td class="n">' + ar(seen) + '/' + ar(segs.length) + '</td><td class="n">' + (p.quiz ? ar(p.quiz.best) + '٪' : '—') + '</td><td class="n">' + (t.problems.length ? ar(tr.filter(v => v.self === 'ok').length) + '/' + ar(t.problems.length) : '—') + '</td><td class="n">' + (u ? tm(u) : '—') + '</td><td class="n">' + ar(Object.keys(wrongOf(t.id)).length) + '</td></tr>'; }).join('') + '</tbody></table>';
     });
     const weak = list.filter(it => { const p = progOf(it.t.id); return topicPct(it.t) < 60 || (p.quiz && p.quiz.best < 70) || Object.keys(wrongOf(it.t.id)).length >= 2; });
-    h += '<h2>ابدأ مراجعتك بها</h2>' + (weak.length ? '<ol>' + weak.map(it => { const p = progOf(it.t.id), why = []; if (topicPct(it.t) < 60) why.push('الإنجاز ' + ar(topicPct(it.t)) + '٪'); if (p.quiz && p.quiz.best < 70) why.push('أفضل اختبار ' + ar(p.quiz.best) + '٪'); const w = Object.keys(wrongOf(it.t.id)).length; if (w >= 2) why.push(ar(w) + ' أخطاء معلقة'); return '<li>' + esc(it.subject) + ' · ' + esc(arSec(it.t.sec)) + ' ' + xe(it.t.title) + ' <span class="muted">(' + why.join('، ') + ')</span></li>'; }).join('') + '</ol>' : '<p>لا مواضيع ضعيفة في هذا النطاق. استمر.</p>');
+    h += '<h2>ابدأ مراجعتك بها</h2>' + (weak.length ? '<ol>' + weak.map(it => { const p = progOf(it.t.id), why = []; if (topicPct(it.t) < 60) why.push('الإنجاز ' + ar(topicPct(it.t)) + '٪'); if (p.quiz && p.quiz.best < 70) why.push('أفضل اختبار ' + ar(p.quiz.best) + '٪'); const w = Object.keys(wrongOf(it.t.id)).length; if (w >= 2) why.push(ar(w) + ' أخطاء معلقة'); return '<li>' + esc(it.subject) + ' | ' + esc(arSec(it.t.sec)) + ' ' + xe(it.t.title) + ' <span class="muted">(' + why.join('، ') + ')</span></li>'; }).join('') + '</ol>' : '<p>لا مواضيع ضعيفة في هذا النطاق. استمر.</p>');
   } else {
     list.forEach(it => {
       const t = it.t;
@@ -4725,10 +4797,10 @@ async function buildExport(x) {
       if (x.inc.content) h += contentBlocks(t, tab);
       if (x.inc.notes) { const ns = Object.entries(notesOf(t.id)).filter(e => e[1] && e[1].trim() && (!tab || e[0] === tab)); if (ns.length) h += '<span class="lbl">ما كتبته بيدي</span>' + ns.map(n => '<div class="muted">' + NB_SEG_NAME[n[0]] + '</div><div class="lined">' + esc(n[1]) + '</div>').join(''); }
       if (x.inc.probs && (!tab || tab === 'problems')) { const ps = t.problems.filter(p => solveOf(p.id)); if (ps.length) h += '<span class="lbl">حلولي</span>' + ps.map(p => { const v = solveOf(p.id), lbl = { ok: 'حلّي صحيح', bad: 'فيه خطأ', none: 'لم أصل للحل' }[v.self] || 'لم أقارن بعد';
-        return '<div class="blk"><b class="t">المسألة:</b> ' + xe(p.text) + '<div class="muted">' + (p.src === 'book' ? 'من الكتاب ' + esc(p.ref || '') : 'تدريب إضافي') + (v.used ? ' · وقتي ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + ' · ' + lbl + (v.page ? ' · صفحة ' + ar(v.page) + ' في دفتري الورقي' : '') + '</div>' +
+        return '<div class="blk"><b class="t">المسألة:</b> ' + xe(p.text) + '<div class="muted">' + (p.src === 'book' ? 'من الكتاب ' + esc(p.ref || '') : 'تدريب إضافي') + (v.used ? ' | وقتي ' + mmss(v.used) + ' من ' + mmss(suggestSec(p.steps)) : '') + ' | ' + lbl + (v.page ? ' | صفحة ' + ar(v.page) + ' في دفتري الورقي' : '') + '</div>' +
           (v.work ? '<div class="lined">' + esc(v.work) + '</div>' : '') + (photos[p.id] ? '<img src="' + photos[p.id] + '" alt="حلّي الورقي">' : '') +
           (x.inc.answers ? (v.revealed ? '<div class="ans' + (v.self && v.self !== 'ok' ? ' bad' : '') + '"><b>الحل النموذجي:</b> ' + xe(p.ans) + '<ol>' + p.steps.map(s => '<li>' + xe(s) + '</li>').join('') + '</ol></div>' : '<div class="muted">لم يُكشف الجواب بعد.</div>') : '') + '</div>'; }).join(''); }
-      if (x.inc.wrong && (!tab || tab === 'quiz')) { const ws = Object.entries(wrongOf(t.id)).filter(e => t.quiz[e[0]]); if (ws.length) h += '<span class="lbl">أخطائي</span>' + ws.map(e => { const q = t.quiz[e[0]]; return '<div class="ans bad"><b>' + xe(q.q) + '</b><br>الصحيح: ' + xe(q.o[q.c]) + '<div class="muted">' + xe(q.why) + ' · أخطأت فيه ' + ar(e[1].n) + ' مرة</div></div>'; }).join(''); }
+      if (x.inc.wrong && (!tab || tab === 'quiz')) { const ws = Object.entries(wrongOf(t.id)).filter(e => t.quiz[e[0]]); if (ws.length) h += '<span class="lbl">أخطائي</span>' + ws.map(e => { const q = t.quiz[e[0]]; return '<div class="ans bad"><b>' + xe(q.q) + '</b><br>الصحيح: ' + xe(q.o[q.c]) + '<div class="muted">' + xe(q.why) + ' | أخطأت فيه ' + ar(e[1].n) + ' مرة</div></div>'; }).join(''); }
       h += '</section>';
     });
     if (!list.length) h += '<p>لا دروس في هذا النطاق.</p>';
@@ -4757,9 +4829,9 @@ function exportLogDoc(kind) {
   else { rows = (st.log || []).slice().reverse(); meta = ar(rows.length) + ' حركة مسجلة'; }
   let h = '<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>' + esc(title) + '</title>' +
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap"><style>' + EXP_CSS + '</style></head><body><div class="wrap">' +
-    '<section class="cover"><div class="meta">' + esc(st.name) + ' · ' + esc(GRADES[st.grade - 1].name) + ' · ' + esc(fmtD(now)) + '</div><h1>' + esc(title) + '</h1><div style="font-size:18px">' + meta + '</div></section>';
+    '<section class="cover"><div class="meta">' + esc(st.name) + ' | ' + esc(GRADES[st.grade - 1].name) + ' | ' + esc(fmtD(now)) + '</div><h1>' + esc(title) + '</h1><div style="font-size:18px">' + meta + '</div></section>';
   if (kind === 'tests') {
-    rows.slice(0, 500).forEach(e => h += '<div class="blk"><b class="t">' + esc(examLabel(e.src)) + '</b> <span class="muted">' + fmtD(new Date(e.at)) + '</span><br>النتيجة: <b>' + ar(e.pct) + '٪</b> · ' + ar(e.n) + ' أسئلة</div>');
+    rows.slice(0, 500).forEach(e => h += '<div class="blk"><b class="t">' + esc(examLabel(e.src)) + '</b> <span class="muted">' + fmtD(new Date(e.at)) + '</span><br>النتيجة: <b>' + ar(e.pct) + '٪</b> | ' + ar(e.n) + ' أسئلة</div>');
     if (!rows.length) h += '<p>لا نتائج اختبارات بعد.</p>';
   } else {
     const byDay = {};
@@ -4768,7 +4840,7 @@ function exportLogDoc(kind) {
     if (!keys.length) h += '<p>لا نشاط مسجل بعد.</p>';
     keys.slice(0, 120).forEach(d => {
       h += '<h2>' + fmtD(parseD(d)) + (kind === 'review' ? ' <span class="muted">' + ar(byDay[d].length) + ' مراجعة</span>' : '') + '</h2>';
-      h += byDay[d].map(x => '<div class="blk"><b class="t">' + esc(x.subject || 'عام') + '</b> · ' + esc(types[x.type] || x.type) + (x.sec ? ' · ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</div>').join('');
+      h += byDay[d].map(x => '<div class="blk"><b class="t">' + esc(x.subject || 'عام') + '</b> | ' + esc(types[x.type] || x.type) + (x.sec ? ' | ' + ar(Math.round(x.sec / 60)) + ' دقيقة' : '') + '</div>').join('');
     });
   }
   h += '<p class="foot">صُدِّر من التطبيق في ' + esc(fmtD(now)) + '</p></div></body></html>';
@@ -4780,12 +4852,12 @@ function exportLogDoc(kind) {
    الرسم التفاعلي (النقطة ٨)
    ──────────────────────────────────────────────────────────────────────
    الرسم ليس صورةً تُنظر إليها ويُمرَّ عليها. هنا:
-     · تكبير وتصغير (أزرار + عجلة الفأرة) وسحب للتحريك داخل الإطار.
-     · نقاط مرقّمة فوق أجزاء الرسم — اضغط أيًّا منها فيشرح نفسه.
-     · «ماذا يعلّمك هذا الرسم؟» — غاية الرسم التعليمية صراحةً.
-     · «كيف ترسمه بنفسك؟» — يبنيه أمامك خطوةً خطوة، فيتعلّم
+     | تكبير وتصغير (أزرار + عجلة الفأرة) وسحب للتحريك داخل الإطار.
+     | نقاط مرقّمة فوق أجزاء الرسم — اضغط أيًّا منها فيشرح نفسه.
+     | «ماذا يعلّمك هذا الرسم؟» — غاية الرسم التعليمية صراحةً.
+     | «كيف ترسمه بنفسك؟» — يبنيه أمامك خطوةً خطوة، فيتعلّم
        الطالب بناء الرسم لا حفظ شكله.
-     · ملء الشاشة للكبير منه والتقريب الدقيق.
+     | ملء الشاشة للكبير منه والتقريب الدقيق.
    ══════════════════════════════════════════════════════════════════════ */
 function figVBox(svg) { const m = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg || ''); return m ? { w: +m[1], h: +m[2] } : { w: 320, h: 200 }; }
 function figSt(k) { const S2 = S; if (!S2.figs[k]) S2.figs[k] = { z: 1, x: 0, y: 0, step: 0, part: -1 }; return S2.figs[k]; }
@@ -4902,6 +4974,48 @@ function vFig() {
     '</main>';
 }
 
+
+/* أرقام النقاط التفاعلية كانت تُوضع فوق مركز التسمية فتغطي النص.
+   بعد الرسم نقيس صناديق نصوص SVG فعليًا، ونزيح كل رقم يتقاطع مع نص
+   أو مع رقم آخر إلى أقرب موضع حرّ حوله (يفضّل الأعلى) داخل حدود الرسم. */
+function figPlaceHots(layer) {
+  const svg = layer.querySelector('svg'); const hots = [...layer.querySelectorAll('.fhot')];
+  if (!svg || !hots.length) return true;
+  const R = svg.getBoundingClientRect(); if (!R.width || !R.height) return false;
+  const z = parseFloat(getComputedStyle(layer).getPropertyValue('--fz')) || 1;
+  const sx = R.width / z, sy = R.height / z;          /* الأبعاد قبل التكبير */
+  const obst = [];
+  svg.querySelectorAll('text').forEach(t => {
+    if (!t.textContent.trim()) return;
+    const b = t.getBoundingClientRect(); if (!b.width) return;
+    obst.push({ l: (b.left - R.left) / z - 2, t: (b.top - R.top) / z - 2, r: (b.right - R.left) / z + 2, b: (b.bottom - R.top) / z + 2 });
+  });
+  const rad = 15, placed = [];
+  const hit = (x, y) => obst.some(o => x + rad > o.l && x - rad < o.r && y + rad > o.t && y - rad < o.b) ||
+    placed.some(p => Math.hypot(p.x - x, p.y - y) < rad * 2 + 2);
+  const inside = (x, y) => x >= rad && x <= sx - rad && y >= rad && y <= sy - rad;
+  hots.forEach(h => {
+    const ox = parseFloat(h.style.left) / 100 * sx, oy = parseFloat(h.style.top) / 100 * sy;
+    let best = { x: ox, y: oy };
+    if (hit(ox, oy) || !inside(ox, oy)) {
+      let found = null;
+      for (let d = 12; d <= 110 && !found; d += 6) {
+        for (let a = 0; a < 16 && !found; a++) {
+          const ang = -Math.PI / 2 + (a % 2 ? 1 : -1) * Math.ceil(a / 2) * Math.PI / 8;
+          const x = ox + d * Math.cos(ang), y = oy + d * Math.sin(ang);
+          if (inside(x, y) && !hit(x, y)) found = { x, y };
+        }
+      }
+      if (found) best = found;
+    }
+    placed.push(best);
+    h.style.left = (best.x / sx * 100).toFixed(2) + '%'; h.style.top = (best.y / sy * 100).toFixed(2) + '%';
+  });
+  return true;
+}
+function figPlaceAll() {
+  document.querySelectorAll('.fig-layer').forEach(l => { if (!l.dataset.placed) { try { if (figPlaceHots(l)) l.dataset.placed = '1'; } catch (e) { } } });
+}
 /* التثبيت بعد كل رسم: العجلة للتكبير، والسحب للتحريك (لا يُعاد إلا على الجديد) */
 function mountFigs() {
   document.querySelectorAll('.fig-vp').forEach(el => {
@@ -4917,6 +5031,8 @@ function mountFigs() {
     const end = () => { drag = null; };
     el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); el.addEventListener('pointerleave', end);
   });
+  figPlaceAll();
+  if (document.fonts && document.fonts.ready && !mountFigs._f) { mountFigs._f = 1; document.fonts.ready.then(() => { document.querySelectorAll('.fig-layer').forEach(l => delete l.dataset.placed); figPlaceAll(); }); }
 }
 
 /* الرسوم التفاعلية كلّها تُحمَّل من content/figs.js (النقطة ٨):
@@ -5433,7 +5549,7 @@ function vProblem() {
     '<div id="ansResult"></div>' +
     '<div class="ai-zone" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">' +
       (aiReady()
-        ? '<label class="chip" style="cursor:pointer;align-self:flex-start">صحّح حلي بالصورة <span class="small" style="color:var(--acc)">· يحتاج إنترنت</span><input type="file" accept="image/*" capture="environment" data-ai-in="' + f.id + '" hidden></label>'
+        ? '<label class="chip" style="cursor:pointer;align-self:flex-start">صحّح حلي بالصورة <span class="small" style="color:var(--acc)">| يحتاج إنترنت</span><input type="file" accept="image/*" capture="environment" data-ai-in="' + f.id + '" hidden></label>'
         : '<button class="chip" style="align-self:flex-start" data-act="go" data-v="settings" data-t="ai">صحّح حلي بالصورة — فعّل الذكاء الاصطناعي</button>') +
       '<div id="aiResult"></div>' +
     '</div>' +
@@ -5462,9 +5578,9 @@ function vProblem() {
   const title = isProb ? 'مسألة ' + ar(idx + 1) + ' من ' + ar(f.t.problems.length)
     : 'مثال محلول ' + ar(idx + 1) + ' من ' + ar((f.t.examples || []).length);
   return topBar(title, { back: true, noTools: true }) + '<main class="page">' +
-    '<p class="muted">' + esc(f.subject) + ' · ' + esc(arSec(f.t.sec) + ' ' + f.t.title) + '</p>' +
-    (isProb ? '<span class="src ' + (f.p.src === 'book' ? 'bk' : '') + '">' + (f.p.src === 'book' ? 'من مسائل الكتاب · ' + esc(f.p.ref) + ' · الحل مقترح لأن الكتاب لا يعطي أجوبة مسائل الفصل' : 'تدريب إضافي على قوانين الموضوع') + '</span>'
-      : '<span class="src bk">مثال محلول من الكتاب · ' + esc(f.e.title) + ' · ص' + ar(f.e.page) + '</span>') +
+    '<p class="muted">' + esc(f.subject) + ' | ' + esc(arSec(f.t.sec) + ' ' + f.t.title) + '</p>' +
+    (isProb ? '<span class="src ' + (f.p.src === 'book' ? 'bk' : '') + '">' + (f.p.src === 'book' ? 'من مسائل الكتاب | ' + esc(f.p.ref) + ' | الحل مقترح لأن الكتاب لا يعطي أجوبة مسائل الفصل' : 'تدريب إضافي على قوانين الموضوع') + '</span>'
+      : '<span class="src bk">مثال محلول من الكتاب | ' + esc(f.e.title) + ' | ص' + ar(f.e.page) + '</span>') +
     '<section class="prob"><p class="prob-text">' + fm(f.text) + '</p>' + body + '</section></main>';
 }
 
@@ -5617,7 +5733,7 @@ function motionScenes(t) {
   if (t.defs && t.defs.length) sc.push({ cap: 'التعريفات', html: defsHTML(t), dur: 10000, anim: 'moIn' });
   if (t.examples && t.examples.length) {
     const e = t.examples[0];
-    sc.push({ cap: 'مثال الكتاب', html: '<section class="example"><div class="ex-h"><b>' + esc(e.title) + '</b><span class="small muted">ص' + ar(e.page) + '</span></div><p>' + fm(e.text || '') + '</p><ol class="steps">' + (e.steps || []).map(s => '<li>' + fm(s) + '</li>').join('') + '</ol>' + (e.ans ? '<p class="ex-ans"><b>الجواب:</b> ' + fm(e.ans) + '</p>' : '') + '</section>', dur: 12000, anim: 'moIn' });
+    sc.push({ cap: 'مثال الكتاب', html: '<section class="example"><div class="ex-h"><b>' + esc(e.title || 'مثال') + '</b>' + (e.page ? '<span class="small muted">ص' + ar(e.page) + '</span>' : '') + '</div><p>' + fm(e.text || '') + '</p><ol class="steps">' + (e.steps || []).map(s => '<li>' + fm(s) + '</li>').join('') + '</ol>' + (e.ans ? '<p class="ex-ans"><b>الجواب:</b> ' + fm(e.ans) + '</p>' : '') + '</section>', dur: 12000, anim: 'moIn' });
   }
   const keys = E.filter(b => b.t === 'key').map(b => b.x);
   sc.push({ cap: 'خلاصة', html: (keys.length ? keys.map(k => '<div class="keybox">' + fm(k) + '</div>').join('') : '<p>شاهد المشاهد، ثم افتح «أمثلة الكتاب» و«المسائل» لتثبيت الفهم بالتطبيق.</p>'), dur: 6500, anim: 'moIn' });
@@ -5698,7 +5814,7 @@ function evalSubjects() {
     /* المتوقع = متوسط الأدلة المتاحة × (٠٫٦ + ٠٫٤ × التغطية): درستَ كثيرًا ونجوتَ → أقرب للحقيقة */
     const evid = [quizAvg, testAvg, mAvg].filter(x => x != null);
     const ev = evid.length ? evid.reduce((a, b) => a + b, 0) / evid.length : null;
-    const pred = ev != null ? Math.round(ev * (0.6 + 0.4 * cov)) : Math.round(40 + 45 * cov);
+    const pred = ev != null ? Math.round(ev * (0.6 + 0.4 * cov)) : Math.round(85 * cov); /* بلا أي دليل: التوقع من التغطية وحدها (يبدأ من صفر لا من ٤٠ وهمية) */
     rows.sort((a, b) => a.score - b.score);
     return { subject: y.subject, tot, done, cov, quizAvg, testAvg, mAvg, pred, weak: rows.filter(r => r.score < 90).slice(0, 3) };
   }).filter(s => s.tot);
@@ -5717,7 +5833,9 @@ function evalStats() {
   const examsPassed = exams.filter(x => (x.pct || 0) >= 60).length;
   const left = total - done;
   const daysLeft = ti.daysLeft || Math.max(1, (ti.weeksLeft || 4) * 6);
-  const perDay = left ? Math.max(1, Math.ceil(left / daysLeft)) : 0;
+  /* أيام المنهج = أيام الدراسة ناقص أسابيع المراجعة الشاملة الأخيرة */
+  const wgx = weeklyGoals(st), contentDays = Math.max(1, Math.round(daysLeft * wgx.contentWeeks / Math.max(1, wgx.weeksLeft)));
+  const perDay = left ? Math.max(1, Math.ceil(left / contentDays)) : 0;
   const gapAdd = gap > 0 ? Math.min(30, gap * 2) : 0;
   const paceAdd = perDay > 3 ? 15 : 0;
   const minutes = Math.min(300, (st.minutes || 120) + gapAdd + paceAdd);
@@ -5732,7 +5850,7 @@ function evalStats() {
   if (noMin.length) tips.push('لم تحصل على نتيجة وزارية في ' + noMin.slice(0, 3).join('، ') + ' — حلّ تهيئة وزارية قصيرة فيها فتظهر صورة أصدق لمعدلك.');
   if (streakDays() < 3) tips.push('سلسلتك الحالية ' + ar(streakDays()) + ' أيام فقط — المواظبة ٢٠ دقيقة يوميًا أنفع من ٣ ساعات مرة واحدة.');
   if (ti.daysLeft && ti.daysLeft <= 28 && left > perDay * ti.daysLeft) tips.push('بقي ' + ar(ti.daysLeft) + ' يومًا و' + ar(left) + ' موضوعًا — يجب أن تنهي ' + ar(perDay) + ' مواضيع يوميًا، فابدأ بأضعف المواد.');
-  return { st, ti, subs, total, done, left, predicted, goal, gap, daysUsed, studySec, probs, examsPassed, perDay, daysLeft, minutes, gapAdd, paceAdd, tips, byPred };
+  return { st, ti, subs, total, done, left, contentDays, predicted, goal, gap, daysUsed, studySec, probs, examsPassed, perDay, daysLeft, minutes, gapAdd, paceAdd, tips, byPred };
 }
 function vEval() {
   const D = evalStats();
@@ -5747,7 +5865,7 @@ function vEval() {
     '<b>معدّلك المتوقّع الآن</b>' +
     '<span class="small muted">' + (D.gap >= 0 ? 'يفصلك ' + ar(D.gap) + ' نقاط عن هدفك ' + ar(D.goal) + '٪' : 'تتجاوز هدفك بـ' + ar(-D.gap) + '٪ — أحسنت') + '</span></section>';
 
-  h += '<section class="card"><div class="pick" style="grid-template-columns:repeat(3,1fr)">' +
+  h += '<section class="card"><div class="ev-tiles">' +
     '<div class="tile"><b class="num">' + ar(D.goal) + '٪</b><span>المعدّل الذي تريده</span></div>' +
     '<div class="tile"><b class="num">' + ar(D.daysLeft) + '</b><span>يوم دراسة متبقٍ</span></div>' +
     '<div class="tile"><b class="num">' + ar(D.left) + '</b><span>موضوعًا لم تنتهِ</span></div>' +
@@ -5765,22 +5883,22 @@ function vEval() {
     '<div class="ev-row"><span class="small muted" style="width:100%">دقيقة دراسة يومية: <b id="evMinV" class="num">' + ar(D.st.minutes || 120) + ' د</b></span>' +
     '<input type="range" id="evMin" min="30" max="300" step="15" value="' + (D.st.minutes || 120) + '" style="width:100%;accent-color:var(--acc)"></div>' +
     '<div class="srows" style="margin-top:10px">' +
-      pctBar('مواضيع تُنهيها يوميًا · ' + ar(D.perDay) + ' موضوعًا', Math.min(100, D.perDay / 6 * 100), 'acc') +
-      pctBar('وقتك الموصى به اليوم · ' + ar(D.minutes) + ' دقيقة', Math.min(100, D.minutes / 300 * 100), 'gold') +
-      pctBar('تغطيتك للمنهج · ' + ar(D.done) + ' من ' + ar(D.total), D.total ? D.done / D.total * 100 : 0, 'good') +
+      pctBar('مواضيع تُنهيها يوميًا | ' + ar(D.perDay) + ' موضوعًا', Math.min(100, D.perDay / 6 * 100), 'acc') +
+      pctBar('وقتك الموصى به اليوم | ' + ar(D.minutes) + ' دقيقة', Math.min(100, D.minutes / 300 * 100), 'gold') +
+      pctBar('تغطيتك للمنهج | ' + ar(D.done) + ' من ' + ar(D.total), D.total ? D.done / D.total * 100 : 0, 'good') +
     '</div>' +
-    '<p class="small muted">الحساب: ' + ar(D.left) + ' موضوعًا متبقية ÷ ' + ar(D.daysLeft) + ' يوم دراسة = ' + ar(D.perDay) + ' مواضيع يوميًا' +
-    (D.gapAdd ? ' · وإضافة ' + ar(D.gapAdd) + ' دقيقة لسدّ فجوة هدفك' : '') + (D.paceAdd ? ' · و' + ar(D.paceAdd) + ' دقيقة لأن الوتيرة مرتفعة' : '') + '.</p></section>';
+    '<p class="small muted">الحساب: ' + ar(D.left) + ' موضوعًا متبقية ÷ ' + ar(D.contentDays) + ' يوم دراسة للمنهج (قبل أسابيع المراجعة) = ' + ar(D.perDay) + ' مواضيع يوميًا' +
+    (D.gapAdd ? ' | وإضافة ' + ar(D.gapAdd) + ' دقيقة لسدّ فجوة هدفك' : '') + (D.paceAdd ? ' | و' + ar(D.paceAdd) + ' دقيقة لأن الوتيرة مرتفعة' : '') + '.</p></section>';
 
   h += '<section class="card"><h3>توقّع كل مادة</h3><div class="srows">' +
-    D.subs.map(s => '<div class="srow"><span class="slab">' + esc(s.subject) + '<br><span class="small muted num">تغطية ' + ar(Math.round(s.cov * 100)) + '٪' + (s.mAvg != null ? ' · وزاري ' + ar(s.mAvg) + '٪' : ' · بلا نتيجة وزارية') + '</span></span>' +
+    D.subs.map(s => '<div class="srow"><span class="slab">' + esc(s.subject) + '<br><span class="small muted num">تغطية ' + ar(Math.round(s.cov * 100)) + '٪' + (s.mAvg != null ? ' | وزاري ' + ar(s.mAvg) + '٪' : ' | بلا نتيجة وزارية') + '</span></span>' +
       '<span class="strack"><i class="' + (s.pred >= D.goal ? 'good' : s.pred >= D.goal - 10 ? 'gold' : 'bad') + '" style="width:' + Math.max(3, s.pred) + '%"></i></span>' +
       '<b class="sval num">' + ar(s.pred) + '٪</b></div>').join('') + '</div></section>';
 
   h += '<section class="card"><h3>نصائح محسوبة من أرقامك</h3><ol class="lst">' + D.tips.map(x => '<li>' + x + '</li>').join('') + '</ol></section>';
 
   if (focus.length) h += '<section class="card"><h3>مواضيع يجب أن تركّز عليها</h3><p class="small muted">الأضعف في أضعف موادك — افتحها مباشرة:</p><div class="plist">' +
-    focus.map((f, i) => '<button class="pitem" data-act="topic" data-id="' + f.t.id + '"><span class="st">' + ar(i + 1) + '</span><span style="flex:1;min-width:0"><b>' + ft(f.t.title) + '</b><br><span class="small muted">' + esc(f.subject) + ' · ' + esc(f.ch.title) + '</span></span><span class="small" style="color:var(--acc)">' + ar(f.score) + '٪</span></button>').join('') + '</div></section>';
+    focus.map((f, i) => '<button class="pitem" data-act="topic" data-id="' + f.t.id + '"><span class="st">' + ar(i + 1) + '</span><span style="flex:1;min-width:0"><b>' + ft(f.t.title) + '</b><br><span class="small muted">' + esc(f.subject) + ' | ' + esc(f.ch.title) + '</span></span><span class="small" style="color:var(--acc)">' + ar(f.score) + '٪</span></button>').join('') + '</div></section>';
 
   h += '<p class="note">كل الأرقام هنا محسوبة من سجلك أنت: دروسك المُنجَزة، اختباراتك، نتائجك الوزارية، ومسائلك المحلولة — تتحدّث تلقائيًا كلما أنجزت شيئًا.</p>';
   return '<div class="page">' + h + '</div>';
@@ -5796,11 +5914,52 @@ function render(scrollTop) {
   app.innerHTML = (VIEWS[S.view] || vToday)() + tabBar() + (S.popup ? vPopup() : '') + (S.dialog ? vDialog() : '');
   if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
   mountSims(); mountPhotos(); mountFigs();
+  try { bidiFix(app); } catch (e) { }
   bindHintHover(app);
   if (scrollTop) window.scrollTo(0, 0);
   if (S.view === 'search') { const q = document.getElementById('q'); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
 }
 
+
+/* ===== إصلاح اتجاه الأرقام داخل النص العربي (يُطبَّق بعد كل رسم) =====
+   النطاقات «60–82» والإحالات «(ق: 4)» و«(1)–(10)» و«(ص9)» تنقلب في السطر العربي.
+   نعزلها في <bdi> مرة واحدة على عُقد النص، ونتجاوز ما هو معزول أصلًا (معادلات، LTR، رسوم). */
+const BIDI_RE = /\(\s*\d+\s*\)\s*[–\-]\s*\(\s*\d+\s*\)|\d+(?:\.\d+)?(?:\s*[–\-]\s*\d+(?:\.\d+)?)+|\([^()\n]{0,60}?[\dA-Za-z][^()\n]{0,60}?\)|\[[^\[\]\n]{0,60}?[A-Za-z][^\[\]\n]{0,60}?\]/g;
+function bidiFix(root) {
+  if (!root || !document.createTreeWalker) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(n) {
+      const v = n.nodeValue;
+      if (!v || !/[\dA-Za-z]/.test(v) || !/[؀-ۿ]/.test((n.parentNode && n.parentNode.textContent) || '')) return NodeFilter.FILTER_REJECT;
+      for (let e = n.parentNode; e && e !== root; e = e.parentNode) {
+        if (e.nodeType !== 1) continue;
+        const tg = e.tagName;
+        if (tg === 'BDI' || tg === 'SCRIPT' || tg === 'STYLE' || tg === 'TEXTAREA' || tg === 'CODE' || tg === 'svg' || tg === 'SVG' || e.namespaceURI === 'http://www.w3.org/2000/svg') return NodeFilter.FILTER_REJECT;
+        if (e.classList && (e.classList.contains('math') || e.classList.contains('eq') || e.classList.contains('ltr'))) return NodeFilter.FILTER_REJECT;
+        const d = e.getAttribute && e.getAttribute('dir');
+        if (d === 'ltr') return NodeFilter.FILTER_REJECT;
+        if (d === 'rtl') break;
+      }
+      BIDI_RE.lastIndex = 0;
+      return BIDI_RE.test(v) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const list = [];
+  while (w.nextNode()) list.push(w.currentNode);
+  list.forEach(n => {
+    const v = n.nodeValue, frag = document.createDocumentFragment();
+    let last = 0; BIDI_RE.lastIndex = 0; let m;
+    while ((m = BIDI_RE.exec(v))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(v.slice(last, m.index)));
+      const b = document.createElement('bdi');
+      /* النطاق الرقمي الخالص يُقرأ من اليسار؛ الإحالة ذات الحروف العربية تأخذ اتجاهها التلقائي */
+      if (!/[؀-ۿ]/.test(m[0])) b.setAttribute('dir', 'ltr');
+      b.textContent = m[0]; frag.appendChild(b); last = m.index + m[0].length;
+    }
+    if (last < v.length) frag.appendChild(document.createTextNode(v.slice(last)));
+    n.parentNode.replaceChild(frag, n);
+  });
+}
 /* =================== الأحداث =================== */
 document.addEventListener('click', e => {
   const stop = e.target.closest('[data-stop]');
@@ -6133,6 +6292,11 @@ document.addEventListener('click', e => {
       z.times[z.i] = Math.round((Date.now() - z.qAt) / 1000);
       render();
       break;
+    }
+    case 'examSelf': {
+      const z = S.exam; if (!z || z.phase !== 'run') break;
+      z.picks[z.i] = el.dataset.v === 'ok' ? -2 : el.dataset.v === 'half' ? -3 : -4;
+      z.i++; z.qAt = Date.now(); if (z.i >= z.items.length) examFinish(); render(true); break;
     }
     case 'examNext': { const z = S.exam; if (!z) break; z.i++; z.qAt = Date.now(); if (z.i >= z.items.length) examFinish(); render(true); break; }
     case 'examPledge': {

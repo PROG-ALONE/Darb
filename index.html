@@ -867,6 +867,180 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 .ev-arc .ev-num{position:absolute;inset-inline:0;bottom:0;text-align:center;font-family:var(--display);font-weight:800;font-size:2.3em;line-height:1}
 .ev-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ev-row .bar{flex:1;min-width:90px}
+
+/* ═══════════ الواجهة الجديدة — النمط «الهادئ» (افتراضي) ═══════════
+   خلفية محايدة، بطاقات بيضاء بظل خفيف بدل الحدود الثقيلة، لون مميز واحد،
+   قوائم بصفوف موحّدة، وشريط سفلي بأربعة تبويبات. */
+:root{
+  --bg:#F5F6F8; --card:#FFFFFF; --ink:#171A21; --muted:#5E6573; --line:#E4E6EB; --soft:#F0F1F4;
+  --acc:#4552D8; --acc-ink:#FFFFFF; --acc-soft:#ECEEFC;
+  --ok:#1F8A5B; --ok-soft:#E6F4EC; --bad:#C8402E; --bad-soft:#FCEDEA;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
+  --shadow-lg:0 8px 24px rgba(16,24,40,.08);
+  --r:18px;
+}
+:root[data-skin="vivid"]{
+  --bg:#F3F1FF; --card:#FFFFFF; --ink:#1B1640; --muted:#5B5680; --line:#E3DFFA; --soft:#EEEAFE;
+  --acc:#6D3FF0; --acc-ink:#FFFFFF; --acc-soft:#EDE6FF; --ok:#13A26E; --ok-soft:#E2F7EE;
+  --shadow:0 2px 6px rgba(80,50,200,.08); --shadow-lg:0 10px 30px rgba(80,50,200,.14); --r:22px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --shadow:none; --shadow-lg:0 8px 24px rgba(0,0,0,.35); } }
+:root[data-theme="dark"],:root[data-skin="night"]{ --shadow:none; --shadow-lg:0 8px 24px rgba(0,0,0,.35); }
+
+body{line-height:1.75}
+.page{gap:18px;padding-block:6px 128px;max-width:760px}
+.card{border:0;box-shadow:var(--shadow);border-radius:var(--r)}
+
+/* الرأس */
+.top{padding:14px max(16px,calc((100% - 728px) / 2)) 10px;gap:12px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.top h1{font-size:1.45em;font-weight:800}
+.top-sub{font-size:.8em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{border:0;background:var(--card);box-shadow:var(--shadow);border-radius:14px;width:44px;height:44px}
+
+/* الشريط السفلي */
+.tabs{left:50%;right:auto;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(520px,calc(100% - 24px));border:0;border-radius:22px;box-shadow:var(--shadow-lg);padding:6px;background:var(--card)}
+.tab{min-height:56px;border-radius:16px;font-size:.78em;max-width:none;transition:background .15s,color .15s}
+.tab[aria-current="page"]{background:var(--acc-soft);color:var(--acc)}
+
+/* الأزرار */
+.btn{border-radius:14px;min-height:50px;font-weight:700}
+.btn.wide{width:100%}
+.btn.ghost{border-width:1.5px}
+.link{background:none;border:0;color:var(--acc);font-weight:700;cursor:pointer;padding:4px 2px;font-size:.88em}
+.chip{min-height:40px;border:0;background:var(--soft);font-weight:600}
+.chip.strong{background:var(--acc);color:var(--acc-ink)}
+
+/* الأقسام والقوائم */
+.sect{display:flex;flex-direction:column;gap:10px}
+.sect-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-inline:4px}
+.sect-h h2{font-size:1.02em;font-weight:800}
+.list{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.list .pad{padding:14px 16px}
+.row2{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;padding:10px 16px;border:0;background:transparent;text-align:right;cursor:pointer;font:inherit;color:inherit;transition:background .12s}
+.row2+.row2{border-top:1px solid var(--line)}
+.row2:hover{background:var(--soft)}
+.row2:active{background:var(--acc-soft)}
+.r-ic{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+.r-ic svg{width:20px;height:20px}
+.r-ic.done{--c:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.r-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:var(--c);margin-inline:6px 4px}
+.r-tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.5}
+.r-tx b{font-weight:700;font-size:.97em}
+.r-tx small{color:var(--muted);font-size:.8em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row2.is-done .r-tx b{color:var(--muted)}
+.r-end{flex-shrink:0;font-size:.82em;color:var(--muted);font-weight:600}
+.r-chev{flex-shrink:0;color:var(--muted);opacity:.55;display:flex}
+.r-chev svg{width:18px;height:18px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:.8em;font-weight:700}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+
+/* البطاقة الرئيسية والحلقة */
+.hero{display:flex;align-items:center;gap:18px;background:var(--card);border-radius:calc(var(--r) + 4px);box-shadow:var(--shadow);padding:18px 20px}
+.hero-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.hero-t h2{font-size:1.15em;font-weight:800}
+.hero.me .hero-t h2{font-size:1.3em}
+.eyebrow{font-size:.74em;font-weight:800;letter-spacing:.02em;color:var(--acc)}
+.ring{position:relative;flex-shrink:0}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9}
+.ring-bg{stroke:var(--soft)}
+.ring-fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.ring-v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05em}
+
+/* المسائل */
+.pcard{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px}
+.pc-top b{font-size:1.5em;font-weight:800;color:var(--acc)}
+.bar{height:8px;background:var(--soft)}
+.bar>span{background:var(--acc)}
+
+/* شريط الأسبوع */
+.wstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wday{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:14px;border:0;background:var(--card);box-shadow:var(--shadow);cursor:pointer;font:inherit;color:inherit}
+.wday .wd-n{font-size:.68em;color:var(--muted);font-weight:700}
+.wday b{font-size:1.05em;line-height:1.2}
+.wday .wd-c{font-size:.7em;color:var(--muted);font-weight:700}
+.wday.today{outline:2px solid var(--acc);outline-offset:-2px}
+.wday.sel{background:var(--acc);color:var(--acc-ink)}
+.wday.sel .wd-n,.wday.sel .wd-c{color:var(--acc-ink);opacity:.85}
+.wday.off{opacity:.45;cursor:default;box-shadow:none;background:transparent}
+
+/* تنبيه واقتباس */
+.alert{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:16px;background:var(--bad-soft);color:var(--bad);font-size:.9em;line-height:1.7}
+.alert svg{width:20px;height:20px;flex-shrink:0;margin-top:3px}
+.alert .link{color:var(--bad);text-decoration:underline}
+.quote{padding:16px 18px;border-radius:var(--r);background:var(--soft);display:flex;flex-direction:column;gap:4px}
+.quote .q{font-family:var(--display);font-weight:700;font-size:1.05em}
+
+/* دروسي: بطاقات المواد */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px}
+.scard{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:var(--r);border:0;background:var(--card);box-shadow:var(--shadow);text-align:right;cursor:pointer;font:inherit;color:inherit;transition:transform .12s,box-shadow .12s}
+.scard:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.scard b{font-size:1.02em}
+.scard small{color:var(--muted);font-size:.78em}
+.scard .bar{width:100%;margin-top:4px}
+.scard.off{opacity:.55;cursor:default}
+.sc-ic{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--c,var(--acc));background:color-mix(in srgb,var(--c,var(--acc)) 13%,transparent)}
+.sc-ic svg{width:22px;height:22px}
+
+/* الاختبارات */
+.segctl{display:flex;gap:4px;padding:4px;background:var(--soft);border-radius:16px;overflow-x:auto;scrollbar-width:none;position:sticky;top:76px;z-index:4}
+.segctl::-webkit-scrollbar{display:none}
+.segctl button{flex:1;min-width:max-content;min-height:42px;padding:0 14px;border:0;border-radius:12px;background:transparent;font:inherit;font-size:.88em;font-weight:700;color:var(--muted);cursor:pointer}
+.segctl button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+.fold2{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.fold2-h{display:flex;align-items:center;gap:10px;width:100%;min-height:58px;padding:10px 16px;border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;text-align:right}
+.fold2-h b{flex:1}
+.fold2.open .fold2-h .r-chev{transform:rotate(-90deg)}
+.fold2 .list{box-shadow:none;border-radius:0;border-top:1px solid var(--line)}
+.xcard{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.xc-h{display:flex;align-items:center;gap:8px}
+.xc-h b{flex:1}
+.xc-b{display:flex;flex-wrap:wrap;gap:8px}
+
+/* أنا */
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stats3>div{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 8px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.stats3 b{font-size:1.4em;font-weight:800}
+.stats3 b small{font-size:.55em;color:var(--muted)}
+.stats3 span{font-size:.78em;color:var(--muted)}
+
+/* الرسم الشارح */
+.xp-card{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--r);border:0;width:100%;text-align:right;cursor:pointer;font:inherit;color:var(--acc-ink);background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 70%,#000));box-shadow:var(--shadow-lg)}
+.xp-card .xp-ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.xp-card .xp-ic svg{width:22px;height:22px;fill:currentColor}
+.xp-card b{display:block;font-size:1.02em}
+.xp-card small{opacity:.85;font-size:.8em}
+.t-more{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow)}
+.t-more>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;color:var(--muted);font-size:.9em}
+.t-more>summary::-webkit-details-marker{display:none}
+.t-more .inner{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+@media (max-width:420px){ .hero{padding:14px} .tab{font-size:.72em} .segctl{top:70px} }
+
+/* الرسم الشارح */
+.xp-page{gap:12px}
+.xp-stage{background:var(--card);border-radius:calc(var(--r) + 4px);box-shadow:var(--shadow);padding:8px;overflow:hidden}
+.xp-stage svg{display:block;width:100%;height:auto;max-height:58vh;direction:ltr}
+.xp-say{display:flex;gap:10px;align-items:flex-start;background:var(--acc-soft);border-radius:var(--r);padding:12px 14px;min-height:72px}
+.xp-say p{font-size:1.02em;font-weight:600;line-height:1.75}
+.xp-n{flex-shrink:0;background:var(--acc);color:var(--acc-ink);border-radius:10px;padding:2px 9px;font-size:.8em;font-weight:800;margin-top:3px}
+.xp-read{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.xp-read:empty{display:none}
+.xp-read span{background:var(--card);box-shadow:var(--shadow);border-radius:12px;padding:6px 12px;font-weight:700;font-size:.92em}
+.xp-task{display:flex;gap:8px;align-items:flex-start;padding:10px 14px;border-radius:14px;background:var(--gold-soft);color:var(--gold);font-size:.9em}
+.xp-task svg{width:20px;height:20px;flex-shrink:0;margin-top:3px}
+.xp-ctl{display:flex;flex-direction:column;gap:10px;background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px}
+.xp-sl{display:flex;flex-direction:column;gap:4px;font-size:.9em}
+.xp-sl span{display:flex;justify-content:space-between}
+.xp-sl input{width:100%;accent-color:var(--acc);min-height:32px}
+.xp-picks{display:flex;flex-wrap:wrap;gap:8px}
+.xp-picks .chip{min-height:44px;min-width:44px;font-size:1.05em}
+.xp-dots{display:flex;justify-content:center;gap:6px}
+.xp-dots button{width:9px;height:9px;padding:0;border-radius:50%;border:0;background:var(--line);cursor:pointer}
+.xp-dots button.dn{background:color-mix(in srgb,var(--acc) 45%,transparent)}
+.xp-dots button.on{background:var(--acc);width:24px;border-radius:6px}
+.xp-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:8px}
 </style>
 </head>
 <body>
@@ -948,6 +1122,7 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
 <script src="content/guides-all-4.js"></script>
 <script src="content/guides-all-5.js"></script>
 <script src="content/guides-all-6.js"></script>
+<script src="content/explainers.js"></script>
 <script>
 'use strict';
 /* ===== behaves like an installed app: block zoom + horizontal drift =====
@@ -1160,6 +1335,7 @@ function applyPrefs() {
   if (p.theme === 'dark') r.setAttribute('data-theme', 'dark');
   if (p.theme === 'paper') { r.setAttribute('data-theme', 'light'); r.setAttribute('data-skin', 'paper'); }
   if (p.theme === 'night') { r.setAttribute('data-theme', 'dark'); r.setAttribute('data-skin', 'night'); }
+  if (p.theme === 'vivid') { r.setAttribute('data-theme', 'light'); r.setAttribute('data-skin', 'vivid'); }
   r.style.setProperty('--fs', FS[p.fs] + 'px');
 }
 
@@ -1209,7 +1385,7 @@ function bindHintHover(root) {
     });
   });
 }
-function tabTo(view) { S.popup = null; if (S.mo && S.mo.timer) { clearTimeout(S.mo.timer); S.mo = null; } mmStop(); S.mm = null; S.stack = []; S.view = view; S.viewGrade = null; S.viewSubject = null; render(true); }
+function tabTo(view) { S.tabCur = TAB_OF[view] || view; S.popup = null; if (S.mo && S.mo.timer) { clearTimeout(S.mo.timer); S.mo = null; } mmStop(); S.mm = null; S.stack = []; S.view = view; S.viewGrade = null; S.viewSubject = null; render(true); }
 window.addEventListener('popstate', () => { back(); });
 
 /* سحب من حافة الشاشة للرجوع */
@@ -1229,23 +1405,14 @@ function toast(msg) {
   el.textContent = msg; el.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 3200);
 }
-const TABS = [['today', 'الخطة', 'sun'], ['path', 'مساري', 'path'], ['review', 'المراجعة', 'review'], ['tests', 'الاختبارات', 'tests'], ['library', 'المكتبة', 'library'], ['groups', 'مجموعتي', 'group']];
-const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', review: 'review', tests: 'tests', library: 'library', groups: 'groups', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', export: 'path', exam: 'tests', bank: 'library', minrec: 'tests', minprep: 'tests', subexams: 'tests', minsim: 'tests', fig: 'path' };
+const TABS = [['today', 'اليوم', 'sun'], ['path', 'دروسي', 'book'], ['tests', 'الاختبارات', 'tests'], ['me', 'أنا', 'user']];
+const TAB_OF = { today: 'today', path: 'path', grade: 'path', intro: 'path', subject: 'path', chapter: 'path', topic: 'path', problem: 'path', notebook: 'path', quiz: 'path', fig: 'path', figlib: 'path', xplain: 'path', tests: 'tests', exam: 'tests', bank: 'tests', subexams: 'tests', minprep: 'tests', minsim: 'tests', me: 'me', review: 'me', log: 'me', settings: 'me', library: 'me', export: 'me', eval: 'me', minrec: 'me', groups: 'me' };
 
-function topBar(title, opts) {
-  opts = opts || {};
-  return '<header class="top">' +
-    (opts.avatar ? avatarHTML(opts.avatar, 40) : '') +
-    (opts.back ? '<button class="icon-btn" data-act="back" aria-label="رجوع">' + ico('back', 2) + '</button>' : '') +
-    '<h1>' + esc(title) + '</h1>' +
-      (opts.noTools ? '' : (opts.log ? '<button class="icon-btn" data-act="openLog" data-v="' + opts.log + '" aria-label="السجل والتفاصيل">' + ico('review', 2) + '</button>' : '') + '<button class="icon-btn" data-act="go" data-v="search" aria-label="البحث">' + ico('search', 2) + '</button>' +
-      '<button class="icon-btn" data-act="go" data-v="settings" aria-label="الإعدادات">' + ico('gear') + '</button>') +
-    '</header>';
-}
 function tabBar() {
   if (S.exam && S.exam.kind === 'ministerial' && (S.exam.phase === 'run' || S.exam.phase === 'pledge')) return '';
-  const cur = TAB_OF[S.view];
-  if (!cur) return '';
+  /* الصفحة الفرعية تبقى تحت تبويبها الذي فُتحت منه (لا يقفز التمييز إلى تبويب آخر) */
+  if (!TAB_OF[S.view]) return '';
+  const cur = (S.stack && S.stack.length && S.tabCur) ? S.tabCur : TAB_OF[S.view];
   return '<nav class="tabs" aria-label="التبويبات الرئيسية">' + TABS.map(t =>
     '<button class="tab" data-act="tab" data-v="' + t[0] + '"' + (cur === t[0] ? ' aria-current="page"' : '') + '>' + ico(t[2], cur === t[0] ? 2 : 1.6) + t[1] + '</button>').join('') + '</nav>';
 }
@@ -1266,38 +1433,6 @@ function dailyPlanBody() {
     planCard(st, ti, g, rest) +
     accSec('today-problems', 'وقت المسائل اليوم', used + ' من ' + goal + ' دقيقة', problemCard(st), false) +
     (rest ? '<p class="note">اليوم يوم راحة في خطتك. استرح، وعد غدًا بنشاط — ومع ذلك يمكنك المراجعة الخفيفة.</p>' : '');
-}
-function vToday() {
-  const st = me(), t = today0(), ti = timeInfo(st), g = GRADES[st.grade - 1];
-  const dayIdx = Math.floor(t / 864e5);
-  const gl = GLIMPSES[((dayIdx % GLIMPSES.length) + GLIMPSES.length) % GLIMPSES.length];
-  const rest = st.rest.includes(t.getDay()) || inHoliday(t, st.holidays);
-  const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60, pct = Math.min(100, Math.round(used / goal * 100));
-  const wg = weeklyGoal();
-  const todayLog = (st.log || []).filter(x => x.d === isoD(t));
-  const todayProbs = todayLog.filter(x => x.type === 'problem').length;
-  const todayReviews = todayLog.filter(x => x.type === 'review').length;
-  const todayStudy = todayLog.filter(x => x.type === 'study').reduce((a, x) => a + x.sec, 0);
-
-  /* ── تبويب «الخطة»: خياران منسدلان فقط — اليومية والأسبوعية ──
-     أهداف اليوم وكل ما يخصّه اختزل داخل القائمة الأولى، فلا يبقى شيء مفتوحًا أمام الطالب */
-  const planNow = planToday();
-  const dailySummary = planNow.total
-    ? ar(planNow.picks.length) + ' مواضيع اليوم | ' + ar(planNow.reviews.length) + ' مراجعة | ' + ar(pct) + '٪ من هدفك'
-    : 'لا محتوى متبقٍ';
-  const wk = weeklyGoals(st), wkFill = weekFill(st);
-  const weekSummary = wk.left ? ar(wk.perWeek) + ' موضوعًا | ' + ar(wkFill.days.length) + ' أيام' : 'مكتمل';
-
-  return topBar('أهلاً، ' + st.name, { log: 'today', avatar: st.id }) + '<main class="page">' +
-    '<p class="muted num">' + DAYS[t.getDay()] + ' ' + fmtD(t) + '، الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) + '</p>' +
-    '<section class="glimpse" aria-label="ومضة اليوم"><span class="lbl">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p>' + gl[1] + '</p></section>' +
-    '<button class="btn" data-act="openPlanPopup" data-plan="daily"><b>الخطة اليومية</b><span class="small muted">' + dailySummary + '</span></button>' +
-    '<button class="btn" data-act="openPlanPopup" data-plan="week"><b>خطة الأسبوع</b><span class="small muted">' + weekSummary + '</span></button>' +
-    '<div class="grid2"><button class="btn" data-act="go" data-v="review" data-popup="1" data-popup-title="سجلّي والتقييم"><b>سجلّي والتقييم</b><span class="small muted">تقويم أيامك وإحصاء كل يوم على حدة</span></button>' +
-      '<button class="btn quiet" data-act="openExport" data-lvl="grade">صدّر ملخص اليوم</button></div>' +
-    '<button class="btn" data-act="evalMe"><b>🎯 قيّمني</b><span class="small muted">معدّلك المتوقّع، وهدفك، وخطة الأيام المتبقية ونصائحك ومواضيع تركيزك</span></button>' +
-    '<div class="grid2"><button class="btn quiet" data-act="expRevLog">صدّر سجل المراجعة</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div>' +
-    '</main>';
 }
 /* القسم التفاعلي بعد ومضة اليوم: ملخص اليوم + الأهداف في شاشة واحدة */
 function todaySummaryHTML(st, ti, used, goal, pct, wg, probs, reviews, studySec) {
@@ -1501,24 +1636,6 @@ function problemCard(st) {
     '<p class="small muted">' + lead + '</p><div class="plist">' +
     show.map(x => '<button class="pitem" data-act="prob" data-id="' + x.next + '"><span class="st">' + ico('pen', 2) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject) + '</b>' + (x.tPending ? '<span class="small" style="color:var(--acc);font-weight:700"> | ' + ar(x.tPending) + ' من دروس اليوم</span>' : '') + '<br><span class="small muted num">' + ar(x.pending) + ' مسائل متبقية من ' + ar(x.total) + '</span></span><span class="small" style="color:var(--acc);font-weight:600">ابدأ</span></button>').join('') + '</div></section>';
 }
-function vPath() {
-  const st = me(), g = GRADES[st.grade - 1];
-  const subs = subjectsOf(st.grade, st.branch);
-  const prev = GRADES.filter(x => x.id < st.grade).reverse();
-  return topBar('مساري', { log: 'path' }) + '<main class="page">' +
-    '<section class="grade-hero"><span class="small" style="opacity:.8">صفك هذه السنة</span><h2>' + esc(g.name) + (st.branch ? ' | ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') + '</h2>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><p style="opacity:.85">ماذا ستدرس هذه السنة، وكيف، وبماذا ستخرج منها.</p>' +
-      '<button class="btn" data-act="intro" data-g="' + st.grade + '" style="background:var(--star);color:#15202B">افتح مقدمة الصف</button></div></section>' +
-    '<section style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:1.15em">المواد</h2><div class="grid4">' +
-      subs.map(s => { const c = contentOf(st.grade, s); let pct = 0, line = 'لم يُضف المحتوى بعد';
-        if (c) { const all = allProblems(c), ok = all.filter(x => (solveOf(x.p.id) || {}).self === 'ok').length; pct = Math.round(ok / Math.max(1, all.length) * 100); line = (c.demo ? 'نموذج للتجربة | ' : '') + 'حللت ' + ar(ok) + ' من ' + ar(all.length) + ' مسائل'; }
-        return '<button class="subject" data-act="subject" data-g="' + st.grade + '" data-s="' + esc(s) + '"' + (c ? ' style="border-color:var(--acc)"' : '') + '><b>' + esc(s) + '</b><span class="small muted">' + line + '</span><span class="bar"><span style="width:' + pct + '%"></span></span></button>'; }).join('') +
-    '</div><p class="note">قائمة المواد أولية، وتُطابَق مع منهج وزارة التربية لهذه السنة عند بناء المحتوى. مقررات الحفظ تجدها داخل كل موضوع، واختباراتها في «الاختبارات».</p></section>' +
-    (prev.length ? '<section style="display:flex;flex-direction:column;gap:10px"><h2 style="font-size:1.15em">الصفوف السابقة <span class="small muted" style="font-weight:400">ارجع لأساس أي موضوع</span></h2><div class="chips">' +
-      prev.map(x => '<button class="chip" data-act="grade" data-g="' + x.id + '">' + esc(x.name) + '</button>').join('') + '</div></section>' : '') +
-    '</main>';
-}
-
 function vGrade() {
   const gid = S.viewGrade, g = GRADES[gid - 1], st = me();
   const branch = g.branch ? (st.branch || 'sci') : null;
@@ -1907,78 +2024,6 @@ function reviewLogHTML() {
     const body = '<div class="plist">' + list.map(x => '<div class="pitem" style="pointer-events:none"><span class="st">' + ico('review', 1.4) + '</span><span style="flex:1;min-width:0"><b>' + esc(x.subject || 'عام') + '</b><br><span class="small muted">' + (x.sec ? ar(Math.round(x.sec / 60)) + ' دقيقة' : 'مراجعة') + '</span></span></div>').join('') + '</div>';
     return accSec('revlog-d-' + d, fmtD(parseD(d)), ar(list.length) + ' مراجعة | ' + ar(probs) + ' موضوع', body, false);
   }).join('') + '</div>';
-}
-function vTests() {
-  const st = me(), pool = myStudyPool();
-  const exams = (st.exams || []).slice().reverse().slice(0, 12);
-  const mt = memoTopics();
-  /* ٧-د) «اختبارات الحفظ» قائمة جميلة بمسار واضح: مادة ← فصولها ← ما فيها من حفظ ← اختر.
-     زرّ رجوع دائمًا يعيدك إلى بداية القائمة (وإلى «المدرّب» إن جئت منه). */
-  const memoSec = mt.length ? memoTestListHTML() : accSec('memo', 'اختبارات الحفظ', 'فارغ', '<div class="empty">' + ico('book', 1.2) + '<b>لا يوجد حفظ بعد</b><p>عندما تأخذ شيء للحفظ في مادة ما، سيظهر هنا بحسب المادة والفصل.</p></div>', true);
-  const subs = gradeContents(st.grade);
-  /* ٧-أ: «اختباراتي» قائمة منسدلة أجمل — كل مادة فصلها ودرجتها فوقها */
-  const mySec = accSec('myTests', 'اختباراتي', ar(subs.length) + (subs.length === 1 ? ' مادة' : ' مواد'),
-    '<p class="small muted">اختر مادة ← اختر فصلًا ← اختبر كل مواضيعه دفعة واحدة. أو اختبر سريعًا مما درسته فقط.</p>' +
-    subs.map(y => {
-      const chs = y.c.chapters.filter(ch => ch.topics.some(t => !isHidden(t.id)));
-      const qs = chs.reduce((k, ch) => k + ch.topics.reduce((j, t) => j + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0), 0);
-      /* معدّل المادة: أعلى نتيجة لكل فصل مُختبَر */
-      const bs = chs.map(ch => (st.tests || {})['c:' + ch.id]).filter(Boolean);
-      const avg = bs.length ? Math.round(bs.reduce((a, b) => a + b.best, 0) / bs.length) : null;
-      const tested = bs.length, cover = chs.length ? Math.round(tested / chs.length * 100) : 0;
-      return accSec('mytests-' + y.subject, esc(y.subject), avg == null ? ar(chs.length) + ' فصول' : 'معدّلك ' + ar(avg) + '٪ | غطية ' + ar(cover) + '٪',
-        '<div class="srows" style="margin-bottom:10px">' +
-          pctBar('نسبة الفصول التي اختبرتها', cover, cover >= 80 ? 'good' : cover >= 40 ? 'gold' : 'bad') +
-          (avg != null ? pctBar('معدّل نتائجك', avg, avg >= 80 ? 'good' : avg >= 60 ? 'gold' : 'bad') : '') +
-        '</div>' +
-        '<div class="plist">' + chs.map(ch => {
-          const n = ch.topics.reduce((k, t) => k + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0);
-          const tb = (st.tests || {})['c:' + ch.id];
-          const last = tb ? tb.last : null, best = tb ? tb.best : null;
-          return '<button class="pitem" data-act="chapterTest" data-src="c:' + ch.id + '" data-n="' + n + '"><span class="st ' + (tb ? (best >= 70 ? 'ok' : 'bad') : '') + '">' + (tb ? ar(best) + '٪' : '!') + '</span><span style="flex:1;min-width:0"><b>' + esc(ch.title.split(':')[0]) + '</b><br><span class="small muted">' + ar(n) + ' سؤالًا' + (tb ? ' | أفضل ' + ar(best) + '٪ | آخر ' + ar(last) + '٪ | ' + ar(Math.max(0, best - last)) + '٪ تحسّن' : ' | لم تختره بعد') + '</span>' + (tb ? '<span class="pbar"><i style="width:' + Math.min(100, best) + '%"></i></span>' : '') + '</span><span class="small" style="color:var(--acc);font-weight:600">اختبر الفصل</span></button>';
-        }).join('') + '</div>' +
-        '<div class="grid2" style="margin-top:8px"><button class="btn ghost" data-act="testsLog" data-s="' + esc(y.subject) + '">سجل ' + esc(y.subject) + ' التفصيلي</button>' +
-        (pool.length >= 5 ? '<button class="btn ghost" data-act="mixQuiz" data-n="10">سريع مما درسته | ١٠</button>' : '') + '</div>',
-        false);
-    }).join(''),
-    false);
-  /* ٧-ج: «آخر نتائجك» له سبب: يشرح أين أنت الآن وماذا يعني كل رقم */
-  const resSec = exams.length ? accSec('results', 'آخر نتائجك', ar(exams.length) + ' نتيجة | ' + (exams[0] ? ar(exams[0].pct) + '٪ الأخيرة' : ''),
-    '<div class="hint-purpose">' + ico('star', 1.6) +
-    '<span><b>لماذا هذا القسم موجود؟</b><br><span class="small">يعرض آخر ١٢ نتيجة لك حتى تعرف اتجاهك: النتائج المتقاربة فوق ٧٠٪ تعني أنك أتقنت ما اختبرته، وما دون ذلك يعني أن الموضع يحتاج عودة. اضغط أي نتيجة لإعادة الاختبار نفسه فورًا.</span></span></div>' +
-    '<div class="srows" style="margin:10px 0">' + (() => {
-      const last5 = exams.slice(0, 5);
-      if (last5.length < 2) return '';
-      const dir = last5[0].pct - last5[last5.length - 1].pct;
-      return pctBar('متوسط آخر ٥ نتائج', last5.reduce((a, b) => a + b.pct, 0) / last5.length, dir > 5 ? 'good' : dir < -5 ? 'bad' : 'gold') +
-        pctBar('نِسَبك فوق ٧٠٪', Math.round(exams.filter(e => e.pct >= 70).length / exams.length * 100), 'acc') +
-        '<p class="small muted">' + (dir > 5 ? 'أنت في تحسّن مستمر — واصِل.' : dir < -5 ? 'نتائجك تنخفض — أعد مراجعة المواضيع التي أخطأت فيها.' : 'نتائجك ثابتة — تحتاج تنويعًا في المصادر لتتجاوز ٧٠٪.') + '</p>';
-    })() + '</div>' +
-    '<div class="plist">' +
-      exams.map(e => '<button class="pitem" data-act="retake" data-src="' + esc(e.src) + '" data-n="' + e.n + '"><span class="st ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span><span style="flex:1;min-width:0"><b>' + esc(examLabel(e.src)) + '</b><br><span class="small muted num">' + fmtD(new Date(e.at)) + ' | ' + ar(e.n) + ' أسئلة | ' + (e.pct >= 70 ? 'ناجح' : 'يحتاج مراجعة') + '</span></span><span class="small" style="color:var(--acc);font-weight:600">أعدها</span></button>').join('') +
-      '</div>', false) : '';
-  /* ٧-هـ: زرّان فقط + شرح فائدته أسفلهما — النمط نفسه يُطبَّق في كل النظام */
-  const examSecs = '<section class="card"><h2>امتحانات المواد</h2>' +
-    hintBox([
-      { label: 'امتحانات المواد', attrs: ' data-act="subExams"', ico: 'tests',
-        hint: 'تختار فيها مادة ثم نوع امتحانها: المفاجئ أو الكوز أو الشهري — مع الوقت وعدد الأسئلة قبل البدء، فتدخل وأنت تعرف ما ينتظرك.' },
-      { label: 'التهيئة للوزاري', cls: 'ghost', attrs: ' data-act="minPrep"', ico: 'star',
-        hint: 'تجري جلسة محاكاة ثلاث ساعات من أسئلة الدورات الوزارية الحقيقية: فصل واحد أو عدة فصول أو المادة كلها، والوقت يُحسب لك من الفصول والمواضيع لا من رأسك.' }
-    ], 'tests-exams') + '</section>';
-  /* ٧-ز) بطاقة «تطوّرك الوزاري»: سجل لكل مادة يغطي اختبارات المواضيع والشهري والوزاري */
-  const minRecSec = '<section class="card"><h2>تطوّرك الوزاري</h2>' +
-    hintBox([
-      { label: 'سجل تطوّرك الوزاري', attrs: ' data-act="minRec"', ico: 'star',
-        hint: 'لكل مادة سجل واحد يجمع كل ما اختبرته فيها: اختبارات المواضيع، والشهري، والوزاري — بنِسَبه وشرائحه، مع توقّع لمعدلك الوزاري وتقييم يومي وشهري وكلي.' },
-      { label: 'التهيئة للوزاري الشامل', cls: 'ghost', attrs: ' data-act="minPrep"', ico: 'tests',
-        hint: 'جلسة محاكاة ٣ ساعات من بنك الدورات: فصل واحد أو عدة فصول أو المادة كلها، وزمن كل سؤال مشتقّ من صعوبته ومن زمنك الفعلي — ومنها تبدأ بعد «المحاكاة الكاملة».' }
-    ], 'tests-minrec') + '</section>';
-  let h = topBar('الاختبارات', { log: 'tests' }) + '<main class="page">' + mySec + resSec + memoSec + minRecSec + examSecs +
-    '<section class="card"><h2>قيّمني</h2>' +
-    hintBox([{ label: '🎯 افتح شاشة قيّمني', attrs: ' data-act="evalMe"', ico: 'star',
-      hint: 'شاشة واحدة تحسب من سجلك: معدّلك المتوقّع الآن، والمعدّل الذي تريده، وعدد الأيام والمواضيع المتبقية، والوقت اليومي الموصى به، ونصائحك ومواضيع تركيزك.' }], 'tests-eval') + '</section>' +
-    '<div class="grid2"><button class="btn quiet" data-act="expTests">صدّر نتائج الاختبارات</button><button class="btn quiet" data-act="expActivity">صدّر سجل النشاط</button></div></main>';
-  return h;
 }
 /* عرض «امتحانات المواد»: كل المواد، ولكل مادة امتحاناتها بالتفصيل */
 function vSubExams() {
@@ -2389,7 +2434,7 @@ function studentDetailsHTML() {
 }
 function vSettings() {
   const st = me(), g = GRADES[st.grade - 1], p = DB.prefs, tab = S.setTab || 'acc';
-  const themes = [['auto', 'تلقائي', '#F5F6FB', '#4B46E0', '#0E1230'], ['light', 'فاتح', '#F5F6FB', '#4B46E0'], ['paper', 'ورقي', '#F4EEE1', '#7A4F12'], ['dark', 'داكن', '#0E1230', '#7C7DE8'], ['night', 'ليلي', '#0A0F22', '#F2C46D']];
+  const themes = [['light', 'هادئ', '#F5F6F8', '#4552D8'], ['vivid', 'حيوي', '#F3F1FF', '#6D3FF0'], ['paper', 'ورقي', '#F4EEE1', '#7A4F12'], ['dark', 'داكن', '#0E1230', '#7C7DE8'], ['night', 'ليلي', '#0A0F22', '#F2C46D'], ['auto', 'تلقائي (هادئ/داكن)', '#F5F6F8', '#4552D8', '#0E1230']];
   let body = '';
   if (tab === 'acc') body =
     '<section class="card"><h2>بطاقتي</h2>' + myCardHTML(st) + '</section>' +
@@ -2993,11 +3038,11 @@ function vTopic() {
   return topBar(f.ch.title.split(':')[0], { back: true }) + '<main class="page">' +
     '<div class="t-head"><span class="t-sec">' + bsec(t.sec) + '</span><div><h2>' + ft(t.title) + '</h2><p class="muted small">' + esc(subject) + ' | ' + esc(f.ch.title) + ' | الكتاب ص' + ar(t.page) + '</p></div></div>' +
     ytLink(t, subject, f) +
-    '<button class="btn" data-act="motion" data-id="' + t.id + '">▶ شرح متحرك: شاهد الفكرة تتحرك أمامك</button>' +
+    (window.EXPLAINERS && EXPLAINERS[t.id] ? '<button class="xp-card" data-act="xplain" data-id="' + t.id + '"><span class="xp-ic">' + ico('play', 0) + '</span><span><b>الرسم الشارح: ' + esc(EXPLAINERS[t.id].title) + '</b><small>رسم تفاعلي يوصل لك الفكرة خطوة خطوة — جرّب بنفسك</small></span></button>' : '') +
     '<nav class="segs" aria-label="أجزاء الموضوع">' + segs.map(s => '<button class="seg" data-act="tseg" data-v="' + s[0] + '" aria-pressed="' + (s[0] === seg) + '">' + (progOf(t.id).seen[s[0]] && s[0] !== seg ? '<i class="dot" aria-hidden="true"></i>' : '') + s[1] + '</button>').join('') + '</nav>' +
     body + segNoteHTML(t, seg) +
     (nx ? '<button class="btn" data-act="tseg" data-v="' + nx[0] + '">التالي: ' + nx[1] + '</button>' : '') +
-    '<div class="grid2"><button class="btn ghost" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button><button class="btn ghost" data-act="openExport" data-lvl="tab" data-s="' + esc(subject) + '" data-t="' + t.id + '" data-seg="' + seg + '">صدّر هذا التبويب</button></div>' +
+    '<details class="t-more"><summary>المزيد: الدفتر، التصدير، إخفاء الموضوع</summary><div class="inner"><div class="grid2"><button class="btn quiet" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button><button class="btn quiet" data-act="openExport" data-lvl="tab" data-s="' + esc(subject) + '" data-t="' + t.id + '" data-seg="' + seg + '">صدّر هذا التبويب</button></div></div></details>' +
     '<details class="fold"><summary>هذا الموضوع ليس ضمن دراستي</summary><div class="inner"><p class="small muted">إذا كان هذا الموضوع محذوفًا من منهجك أو لفرع آخر، أخفِه فيختفي من مسارك ومسائلك واختباراتك والبحث وحساب تقدمك. ترجعه متى شئت من صفحة المادة أو الإعدادات.</p><button class="btn quiet" data-act="hideTopic" data-id="' + t.id + '">أخفِ هذا الموضوع</button></div></details>' +
     '</main>';
 }
@@ -4285,45 +4330,52 @@ function studyLine() {
    الآن: إن ملأ الطالب رفّ اليوم في «خطة الأسبوع» فهو خطته. وإلا تُوزَّع حصة الأسبوع
    (المتناسبة مع ما بقي في كل مادة) على أيام دراسته توزيعًا ثابتًا طوال الأسبوع،
    فيأخذ كل يوم موادّ مختلفة، ويُستكمل من الحصة إن أنهى رفّه مبكرًا. */
+/* بداية الأسبوع الدراسي العراقي: السبت */
+function weekStart0() { const t = today0(), d = new Date(t); d.setDate(d.getDate() - ((d.getDay() + 1) % 7)); return d; }
 function studyDayIndex(st) {
   /* ترتيب اليوم بين أيام دراسة الأسبوع الحالي (الأسبوع يبدأ من يوم بدء الدوام) */
-  const t = today0(), start = parseD(st.start);
-  const wStart = new Date(start.getTime() + Math.max(0, Math.floor((t - start) / (7 * 864e5))) * 7 * 864e5);
+  const t = today0(), wStart = weekStart0();
   let k = 0; const d = new Date(wStart);
   while (d < t) { if (!st.rest.includes(d.getDay()) && !inHoliday(d, st.holidays)) k++; d.setDate(d.getDate() + 1); }
   return k;
 }
 function autoWeek(st) {
   const g = weeklyGoals(st), n = studyDaysCount(st);
-  if (st.autoWeek && st.autoWeek.weekNo === g.weekNo && st.autoWeek.days && st.autoWeek.days.length === n) return st.autoWeek;
+  const wk = isoD(weekStart0());
+  if (st.autoWeek && st.autoWeek.wk === wk && st.autoWeek.days && st.autoWeek.days.length === n) return st.autoWeek;
   const L = weeklyTopicList(st, 'manual'), days = Array.from({ length: n }, () => []);
   L.forEach((x, i) => days[i % n].push(x.t.id));
-  st.autoWeek = { weekNo: g.weekNo, days }; save();
+  st.autoWeek = { wk, weekNo: g.weekNo, days }; save();
   return st.autoWeek;
 }
-function planToday() {
-  const st = me(), line = studyLine();
+function planToday(extra) {
+  /* قائمة اليوم ثابتة طوال اليوم (st.dayPlan): ما تُنجزه يُعلَّم «تم» ولا يختفي،
+     وتُبنى أول مرة في اليوم من رفّ اليوم في خطة الأسبوع */
+  const st = me(), line = studyLine(), today = isoD(new Date());
   const K = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
+  const ok = tid => { const f = findTopic(tid); return !!f && !isHidden(tid); };
   const notDone = tid => { const f = findTopic(tid); return f && !isHidden(tid) && topicPct(f.t) < 90; };
-  const asItem = tid => { const f = findTopic(tid); return { subject: f.subject, ch: f.ch, t: f.t }; };
-  const di = studyDayIndex(st), picks = [], seen = new Set();
-  const add = tid => { if (picks.length < K && !seen.has(tid) && notDone(tid)) { seen.add(tid); picks.push(asItem(tid)); } };
-  const wf = st.weekFill && st.weekFill.weekNo === weeklyGoals(st).weekNo ? st.weekFill : null;
-  const mine = wf && wf.days[di] && wf.days[di].length ? wf.days[di] : null;
-  if (mine) mine.forEach(add);
-  else {
+  const asItem = tid => { const f = findTopic(tid); return { subject: f.subject, ch: f.ch, t: f.t, done: topicPct(f.t) >= 90 }; };
+  const t0 = today0();
+  if (st.rest.includes(t0.getDay()) || inHoliday(t0, st.holidays)) { const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6); return { picks: [], reviews, left: line.length, total: line.length, rest: true }; }
+  let dp = st.dayPlan && st.dayPlan.d === today ? st.dayPlan : null;
+  if (!dp) {
+    const di = studyDayIndex(st), ids = [], seen = new Set();
+    const add = tid => { if (ids.length < K && !seen.has(tid) && notDone(tid)) { seen.add(tid); ids.push(tid); } };
     const aw = autoWeek(st), slot = aw.days[Math.min(di, aw.days.length - 1)] || [];
     slot.forEach(add);
-    /* أنهى رفّه؟ نُكمل من حصة الأسبوع ثم من خط الدراسة، بمادة لم تأخذها اليوم إن أمكن */
-    if (picks.length < K) {
+    if (ids.length < K) {
       const rest = weeklyTopicList(st, 'manual').map(x => x.t.id).concat(line.map(x => x.t.id));
-      const subjToday = new Set(picks.map(p => p.subject));
+      const subjToday = new Set(ids.map(id => findTopic(id).subject));
       rest.filter(tid => { const f = findTopic(tid); return f && !subjToday.has(f.subject); }).forEach(add);
       rest.forEach(add);
     }
+    dp = st.dayPlan = { d: today, ids }; save();
   }
-  const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6);
-  return { picks, reviews, left: Math.max(0, line.length - picks.length), total: line.length };
+  if (extra) { const nx = line.map(x => x.t.id).find(id => !dp.ids.includes(id)); if (nx) { dp.ids.push(nx); save(); } }
+  const picks = dp.ids.filter(ok).map(asItem);
+  const reviews = revAll().filter(x => revOver(x.r) && !dp.ids.includes(x.t.id)).slice(0, 6);
+  return { picks, reviews, left: line.length, total: line.length };
 }
 /* الهدف الأسبوعي: عدد المواضيع التي يجب تغطيتها أسبوعيًا لإنهاء المنهج قبل الامتحان */
 function weeklyGoal() {
@@ -5905,7 +5957,278 @@ function vEval() {
 }
 
 /* =================== الرسم =================== */
-const VIEWS = { today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim, fig: vFig };
+/* =================== الواجهة الجديدة (٢٠٢٦-١٠-١٦) ===================
+   أربعة تبويبات فقط: اليوم · دروسي · الاختبارات · أنا.
+   القاعدة: كل زرّ يبقى داخل تبويبه — لا نوافذ منبثقة تقفز بالطالب، والصفحات الفرعية
+   تُفتح داخل التبويب نفسه وتعود بزرّ الرجوع. */
+Object.assign(I, {
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
+  chev: '<path d="M15 6l-6 6 6 6"/>',
+  play: '<path d="M8 5.5v13l10.5-6.5z"/>',
+  flame: '<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.2 1.2-3.6 2.4-4.6.3 1.6 1.1 2.6 2.1 2.6 0-3 .5-5.5.5-8z"/>',
+  cal: '<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+  palette: '<path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.5-1.1-.3-.3-.5-.7-.5-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  download: '<path d="M12 4v11M7 10l5 5 5-5M4 20h16"/>',
+  bank: '<path d="M3 9l9-5 9 5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>'
+});
+const SUBJ_COLOR = { 'الفيزياء': '#3B6FE0', 'الكيمياء': '#12A07A', 'الرياضيات': '#7C5CE0', 'الأحياء': '#E0912B', 'اللغة العربية': '#D9534F', 'التربية الإسلامية': '#0E9AA7', 'اللغة الإنكليزية': '#D6458B' };
+const scol = s => SUBJ_COLOR[s] || 'var(--acc)';
+const isoToday = () => isoD(new Date());
+
+/* صفّ قائمة موحّد: أيقونة/نقطة لون | عنوان وسطر وصف | نهاية (رقم أو حالة) | سهم */
+function row2(o) {
+  const attrs = Object.entries(o.data || {}).map(([k, v]) => ' data-' + k + '="' + esc(v) + '"').join('');
+  const lead = o.done ? '<span class="r-ic done">' + ico('check', 2.4) + '</span>'
+    : o.dot ? '<span class="r-dot" style="--c:' + o.dot + '"></span>'
+    : o.ico ? '<span class="r-ic" style="--c:' + (o.color || 'var(--acc)') + '">' + ico(o.ico, 1.9) + '</span>' : '';
+  return '<button class="row2' + (o.done ? ' is-done' : '') + '" data-act="' + o.act + '"' + attrs + '>' + lead +
+    '<span class="r-tx"><b>' + o.title + '</b>' + (o.sub ? '<small>' + o.sub + '</small>' : '') + '</span>' +
+    (o.end != null ? '<span class="r-end">' + o.end + '</span>' : '') + '<span class="r-chev">' + ico('chev', 2) + '</span></button>';
+}
+function ring(pct, size, label) {
+  const R = 42, C = 2 * Math.PI * R, off = C * (1 - Math.max(0, Math.min(100, pct)) / 100);
+  return '<div class="ring" style="width:' + size + 'px;height:' + size + 'px"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="' + R + '" class="ring-bg"/><circle cx="50" cy="50" r="' + R + '" class="ring-fg" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '"/></svg><span class="ring-v num">' + label + '</span></div>';
+}
+function segCtl(key, items, cur) {
+  return '<div class="segctl" role="tablist">' + items.map(([k, l]) => '<button role="tab" data-act="seg2" data-k="' + key + '" data-v="' + k + '" aria-selected="' + (k === cur) + '">' + l + '</button>').join('') + '</div>';
+}
+const sect = (title, inner, extra) => '<section class="sect"><div class="sect-h"><h2>' + title + '</h2>' + (extra || '') + '</div>' + inner + '</section>';
+
+/* ── الرأس الجديد: رجوع + عنوان + سطر فرعي، والبحث فقط (الإعدادات صارت في «أنا») ── */
+function topBar(title, opts) {
+  opts = opts || {};
+  return '<header class="top">' +
+    (opts.back ? '<button class="icon-btn" data-act="back" aria-label="رجوع">' + ico('back', 2) + '</button>' : '') +
+    (opts.avatar ? avatarHTML(opts.avatar, 42) : '') +
+    '<div class="top-t"><h1>' + esc(title) + '</h1>' + (opts.sub ? '<span class="top-sub">' + opts.sub + '</span>' : '') + '</div>' +
+    (opts.noTools ? '' : '<button class="icon-btn" data-act="go" data-v="search" aria-label="البحث">' + ico('search', 2) + '</button>') +
+    '</header>';
+}
+
+/* ═════════ تبويب «اليوم» ═════════ */
+/* أيام دراسة الأسبوع الحالي بتواريخها (لشريط الأسبوع) */
+function weekDates(st) {
+  const wStart = weekStart0();
+  const out = [];
+  for (let i = 0; i < 7; i++) { const d = new Date(wStart); d.setDate(d.getDate() + i); out.push({ d, study: !st.rest.includes(d.getDay()) && !inHoliday(d, st.holidays) }); }
+  let k = 0; out.forEach(x => { if (x.study) x.k = k++; });
+  return out;
+}
+function vToday() {
+  const st = me(), t = today0(), ti = timeInfo(st);
+  const rest = st.rest.includes(t.getDay()) || inHoliday(t, st.holidays);
+  const plan = planToday(), tasks = plan.picks, revs = plan.reviews;
+  const doneN = tasks.filter(x => x.done).length;
+  const allN = tasks.length + revs.length, okN = doneN;
+  const pct = allN ? Math.round(okN / allN * 100) : 0;
+  const dayIdx = Math.floor(t / 864e5), gl = GLIMPSES[((dayIdx % GLIMPSES.length) + GLIMPSES.length) % GLIMPSES.length];
+  let h = topBar('أهلًا، ' + st.name, { avatar: st.id, sub: DAYS[t.getDay()] + ' ' + fmtD(t) + ' | الأسبوع ' + ar(ti.weekNo) + ' من ' + ar(ti.totalWeeks) }) + '<main class="page">';
+
+  /* البطاقة الرئيسية: تقدّم اليوم */
+  h += '<section class="hero">' + ring(rest && !allN ? 100 : pct, 92, rest && !allN ? '☾' : ar(pct) + '٪') +
+    '<div class="hero-t"><span class="eyebrow">' + (rest ? 'يوم راحة' : 'مهام اليوم') + '</span>' +
+    '<h2>' + (rest ? 'استرح اليوم — وعُد غدًا بنشاط' : allN ? (okN >= allN ? 'أنجزت مهام اليوم كلها' : 'أنجزت ' + ar(okN) + ' من ' + ar(allN)) : 'أنهيت المنهج — وقت المراجعة الشاملة') + '</h2>' +
+    '<p class="muted small">' + ar(ti.weeksLeft) + ' أسبوعًا حتى الامتحان | ' + ar(plan.total) + ' موضوعًا متبقيًا</p></div></section>';
+
+  if (!rest || tasks.length) {
+    if (tasks.length) h += sect('دروس اليوم', '<div class="list">' + tasks.map(x => row2({
+      act: 'topic', data: { id: x.t.id }, dot: scol(x.subject), done: x.done,
+      title: ft(x.t.title), sub: esc(x.subject) + ' | ' + esc(x.ch.title.split(':')[0]),
+      end: x.done ? 'تم' : ar(topicPct(x.t)) + '٪' })).join('') + '</div>',
+      doneN === tasks.length && plan.total ? '<button class="link" data-act="moreToday">أضف درسًا آخر</button>' : '');
+    else if (!plan.total) {
+      const subsAll = gradeContents(st.grade).map(y => y.subject), ts = subsAll[studyDayIndex(st) % Math.max(1, subsAll.length)];
+      if (ts) h += sect('المراجعة الشاملة', '<div class="list">' + row2({ act: 'ministerialFull', data: { s: ts }, ico: 'star', color: scol(ts), title: 'محاكاة وزارية كاملة: ' + esc(ts), sub: 'مادة واحدة كل يوم بالتناوب حتى الامتحان' }) + '</div>');
+    }
+  }
+  if (revs.length) h += sect('مراجعة مستحقة', '<div class="list">' + revs.map(x => row2({
+    act: 'revQuiz', data: { id: x.t.id }, ico: 'review', color: scol(x.subject),
+    title: ft(x.t.title), sub: esc(x.subject) + ' | اختبار قصير يثبّت ما درسته', end: ar(Math.min(10, (x.t.quiz || []).length)) + ' أسئلة' })).join('') + '</div>');
+
+  /* المسائل: هدف دقائق اليوم + المسألة التالية من دروس اليوم */
+  const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60;
+  const nextP = (() => { for (const x of tasks) { const p = (x.t.problems || []).find(p => (solveOf(p.id) || {}).self !== 'ok'); if (p) return { p, x }; } return null; })();
+  h += sect('وقت المسائل', '<div class="pcard"><div class="pc-top"><b class="num">' + ar(used) + '</b><span class="muted"> من ' + ar(goal) + ' دقيقة اليوم</span></div>' +
+    '<div class="bar"><span style="width:' + Math.min(100, Math.round(used / goal * 100)) + '%"></span></div>' +
+    (nextP ? '<button class="btn" data-act="prob" data-id="' + nextP.p.id + '">' + ico('play', 2) + '<span>المسألة التالية — ' + esc(nextP.x.subject) + '</span></button>'
+      : '<p class="small muted">لا مسائل غير محلولة في دروس اليوم. ستجد مسائل كل موضوع داخل تبويب «المسائل» فيه.</p>') + '</div>');
+
+  /* شريط الأسبوع: الخطة موزّعة تلقائيًا على أيام دراستك (لا رفوف فارغة) */
+  const wd = weekDates(st), aw = autoWeek(st), todayK = (wd.find(x => isoD(x.d) === isoD(t)) || {}).k;
+  const selK = S.wday != null ? S.wday : (todayK != null ? todayK : 0);
+  const dayTids = k => (aw.days[k] || []);
+  h += sect('هذا الأسبوع', '<div class="wstrip">' + wd.map(x => {
+    const n = x.study ? dayTids(x.k).length : 0, dn = x.study ? dayTids(x.k).filter(id => { const f = findTopic(id); return f && topicPct(f.t) >= 90; }).length : 0;
+    return '<button class="wday' + (isoD(x.d) === isoD(t) ? ' today' : '') + (x.study && x.k === selK ? ' sel' : '') + (x.study ? '' : ' off') + '"' + (x.study ? ' data-act="wday" data-k="' + x.k + '"' : ' disabled') + '>' +
+      '<span class="wd-n">' + DAYS[x.d.getDay()].replace('ال', '').slice(0, 3) + '</span><b class="num">' + ar(x.d.getDate()) + '</b>' +
+      '<span class="wd-c">' + (x.study ? (n && dn >= n ? '✓' : ar(n)) : 'راحة') + '</span></button>';
+  }).join('') + '</div>' +
+    '<div class="list">' + (dayTids(selK).length ? dayTids(selK).map(id => { const f = findTopic(id); if (!f) return ''; const p = topicPct(f.t);
+      return row2({ act: 'topic', data: { id }, dot: scol(f.subject), done: p >= 90, title: ft(f.t.title), sub: esc(f.subject), end: p >= 90 ? 'تم' : ar(p) + '٪' }); }).join('')
+      : '<p class="small muted pad">لا دروس مجدولة لهذا اليوم.</p>') + '</div>' +
+    '<p class="small muted">هدف الأسبوع ' + ar(weeklyGoals(st).perWeek) + ' موضوعًا، موزّعة تلقائيًا على المواد بحسب ما بقي في كل مادة.</p>');
+
+  /* إنذار التأخر */
+  const gw = weeklyGoals(st), K = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40))), needDay = gw.perWeek ? Math.ceil(gw.perWeek / gw.studyDays) : 0;
+  if (needDay > K) h += '<div class="alert">' + ico('info', 2) + '<span>تأخّرت عن خطتك: تحتاج نحو ' + ar(needDay) + ' دروس يوميًا لتنهي المنهج قبل أسابيع المراجعة. <button class="link" data-act="go" data-v="settings" data-t="study">زد وقتك اليومي</button></span></div>';
+
+  h += '<section class="quote"><span class="eyebrow">ومضة اليوم</span><p class="q">' + gl[0] + '</p><p class="small muted">' + gl[1] + '</p></section>';
+  return h + '</main>';
+}
+
+/* ═════════ تبويب «دروسي» ═════════ */
+function vPath() {
+  const st = me(), g = GRADES[st.grade - 1];
+  const subs = subjectsOf(st.grade, st.branch);
+  const prev = GRADES.filter(x => x.id < st.grade).reverse();
+  return topBar('دروسي', { sub: esc(g.name) + (st.branch ? ' | ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') }) + '<main class="page">' +
+    '<div class="sgrid">' + subs.map(s => {
+      const c = contentOf(st.grade, s);
+      if (!c) return '<div class="scard off"><span class="sc-ic" style="--c:#9AA0AE">' + ico('book', 1.8) + '</span><b>' + esc(s) + '</b><small>لم يُضف المحتوى بعد</small></div>';
+      const ts = []; c.chapters.forEach(ch => ch.topics.forEach(t => { if (!isHidden(t.id)) ts.push(t); }));
+      const done = ts.filter(t => topicPct(t) >= 90).length, pct = ts.length ? Math.round(done / ts.length * 100) : 0;
+      return '<button class="scard" data-act="subject" data-g="' + st.grade + '" data-s="' + esc(s) + '" style="--c:' + scol(s) + '"><span class="sc-ic">' + ico('book', 1.8) + '</span>' +
+        '<b>' + esc(s) + '</b><small>' + ar(c.chapters.length) + ' فصول | ' + ar(done) + ' من ' + ar(ts.length) + ' درسًا</small>' +
+        '<span class="bar"><span style="width:' + pct + '%;background:var(--c)"></span></span></button>';
+    }).join('') + '</div>' +
+    '<div class="list">' + row2({ act: 'intro', data: { g: st.grade }, ico: 'bulb', title: 'مقدمة ' + esc(g.name), sub: 'ماذا ستدرس هذه السنة وكيف' }) +
+      row2({ act: 'go', data: { v: 'figlib' }, ico: 'grid', title: 'مكتبة الرسوم التفاعلية', sub: ar(Object.keys(FIGS).length) + ' رسمًا مجمّعًا بحسب المادة' }) + '</div>' +
+    (prev.length ? sect('الصفوف السابقة', '<div class="chips">' + prev.map(x => '<button class="chip" data-act="grade" data-g="' + x.id + '">' + esc(x.name) + '</button>').join('') + '</div>') : '') +
+    '</main>';
+}
+
+/* ═════════ تبويب «الاختبارات» ═════════ */
+const TEST_SEGS = [['self', 'اختبر نفسك'], ['exams', 'الامتحانات'], ['bank', 'البنك الوزاري'], ['memo', 'الحفظ']];
+function vTests() {
+  const st = me(), seg = S.tests2 || 'self', subs = gradeContents(st.grade);
+  let body = '';
+  if (seg === 'self') {
+    const pool = myStudyPool();
+    body = (pool.length >= 5 ? '<button class="btn wide" data-act="mixQuiz" data-n="10">' + ico('play', 2) + '<span>اختبار سريع مما درسته (١٠ أسئلة)</span></button>' : '') +
+      subs.map(y => {
+        const chs = y.c.chapters.filter(ch => ch.topics.some(t => !isHidden(t.id)));
+        const open = S.open['ts-' + y.subject];
+        const bs = chs.map(ch => (st.tests || {})['c:' + ch.id]).filter(Boolean);
+        const avg = bs.length ? Math.round(bs.reduce((a, b) => a + b.best, 0) / bs.length) : null;
+        return '<div class="fold2' + (open ? ' open' : '') + '"><button class="fold2-h" data-act="open" data-k="ts-' + esc(y.subject) + '"><span class="r-dot" style="--c:' + scol(y.subject) + '"></span><b>' + esc(y.subject) + '</b><span class="muted small">' + (avg == null ? ar(chs.length) + ' فصول' : 'معدّلك ' + ar(avg) + '٪') + '</span><span class="r-chev">' + ico('chev', 2) + '</span></button>' +
+          (open ? '<div class="list">' + chs.map(ch => {
+            const n = ch.topics.reduce((k, t) => k + (isHidden(t.id) ? 0 : (t.quiz || []).length), 0), tb = (st.tests || {})['c:' + ch.id];
+            const lock = chTestUnlocked(ch.topics, ch);
+            if (lock && !tb) return row2({ act: 'chapter', data: { id: ch.id }, ico: 'shield', color: 'var(--muted)', title: esc(ch.title), sub: lock, end: 'مقفل' });
+            return row2({ act: 'chapterTest', data: { src: 'c:' + ch.id, n }, title: esc(ch.title), sub: ar(n) + ' سؤالًا' + (tb ? ' | أفضل ' + ar(tb.best) + '٪' : ''), end: tb ? '<span class="pill ' + (tb.best >= 70 ? 'ok' : 'bad') + '">' + ar(tb.best) + '٪</span>' : 'اختبر' });
+          }).join('') + '</div>' : '') + '</div>';
+      }).join('');
+    const ex = (st.exams || []).slice(-8).reverse();
+    if (ex.length) body += sect('آخر نتائجك', '<div class="list">' + ex.map(e => row2({ act: 'retake', data: { src: e.src, n: e.n }, title: esc(examLabel(e.src)), sub: fmtD(new Date(e.at)) + ' | ' + ar(e.n) + ' أسئلة', end: '<span class="pill ' + (e.pct >= 70 ? 'ok' : 'bad') + '">' + ar(e.pct) + '٪</span>' })).join('') + '</div>', '<button class="link" data-act="expTests">صدّر النتائج</button>');
+  }
+  if (seg === 'exams') body = '<p class="small muted">لكل مادة ثلاثة أنواع: «عندي امتحان» سريع على مواضيع تختارها، و«الشهري» بفصول ووقت، و«التهيئة للوزاري» من أسئلة الدورات بوقت محسوب. و«المحاكاة الكاملة» امتحان وزاري كامل بمئة درجة.</p>' +
+    '<div class="list">' + row2({ act: 'minPrep', ico: 'star', title: 'التهيئة للوزاري الشامل', sub: 'جلسة بفصل أو فصول أو المادة كلها، بزمن محسوب' }) + row2({ act: 'go', data: { v: 'minrec' }, ico: 'chart', title: 'تطوّري الوزاري', sub: 'سجل كل جلساتك ومعدّلها لكل مادة' }) + '</div>' +
+    subs.map(y => '<div class="xcard" style="--c:' + scol(y.subject) + '"><div class="xc-h"><span class="r-dot" style="--c:' + scol(y.subject) + '"></span><b>' + esc(y.subject) + '</b>' + (ministerialAvg(y.subject) > 0 ? '<span class="pill">وزاري ' + ar(ministerialAvg(y.subject)) + '٪</span>' : '') + '</div>' +
+      '<div class="xc-b"><button class="chip" data-act="examCfg" data-kind="exam" data-s="' + esc(y.subject) + '">عندي امتحان</button><button class="chip" data-act="examCfg" data-kind="monthly" data-s="' + esc(y.subject) + '">الشهري</button><button class="chip" data-act="examCfg" data-kind="ministerial" data-s="' + esc(y.subject) + '">تهيئة وزارية</button>' +
+      (ministerialHasBank(y.subject) ? '<button class="chip strong" data-act="ministerialFull" data-s="' + esc(y.subject) + '">المحاكاة الكاملة</button>' : '') + '</div></div>').join('');
+  if (seg === 'bank') {
+    const cur = S.bankSubject && subs.some(y => y.subject === S.bankSubject) ? S.bankSubject : (subs.find(y => ministerialHasBank(y.subject)) || subs[0] || {}).subject;
+    S.bankSubject = cur;
+    body = cur ? popupBody(vBank()) : empty('library', 'لا بنك بعد', '');
+  }
+  if (seg === 'memo') body = memoTopics().length ? memoTestListHTML() : empty('book', 'لا يوجد حفظ بعد', 'مقررات الحفظ تظهر هنا بحسب المادة والفصل.');
+  return topBar('الاختبارات') + '<main class="page">' + segCtl('tests2', TEST_SEGS, seg) + body + '</main>';
+}
+
+/* ═════════ تبويب «أنا» ═════════ */
+function vMe() {
+  const st = me(), g = GRADES[st.grade - 1], E = evalStats();
+  const goal = st.goal || 90;
+  let h = topBar('أنا') + '<main class="page">' +
+    '<section class="hero me">' + avatarHTML(st.id, 64) + '<div class="hero-t"><h2>' + esc(st.name) + '</h2><p class="muted small">' + esc(g.name) + (st.branch ? ' | ' + (st.branch === 'sci' ? 'العلمي' : 'الأدبي') : '') + (st.goal ? ' | هدفك ' + ar(st.goal) + '٪' : '') + '</p></div>' +
+      ring(E.predicted, 78, ar(E.predicted) + '٪') + '</section>' +
+    '<div class="stats3"><div><b class="num">' + ar(streakDays()) + '</b><span>أيام متتالية</span></div><div><b class="num">' + ar(E.done) + '<small>/' + ar(E.total) + '</small></b><span>درسًا متقنًا</span></div><div><b class="num">' + ar((st.exams || []).length) + '</b><span>اختبارًا</span></div></div>' +
+    sect('تقدّمي', '<div class="list">' +
+      row2({ act: 'go', data: { v: 'eval' }, ico: 'chart', title: 'قيّمني', sub: 'معدّلك المتوقّع (' + ar(E.predicted) + '٪) وخطة الأيام المتبقية ونصائحك' }) +
+      row2({ act: 'openLog', data: { v: 'today' }, ico: 'cal', title: 'سجلّي والتقويم', sub: 'كل يوم بنشاطه ودقائقه' }) +
+      row2({ act: 'go', data: { v: 'review' }, ico: 'review', title: 'المراجعة المتباعدة', sub: ar(revAll().filter(x => revOver(x.r)).length) + ' مستحقة الآن' }) +
+      row2({ act: 'go', data: { v: 'minrec' }, ico: 'star', title: 'تطوّري الوزاري', sub: 'كل جلساتك الوزارية ومعدّلها لكل مادة' }) + '</div>') +
+    sect('مكتبتي', '<div class="list">' +
+      row2({ act: 'go', data: { v: 'library' }, ico: 'pen', title: 'دفاتري والكتب', sub: 'حلولك وملاحظاتك وأخطاؤك لكل مادة' }) +
+      row2({ act: 'go', data: { v: 'figlib' }, ico: 'grid', title: 'مكتبة الرسوم التفاعلية', sub: ar(Object.keys(FIGS).length) + ' رسمًا' }) +
+      row2({ act: 'openExport', data: { lvl: 'grade' }, ico: 'download', title: 'التصدير والطباعة', sub: 'درس، فصل، مادة أو الصف كله' }) + '</div>') +
+    sect('الإعدادات', '<div class="list">' +
+      row2({ act: 'go', data: { v: 'settings', t: 'acc' }, ico: 'user', title: 'الحساب والطلاب', sub: 'الاسم، الصف، الهدف، تعدّد الطلاب' }) +
+      row2({ act: 'go', data: { v: 'settings', t: 'study' }, ico: 'timer', title: 'الدراسة', sub: ar(st.minutes) + ' دقيقة يوميًا | أيام الراحة والعطل' }) +
+      row2({ act: 'go', data: { v: 'settings', t: 'look' }, ico: 'palette', title: 'المظهر', sub: 'النمط وحجم الخط' }) +
+      row2({ act: 'go', data: { v: 'settings', t: 'data' }, ico: 'shield', title: 'البيانات والنسخ الاحتياطي', sub: 'صدّر تقدمك أو استرجعه' }) +
+      row2({ act: 'go', data: { v: 'settings', t: 'about' }, ico: 'info', title: 'عن دَرْب' }) + '</div>');
+  return h + '</main>';
+}
+function vEvalPage() { return topBar('قيّمني', { back: true, noTools: true }) + vEval().replace(/^<div class="page">/, '<main class="page">').replace(/<\/div>$/, '</main>'); }
+function vFigLib() { return topBar('مكتبة الرسوم', { back: true }) + '<main class="page">' + figsLibBody().replace(/data-act="figFull"/g, 'data-act="figPage"') + '</main>'; }
+
+/* ═════════ «الرسم الشارح» ═════════
+   بديل «الشرح المتحرك»: ليس إعادة للنص، بل رسمٌ حيّ يمثّل فكرة الموضوع نفسها.
+   كل شارح في content/explainers.js: مراحل (say + مدة)، ومتغيّرات يحرّكها الطالب،
+   ودالة draw(P, step, t) ترسم المشهد عند الزمن t من بداية المرحلة. المحرّك يعيد
+   الرسم بكل إطار، فالحركة والتفاعل ينبعان من الفكرة لا من مؤثرات جاهزة. */
+function xpState() { return S.xp; }
+function openXplain(id) {
+  const X = (window.EXPLAINERS || {})[id]; if (!X) return;
+  const P = {}; Object.entries(X.params || {}).forEach(([k, v]) => P[k] = v.val);
+  S.xp = { id, step: 0, t0: performance.now(), playing: true, P, pick: X.pick ? X.pick.val : null };
+  go('xplain');
+}
+function vXplain() {
+  const z = S.xp, X = z && (window.EXPLAINERS || {})[z.id];
+  if (!X) return topBar('الرسم الشارح', { back: true, noTools: true }) + '<main class="page">' + empty('play', 'لا رسم هنا', '') + '</main>';
+  const st = X.steps[z.step], n = X.steps.length;
+  const ctrls = (st.params || Object.keys(X.params || {})).filter(k => X.params && X.params[k]).map(k => { const p = X.params[k];
+    return '<label class="xp-sl"><span>' + p.label + ' <b class="num" id="xpv-' + k + '">' + xpFmt(z.P[k], p) + '</b></span><input type="range" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" value="' + z.P[k] + '" data-xp="' + k + '"></label>'; }).join('');
+  const picks = X.pick && (st.pick !== false) ? '<div class="xp-picks">' + X.pick.opts.map(o => '<button class="chip" data-act="xpPick" data-v="' + esc(o[0]) + '" aria-pressed="' + (z.pick === o[0]) + '">' + o[1] + '</button>').join('') + '</div>' : '';
+  return topBar(X.title, { back: true, noTools: true, sub: 'الرسم الشارح | ' + esc((findTopic(z.id) || { t: {} }).t.title || '') }) + '<main class="page xp-page">' +
+    '<div class="xp-stage" id="xpStage"><svg viewBox="' + (X.vb.length === 4 ? X.vb.join(' ') : '0 0 ' + X.vb[0] + ' ' + X.vb[1]) + '" id="xpSvg" role="img" aria-label="' + esc(st.say) + '"></svg></div>' +
+    '<div class="xp-say"><span class="xp-n num">' + ar(z.step + 1) + '/' + ar(n) + '</span><p id="xpSay">' + fm(st.say) + '</p></div>' +
+    '<div class="xp-read num" id="xpRead"></div>' +
+    (st.task ? '<p class="xp-task">' + ico('bulb', 1.8) + '<span>' + fm(st.task) + '</span></p>' : '') +
+    (ctrls || picks ? '<div class="xp-ctl">' + picks + ctrls + '</div>' : '') +
+    '<div class="xp-dots">' + X.steps.map((s, i) => '<button data-act="xpGo" data-i="' + i + '" aria-label="المرحلة ' + ar(i + 1) + '" class="' + (i === z.step ? 'on' : i < z.step ? 'dn' : '') + '"></button>').join('') + '</div>' +
+    '<div class="xp-nav"><button class="btn quiet" data-act="xpGo" data-i="' + (z.step - 1) + '"' + (z.step ? '' : ' disabled') + '>السابق</button>' +
+      '<button class="btn quiet" data-act="xpReplay" aria-label="أعد المرحلة">↺</button>' +
+      (z.step < n - 1 ? '<button class="btn" data-act="xpGo" data-i="' + (z.step + 1) + '">التالي</button>' : '<button class="btn" data-act="back">فهمت ✓</button>') + '</div>' +
+    '</main>';
+}
+function xpFmt(v, p) { const d = String(p.step).includes('.') ? String(p.step).split('.')[1].length : 0; return ar(Number(v).toFixed(d)) + (p.unit ? ' ' + p.unit : ''); }
+let XP_RAF = null;
+const XP_DEFS = '<defs><marker id="xa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker><marker id="xg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--gold)"/></marker></defs>';
+function xpLoop() {
+  if (XP_RAF) cancelAnimationFrame(XP_RAF);
+  const tick = () => {
+    const z = S.xp, svg = document.getElementById('xpSvg');
+    if (!z || S.view !== 'xplain' || !svg) { XP_RAF = null; return; }
+    const X = EXPLAINERS[z.id], t = (performance.now() - z.t0) / 1000;
+    try { svg.innerHTML = XP_DEFS + X.draw(z.P, z.step, t, z.pick); } catch (e) { svg.innerHTML = ''; }
+    const rd = document.getElementById('xpRead'); if (rd && X.read) { const r = X.read(z.P, z.step, t, z.pick); if (rd._last !== r) { rd.innerHTML = r; rd._last = r; } }
+    XP_RAF = requestAnimationFrame(tick);
+  };
+  XP_RAF = requestAnimationFrame(tick);
+}
+document.addEventListener('input', e => {
+  const k = e.target && e.target.dataset && e.target.dataset.xp; if (!k || !S.xp) return;
+  const X = EXPLAINERS[S.xp.id], p = X.params[k];
+  S.xp.P[k] = +e.target.value;
+  const o = document.getElementById('xpv-' + k); if (o) o.textContent = xpFmt(S.xp.P[k], p);
+});
+/* أدوات رسم صغيرة مشتركة للشارحين */
+const XH = {
+  ease: x => x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x),
+  clamp: (x, a, b) => Math.max(a, Math.min(b, x)),
+  lerp: (a, b, k) => a + (b - a) * k,
+  txt: (x, y, s, o) => { o = o || {}; return '<text x="' + x + '" y="' + y + '" text-anchor="' + (o.a || 'middle') + '" font-size="' + (o.fs || 12) + '" fill="' + (o.c || 'var(--ink)') + '"' + (o.w ? ' font-weight="' + o.w + '"' : '') + (o.op != null ? ' opacity="' + o.op + '"' : '') + (o.ltr ? ' direction="ltr"' : '') + '>' + s + '</text>'; },
+  arAr: n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
+};
+
+const VIEWS = { xplain: vXplain, me: vMe, eval: vEvalPage, figlib: vFigLib, today: vToday, path: vPath, grade: vGrade, subject: vSubject, chapter: vChapter, intro: vIntro, review: vReview, tests: vTests, library: vLibrary, groups: vGroups, search: vSearch, settings: vSettings, topic: vTopic, problem: vProblem, notebook: vNotebook, quiz: vQuiz, export: vExport, exam: vExam, bank: vBank, log: vLog, subexams: vSubExams, minprep: vMinPrep, minrec: vMinrec, minsim: vMinsim, fig: vFig };
 function render(scrollTop) {
   applyPrefs();
   const app = document.getElementById('app');
@@ -5915,6 +6238,7 @@ function render(scrollTop) {
   if (PATH_TIMER && (!PATH_MAP || !document.body.contains(PATH_MAP))) { clearInterval(PATH_TIMER); PATH_TIMER = null; PATH_MAP = null; }
   mountSims(); mountPhotos(); mountFigs();
   try { bidiFix(app); } catch (e) { }
+  if (S.view === 'xplain') xpLoop();
   bindHintHover(app);
   if (scrollTop) window.scrollTo(0, 0);
   if (S.view === 'search') { const q = document.getElementById('q'); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
@@ -5970,15 +6294,8 @@ document.addEventListener('click', e => {
   switch (a) {
     case 'tab': tabTo(el.dataset.v); break;
     case 'go': if (el.dataset.v === 'settings') S.setTab = el.dataset.t || 'acc';
-      if (el.dataset.popup) {
-        const v = el.dataset.v;
-        /* بنك المكتبة يفتح بنافذة وبمادته المرشّحة: لا تُفتح المادة وهي فارغة */
-        if (v === 'bank' && el.dataset.s) S.bankSubject = el.dataset.s;
-        const viewFn = VIEWS[v] || vToday;
-        const title = el.dataset.popupTitle || el.textContent.trim().slice(0, 40) || 'تفاصيل';
-        showPopup(title, () => popupBody(viewFn()), v === 'bank' || v === 'review');
-      } else go(el.dataset.v);
-      break;
+      if (el.dataset.v === 'bank' && el.dataset.s) S.bankSubject = el.dataset.s;
+      go(el.dataset.v); break;
     case 'back': if (!back()) tabTo('today'); break;
     case 'grade': go('grade', { viewGrade: +el.dataset.g }); break;
     case 'subject': go('subject', { viewGrade: +el.dataset.g, viewSubject: el.dataset.s }); break;
@@ -6107,7 +6424,13 @@ document.addEventListener('click', e => {
     case 'calDay': S.calD = el.dataset.d; { const p = parseD(el.dataset.d); S.calY = p.getFullYear(); S.calM = p.getMonth(); } S.acc = S.acc || {}; S.acc['cal-day'] = true; render(); break;
     case 'revLog': S.revLog = el.dataset.v; render(); break;
     case 'openLog': S.logFor = el.dataset.v; S.logSubject = null; go('log'); break;
-    case 'openPlanPopup': showPopup(el.dataset.plan === 'week' ? 'خطة الأسبوع' : 'الخطة اليومية', el.dataset.plan === 'week' ? (() => popupBody(weeklyPlanHTML(me()))) : (() => popupBody(dailyPlanBody())), true); break;
+    case 'seg2': S[el.dataset.k] = el.dataset.v; render(true); break;
+    case 'wday': S.wday = +el.dataset.k; render(); break;
+    case 'moreToday': planToday(true); render(); break;
+    case 'xplain': openXplain(el.dataset.id); break;
+    case 'xpGo': { const i = +el.dataset.i, X = EXPLAINERS[S.xp.id]; if (i < 0 || i >= X.steps.length) break; S.xp.step = i; S.xp.t0 = performance.now(); render(true); break; }
+    case 'xpReplay': S.xp.t0 = performance.now(); break;
+    case 'xpPick': S.xp.pick = el.dataset.v; S.xp.t0 = performance.now(); render(); break;
     case 'testsLog': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     case 'chapterTest': { const n = quizPool(el.dataset.src).length; if (!n) { toast('لا أسئلة في هذا الفصل بعد. عُد بعد اكتمال محتواه.'); break; } startQuiz(el.dataset.src, Math.min(+el.dataset.n || n, n)); break; }
     case 'ansNum': { const d = document.getElementById('answerDisplay'); if (!d) break; const cur = d.textContent.trim(); if (cur === 'أدخل إجابتك بالرقم') d.textContent = el.dataset.v; else if (cur.length < 12) d.textContent = cur + el.dataset.v; break; }
@@ -6306,8 +6629,7 @@ document.addEventListener('click', e => {
     }
     case 'openBank': S.bankSubject = el.dataset.s;
       /* إن كان البنك مفتوحًا داخل نافذة منبثقة، تُبدَّل المادة داخلها ولا يُفتح مسار جديد */
-      if (S.popup) showPopup('بنك ' + (el.dataset.s || 'الأسئلة') + ' الوزاري', () => popupBody(vBank()), true);
-      else go('bank');
+      if (S.view === 'tests') render(); else go('bank');
       break;
     case 'bankView': S.bankView = el.dataset.v; render(); break;
     case 'bankTrain': {
@@ -6326,8 +6648,6 @@ document.addEventListener('click', e => {
       examConfig('ministerial', subj);
       break;
     }
-    case 'subExams': showPopup('امتحانات المواد', () => popupBody(vSubExams()), true); break;
-    case 'evalMe': showPopup('قيّمني', () => popupBody(vEval()), true); break;
     case 'motion': openMotion(el.dataset.id); break;
     case 'moPrev': moGoto(S.mo.i - 1); break;
     case 'moNext': moGoto(S.mo.i + 1); break;
@@ -6354,13 +6674,11 @@ document.addEventListener('click', e => {
     case 'figStep': { const k = el.dataset.k, d = +el.dataset.d, st = figSt(k), n = ((FIGS[k] || {}).steps || []).length;
       if (d === 0) st.step = 0; else st.step = Math.max(0, Math.min(n - 1, st.step + d));
       S.figDraw = k; render(); break; }
-    case 'figsLib': showPopup('مكتبة الرسوم التفاعلية', () => figsLibBody(), true); break;
-    case 'figBackLib': showPopup('مكتبة الرسوم التفاعلية', () => figsLibBody(), true); break;
-    case 'figFull': { S.figK = el.dataset.k; S.figCap = ''; S.figDraw = null; S.figFrom = el.dataset.from || ''; showPopup((FIGS[S.figK] || {}).title || 'رسم تفاعلي', () => (S.figFrom === 'lib' ? '<button class="btn quiet" data-act="figBackLib" style="margin-bottom:10px">‹ رجوع إلى مكتبة الرسوم</button>' : '') + popupBody(vFig()), true); break; }
+    case 'figsLib': go('figlib'); break;
+    case 'figPage': case 'figFull': { S.figK = el.dataset.k; S.figCap = el.dataset.cap || ''; S.figDraw = null; go('fig'); break; }
     case 'figDraw': { const k = el.dataset.k; S.figDraw = (S.figDraw === k ? null : k); if (S.figDraw === k) figSt(k).step = Math.max(0, figSt(k).step); render(); break; }
     case 'weakOf': S.logFor = 'tests'; S.logSubject = el.dataset.s; go('log'); break;
     /* ٧-ز) سجل «تطوّرك الوزاري» في تبويب الاختبارات */
-    case 'minRec': showPopup('علامات تطورك الوزاري', () => popupBody(vMinrec()), true); break;
     case 'minRecSubj': S.minRecSubj = el.dataset.s || null; S.minRecTab = 'all'; render(); break;
     case 'minRecTab': S.minRecSubj = el.dataset.s; S.minRecTab = el.dataset.t; render(); break;
     case 'expRevLog': exportLogDoc('review'); break;

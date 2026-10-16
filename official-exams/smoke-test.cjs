@@ -465,8 +465,8 @@ T('سجل تطوّرك الوزاري', () => {
     const list = String(VIEWS.minrec());
     if (list.indexOf('سجل وزاري لكل مادة') < 0) throw new Error('شاشة اختيار المادة غير موجودة');
     S.view = 'tests';
-    const t = String(VIEWS.tests());
-    if (t.indexOf('تطوّرك الوزاري') < 0) throw new Error('بطاقة السجل ليست في تبويب الاختبارات');
+    S.view = 'tests'; S.tests2 = 'exams'; const t = String(VIEWS.tests()); S.tests2 = 'self';
+    if (t.indexOf('تطوّري الوزاري') < 0) throw new Error('رابط السجل ليس في تبويب الاختبارات');
     return { predict: s2.predict, nAvg: s2.nAvg };
   } catch(e){ return { error: e.message }; } })()`);
   if (out && out.error) return { __fail: out.error };

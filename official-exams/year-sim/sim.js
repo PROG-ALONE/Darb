@@ -55,7 +55,7 @@ window.SIM = (() => {
     let n = 0;
     gradeContents(me().grade).forEach(y => y.c.chapters.forEach(ch => {
       const ts = ch.topics.filter(t => !isHidden(t.id));
-      if (!chTestUnlocked(ts, ch) || (me().tests || {})['c:' + ch.id]) return;
+      if (chTestUnlocked(ts, ch) !== null || (me().tests || {})['c:' + ch.id]) return; /* null = مفتوح */
       const pool = quizPool('c:' + ch.id).length; if (!pool) return;
       doQuiz('c:' + ch.id, Math.min(20, pool), p); n++;
     }));
@@ -84,7 +84,7 @@ window.SIM = (() => {
     return S.exam ? S.exam.pct : null;
   }
   function tour() {
-    ['today', 'path', 'review', 'tests', 'library', 'groups'].forEach(v => { tabTo(v); htmlCheck('تبويب ' + v); });
+    ['today', 'path', 'tests', 'me', 'review', 'library', 'eval', 'figlib'].forEach(v => { tabTo(v); htmlCheck('تبويب ' + v); }); ['self', 'exams', 'bank', 'memo'].forEach(k => { S.tests2 = k; tabTo('tests'); htmlCheck('اختبارات ' + k); }); S.tests2 = 'self'; Object.keys(window.EXPLAINERS || {}).forEach(id => { openXplain(id); EXPLAINERS[id].steps.forEach((x, i) => { S.xp.step = i; render(); htmlCheck('شارح ' + id + ' ' + i); }); });
     showPopup('قيّمني', () => popupBody(vEval()), true); htmlCheck('قيّمني'); closePopup();
     showPopup('علامات تطورك الوزاري', () => popupBody(vMinrec()), true); htmlCheck('تطور وزاري'); closePopup();
     go('log'); htmlCheck('السجل'); 
@@ -101,7 +101,7 @@ window.SIM = (() => {
     const plan = planToday();
     out.plan = plan.picks.map(x => x.subject);
     if (!plan.picks.length && plan.total) issue('plan', 'خطة اليوم فارغة والمنهج لم ينتهِ');
-    plan.picks.forEach(x => { studyTopic(x.t.id, p); out.studied.push(x.subject); });
+    plan.picks.filter(x => !x.done).forEach(x => { studyTopic(x.t.id, p); out.studied.push(x.subject); });
     out.rev = reviews(p);
     out.ch = chapterTests(p);
     return out;

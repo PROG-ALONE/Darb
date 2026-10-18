@@ -1505,8 +1505,9 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v65';
+const APP_RELEASE_ID = 'darb-v66';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
+const BACKUP_REMINDER_KEY = 'darb-backup-reminder';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
 
@@ -1724,7 +1725,7 @@ function go(view, opts) {
 }
 function back() {
   if (S.exam && S.exam.kind === 'ministerial' && (S.exam.phase === 'run' || S.exam.phase === 'pledge')) { toast('أنهِ الامتحان أولًا.'); return true; }
-  if (S.dialog) { S.dialog = null; render(); return true; }
+  if (S.dialog) { const d = S.dialog; S.dialog = null; if (d.afterClose) d.afterClose(); render(); return true; }
   const prev = S.stack.pop();
   if (!prev) return false;
   const y = prev.y || 0, fid = prev.focus; delete prev.y; delete prev.focus;
@@ -2968,6 +2969,7 @@ const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كامل
 const SET_TABS = [['acc', 'الحساب'], ['study', 'هدف الدراسة والوقت'], ['ai', 'الذكاء الاصطناعي'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
 const APP_RELEASE_NOTES = [
+  'يظهر تذكير أسبوعي كل يوم جمعة لحفظ نسخة احتياطية من بياناتك على جهازك.',
   'أُصلح تمرير الصفحة كاملة على الهاتف وسطح المكتب.',
   'أصبحت خطة الدروس فارغة افتراضيًا؛ اختر دروسك بنفسك من «رتّب أسبوعك».',
   'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن إعادة مشاهدة القصة من «أنا» ← «عن دَرْب».',
@@ -6324,7 +6326,7 @@ function vDialog() {
   return '<div class="dialog-back" data-act="closeDialog"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgT" data-stop="1"><h2 id="dlgT">' + esc(d.title) + '</h2>' + (d.html || '<p class="muted">' + esc(d.text) + '</p>') +
     (d.choices ? '<div class="chips">' + d.choices.map((n, i) => '<button class="chip" data-act="dlgQuiz" data-n="' + n + '">' + (i === d.choices.length - 1 ? 'الكل (' + ar(n) + ')' : ar(n) + ' سؤالًا') + '</button>').join('') + '</div><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div>'
     : d.single ? '<button class="btn wide" data-act="closeDialog">' + esc(d.ok) + '</button></div></div>'
-      : '<div class="grid2"><button class="btn ' + (d.danger ? 'danger' : '') + '" data-act="dlgOk">' + esc(d.ok) + '</button><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div></div>');
+      : '<div class="grid2"><button class="btn ' + (d.danger ? 'danger' : '') + '" data-act="dlgOk">' + esc(d.ok) + '</button><button class="btn quiet" data-act="closeDialog">' + esc(d.cancel || 'إلغاء') + '</button></div></div></div>');
 }
 
 /* =================== النافذة المنبثقة المركزية =================== */
@@ -8213,7 +8215,7 @@ document.addEventListener('click', e => {
       S.dialog = { title: 'حذف ' + s.name + '؟', text: 'سيُحذف تقدمه كله من هذا الجهاز. صدّر نسخة احتياطية أولًا إن أردت الاحتفاظ به.', ok: 'احذف', danger: true, run: () => { DB.students = DB.students.filter(x => x.id !== s.id); save(); toast('حُذف ' + s.name); } };
       render(); break;
     }
-    case 'closeDialog': S.dialog = null; render(); break;
+    case 'closeDialog': { const d = S.dialog; S.dialog = null; if (d && d.afterClose) d.afterClose(); render(); break; }
     case 'closePopupBg': if (e.target === el) closePopup(); break;
     case 'closePopup': closePopup(); break;
     case 'aboutInfo': S.popup = { title: el.dataset.title || 'معلومات عن دَرْب', body: aboutInfoHTML(el.dataset.info), wide: true }; render(); break;
@@ -8816,10 +8818,33 @@ function queueReleaseNotice() {
   let seen = null;
   try { seen = localStorage.getItem(RELEASE_NOTICE_KEY); } catch (e) { releaseNoticeStorageError = true; }
   if (seen === APP_RELEASE_ID) return false;
-  if (DB.students.length) S.dialog = { title: 'وصل تحديث جديد إلى دَرْب', html: releaseNotesHTML(), ok: 'فهمت، ابدأ الدراسة', single: true };
+  if (DB.students.length) S.dialog = { title: 'وصل تحديث جديد إلى دَرْب', html: releaseNotesHTML(), ok: 'فهمت، ابدأ الدراسة', single: true, afterClose: () => {
+    if (queueWeeklyBackupReminder()) toast('تعذّر حفظ موعد تذكير النسخة الاحتياطية؛ قد يظهر مجددًا عند فتح التطبيق.');
+  } };
   try { localStorage.setItem(RELEASE_NOTICE_KEY, APP_RELEASE_ID); }
   catch (e) { releaseNoticeStorageError = true; }
   return releaseNoticeStorageError;
+}
+function queueWeeklyBackupReminder(now) {
+  const current = now || new Date();
+  if (!me() || current.getDay() !== 5 || S.dialog) return false;
+  const today = isoD(current);
+  let storageError = false;
+  let seen = null;
+  try { seen = localStorage.getItem(BACKUP_REMINDER_KEY); }
+  catch (e) { storageError = true; }
+  if (seen === today || S._backupReminderShown === today) return storageError;
+  S._backupReminderShown = today;
+  S.dialog = {
+    title: 'تذكير الجمعة: احفظ نسخة من تقدّمك',
+    text: 'بياناتك محفوظة على هذا الجهاز. صدّر نسخة احتياطية واحفظها في ملفاتك لتستطيع استرجاع تقدّمك إذا غيّرت الجهاز أو مُسحت بيانات المتصفح.',
+    ok: 'افتح النسخ الاحتياطي',
+    cancel: 'ذكّرني لاحقًا',
+    run: () => { S.view = 'settings'; S.setTab = 'data'; S.stack = []; }
+  };
+  try { localStorage.setItem(BACKUP_REMINDER_KEY, today); }
+  catch (e) { storageError = true; }
+  return storageError;
 }
 function prepareManualLessonSelection() {
   let changed = false;
@@ -8839,6 +8864,7 @@ function prepareManualLessonSelection() {
 try { history.replaceState({ d: 0 }, ''); } catch (e) {}
 prepareManualLessonSelection();
 queueReleaseNotice();
+if (!S.dialog && queueWeeklyBackupReminder()) toast('تعذّر حفظ موعد تذكير النسخة الاحتياطية؛ قد يظهر مجددًا عند فتح التطبيق.');
 render();
 if (releaseNoticeStorageError) toast('تعذّر حفظ حالة إشعار التحديث على هذا الجهاز؛ قد يظهر الملخص مرة أخرى عند فتح التطبيق.');
 </script>

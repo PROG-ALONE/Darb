@@ -371,19 +371,30 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .plank{height:14px;border-radius:4px;background:#5C3A1E;box-shadow:0 6px 0 #3A2210}
 
 /* أول فتح */
-.onb{position:fixed;inset:0;z-index:30;background:var(--night);color:var(--night-ink);display:flex;flex-direction:column;padding:calc(36px + env(safe-area-inset-top,0px)) max(20px,7vw) calc(28px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.onb{position:fixed;inset:0;z-index:30;background:radial-gradient(ellipse at 12% 8%,#183B47 0,transparent 38%),linear-gradient(155deg,#111A31 0%,#0A1022 55%,#101A31 100%);color:var(--night-ink);display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top,0px)) max(20px,7vw) calc(22px + env(safe-area-inset-bottom,0px));overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain}
 .onb .stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .onb .stars i{position:absolute;width:var(--s);height:var(--s);border-radius:9px;background:var(--star);animation:tw 4s var(--d) infinite}
+.onb-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:640px;width:100%;margin:0 auto 14px;padding:10px 14px;border:1px solid rgba(166,197,204,.17);border-radius:16px;background:rgba(18,34,50,.72);color:#F4F6FA}
+.onb-head b{font-family:var(--display);font-size:.95em}
+.onb-head b span{color:var(--star)}
+.onb-count{color:#BAC8D2;font-size:.8em;white-space:nowrap}
 .onb-dots{display:flex;gap:7px;justify-content:center;position:relative}
 .onb-dots i{height:6px;width:10px;border-radius:9px;background:#2C434C;transition:all .3s}
 .onb-dots i.on{width:28px;background:var(--star)}
 .onb-dots i.dn{background:#8FA59F}
 .onb-body{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;text-align:center;max-width:640px;width:100%;margin:0 auto;padding-block:24px}
+.onb-body.story{isolation:isolate;min-height:300px;padding:clamp(22px,5vw,42px);border:1px solid rgba(166,197,204,.19);border-radius:30px;background:linear-gradient(145deg,rgba(24,48,64,.94),rgba(14,24,43,.96));box-shadow:0 22px 60px rgba(0,0,0,.24);overflow:hidden}
+.onb-body.story::before{content:"";position:absolute;z-index:-1;width:220px;height:220px;inset-inline-end:-110px;top:-120px;border-radius:50%;background:rgba(242,196,109,.09);filter:blur(2px)}
+.onb-body.story .line{font-size:clamp(1.25em,4vw,1.85em);line-height:1.72}
+.onb-body.story .verse{font-size:clamp(1.35em,4.4vw,2em);line-height:1.9}
 .onb-body .line{font-family:var(--display);font-size:clamp(1.45em,4.4vw,2.05em);line-height:1.8;animation:rise .9s var(--d,0s) both}
 .onb-body .verse{font-family:var(--display);font-size:clamp(1.7em,5vw,2.4em);line-height:1.9;color:var(--star);animation:rise 1s .2s both}
 .onb-body h1{font-family:var(--display);font-size:clamp(1.7em,5vw,2.3em);animation:rise .6s both}
 .onb-body .sub{color:var(--night-muted);line-height:1.9}
 .onb-ic{width:84px;height:84px;margin:0 auto;color:var(--star);animation:rise .8s both}
+.onb-body.story .onb-ic{width:68px;height:68px;padding:14px;border-radius:20px;background:rgba(242,196,109,.1);border:1px solid rgba(242,196,109,.24)}
+.onb-body.story .logo{width:82px;height:82px;border-radius:24px;box-shadow:0 12px 32px rgba(0,0,0,.24)}
+.onb-body.story .logo svg{width:44px;height:44px}
 .onb input,.onb select{background:var(--night-card);border:1.5px solid #3C5A66;color:#fff;border-radius:16px;min-height:58px;padding:0 18px;text-align:center;font-size:1.25em;width:100%}
 .onb .pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:10px}
 .onb .opt{min-height:56px;border-radius:14px;border:1px solid var(--night-line);background:var(--night-card);color:var(--night-ink);cursor:pointer;font-size:.92em}
@@ -393,7 +404,7 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .onb .tile span{font-size:.85em;color:var(--night-muted)}
 .onb .list{display:flex;flex-direction:column;gap:10px;text-align:right}
 .onb .list div{padding:14px 18px;border-radius:14px;background:var(--night-card);border:1px solid var(--night-line);animation:rise .6s var(--d) both}
-.onb-act{position:relative;display:flex;flex-direction:column;gap:8px;align-items:center}
+.onb-act{position:relative;display:flex;flex-direction:column;gap:8px;align-items:center;max-width:640px;width:100%;margin:18px auto 0}
 .onb-next{min-width:min(100%,300px);min-height:58px;border-radius:16px;border:0;background:var(--star);color:#15202B;font-weight:700;font-size:1.1em;cursor:pointer}
 .onb-link{min-height:44px;border:0;background:transparent;color:var(--night-muted);cursor:pointer}
 .onb .err{color:#FFB4A6;font-size:.9em}
@@ -792,7 +803,7 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
    ولا تمدّد يتجاوز عرض الشاشة، مع استجابة كاملة لكل المقاسات والأوضاع. */
 
 /* ١) منع التحريك الأفقي وتمدّد الصفحة، ومنع تكبير النص تلقائيًا في iOS */
-html,body{height:100%;max-width:100%;overflow-x:hidden}
+html,body{height:auto;min-height:100%;max-width:100%;overflow-x:hidden}
 body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none;overflow-wrap:anywhere}
 /* معامل الاستجابة: يُضرب في --fs (حجم الخط الذي يختاره الطالب من الإعدادات) */
 body{font-size:calc(var(--fs) * var(--fsk,1))}
@@ -862,6 +873,11 @@ pre,code,.eq,.math{overflow-wrap:anywhere}
   .law-f .math.eq{font-size:1.2em}
   /* املأ الفراغات: النص الرياضي من اليسار لليمين */
   .blank-math{direction:ltr;text-align:left;unicode-bidi:plaintext}
+  .onb{padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+  .onb-head{margin-bottom:12px}
+  .onb-body.story{flex:1 0 auto;min-height:280px;padding:24px 18px;border-radius:24px;gap:18px}
+  .onb-act{margin-top:12px}
+  .onb-next{width:100%;min-height:54px}
 }
 @media (max-width:390px){
   :root{--fsk:.9}
@@ -1135,7 +1151,7 @@ a.row2{text-decoration:none}
 .dnd-drop{display:flex;flex-direction:column;gap:6px;min-height:54px}
 .dnd-hint{font-size:.75em;color:var(--muted);text-align:center;padding:6px;border:1.5px dashed var(--line);border-radius:12px}
 .dnd-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:8px}
-.dnd-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:14px;background:var(--soft);border-inline-start:4px solid var(--c);cursor:grab;touch-action:none;user-select:none;transition:transform .12s,box-shadow .12s}
+.dnd-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:14px;background:var(--soft);border-inline-start:4px solid var(--c);cursor:grab;touch-action:pan-y;user-select:none;transition:transform .12s,box-shadow .12s}
 .dnd-item:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
 .dnd-item[aria-pressed="true"]{outline:2px solid var(--acc);background:var(--acc-soft)}
 .dnd-item.dragging{opacity:.35}
@@ -1455,7 +1471,7 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v60';
+const APP_RELEASE_ID = 'darb-v61';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
@@ -2904,7 +2920,8 @@ const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
 const APP_RELEASE_NOTES = [
   'أصبحت خطة الدروس فارغة افتراضيًا؛ اختر دروسك بنفسك من «رتّب أسبوعك».',
   'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن فتحها أيضًا من خيار «إضافة طالب».',
-  'حُفظ تقدم الملفات الحالية؛ أُفرغت الخطة التلقائية القديمة فقط لتختار دروسك.'
+  'حُفظ تقدم الملفات الحالية؛ أُفرغت الخطة التلقائية القديمة فقط لتختار دروسك.',
+  'أُصلح تمرير صفحة اختيار الدروس على الهاتف، وأُعيد ترتيب شاشة قصة دَرْب.'
 ];
 function releaseNotesHTML() {
   return '<p class="small muted">ملخص مرتب لما تغيّر في هذا التحديث:</p><ol class="lst release-notes">' +
@@ -6168,6 +6185,7 @@ function startOnb(mode) {
 function vOnb() {
   const o = S.onb, n = STORY.length;
   const total = n + 5;
+  const story = o.step < n;
   let body = '', act = '';
   if (o.step < n) {
     const s = STORY[o.step];
@@ -6209,8 +6227,9 @@ function vOnb() {
   }
   const dots = Array.from({ length: total }, (_, i) => '<i class="' + (i === o.step ? 'on' : i < o.step ? 'dn' : '') + '"></i>').join('');
   return '<div class="onb" role="dialog" aria-modal="true" aria-label="' + (o.mode === 'add' ? 'قصة دَرْب وإعداد طالب جديد' : 'البداية') + '">' + starsHTML() +
+    '<div class="onb-head"><b>دَرْب <span>' + (story ? 'حكاية البداية' : 'إعداد رحلتك') + '</span></b><span class="onb-count">الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '</span></div>' +
     '<div class="onb-dots" aria-label="الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '">' + dots + '</div>' +
-    '<div class="onb-body" key="' + o.step + '">' + body + '</div><div class="onb-act">' + act + '</div></div>';
+    '<div class="onb-body' + (story ? ' story' : '') + '" key="' + o.step + '">' + body + '</div><div class="onb-act">' + act + '</div></div>';
 }
 function onbNext() {
   const o = S.onb, n = STORY.length, k = o.step - n;
@@ -7554,11 +7573,12 @@ function vWeekPlan() {
   const item = id => { const f = findTopic(id); return f ? { t: f.t, ch: f.ch, subject: f.subject } : null; };
   const restLeft = weekDates(st).some(x => !x.study && x.d >= today0() && st.rest.includes(x.d.getDay()));
   const needDays = Math.max(0, Math.ceil(planned.length / g.perDay) - wd.length);
-  return topBar('رتّب أسبوعك', { back: true, noTools: true, sub: 'اسحب الموضوع إلى اليوم — حتى ' + ar(g.perDay) + ' حصص يوميًا' }) + '<main class="page">' +
+  const touch = matchMedia('(pointer: coarse)').matches;
+  return topBar('رتّب أسبوعك', { back: true, noTools: true, sub: (touch ? 'اضغط موضوعًا ثم اليوم لإضافته' : 'اسحب الموضوع إلى اليوم') + ' — حتى ' + ar(g.perDay) + ' حصص يوميًا' }) + '<main class="page">' +
     '<section class="card week-mode-card"><div class="grid2">' +
       '<button class="btn ' + (st.weekMode === 'manual' ? '' : 'ghost') + '" data-act="weekSetManual">' + ico('grid', 1.8) + '<span>أرتّبه بنفسي</span></button>' +
       '<button class="btn ' + (st.weekMode === 'auto' ? '' : 'ghost') + '" data-act="weekSetAuto">' + ico('layers', 1.8) + '<span>وزّع هذا الأسبوع</span></button></div>' +
-      '<p class="small muted">المخطط الآن: ' + ar(wd.length) + ' أيام دراسة × ' + ar(g.perDay) + ' حصص كحد أعلى يوميًا. مسائل كل موضوع تبقى ضمن حصته.</p>' +
+      '<p class="small muted">' + (touch ? 'اضغط موضوعًا من القائمة ثم اضغط اليوم لإضافته؛ ويمكنك إزالته بالضغط على ×.' : 'اسحب الموضوع إلى اليوم، أو اضغط موضوعًا ثم اليوم لإضافته.') + ' المخطط: ' + ar(wd.length) + ' أيام دراسة × ' + ar(g.perDay) + ' حصص كحد أعلى يوميًا. مسائل كل موضوع تبقى ضمن حصته.</p>' +
       (needDays && restLeft ? '<button class="btn quiet wide" data-act="weekAddStudyDay">أضف يوم دراسة وخفّض الراحة يومًا واحدًا</button><p class="small muted">لإكمال هدف هذا الأسبوع نحتاج ' + ar(needDays) + ' يومًا إضافيًا. يضاف اليوم إلى جدول الراحة المعتاد أيضًا.</p>' : '') +
       '</section>' +
     '<div class="dnd-days">' + wd.map(x => '<div class="dnd-day" data-day="' + x.k + '"><div class="dnd-dh"><b>' + DAYS[x.d.getDay()] + '</b><span class="num muted">' + ar(x.d.getDate()) + ' | ' + ar((aw.days[x.k] || []).length) + '/' + ar(g.perDay) + ' حصص</span></div>' +
@@ -7582,7 +7602,7 @@ function wpAssign(tid, k) {
 (function () {
   let drag = null;
   document.addEventListener('pointerdown', e => {
-    const it = e.target.closest('.dnd-item'); if (!it || e.target.closest('.dnd-x') || S.view !== 'weekplan') return;
+    const it = e.target.closest('.dnd-item'); if (!it || e.pointerType === 'touch' || e.target.closest('.dnd-x') || S.view !== 'weekplan') return;
     drag = { tid: it.dataset.tid, x: e.clientX, y: e.clientY, el: it, ghost: null, moved: false };
   });
   document.addEventListener('pointermove', e => {
@@ -7601,13 +7621,23 @@ function wpAssign(tid, k) {
     if (!drag) return; const d = drag; drag = null; if (d.tm) clearInterval(d.tm);
     if (d.ghost) d.ghost.remove();
     document.querySelectorAll('.dnd-day.over').forEach(x => x.classList.remove('over'));
-    if (!d.moved) { S.pickT = S.pickT === d.tid ? null : d.tid; render(); return; }
+    if (!d.moved) return;
     const under = document.elementFromPoint(e.clientX, e.clientY), box = under && (under.closest('[data-day]'));
     if (box) wpAssign(d.tid, +box.dataset.day); else render();
   });
+  document.addEventListener('pointercancel', () => {
+    if (!drag) return; if (drag.tm) clearInterval(drag.tm);
+    if (drag.ghost) drag.ghost.remove();
+    drag.el.classList.remove('dragging'); drag = null;
+    document.querySelectorAll('.dnd-day.over').forEach(x => x.classList.remove('over'));
+  });
   document.addEventListener('click', e => {
-    if (S.view !== 'weekplan' || !S.pickT) return;
-    const day = e.target.closest('.dnd-day'); if (day && !e.target.closest('.dnd-item')) wpAssign(S.pickT, +day.dataset.day);
+    if (S.view !== 'weekplan') return;
+    if (e.target.closest('.dnd-x')) return;
+    const item = e.target.closest('.dnd-item');
+    if (item) { S.pickT = S.pickT === item.dataset.tid ? null : item.dataset.tid; render(); return; }
+    if (!S.pickT) return;
+    const day = e.target.closest('.dnd-day'); if (day) wpAssign(S.pickT, +day.dataset.day);
   });
 })();
 

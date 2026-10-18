@@ -895,6 +895,23 @@ T('الخطة اليدوية والمسائل في يوم الموضوع', () =>
   return true;
 });
 
+T('تمرير خطة الأسبوع والاختيار باللمس على الهاتف', () => {
+  const touchHint = JSON.parse(run(`(function(){
+    const previous = matchMedia;
+    try {
+      matchMedia = () => ({ matches: true });
+      return JSON.stringify(String(VIEWS.weekplan()).includes('اضغط موضوعًا ثم اليوم لإضافته'));
+    } finally { matchMedia = previous; }
+  })()`));
+  const touchStyles = /\.dnd-item\{[^}]*touch-action:pan-y/.test(html) &&
+    /html,body\{height:auto;min-height:100%/.test(html) &&
+    /e\.pointerType === 'touch'/.test(html);
+  const itemClick = /if \(item\) \{ S\.pickT = S\.pickT === item\.dataset\.tid \? null : item\.dataset\.tid; render\(\); return; \}/.test(html);
+  const storyCard = /class="onb-body' \+ \(story \? ' story' : ''\)/.test(html);
+  return touchHint && touchStyles && itemClick && storyCard
+    ? null : { __fail: JSON.stringify({ touchHint, touchStyles, itemClick, storyCard }) };
+});
+
 /* فروع الشاشة الواحدة: كل مصدر سجل له رسم مستقل، وأعيدنا بناء واحدة منها كاملة */
 const BRANCHES = [
   ['vLog/stats', `S.logFor='stats'; S.calY=null; S.calM=null; S.calD=null; return String(VIEWS.log());`],

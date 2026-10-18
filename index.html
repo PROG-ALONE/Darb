@@ -1455,7 +1455,7 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v58';
+const APP_RELEASE_ID = 'darb-v60';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
@@ -1599,6 +1599,7 @@ function newStudent(o) {
     holidays: (o.holidays || DEFAULT_HOLIDAYS).map(h => Object.assign({}, h)),
     examDate: o.examDate || null, goal: o.goal || null, college: o.college || '',
     probMinutes: o.probMinutes || 60, solves: {},
+    weekMode: 'manual', lessonSelectionVersion: 2,
     created: new Date().toISOString(), progress: {}, log: [], exams: [], groups: []
   };
 }
@@ -2901,14 +2902,15 @@ const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كامل
 const SET_TABS = [['acc', 'الحساب'], ['study', 'هدف الدراسة والوقت'], ['ai', 'الذكاء الاصطناعي'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
 const APP_RELEASE_NOTES = [
-  'أصبح رقم الإصدار المعروض ١، ويُحدّث التطبيق المفتوح تلقائيًا عند وصول نسخة جديدة.',
-  'أُضيف ملخص مرتب يوضح ما تغيّر، ويظهر مرة واحدة عند كل تحديث.',
-  'لا تُفتح مسائل اليوم إلا بعد تأكيد إكمال قراءة الدرس.'
+  'أصبحت خطة الدروس فارغة افتراضيًا؛ اختر دروسك بنفسك من «رتّب أسبوعك».',
+  'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن فتحها أيضًا من خيار «إضافة طالب».',
+  'حُفظ تقدم الملفات الحالية؛ أُفرغت الخطة التلقائية القديمة فقط لتختار دروسك.'
 ];
 function releaseNotesHTML() {
   return '<p class="small muted">ملخص مرتب لما تغيّر في هذا التحديث:</p><ol class="lst release-notes">' +
     APP_RELEASE_NOTES.map(note => '<li>' + esc(note) + '</li>').join('') +
-    '</ol><p class="small muted">الإصدار ' + APP_VER + ' | ' + APP_UPDATED + '</p>';
+    '</ol><p class="small muted">الإصدار ' + APP_VER + ' | ' + APP_UPDATED + '</p>' +
+    '<button class="btn wide" data-act="releaseSetup">اقرأ قصة دَرْب وأدخل معلومات طالب جديد</button>';
 }
 const ABOUT_STEPS = [['المسار', 'لكل مادة طريق محطاته الفصول ثم المواضيع، تمشيه خطوة بعد خطوة وترى أين وصلت.'], ['لماذا ندرسه؟', 'كل موضوع يبدأ بسبب دراسته وصلته بحياتك، قبل أي تعريف أو قانون.'], ['الشرح', 'محتوى المنهج مع رسوم ومحاكاة تفاعلية بحسب توفرها في المادة.'], ['التثبيت', 'التعاريف والقوانين والتعليلات وأسئلة املأ الفراغ، كلٌّ في تبويبه.'], ['التطبيق', 'أمثلة الكتاب خطوة بخطوة، ومسائل موقوتة بحلول مقترحة.'], ['الحفظ', 'مقررات الحفظ مقسّمة إلى وحدات قصيرة واختبار ذاتي.'], ['الاختبار', 'اختبارات الموضوع والفصل، وبنك منفصل لأسئلة الدورات الوزارية.'], ['الدفتر', 'حلولك وملاحظاتك وأخطاؤك مرتبة لكل مادة، وتُصدَّر للطباعة.']];
 function aboutInfoHTML(which) {
@@ -6161,7 +6163,7 @@ function revealSolve(pid) {
 /* =================== أول فتح =================== */
 function starsHTML() { let h = ''; for (let i = 0; i < 46; i++) h += '<i style="left:' + ((i * 37.7) % 100) + '%;top:' + ((i * 53.3) % 100) + '%;--d:' + ((i % 7) * .6) + 's;--s:' + (1 + (i % 3)) + 'px"></i>'; return '<div class="stars" aria-hidden="true">' + h + '</div>'; }
 function startOnb(mode) {
-  S.onb = { mode: mode || 'first', step: mode === 'add' ? STORY.length : 0, name: '', grade: 12, branch: 'sci', start: DEFAULT_START, minutes: 120, goal: 90, err: '' };
+  S.onb = { mode: mode || 'first', step: 0, name: '', grade: 12, branch: 'sci', start: DEFAULT_START, minutes: 120, goal: 90, err: '' };
 }
 function vOnb() {
   const o = S.onb, n = STORY.length;
@@ -6206,7 +6208,7 @@ function vOnb() {
       (o.mode === 'add' && k === 0 ? '<button class="onb-link" data-act="onbCancel">إلغاء</button>' : '<button class="onb-link" data-act="onbBack">رجوع</button>');
   }
   const dots = Array.from({ length: total }, (_, i) => '<i class="' + (i === o.step ? 'on' : i < o.step ? 'dn' : '') + '"></i>').join('');
-  return '<div class="onb" role="dialog" aria-modal="true" aria-label="البداية">' + starsHTML() +
+  return '<div class="onb" role="dialog" aria-modal="true" aria-label="' + (o.mode === 'add' ? 'قصة دَرْب وإعداد طالب جديد' : 'البداية') + '">' + starsHTML() +
     '<div class="onb-dots" aria-label="الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '">' + dots + '</div>' +
     '<div class="onb-body" key="' + o.step + '">' + body + '</div><div class="onb-act">' + act + '</div></div>';
 }
@@ -6512,6 +6514,9 @@ function vToday() {
       if (ts) h += sect('المراجعة الشاملة', '<div class="list">' +
         row2({ act: 'go', data: { v: 'minprep' }, ico: 'star', color: scol(ts), title: 'التهيئة للوزاري | ' + esc(ts), sub: 'اختر فصلًا ومواضيع محددة للتدريب' }) +
         row2({ act: 'tab', data: { v: 'review' }, ico: 'review', title: 'المراجعة المتباعدة', sub: 'راجع المواضيع المستحقة' }) + '</div>');
+    } else {
+      h += sect('دروس اليوم', '<p class="small muted">لم تُضف دروسًا بعد. اختر بنفسك المواد والمواضيع التي تريد دراستها.</p>' +
+        '<button class="btn wide" data-act="go" data-v="weekplan">' + ico('cal', 2) + '<span>اختر دروسك</span></button>');
     }
   }
   if (revs.length) h += sect('مراجعة مستحقة', '<div class="list">' + revs.map(x => row2({
@@ -8059,7 +8064,7 @@ document.addEventListener('click', e => {
     }
     case 'onbNext': onbNext(); break;
     case 'onbSkip': S.onb.step = STORY.length; render(); break;
-    case 'onbBack': S.onb.step = Math.max(S.onb.mode === 'add' ? STORY.length : 0, S.onb.step - 1 - ((S.onb.step - STORY.length === 4 && !GRADES[S.onb.grade - 1].ministerial) ? 1 : 0)); render(); break;
+    case 'onbBack': S.onb.step = Math.max(0, S.onb.step - 1 - ((S.onb.step - STORY.length === 4 && !GRADES[S.onb.grade - 1].ministerial) ? 1 : 0)); render(); break;
     case 'onbCancel': S.onb = null; render(); break;
     case 'onbDone': onbDone(); break;
     case 'oGrade': S.onb.grade = +el.dataset.g; render(); break;
@@ -8077,6 +8082,7 @@ document.addEventListener('click', e => {
     case 'closePopup': closePopup(); break;
     case 'aboutInfo': S.popup = { title: el.dataset.title || 'معلومات عن دَرْب', body: aboutInfoHTML(el.dataset.info), wide: true }; render(); break;
     case 'dlgOk': { const r = S.dialog.run; S.dialog = null; r(); render(); break; }
+    case 'releaseSetup': S.dialog = null; startOnb('add'); render(); break;
     case 'branch': st.branch = el.dataset.v; save(); render(); break;
     case 'rest': { const i = +el.dataset.i; st.rest = st.rest.includes(i) ? st.rest.filter(x => x !== i) : st.rest.concat(i); if (st.rest.length > 3) { st.rest = st.rest.filter(x => x !== i); toast('ثلاثة أيام راحة في الأسبوع هي الحد الأعلى.'); } save(); render(); break; }
     case 'delHoliday': st.holidays.splice(+el.dataset.i, 1); save(); render(); break;
@@ -8668,7 +8674,23 @@ function queueReleaseNotice() {
   catch (e) { releaseNoticeStorageError = true; }
   return releaseNoticeStorageError;
 }
+function prepareManualLessonSelection() {
+  let changed = false;
+  DB.students.forEach(st => {
+    if (st.lessonSelectionVersion === 2) return;
+    if (st.weekMode !== 'manual') {
+      st.weekMode = 'manual';
+      st.weekFill = null;
+      st.autoWeek = null;
+      st.dayPlan = null;
+    }
+    st.lessonSelectionVersion = 2;
+    changed = true;
+  });
+  if (changed) save();
+}
 try { history.replaceState({ d: 0 }, ''); } catch (e) {}
+prepareManualLessonSelection();
 queueReleaseNotice();
 render();
 if (releaseNoticeStorageError) toast('تعذّر حفظ حالة إشعار التحديث على هذا الجهاز؛ قد يظهر الملخص مرة أخرى عند فتح التطبيق.');

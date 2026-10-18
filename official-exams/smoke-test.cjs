@@ -143,6 +143,55 @@ T('النسخة الجديدة تبدأ بلا طالب أو تقدم افترا
     ? null : { __fail: JSON.stringify(result) };
 });
 
+T('خطة الطالب الجديد تبدأ فارغة وقابلة للاختيار اليدوي', () => {
+  const result = JSON.parse(run(`(function(){
+    const st = newStudent({ name: 'طالب جديد', grade: 12, branch: 'sci' });
+    const oldId = DB.activeId;
+    DB.students.push(st); DB.activeId = st.id;
+    const plan = planToday(), week = autoWeek(st);
+    const choosePrompt = String(VIEWS.today()).includes('اختر دروسك');
+    DB.students = DB.students.filter(x => x.id !== st.id); DB.activeId = oldId;
+    return JSON.stringify({
+      manual: st.weekMode === 'manual',
+      noDailyLessons: plan.picks.length === 0,
+      emptyWeek: week.manual && week.days.flat().length === 0,
+      choosePrompt
+    });
+  })()`));
+  return result.manual && result.noDailyLessons && result.emptyWeek && result.choosePrompt
+    ? null : { __fail: JSON.stringify(result) };
+});
+
+T('ترحيل الخطة التلقائية إلى فارغة دون مسح التقدم', () => {
+  const result = JSON.parse(run(`(function(){
+    const oldStudents = DB.students, oldActive = DB.activeId;
+    const st = newStudent({ name: 'طالب قديم', grade: 12, branch: 'sci' });
+    st.weekMode = 'auto'; delete st.lessonSelectionVersion;
+    st.dayPlan = { d: isoD(new Date()), ids: ['lesson'] };
+    st.autoWeek = { days: [['lesson']] };
+    st.progress.saved = { seen: { explain: 1 } };
+    DB.students = [st]; DB.activeId = st.id;
+    prepareManualLessonSelection();
+    const migrated = st.weekMode === 'manual' && !st.dayPlan && !st.autoWeek &&
+      st.progress.saved.seen.explain === 1;
+    DB.students = oldStudents; DB.activeId = oldActive;
+    return JSON.stringify({ migrated });
+  })()`));
+  return result.migrated ? null : { __fail: JSON.stringify(result) };
+});
+
+T('إضافة طالب تعرض القصة ثم حقول المعلومات', () => {
+  const result = JSON.parse(run(`(function(){
+    startOnb('add');
+    const story = vOnb().includes(APP_MISSION.problem[0]);
+    S.onb.step = STORY.length;
+    const form = vOnb().includes('id="oName"') && vOnb().includes('اكتب اسمك هنا');
+    S.onb = null;
+    return JSON.stringify({ story, form });
+  })()`));
+  return result.story && result.form ? null : { __fail: JSON.stringify(result) };
+});
+
 /* تجهيز طالب في الصف السادس العلمي */
 try {
   run(`

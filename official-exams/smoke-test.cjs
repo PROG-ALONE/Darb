@@ -124,6 +124,22 @@ const T = (name, fn) => {
   catch (e) { failures++; console.log('  ❌ ' + name + ' — ' + e.message); }
 };
 
+T('النسخة الجديدة تبدأ بلا طالب أو تقدم افتراضي', () => {
+  const clean = run(`(function(){
+    const s = newStudent({ name: 'طالب جديد', grade: 12 });
+    return JSON.stringify({
+      emptyStart: DB.students.length === 0 && DB.activeId === null,
+      emptyStudent: Object.keys(s.progress).length === 0 && s.log.length === 0 &&
+        s.exams.length === 0 && Object.keys(s.solves).length === 0,
+      welcome: document.getElementById('app').innerHTML.includes(APP_MISSION.problem[0]),
+      about: aboutHTML().includes('لماذا أُنشئ دَرْب؟') && aboutHTML().includes(APP_MISSION.purpose)
+    });
+  })()`);
+  const result = JSON.parse(clean);
+  return result.emptyStart && result.emptyStudent && result.welcome && result.about
+    ? null : { __fail: JSON.stringify(result) };
+});
+
 /* تجهيز طالب في الصف السادس العلمي */
 try {
   run(`

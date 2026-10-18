@@ -1454,7 +1454,9 @@ document.documentElement.setAttribute('dir', 'rtl');
 document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
-const APP_VER = '٥';
+const APP_VER = '١';
+const APP_RELEASE_ID = 'darb-v58';
+const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
 
@@ -2898,6 +2900,16 @@ const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كامل
 
 const SET_TABS = [['acc', 'الحساب'], ['study', 'هدف الدراسة والوقت'], ['ai', 'الذكاء الاصطناعي'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
+const APP_RELEASE_NOTES = [
+  'أصبح رقم الإصدار المعروض ١، ويُحدّث التطبيق المفتوح تلقائيًا عند وصول نسخة جديدة.',
+  'أُضيف ملخص مرتب يوضح ما تغيّر، ويظهر مرة واحدة عند كل تحديث.',
+  'لا تُفتح مسائل اليوم إلا بعد تأكيد إكمال قراءة الدرس.'
+];
+function releaseNotesHTML() {
+  return '<p class="small muted">ملخص مرتب لما تغيّر في هذا التحديث:</p><ol class="lst release-notes">' +
+    APP_RELEASE_NOTES.map(note => '<li>' + esc(note) + '</li>').join('') +
+    '</ol><p class="small muted">الإصدار ' + APP_VER + ' | ' + APP_UPDATED + '</p>';
+}
 const ABOUT_STEPS = [['المسار', 'لكل مادة طريق محطاته الفصول ثم المواضيع، تمشيه خطوة بعد خطوة وترى أين وصلت.'], ['لماذا ندرسه؟', 'كل موضوع يبدأ بسبب دراسته وصلته بحياتك، قبل أي تعريف أو قانون.'], ['الشرح', 'محتوى المنهج مع رسوم ومحاكاة تفاعلية بحسب توفرها في المادة.'], ['التثبيت', 'التعاريف والقوانين والتعليلات وأسئلة املأ الفراغ، كلٌّ في تبويبه.'], ['التطبيق', 'أمثلة الكتاب خطوة بخطوة، ومسائل موقوتة بحلول مقترحة.'], ['الحفظ', 'مقررات الحفظ مقسّمة إلى وحدات قصيرة واختبار ذاتي.'], ['الاختبار', 'اختبارات الموضوع والفصل، وبنك منفصل لأسئلة الدورات الوزارية.'], ['الدفتر', 'حلولك وملاحظاتك وأخطاؤك مرتبة لكل مادة، وتُصدَّر للطباعة.']];
 function aboutInfoHTML(which) {
   const live = []; GRADES.forEach(g => gradeContents(g.id).forEach(y => live.push({ g: g.name, s: y.subject, n: y.c.chapters.length, t: y.c.chapters.reduce((k, c) => k + c.topics.length, 0) })));
@@ -3377,6 +3389,13 @@ function topicPct(t) {
   const v = Math.round((seen * .4 + quiz * .35 + probs * .25) * 100);
   _tpCache.set(t.id, { g: _tpGen, v }); return v;
 }
+function lessonIsComplete(t) {
+  return !!progOf(t.id).lessonDone || topicPct(t) >= 90;
+}
+function dailyProblemUnlocked(pid) {
+  const f = findProblem(pid);
+  return !!f && lessonIsComplete(f.t);
+}
 
 
 /* =================== الحفظ (على نمط ذُرى) =================== */
@@ -3610,6 +3629,7 @@ function vTopic() {
     '<nav class="segs" aria-label="أجزاء الموضوع">' + segs.map(s => '<button class="seg" data-act="tseg" data-v="' + s[0] + '" aria-pressed="' + (s[0] === seg) + '">' + (progOf(t.id).seen[s[0]] && s[0] !== seg ? '<i class="dot" aria-hidden="true"></i>' : '') + s[1] + '</button>').join('') + '</nav>' +
     body + segNoteHTML(t, seg) +
     (seg === 'explain' && subject === 'الرياضيات' && needsMathGraphLab(t, f.ch) ? mathGraphHTML(t.id) : '') +
+    (seg === 'explain' && t.problems.length ? '<section class="card lesson-completion"><h2>هل أنهيت قراءة الدرس؟</h2><p class="small muted">بعد قراءة الشرح، أكّد إكماله لتُفتح مسائله عندما يكون الدرس ضمن خطة اليوم.</p><button class="btn' + (lessonIsComplete(t) ? ' quiet' : '') + '" data-act="lessonDone" data-id="' + t.id + '"' + (lessonIsComplete(t) ? ' disabled' : '') + '>' + (lessonIsComplete(t) ? 'أُكمل الدرس ✓' : 'أنهيت قراءة الدرس') + '</button></section>' : '') +
     (nx ? '<button class="btn" data-act="tseg" data-v="' + nx[0] + '">التالي: ' + nx[1] + '</button>' : '') +
     '<details class="t-more"><summary>المزيد: الدفتر، إخفاء الموضوع</summary><div class="inner"><button class="btn quiet" data-act="notebook" data-s="' + esc(subject) + '">دفتر ' + esc(subject) + '</button></div></details>' +
     '<details class="fold"><summary>هذا الموضوع ليس ضمن دراستي</summary><div class="inner"><p class="small muted">إذا كان هذا الموضوع محذوفًا من منهجك أو لفرع آخر، أخفِه فيختفي من مسارك ومسائلك واختباراتك والبحث وحساب تقدمك. ترجعه متى شئت من صفحة المادة أو الإعدادات.</p><button class="btn quiet" data-act="hideTopic" data-id="' + t.id + '">أخفِ هذا الموضوع</button></div></details>' +
@@ -6208,9 +6228,10 @@ function onbDone() {
 /* =================== حوار تأكيد =================== */
 function vDialog() {
   const d = S.dialog;
-  return '<div class="dialog-back" data-act="closeDialog"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgT" data-stop="1"><h2 id="dlgT">' + esc(d.title) + '</h2><p class="muted">' + esc(d.text) + '</p>' +
+  return '<div class="dialog-back" data-act="closeDialog"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgT" data-stop="1"><h2 id="dlgT">' + esc(d.title) + '</h2>' + (d.html || '<p class="muted">' + esc(d.text) + '</p>') +
     (d.choices ? '<div class="chips">' + d.choices.map((n, i) => '<button class="chip" data-act="dlgQuiz" data-n="' + n + '">' + (i === d.choices.length - 1 ? 'الكل (' + ar(n) + ')' : ar(n) + ' سؤالًا') + '</button>').join('') + '</div><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div>'
-    : '<div class="grid2"><button class="btn ' + (d.danger ? 'danger' : '') + '" data-act="dlgOk">' + esc(d.ok) + '</button><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div></div>');
+    : d.single ? '<button class="btn wide" data-act="closeDialog">' + esc(d.ok) + '</button></div></div>'
+      : '<div class="grid2"><button class="btn ' + (d.danger ? 'danger' : '') + '" data-act="dlgOk">' + esc(d.ok) + '</button><button class="btn quiet" data-act="closeDialog">إلغاء</button></div></div></div>');
 }
 
 /* =================== النافذة المنبثقة المركزية =================== */
@@ -6499,10 +6520,12 @@ function vToday() {
 
   /* المسائل: هدف دقائق اليوم + المسألة التالية من دروس اليوم */
   const used = Math.round(todayProblemSec() / 60), goal = st.probMinutes || 60;
-  const nextP = (() => { for (const x of tasks) { const p = (x.t.problems || []).find(p => (solveOf(p.id) || {}).self !== 'ok'); if (p) return { p, x }; } return null; })();
+  const nextP = (() => { for (const x of tasks) { if (!lessonIsComplete(x.t)) continue; const p = (x.t.problems || []).find(p => (solveOf(p.id) || {}).self !== 'ok'); if (p) return { p, x }; } return null; })();
+  const lockedP = nextP ? null : (() => { for (const x of tasks) { if (lessonIsComplete(x.t)) continue; const p = (x.t.problems || []).find(p => (solveOf(p.id) || {}).self !== 'ok'); if (p) return { p, x }; } return null; })();
   h += sect('وقت المسائل', '<div class="pcard"><div class="pc-top"><b class="num">' + ar(used) + '</b><span class="muted"> من ' + ar(goal) + ' دقيقة اليوم</span></div>' +
     '<div class="bar"><span style="width:' + Math.min(100, Math.round(used / goal * 100)) + '%"></span></div>' +
-    (nextP ? '<button class="btn" data-act="prob" data-id="' + nextP.p.id + '">' + ico('play', 2) + '<span>المسألة التالية — ' + esc(nextP.x.subject) + '</span></button>'
+    (nextP ? '<button class="btn" data-act="prob" data-day="1" data-id="' + nextP.p.id + '">' + ico('play', 2) + '<span>المسألة التالية — ' + esc(nextP.x.subject) + '</span></button>'
+      : lockedP ? '<p class="small muted">تُفتح المسائل بعد إكمال قراءة درس اليوم.</p><button class="btn" data-act="topic" data-id="' + lockedP.x.t.id + '">' + ico('book', 2) + '<span>أكمل الدرس أولًا — ' + esc(lockedP.x.subject) + '</span></button>'
       : '<p class="small muted">لا مسائل غير محلولة في دروس اليوم. ستجد مسائل كل موضوع داخل تبويب «المسائل» فيه.</p>') + '</div>');
 
   h += weekSectionHTML(st);
@@ -8177,6 +8200,11 @@ document.addEventListener('click', e => {
     case 'playPath': playPath(el); break;
     case 'tQuiz': { const t = findTopic(el.dataset.id).t, n = quizPool('t:' + t.id).length; S.dialog = { title: 'اختبار: ' + t.title, text: 'اختبار بعد الموضوع. كم سؤالًا تريد؟', choices: [5, 10].concat([n]).filter((v, i, a) => v <= n && a.indexOf(v) === i), src: 't:' + t.id }; render(); break; }
     case 'topic': S.tseg = 'explain'; go('topic', { viewTopic: el.dataset.id }); break;
+    case 'lessonDone': {
+      const f = findTopic(el.dataset.id);
+      if (!f || !f.t.problems.length) { toast('لا توجد مسائل مرتبطة بهذا الدرس.'); break; }
+      progOf(f.t.id).lessonDone = Date.now(); save(); render(); toast('أُكمل الدرس؛ ستُفتح مسائله في «وقت المسائل» عندما يكون ضمن خطة اليوم.'); break;
+    }
     case 'tseg': S.tseg = el.dataset.v; S.mt = null; render(true); break;
     case 'memoTab': case 'mmode': case 'mrep': case 'mlvl': case 'mrev': case 'mrevAll': case 'mflip': case 'mcard': case 'mrate': case 'mtest': case 'mans': case 'mmPlay': case 'mmNext': case 'mmPrev': case 'mmReplay': case 'mmGo': case 'mrateAll': memoAct(a, el); break;
     case 'memoGo': go('topic', { viewTopic: el.dataset.id }); S.tseg = 'memo'; S.mmode = 'test'; S.mt = null; S.mbi = el.dataset.b ? +el.dataset.b : 0; render(true); break;
@@ -8499,7 +8527,10 @@ document.addEventListener('click', e => {
     case 'revOpen': S.reviewAllTid = null; go('topic', { viewTopic: el.dataset.id }); break;
     case 'hideTopic': { st.hidden = (st.hidden || []).concat(el.dataset.id); save(); back(); render(true); toast('أُخفي الموضوع. ترجعه من صفحة المادة متى شئت.'); break; }
     case 'unhideTopic': st.hidden = (st.hidden || []).filter(x => x !== el.dataset.id); save(); render(); toast('رجع الموضوع إلى مسارك.'); break;
-    case 'prob': if (el.dataset.replace) { S.viewProblem = el.dataset.id; render(true); } else go('problem', { viewProblem: el.dataset.id }); break;
+    case 'prob': {
+      if (el.dataset.day === '1' && !dailyProblemUnlocked(el.dataset.id)) { toast('أكمل قراءة الدرس أولًا لتُفتح مسائله.'); break; }
+      if (el.dataset.replace) { S.viewProblem = el.dataset.id; render(true); } else go('problem', { viewProblem: el.dataset.id }); break;
+    }
     case 'notebook': go('notebook', { viewSubject: el.dataset.s }); break;
     case 'startSolve': startSolve(el.dataset.id); render(); break;
     case 'selfCheck': { const v = solveOf(el.dataset.id); v.self = el.dataset.v; save(); render(); if (v.self === 'ok') toast('أحسنت.'); break; }
@@ -8617,10 +8648,30 @@ function doImport(text) {
 
 /* =================== التشغيل =================== */
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloadingForUpdate = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || reloadingForUpdate) return;
+    reloadingForUpdate = true;
+    flushSave();
+    location.reload();
+  });
+  navigator.serviceWorker.register('sw.js').catch(e => console.error('تعذّر تسجيل تحديث التطبيق:', e));
+}
+let releaseNoticeStorageError = false;
+function queueReleaseNotice() {
+  let seen = null;
+  try { seen = localStorage.getItem(RELEASE_NOTICE_KEY); } catch (e) { releaseNoticeStorageError = true; }
+  if (seen === APP_RELEASE_ID) return false;
+  if (DB.students.length) S.dialog = { title: 'وصل تحديث جديد إلى دَرْب', html: releaseNotesHTML(), ok: 'فهمت، ابدأ الدراسة', single: true };
+  try { localStorage.setItem(RELEASE_NOTICE_KEY, APP_RELEASE_ID); }
+  catch (e) { releaseNoticeStorageError = true; }
+  return releaseNoticeStorageError;
 }
 try { history.replaceState({ d: 0 }, ''); } catch (e) {}
+queueReleaseNotice();
 render();
+if (releaseNoticeStorageError) toast('تعذّر حفظ حالة إشعار التحديث على هذا الجهاز؛ قد يظهر الملخص مرة أخرى عند فتح التطبيق.');
 </script>
 </body>
 </html>

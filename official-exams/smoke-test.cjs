@@ -132,11 +132,14 @@ T('النسخة الجديدة تبدأ بلا طالب أو تقدم افترا
       emptyStudent: Object.keys(s.progress).length === 0 && s.log.length === 0 &&
         s.exams.length === 0 && Object.keys(s.solves).length === 0,
       welcome: document.getElementById('app').innerHTML.includes(APP_MISSION.problem[0]),
-      about: aboutHTML().includes('لماذا أُنشئ دَرْب؟') && aboutHTML().includes(APP_MISSION.purpose)
+      about: aboutHTML().includes('لماذا أُنشئ دَرْب؟') && aboutHTML().includes(APP_MISSION.purpose),
+      version: APP_VER === '١',
+      noNoticeForFirstLaunch: S.dialog === null
     });
   })()`);
   const result = JSON.parse(clean);
-  return result.emptyStart && result.emptyStudent && result.welcome && result.about
+  return result.emptyStart && result.emptyStudent && result.welcome && result.about &&
+    result.version && result.noNoticeForFirstLaunch
     ? null : { __fail: JSON.stringify(result) };
 });
 
@@ -168,6 +171,40 @@ try {
 } catch (e) {
   console.log('⚠️ تعذّر تجهيز الطالب الافتراضي: ' + e.message);
 }
+
+T('مسائل اليوم مقفلة حتى إكمال الدرس', () => {
+  const result = JSON.parse(run(`(function(){
+    let topic = null, problem = null;
+    for (const y of gradeContents(me().grade)) for (const ch of y.c.chapters) for (const t of ch.topics) {
+      if (t.problems && t.problems.length) { topic = t; problem = t.problems[0]; break; }
+    }
+    if (!topic) return JSON.stringify({ found: false });
+    const p = progOf(topic.id), previous = p.lessonDone;
+    delete p.lessonDone;
+    const locked = !dailyProblemUnlocked(problem.id);
+    p.lessonDone = Date.now();
+    const unlocked = dailyProblemUnlocked(problem.id);
+    S.viewTopic = topic.id; S.tseg = 'explain';
+    const completionAction = vTopic().includes('data-act="lessonDone"');
+    if (previous) p.lessonDone = previous; else delete p.lessonDone;
+    return JSON.stringify({ found: true, locked, unlocked, completionAction });
+  })()`));
+  return result.found && result.locked && result.unlocked && result.completionAction
+    ? null : { __fail: JSON.stringify(result) };
+});
+
+T('ملخص التحديث يظهر مرة واحدة للمستخدم الحالي', () => {
+  const result = JSON.parse(run(`(function(){
+    localStorage.removeItem(RELEASE_NOTICE_KEY);
+    queueReleaseNotice();
+    const first = !!S.dialog && S.dialog.html.includes('ملخص مرتب');
+    S.dialog = null;
+    queueReleaseNotice();
+    const once = S.dialog === null;
+    return JSON.stringify({ first, once });
+  })()`));
+  return result.first && result.once ? null : { __fail: JSON.stringify(result) };
+});
 
 /* تشخيص سريع: هل محتوى الصف مُحمَّل فعلًا؟ */
 try {
@@ -796,8 +833,12 @@ T('الخطة اليدوية والمسائل في يوم الموضوع', () =>
       if (!planToday().picks.some(p => p.t.id === x.t.id)) return { __fail: 'لم يصل موضوع اليوم اليدوي إلى خطة اليوم' };
       if (!String(VIEWS.today()).includes('دروس اليوم (' + ar(planToday().picks.length) + ' من ' + ar(dailyLessonGoal(st)) + ')')) return { __fail: 'هدف عدد الدروس اليومي لا يظهر في صفحة اليوم' };
       const problem = x.t.problems.find(p => (solveOf(p.id) || {}).self !== 'ok');
-      const today = String(VIEWS.today());
-      if (!today.includes('data-act="prob" data-id="' + problem.id + '"')) return { __fail: 'وقت المسائل لا يفتح مسألةً من موضوع اليوم' };
+      if (dailyProblemUnlocked(problem.id)) return { __fail: 'انفتحت المسألة قبل إكمال الدرس' };
+      const pstate = progOf(x.t.id), oldLessonDone = pstate.lessonDone;
+      let today;
+      try { pstate.lessonDone = Date.now(); today = String(VIEWS.today()); }
+      finally { if (oldLessonDone) pstate.lessonDone = oldLessonDone; else delete pstate.lessonDone; }
+      if (!today.includes('data-act="prob" data-day="1" data-id="' + problem.id + '"')) return { __fail: 'وقت المسائل لا يفتح مسألةً من موضوع اليوم بعد إكمال الدرس' };
       return true;
     } finally { Object.assign(st, old); }
   } catch(e){ return { __fail: e.message }; } })()`);

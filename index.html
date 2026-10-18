@@ -403,7 +403,25 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .onb .tile b{display:block;font-size:1.8em;color:var(--star);line-height:1.2}
 .onb .tile span{font-size:.85em;color:var(--night-muted)}
 .onb .list{display:flex;flex-direction:column;gap:10px;text-align:right}
+.onb .list{background:transparent;box-shadow:none;padding:0}
 .onb .list div{padding:14px 18px;border-radius:14px;background:var(--night-card);border:1px solid var(--night-line);animation:rise .6s var(--d) both}
+.onb-map{display:flex;flex-direction:column;gap:12px;width:100%;text-align:right}
+.onb-map h1{font-size:clamp(1.35em,4.5vw,1.8em)}
+.onb-map-lead{color:var(--night-muted);font-size:.88em;line-height:1.7}
+.onb-map-main{padding:15px;border:1px solid rgba(242,196,109,.38);border-radius:18px;background:linear-gradient(145deg,rgba(37,54,70,.95),rgba(20,31,49,.98))}
+.onb-map-main>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.onb-map-main h2{font-size:1.05em}
+.onb-map-status{border-radius:999px;padding:3px 9px;background:rgba(95,197,148,.14);color:#8FE0B6;font-size:.72em;font-weight:700;white-space:nowrap}
+.onb-map-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}
+.onb-map-stats span{padding:8px 4px;border-radius:12px;background:rgba(8,15,31,.44);text-align:center;color:#C1CBD6;font-size:.75em}
+.onb-map-stats b{display:block;color:var(--star);font-size:1.35em}
+.onb-map-subjects{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.onb-map-subjects span{border:1px solid rgba(166,197,204,.2);border-radius:999px;padding:4px 9px;color:#E2E8EF;font-size:.73em}
+.onb-map-empty{display:flex;flex-direction:column;gap:7px;padding:12px;border:1px solid rgba(166,197,204,.15);border-radius:16px;background:rgba(16,27,45,.72)}
+.onb-map-empty h2{font-size:.9em}
+.onb-map-empty p{color:var(--night-muted);font-size:.78em;line-height:1.7}
+.onb-map-grades{display:flex;flex-wrap:wrap;gap:6px}
+.onb-map-grades span{border-radius:999px;padding:3px 8px;background:rgba(35,49,69,.86);color:#D2DAE4;font-size:.7em}
 .onb-act{position:relative;display:flex;flex-direction:column;gap:8px;align-items:center;max-width:640px;width:100%;margin:18px auto 0}
 .onb-next{min-width:min(100%,300px);min-height:58px;border-radius:16px;border:0;background:var(--star);color:#15202B;font-weight:700;font-size:1.1em;cursor:pointer}
 .onb-link{min-height:44px;border:0;background:transparent;color:var(--night-muted);cursor:pointer}
@@ -427,7 +445,7 @@ details.fold>.inner{padding-bottom:18px;display:flex;flex-direction:column;gap:1
 .cycle .st[aria-pressed="true"]{background:var(--gold-line);color:#15202B;border-color:var(--gold-line)}
 
 .dialog-back{position:fixed;inset:0;background:rgba(10,15,20,.52);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:25;display:flex;align-items:center;justify-content:center;padding:16px}
-.dialog{background:var(--card);color:var(--ink);width:min(100%,560px);border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-lg);animation:popIn .2s ease both}
+.dialog{background:var(--card);color:var(--ink);width:min(100%,560px);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-lg);animation:popIn .2s ease both}
 /* نافذة منبثقة مركزية: للخطط والسجل والمكتبة والبنك والامتحانات */
 .modal-back{position:fixed;inset:0;background:rgba(10,15,20,.6);backdrop-filter:blur(3px);z-index:40;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .18s both}
 .modal{background:var(--card);color:var(--ink);width:min(100%,760px);max-height:92vh;border-radius:24px;padding:0;display:flex;flex-direction:column;gap:0;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:popIn .22s cubic-bezier(.2,.9,.3,1.2) both;overflow:hidden;border:1px solid var(--line)}
@@ -1159,6 +1177,22 @@ a.row2{text-decoration:none}
 .dnd-t{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.45}
 .dnd-t b{font-size:.86em}.dnd-t small{font-size:.74em;color:var(--muted)}
 .dnd-x{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:.85em;padding:4px}
+.dnd-item.flow-in{animation:weekItemFlow .42s cubic-bezier(.2,.8,.25,1) both;animation-delay:calc(var(--flow-index,0)*45ms)}
+@keyframes weekItemFlow{from{opacity:0;transform:translateY(-12px) scale(.96)}to{opacity:1;transform:none}}
+.wp-add{width:100%;min-height:56px;border:1.5px dashed var(--acc);border-radius:16px;background:var(--acc-soft);color:var(--acc);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.wp-add svg{width:22px;height:22px}
+.wp-modal-lead{margin:0 0 12px;color:var(--muted);font-size:.88em;line-height:1.7}
+.wp-topics{display:flex;flex-direction:column;gap:8px}
+.wp-topic-option,.wp-day-choice{width:100%;min-height:58px;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);text-align:right;font:inherit;cursor:pointer}
+.wp-topic-option .r-dot{flex-shrink:0}
+.wp-topic-option .wp-topic-text{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.wp-topic-option small{font-size:.78em;color:var(--muted)}
+.wp-day-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:8px}
+.wp-day-choice{justify-content:space-between;text-align:right}
+.wp-day-choice span{color:var(--muted);font-size:.78em}
+.wp-day-choice:disabled{opacity:.48;cursor:not-allowed}
+.wp-day-back{margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){.dnd-item.flow-in{animation:none}}
 .segctl.sm button{min-height:36px;font-size:.82em}
 
 .hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
@@ -1471,7 +1505,7 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v61';
+const APP_RELEASE_ID = 'darb-v64';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
@@ -1554,6 +1588,22 @@ const STORY = [
   { verse: '﴿ يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ ﴾' },
   { logo: true, l: ['لذلك كان ' + APP], sub: APP_MISSION.purpose }
 ];
+function onboardingMapHTML() {
+  const counts = gradeContents(12).reduce((total, entry) => {
+    total.subjects++;
+    total.chapters += entry.c.chapters.length;
+    total.topics += entry.c.chapters.reduce((n, chapter) => n + chapter.topics.filter(topic => !isHidden(topic.id)).length, 0);
+    return total;
+  }, { subjects: 0, chapters: 0, topics: 0 });
+  const subjects = gradeContents(12).map(entry => '<span>' + esc(entry.subject) + '</span>').join('');
+  const otherGrades = GRADES.filter(grade => grade.id !== 12).map(grade => '<span>' + esc(grade.name) + '</span>').join('');
+  return '<div class="onb-map"><h1>خريطة محتوى دَرْب</h1>' +
+    '<p class="onb-map-lead">هذه صورة واضحة لما تحتويه النسخة الآن؛ اختر صفك بعد أن تعرف ما هو متاح.</p>' +
+    '<section class="onb-map-main"><div><h2>السادس الإعدادي</h2><span class="onb-map-status">مكتمل في هذه النسخة</span></div>' +
+    '<div class="onb-map-stats"><span><b class="num">' + ar(counts.subjects) + '</b>مواد</span><span><b class="num">' + ar(counts.chapters) + '</b>فصلًا</span><span><b class="num">' + ar(counts.topics) + '</b>موضوعًا</span></div>' +
+    '<div class="onb-map-subjects" aria-label="مواد السادس الإعدادي">' + subjects + '</div></section>' +
+    '<section class="onb-map-empty"><h2>بقية الصفوف</h2><p>لم يُضَف محتوى دراسي لهذه الصفوف في النسخة الحالية بعد.</p><div class="onb-map-grades">' + otherGrades + '</div></section></div>';
+}
 
 /* =================== أيقونات =================== */
 const I = {
@@ -1662,7 +1712,7 @@ function applyPrefs() {
 }
 
 /* =================== التنقل =================== */
-const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null, minPrepSubj: null, figs: {}, figK: null, figCap: '', figDraw: null };
+const S = { open: {}, blank: {}, exStep: {}, tseg: 'explain', quiz: null, exam: null, bankSubject: null, view: 'today', stack: [], onb: null, search: { q: '', scope: 'all' }, dialog: null, introPart: 0, introOpen: -1, introCyc: 0, viewGrade: null, viewSubject: null, viewTopic: null, viewProblem: null, weekPickTopic: null, weekAutoAnimating: false, weekFlowTimer: null, acc: {}, memoSubj: null, memoCh: null, minRecSubj: null, minRecTab: 'all', minsimSubj: null, minPrepSubj: null, figs: {}, figK: null, figCap: '', figDraw: null };
 function go(view, opts) {
   const o = opts || {};
   /* أي تنقّل يُغلق النافذة المنبثقة والمشغّل المتحرك والسرد المتحرك معه — لا تبقى نافذة معلّقة فوق شاشة جديدة */
@@ -2919,15 +2969,17 @@ const SET_TABS = [['acc', 'الحساب'], ['study', 'هدف الدراسة وا
 const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
 const APP_RELEASE_NOTES = [
   'أصبحت خطة الدروس فارغة افتراضيًا؛ اختر دروسك بنفسك من «رتّب أسبوعك».',
-  'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن فتحها أيضًا من خيار «إضافة طالب».',
+  'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن إعادة مشاهدة القصة من «أنا» ← «عن دَرْب».',
   'حُفظ تقدم الملفات الحالية؛ أُفرغت الخطة التلقائية القديمة فقط لتختار دروسك.',
-  'أُصلح تمرير صفحة اختيار الدروس على الهاتف، وأُعيد ترتيب شاشة قصة دَرْب.'
+  'أُصلح تمرير صفحة اختيار الدروس على الهاتف، وأُعيد ترتيب شاشة قصة دَرْب.',
+  'أُضيفت خريطة توضّح محتوى الصفوف، وأُجّل إشعار التحديث إلى ما بعد بدء الاستخدام.',
+  'أصبحت إضافة مواضيع الأسبوع عبر نافذة تختار منها الموضوع ثم يومه، مع توزيع عشوائي متحرك.',
+  'يمكن إعادة مشاهدة قصة دَرْب في أي وقت من الإعدادات ← عن التطبيق.'
 ];
 function releaseNotesHTML() {
   return '<p class="small muted">ملخص مرتب لما تغيّر في هذا التحديث:</p><ol class="lst release-notes">' +
     APP_RELEASE_NOTES.map(note => '<li>' + esc(note) + '</li>').join('') +
-    '</ol><p class="small muted">الإصدار ' + APP_VER + ' | ' + APP_UPDATED + '</p>' +
-    '<button class="btn wide" data-act="releaseSetup">اقرأ قصة دَرْب وأدخل معلومات طالب جديد</button>';
+    '</ol><p class="small muted">الإصدار ' + APP_VER + ' | ' + APP_UPDATED + '</p>';
 }
 const ABOUT_STEPS = [['المسار', 'لكل مادة طريق محطاته الفصول ثم المواضيع، تمشيه خطوة بعد خطوة وترى أين وصلت.'], ['لماذا ندرسه؟', 'كل موضوع يبدأ بسبب دراسته وصلته بحياتك، قبل أي تعريف أو قانون.'], ['الشرح', 'محتوى المنهج مع رسوم ومحاكاة تفاعلية بحسب توفرها في المادة.'], ['التثبيت', 'التعاريف والقوانين والتعليلات وأسئلة املأ الفراغ، كلٌّ في تبويبه.'], ['التطبيق', 'أمثلة الكتاب خطوة بخطوة، ومسائل موقوتة بحلول مقترحة.'], ['الحفظ', 'مقررات الحفظ مقسّمة إلى وحدات قصيرة واختبار ذاتي.'], ['الاختبار', 'اختبارات الموضوع والفصل، وبنك منفصل لأسئلة الدورات الوزارية.'], ['الدفتر', 'حلولك وملاحظاتك وأخطاؤك مرتبة لكل مادة، وتُصدَّر للطباعة.']];
 function aboutInfoHTML(which) {
@@ -2945,7 +2997,8 @@ function aboutHTML() {
     '<section class="card"><h2>لماذا أُنشئ دَرْب؟</h2>' +
       '<p>' + esc(APP_MISSION.problem.join(' ')) + '</p><p>' + esc(APP_MISSION.fragmentation.join(' ')) + '</p>' +
       '<p>' + esc(APP_MISSION.belief.join(' ')) + '</p><p><b>لذلك كان ' + APP + ':</b> ' + esc(APP_MISSION.purpose) + '</p></section>' +
-    '<div class="list">' +
+      '<button class="btn wide" data-act="storyReplay">شاهد قصة دَرْب من جديد</button>' +
+      '<div class="list">' +
       row2({ act: 'aboutInfo', data: { info: 'how', title: 'كيف يعمل دَرْب' }, ico: 'book', title: 'كيف أدرس في دَرْب؟', sub: 'خطوات مختصرة داخل نافذة' }) +
       row2({ act: 'aboutInfo', data: { info: 'available', title: 'المتوفر في هذه النسخة' }, ico: 'layers', title: 'المتوفر الآن', sub: 'الصفوف والمواد والفصول' }) +
       row2({ act: 'aboutInfo', data: { info: 'privacy', title: 'الخصوصية ومبادئ التطبيق' }, ico: 'shield', title: 'الخصوصية ومبادئ التطبيق' }) +
@@ -3069,7 +3122,7 @@ Object.entries(CONTENT).forEach(([k, c]) => c.chapters.forEach(ch => {
 const contentKey = (gid, branch, subject) => gid + ':' + (branch || '-') + ':' + subject;
 function contentOf(gid, subject) {
   const st = me(), g = GRADES[gid - 1];
-  const br = g.branch ? (gid === st.grade ? st.branch : (st.branch || 'sci')) : null;
+  const br = g.branch ? (st && gid === st.grade ? st.branch : (st && st.branch || 'sci')) : null;
   return CONTENT[contentKey(gid, br, subject)] || null;
 }
 /* المواضيع التي أخفاها الطالب («ليس ضمن دراستي») تُستثنى من المسار والمسائل والاختبارات والبحث والتقدم */
@@ -3085,13 +3138,21 @@ function qGroup(x) {
 }
 function qChId(x) { return qGroup(x).chId; }
 function qTid(x) { return qGroup(x).tKey; }
+const TOPIC_ORDER_CACHE = new Map();
 function sortTopicsByMaterial(items) {
-  const subjects = gradeContents(me().grade), subjectOrder = new Map(subjects.map((y, i) => [y.subject, i]));
-  const chapterOrder = new Map(), topicOrder = new Map();
-  subjects.forEach(y => y.c.chapters.forEach((ch, ci) => {
-    chapterOrder.set(ch.id, ci);
-    ch.topics.forEach((t, ti) => topicOrder.set(t.id, ti));
-  }));
+  const st = me(), cacheKey = st.grade + ':' + (st.branch || '-');
+  let order = TOPIC_ORDER_CACHE.get(cacheKey);
+  if (!order) {
+    const subjects = gradeContents(st.grade), subjectOrder = new Map(subjects.map((y, i) => [y.subject, i]));
+    const chapterOrder = new Map(), topicOrder = new Map();
+    subjects.forEach(y => y.c.chapters.forEach((ch, ci) => {
+      chapterOrder.set(ch.id, ci);
+      ch.topics.forEach((t, ti) => topicOrder.set(t.id, ti));
+    }));
+    order = { subjectOrder, chapterOrder, topicOrder };
+    TOPIC_ORDER_CACHE.set(cacheKey, order);
+  }
+  const { subjectOrder, chapterOrder, topicOrder } = order;
   return items.slice().sort((a, b) =>
     (subjectOrder.get(a.subject) ?? 999) - (subjectOrder.get(b.subject) ?? 999) ||
     (chapterOrder.get(a.ch && a.ch.id) ?? 999) - (chapterOrder.get(b.ch && b.ch.id) ?? 999) ||
@@ -5160,7 +5221,7 @@ function workHTML(p, v) {
 
 /* يجمع مواضيع النطاق: درس، تبويب، فصل، مادة، صف، كامل */
 function gradeContents(gid) {
-  const st = me(), g = GRADES[gid - 1], br = g.branch ? (gid === st.grade ? st.branch : (st.branch || 'sci')) : null;
+  const st = me(), g = GRADES[gid - 1], br = g.branch ? (st && gid === st.grade ? st.branch : (st && st.branch || 'sci')) : null;
   return subjectsOf(gid, br).map(s => ({ gid, subject: s, c: contentOf(gid, s) })).filter(x => x.c);
 }
 function scopeTopics(x) {
@@ -6184,17 +6245,24 @@ function startOnb(mode) {
 }
 function vOnb() {
   const o = S.onb, n = STORY.length;
-  const total = n + 5;
+  const setupStart = n + 1, total = o.mode === 'story' ? n : setupStart + 5;
   const story = o.step < n;
+  const map = o.step === n;
   let body = '', act = '';
   if (o.step < n) {
     const s = STORY[o.step];
     if (s.verse) body = '<p class="verse">' + s.verse + '</p>';
     else if (s.logo) body = '<div class="logo">' + ico('book', 1.4) + '</div><h1 style="animation-delay:.4s">' + s.l[0] + '</h1><p class="sub" style="animation:rise .9s 1.1s both">' + s.sub + '</p>';
     else body = '<div class="onb-ic">' + ico(s.ic, 1.2) + '</div>' + s.l.map((l, k) => '<p class="line" style="--d:' + (.3 + k * .9) + 's">' + l + '</p>').join('');
-    act = '<button class="onb-next" data-act="onbNext">' + (o.step === n - 1 ? 'لنبدأ' : 'التالي') + '</button><button class="onb-link" data-act="onbSkip">تخطَّ القصة</button>';
+    const lastStory = o.step === n - 1;
+    act = '<button class="onb-next" data-act="' + (o.mode === 'story' && lastStory ? 'onbCancel' : 'onbNext') + '">' +
+      (lastStory ? (o.mode === 'story' ? 'إغلاق القصة' : 'لنبدأ') : 'التالي') + '</button><button class="onb-link" data-act="onbSkip">' +
+      (o.mode === 'story' ? 'إغلاق' : 'تخطَّ القصة') + '</button>';
+  } else if (map) {
+    body = onboardingMapHTML();
+    act = '<button class="onb-next" data-act="onbNext">أكمل إلى الإعدادات</button><button class="onb-link" data-act="onbBack">رجوع للقصة</button>';
   } else {
-    const k = o.step - n;
+    const k = o.step - setupStart;
     if (k === 0) body = '<h1>بماذا نناديك؟</h1><p class="sub">اسم مستعار، يظهر في مجموعتك فقط. لا نطلب اسمك الحقيقي ولا رقمك.</p><label for="oName" class="sr">الاسم المستعار</label><input id="oName" maxlength="30" value="' + esc(o.name) + '" placeholder="اكتب اسمك هنا" autocomplete="off">' + (o.err ? '<p class="err" role="alert">' + o.err + '</p>' : '');
     if (k === 1) {
       const g = GRADES[o.grade - 1];
@@ -6226,13 +6294,16 @@ function vOnb() {
       (o.mode === 'add' && k === 0 ? '<button class="onb-link" data-act="onbCancel">إلغاء</button>' : '<button class="onb-link" data-act="onbBack">رجوع</button>');
   }
   const dots = Array.from({ length: total }, (_, i) => '<i class="' + (i === o.step ? 'on' : i < o.step ? 'dn' : '') + '"></i>').join('');
-  return '<div class="onb" role="dialog" aria-modal="true" aria-label="' + (o.mode === 'add' ? 'قصة دَرْب وإعداد طالب جديد' : 'البداية') + '">' + starsHTML() +
-    '<div class="onb-head"><b>دَرْب <span>' + (story ? 'حكاية البداية' : 'إعداد رحلتك') + '</span></b><span class="onb-count">الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '</span></div>' +
+  return '<div class="onb" role="dialog" aria-modal="true" aria-label="' + (o.mode === 'add' ? 'قصة دَرْب وإعداد طالب جديد' : o.mode === 'story' ? 'قصة دَرْب' : 'البداية') + '">' + starsHTML() +
+    '<div class="onb-head"><b>دَرْب <span>' + (story ? 'حكاية البداية' : map ? 'خريطة المحتوى' : 'إعداد رحلتك') + '</span></b><span class="onb-count">الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '</span></div>' +
     '<div class="onb-dots" aria-label="الخطوة ' + ar(o.step + 1) + ' من ' + ar(total) + '">' + dots + '</div>' +
-    '<div class="onb-body' + (story ? ' story' : '') + '" key="' + o.step + '">' + body + '</div><div class="onb-act">' + act + '</div></div>';
+    '<div class="onb-body' + (story ? ' story' : map ? ' map' : '') + '" key="' + o.step + '">' + body + '</div><div class="onb-act">' + act + '</div></div>';
 }
 function onbNext() {
-  const o = S.onb, n = STORY.length, k = o.step - n;
+  const o = S.onb, n = STORY.length;
+  if (o.mode === 'story' && o.step === n - 1) { S.onb = null; render(); return; }
+  if (o.step === n) { o.step++; render(); return; }
+  const k = o.step - n - 1;
   if (k === 0) { const v = (document.getElementById('oName') || {}).value || ''; o.name = v.trim(); if (!o.name) { o.err = 'اكتب اسمًا نناديك به، ولو حرفًا واحدًا.'; render(); return; } o.err = ''; }
   if (k === 2 && !GRADES[o.grade - 1].ministerial) { o.step += 2; render(); return; }
   o.step++; render();
@@ -6264,7 +6335,7 @@ function showPopup(title, bodyHTML, wide) {
 }
 function closePopup() {
   if (S.mo && S.mo.timer) { clearTimeout(S.mo.timer); S.mo = null; }
-  S.popup = null;
+  S.popup = null; S.weekPickTopic = null;
   render();
 }
 /* يستخرج جسم العرض: يحذف الترويسة ويحوّل <main> إلى <div> ليتناسب داخل النافذة */
@@ -7562,41 +7633,72 @@ function weekSectionHTML(st) {
     '<button class="btn wide" data-act="go" data-v="weekplan">' + ico('cal', 2) + '<span>افتح مساحة ترتيب الأيام</span></button>' +
     '<p class="small muted">حصة الأسبوع ' + ar(weeklyGoals(st).perWeek) + ' موضوعًا؛ مسائل الموضوع تبقى معه في يومه.</p></div>');
 }
+function weekTopicPickerHTML() {
+  const st = me(), aw = autoWeek(st), g = weeklyGoals(st), wd = weekDates(st).filter(x => x.study);
+  const scheduled = new Set(aw.days.flat()), selected = S.weekPickTopic && findTopic(S.weekPickTopic);
+  if (selected) {
+    const already = scheduled.has(selected.t.id);
+    return '<p class="wp-modal-lead">اختر اليوم الذي تريد وضع <b>' + ft(selected.t.title) + '</b> فيه. بعد الاختيار تعود مباشرة إلى قائمة المواضيع.</p>' +
+      '<button class="btn quiet wp-day-back" data-act="wpTopicsBack">رجوع إلى المواضيع</button>' +
+      '<div class="wp-day-choices">' + wd.map(day => {
+        const slots = aw.days[day.k] || [], full = slots.length >= g.perDay && !slots.includes(selected.t.id);
+        return '<button class="wp-day-choice" data-act="wpModalAssign" data-tid="' + selected.t.id + '" data-day="' + day.k + '"' + (full ? ' disabled' : '') + '>' +
+          '<b>' + DAYS[day.d.getDay()] + ' ' + ar(day.d.getDate()) + '</b><span>' + ar(slots.length) + ' / ' + ar(g.perDay) + ' حصص</span></button>';
+      }).join('') + '</div>' + (already ? '<p class="small muted">هذا الموضوع موجود حاليًا في أحد الأيام؛ اختر يومًا آخر لنقله.</p>' : '');
+  }
+  const weekly = weeklyTopicList(st, 'manual').filter(x => !scheduled.has(x.t.id));
+  const extra = studyLine().filter(x => !scheduled.has(x.t.id) && !weekly.some(y => y.t.id === x.t.id)).slice(0, 12);
+  const topicButton = x => '<button class="wp-topic-option" data-act="wpPickTopic" data-tid="' + x.t.id + '">' +
+    '<span class="r-dot" style="--c:' + scol(x.subject) + '"></span><span class="wp-topic-text"><b>' + ft(x.t.title) + '</b><small>' + esc(x.subject) + ((x.t.problems || []).length ? ' | ' + ar(x.t.problems.length) + ' مسائل' : '') + '</small></span>' +
+    '<span aria-hidden="true">›</span></button>';
+  return '<p class="wp-modal-lead">اضغط موضوعًا، ثم اختر له يومًا. بعد الإضافة تعود هذه القائمة لتختار موضوعًا آخر.</p>' +
+    (weekly.length ? '<h3>مواضيع حصة الأسبوع</h3><div class="wp-topics">' + sortTopicsByMaterial(weekly).map(topicButton).join('') + '</div>' : '<p class="note">أضفت كل مواضيع حصة الأسبوع إلى الأيام.</p>') +
+    (extra.length ? '<h3 style="margin-top:16px">مواضيع إضافية للتقدّم</h3><div class="wp-topics">' + sortTopicsByMaterial(extra).map(topicButton).join('') + '</div>' : '');
+}
+function refillWeekRandom(st) {
+  st.weekMode = 'auto'; st.autoWeek = null; st.dayPlan = null;
+  autoWeek(st); S.pickT = null; S.weekPickTopic = null; S.weekAutoAnimating = true;
+  if (S.weekFlowTimer) clearTimeout(S.weekFlowTimer);
+  S.weekFlowTimer = setTimeout(() => { S.weekAutoAnimating = false; S.weekFlowTimer = null; }, 1800);
+  save(); render();
+}
 function vWeekPlan() {
   const st = me(); if (!st.weekMode) st.weekMode = 'manual';
-  const aw = autoWeek(st), wd = weekDates(st).filter(x => x.study), used = new Set(aw.days.flat());
-  const g = weeklyGoals(st), planned = weeklyTopicList(st, 'manual'), pool = planned.filter(x => !used.has(x.t.id));
-  const extra = studyLine().filter(x => !used.has(x.t.id) && !pool.some(p => p.t.id === x.t.id)).slice(0, 12);
-  const card = (x, inDay) => '<div class="dnd-item" data-tid="' + x.t.id + '" style="--c:' + scol(x.subject) + '"' + (S.pickT === x.t.id ? ' aria-pressed="true"' : '') + '>' +
+  const aw = autoWeek(st), wd = weekDates(st).filter(x => x.study);
+  const g = weeklyGoals(st);
+  let flowIndex = 0;
+  const card = (x, inDay) => '<div class="dnd-item' + (S.weekAutoAnimating && inDay != null ? ' flow-in' : '') + '" data-tid="' + x.t.id + '" style="--c:' + scol(x.subject) + ';--flow-index:' + flowIndex++ + '"' + (S.pickT === x.t.id ? ' aria-pressed="true"' : '') + '>' +
     '<span class="r-dot" style="--c:' + scol(x.subject) + '"></span><span class="dnd-t"><b>' + ft(x.t.title) + '</b><small>' + esc(x.subject) + ((x.t.problems || []).length ? ' | ' + ar(x.t.problems.length) + ' مسائل' : '') + '</small></span>' +
     (inDay != null ? '<button class="dnd-x" data-act="wpRemove" data-tid="' + x.t.id + '" aria-label="أزل">✕</button>' : '') + '</div>';
   const item = id => { const f = findTopic(id); return f ? { t: f.t, ch: f.ch, subject: f.subject } : null; };
   const restLeft = weekDates(st).some(x => !x.study && x.d >= today0() && st.rest.includes(x.d.getDay()));
-  const needDays = Math.max(0, Math.ceil(planned.length / g.perDay) - wd.length);
   const touch = matchMedia('(pointer: coarse)').matches;
-  return topBar('رتّب أسبوعك', { back: true, noTools: true, sub: (touch ? 'اضغط موضوعًا ثم اليوم لإضافته' : 'اسحب الموضوع إلى اليوم') + ' — حتى ' + ar(g.perDay) + ' حصص يوميًا' }) + '<main class="page">' +
+  const count = aw.days.reduce((n, day) => n + day.length, 0);
+  return topBar('رتّب أسبوعك', { back: true, noTools: true, sub: 'اختر المواضيع وحدد أيامها — حتى ' + ar(g.perDay) + ' حصص يوميًا' }) + '<main class="page">' +
     '<section class="card week-mode-card"><div class="grid2">' +
-      '<button class="btn ' + (st.weekMode === 'manual' ? '' : 'ghost') + '" data-act="weekSetManual">' + ico('grid', 1.8) + '<span>أرتّبه بنفسي</span></button>' +
-      '<button class="btn ' + (st.weekMode === 'auto' ? '' : 'ghost') + '" data-act="weekSetAuto">' + ico('layers', 1.8) + '<span>وزّع هذا الأسبوع</span></button></div>' +
-      '<p class="small muted">' + (touch ? 'اضغط موضوعًا من القائمة ثم اضغط اليوم لإضافته؛ ويمكنك إزالته بالضغط على ×.' : 'اسحب الموضوع إلى اليوم، أو اضغط موضوعًا ثم اليوم لإضافته.') + ' المخطط: ' + ar(wd.length) + ' أيام دراسة × ' + ar(g.perDay) + ' حصص كحد أعلى يوميًا. مسائل كل موضوع تبقى ضمن حصته.</p>' +
-      (needDays && restLeft ? '<button class="btn quiet wide" data-act="weekAddStudyDay">أضف يوم دراسة وخفّض الراحة يومًا واحدًا</button><p class="small muted">لإكمال هدف هذا الأسبوع نحتاج ' + ar(needDays) + ' يومًا إضافيًا. يضاف اليوم إلى جدول الراحة المعتاد أيضًا.</p>' : '') +
+      '<button class="btn ' + (st.weekMode === 'manual' ? '' : 'ghost') + '" data-act="weekSetManual">' + ico('grid', 1.8) + '<span>أختار بنفسي</span></button>' +
+      '<button class="btn ' + (st.weekMode === 'auto' ? '' : 'ghost') + '" data-act="weekSetAuto">' + ico('layers', 1.8) + '<span>ترتيب عشوائي</span></button></div>' +
+      '<p class="small muted">' + (touch ? 'اضغط «أضف موضوعًا»، اختر الدرس ثم اليوم المناسب.' : 'أضف المواضيع واختر أيامها، أو وزّعها تلقائيًا بترتيب عشوائي.') + ' أُضيف حتى الآن ' + ar(count) + ' موضوعًا إلى ' + ar(wd.length) + ' أيام دراسة.</p>' +
+      (restLeft ? '<button class="btn quiet wide" data-act="weekAddStudyDay">أضف يوم دراسة وخفّض الراحة يومًا واحدًا</button>' : '') +
       '</section>' +
     '<div class="dnd-days">' + wd.map(x => '<div class="dnd-day" data-day="' + x.k + '"><div class="dnd-dh"><b>' + DAYS[x.d.getDay()] + '</b><span class="num muted">' + ar(x.d.getDate()) + ' | ' + ar((aw.days[x.k] || []).length) + '/' + ar(g.perDay) + ' حصص</span></div>' +
-      '<div class="dnd-drop">' + sortTopicsByMaterial((aw.days[x.k] || []).map(item).filter(Boolean)).map(it => card(it, x.k)).join('') + '<span class="dnd-hint">أفلت هنا</span></div></div>').join('') + '</div>' +
-    sect('مواضيع حصة الأسبوع', '<div class="dnd-pool" data-day="-1">' + (pool.length ? sortTopicsByMaterial(pool).map(x => card(x)).join('') : '<p class="small muted pad">وزّعت كل مواضيع الحصة ✓</p>') + '</div>') +
-    (extra.length ? sect('مواضيع إضافية (إن أردت التقدّم)', '<div class="dnd-pool" data-day="-1">' + extra.map(x => card(x)).join('') + '</div>') : '') +
-    '<div class="grid2"><button class="btn quiet" data-act="wpClear">أفرغ الأيام</button><button class="btn quiet" data-act="wpAuto">أعد التوزيع عشوائيًا ثم عدّل</button></div>' +
+      '<div class="dnd-drop">' + ((aw.days[x.k] || []).length ? sortTopicsByMaterial((aw.days[x.k] || []).map(item).filter(Boolean)).map(it => card(it, x.k)).join('') : '<span class="dnd-hint">لا مواضيع محددة لهذا اليوم</span>') + '</div></div>').join('') + '</div>' +
+    '<button class="wp-add" data-act="wpOpenTopics"><span class="wp-add-icon" aria-hidden="true">+</span><span>أضف موضوعًا إلى أسبوعك</span></button>' +
+    '<p class="small muted">اضغط موضوعًا في النافذة، اختر اليوم، وستعود تلقائيًا لقائمة المواضيع. المسائل تبقى مرتبطة بدرسها.</p>' +
+    '<div class="grid2"><button class="btn quiet" data-act="wpClear">أفرغ الأيام</button><button class="btn quiet" data-act="wpAuto">أعد التوزيع عشوائيًا</button></div>' +
     '</main>';
 }
-function wpAssign(tid, k) {
+function wpAssign(tid, k, renderAfter) {
   const st = me(), aw = autoWeek(st);
-  if (k >= 0 && (!aw.days[k] || (aw.days[k].length >= weeklyGoals(st).perDay && !aw.days[k].includes(tid)))) {
+  const assignedElsewhere = k >= 0 && aw.days.some((day, index) => index !== k && day.includes(tid));
+  if (k >= 0 && (!aw.days[k] || (aw.days[k].length >= weeklyGoals(st).perDay && !aw.days[k].includes(tid) && !assignedElsewhere))) {
     toast('اكتمل عدد حصص هذا اليوم. أضف يوم دراسة إذا أردت مساحة إضافية.');
-    return;
+    return false;
   }
   aw.days.forEach(d => { const i = d.indexOf(tid); if (i >= 0) d.splice(i, 1); });
   if (k >= 0 && aw.days[k]) aw.days[k].push(tid);
-  st.dayPlan = null; S.pickT = null; save(); render();
+  st.dayPlan = null; S.pickT = null; save(); if (renderAfter !== false) render();
+  return true;
 }
 /* السحب بالمؤشر (يعمل باللمس والفأرة)، والضغط ثم الضغط بديلٌ له */
 (function () {
@@ -8080,8 +8182,7 @@ document.addEventListener('click', e => {
       break;
     }
     case 'weekSetAuto': {
-      st.weekMode = 'auto'; st.dayPlan = null; st.autoWeek = null; S.pickT = null;
-      autoWeek(st); save(); render(); break;
+      refillWeekRandom(st); break;
     }
     case 'weekSetManual': {
       st.weekMode = 'manual'; st.dayPlan = null; S.pickT = null;
@@ -8093,8 +8194,12 @@ document.addEventListener('click', e => {
       render(); break;
     }
     case 'onbNext': onbNext(); break;
-    case 'onbSkip': S.onb.step = STORY.length; render(); break;
-    case 'onbBack': S.onb.step = Math.max(0, S.onb.step - 1 - ((S.onb.step - STORY.length === 4 && !GRADES[S.onb.grade - 1].ministerial) ? 1 : 0)); render(); break;
+    case 'onbSkip': if (S.onb.mode === 'story') { S.onb = null; render(); } else { S.onb.step = STORY.length; render(); } break;
+    case 'onbBack': {
+      const n = STORY.length, k = S.onb.step - n - 1;
+      S.onb.step = S.onb.step === n ? n - 1 : Math.max(0, S.onb.step - 1 - ((k === 4 && !GRADES[S.onb.grade - 1].ministerial) ? 1 : 0));
+      render(); break;
+    }
     case 'onbCancel': S.onb = null; render(); break;
     case 'onbDone': onbDone(); break;
     case 'oGrade': S.onb.grade = +el.dataset.g; render(); break;
@@ -8112,7 +8217,7 @@ document.addEventListener('click', e => {
     case 'closePopup': closePopup(); break;
     case 'aboutInfo': S.popup = { title: el.dataset.title || 'معلومات عن دَرْب', body: aboutInfoHTML(el.dataset.info), wide: true }; render(); break;
     case 'dlgOk': { const r = S.dialog.run; S.dialog = null; r(); render(); break; }
-    case 'releaseSetup': S.dialog = null; startOnb('add'); render(); break;
+    case 'storyReplay': startOnb('story'); render(); break;
     case 'branch': st.branch = el.dataset.v; save(); render(); break;
     case 'rest': { const i = +el.dataset.i; st.rest = st.rest.includes(i) ? st.rest.filter(x => x !== i) : st.rest.concat(i); if (st.rest.length > 3) { st.rest = st.rest.filter(x => x !== i); toast('ثلاثة أيام راحة في الأسبوع هي الحد الأعلى.'); } save(); render(); break; }
     case 'delHoliday': st.holidays.splice(+el.dataset.i, 1); save(); render(); break;
@@ -8254,9 +8359,19 @@ document.addEventListener('click', e => {
     case 'noop': break;
     case 'gCreate': case 'gJoin': case 'gInvite': case 'gCard': case 'gAdd': case 'gPick': case 'gNew': case 'gDrop': case 'gLeave': groupAct(a, el); break;
     case 'zipAll': exportZip().then(r => { S.zipMsg = ''; render(); toast('جُهّزت النسخة الكاملة (' + ar(Math.round(r.size / 1024)) + ' ك.ب).'); }).catch(e => { S.zipMsg = ''; toast(e.message || 'تعذّر التصدير'); render(); }); render(); break;
+    case 'wpOpenTopics': S.weekPickTopic = null; showPopup('مواضيع حصة الأسبوع', weekTopicPickerHTML, true); break;
+    case 'wpPickTopic': S.weekPickTopic = el.dataset.tid; render(); break;
+    case 'wpTopicsBack': S.weekPickTopic = null; render(); break;
+    case 'wpModalAssign': {
+      if (wpAssign(el.dataset.tid, +el.dataset.day, false)) {
+        S.weekPickTopic = null;
+        render();
+      }
+      break;
+    }
     case 'wpRemove': wpAssign(el.dataset.tid, -1); break;
-    case 'wpClear': { const aw = autoWeek(me()); aw.days.forEach(d => d.length = 0); me().dayPlan = null; save(); render(); break; }
-    case 'wpAuto': { st.weekMode = 'auto'; st.autoWeek = null; st.dayPlan = null; autoWeek(st); save(); render(); break; }
+    case 'wpClear': { const aw = autoWeek(me()); aw.days.forEach(d => d.length = 0); me().dayPlan = null; S.weekPickTopic = null; save(); render(); break; }
+    case 'wpAuto': refillWeekRandom(st); break;
     case 'wday': S.wday = +el.dataset.k; render(); break;
     case 'moreToday':
       showPopup('أضف درسًا إضافيًا لليوم',
@@ -8696,6 +8811,7 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 }
 let releaseNoticeStorageError = false;
 function queueReleaseNotice() {
+  if (!DB.students.length) return false;
   let seen = null;
   try { seen = localStorage.getItem(RELEASE_NOTICE_KEY); } catch (e) { releaseNoticeStorageError = true; }
   if (seen === APP_RELEASE_ID) return false;

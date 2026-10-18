@@ -134,12 +134,13 @@ T('النسخة الجديدة تبدأ بلا طالب أو تقدم افترا
       welcome: document.getElementById('app').innerHTML.includes(APP_MISSION.problem[0]),
       about: aboutHTML().includes('لماذا أُنشئ دَرْب؟') && aboutHTML().includes(APP_MISSION.purpose),
       version: APP_VER === '١',
-      noNoticeForFirstLaunch: S.dialog === null
+      onboardingStartsImmediately: !!S.onb && document.getElementById('app').innerHTML.includes('حكاية البداية'),
+      noNoticeForFirstLaunch: S.dialog === null && localStorage.getItem(RELEASE_NOTICE_KEY) === null
     });
   })()`);
   const result = JSON.parse(clean);
   return result.emptyStart && result.emptyStudent && result.welcome && result.about &&
-    result.version && result.noNoticeForFirstLaunch
+    result.version && result.onboardingStartsImmediately && result.noNoticeForFirstLaunch
     ? null : { __fail: JSON.stringify(result) };
 });
 
@@ -185,11 +186,40 @@ T('إضافة طالب تعرض القصة ثم حقول المعلومات', ()
     startOnb('add');
     const story = vOnb().includes(APP_MISSION.problem[0]);
     S.onb.step = STORY.length;
+    const map = vOnb().includes('خريطة محتوى دَرْب') && vOnb().includes('٣٩٧') &&
+      vOnb().includes('مكتمل في هذه النسخة') && GRADES.filter(g => g.id !== 12).every(g => vOnb().includes(g.name));
+    S.onb.step = STORY.length + 1;
     const form = vOnb().includes('id="oName"') && vOnb().includes('اكتب اسمك هنا');
     S.onb = null;
-    return JSON.stringify({ story, form });
+    return JSON.stringify({ story, map, form });
   })()`));
-  return result.story && result.form ? null : { __fail: JSON.stringify(result) };
+  return result.story && result.map && result.form ? null : { __fail: JSON.stringify(result) };
+});
+
+T('إعادة مشاهدة القصة من الإعدادات دون بدء إعداد طالب', () => {
+  const result = JSON.parse(run(`(function(){ try {
+    const old = { students: DB.students, activeId: DB.activeId, onb: S.onb, view: S.view, setTab: S.setTab };
+    const click = document._ev.click.find(fn => String(fn).includes("const stop = e.target.closest"));
+    const act = (name) => click({ target: { closest: selector => selector === '[data-act]' ? { dataset: { act: name } } : null } });
+    try {
+      const student = newStudent({ name: 'اختبار القصة', grade: 12, branch: 'sci' });
+      DB.students = [student]; DB.activeId = student.id;
+      S.onb = null; S.view = 'settings'; S.setTab = 'about';
+      const settings = String(VIEWS.settings()).includes('data-act="storyReplay"');
+      act('storyReplay');
+      const replay = S.onb && S.onb.mode === 'story' && String(vOnb()).includes('قصة دَرْب') &&
+        String(vOnb()).includes('من ' + ar(STORY.length));
+      S.onb.step = STORY.length - 1;
+      onbNext();
+      const closesWithoutSetup = !S.onb && S.view === 'settings' && DB.students.length === 1;
+      return JSON.stringify({ settings, replay: !!replay, closesWithoutSetup });
+    } finally {
+      DB.students = old.students; DB.activeId = old.activeId;
+      S.onb = old.onb; S.view = old.view; S.setTab = old.setTab;
+    }
+  } catch(e) { return JSON.stringify({ error: e.message }); } })()`));
+  return result.settings && result.replay && result.closesWithoutSetup
+    ? null : { __fail: JSON.stringify(result) };
 });
 
 /* تجهيز طالب في الصف السادس العلمي */
@@ -244,15 +274,43 @@ T('مسائل اليوم مقفلة حتى إكمال الدرس', () => {
 
 T('ملخص التحديث يظهر مرة واحدة للمستخدم الحالي', () => {
   const result = JSON.parse(run(`(function(){
+    const oldStudents = DB.students, oldActive = DB.activeId;
     localStorage.removeItem(RELEASE_NOTICE_KEY);
+    DB.students = []; DB.activeId = null; S.dialog = null;
+    queueReleaseNotice();
+    const deferred = S.dialog === null && localStorage.getItem(RELEASE_NOTICE_KEY) === null;
+    const st = newStudent({ name: 'إشعار لاحق', grade: 12, branch: 'sci' });
+    DB.students = [st]; DB.activeId = st.id;
     queueReleaseNotice();
     const first = !!S.dialog && S.dialog.html.includes('ملخص مرتب');
     S.dialog = null;
     queueReleaseNotice();
     const once = S.dialog === null;
-    return JSON.stringify({ first, once });
+    DB.students = oldStudents; DB.activeId = oldActive;
+    return JSON.stringify({ deferred, first, once });
   })()`));
-  return result.first && result.once ? null : { __fail: JSON.stringify(result) };
+  return result.deferred && result.first && result.once ? null : { __fail: JSON.stringify(result) };
+});
+
+T('إشعار التحديث لا يعيد المستخدم إلى إعداد القصة', () => {
+  const cacheMatches = /const CACHE = 'darb-v64'/.test(fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8'));
+  const out = run(`(function(){
+    const notice = releaseNotesHTML();
+    const student = aboutHTML();
+    return JSON.stringify({
+      noSetupAction: !notice.includes('releaseSetup') && !notice.includes('أدخل معلومات طالب جديد'),
+      replayInSettings: student.includes('data-act="storyReplay"') && student.includes('شاهد قصة دَرْب من جديد'),
+      releaseMatches: APP_RELEASE_ID === 'darb-v64'
+    });
+  })()`);
+  const result = JSON.parse(out);
+  return result.noSetupAction && result.replayInSettings && result.releaseMatches && cacheMatches
+    ? null : { __fail: JSON.stringify(result) };
+});
+
+T('النوافذ الطويلة قابلة للتمرير على الهاتف', () => {
+  const scrollableDialog = /\.dialog\{[^}]*max-height:calc\(100vh - 32px\)[^}]*overflow-y:auto[^}]*-webkit-overflow-scrolling:touch/.test(html);
+  return scrollableDialog ? null : { __fail: 'محتوى نافذة التحديث الطويلة قد يحجب زر الإغلاق خارج الشاشة' };
 });
 
 /* تشخيص سريع: هل محتوى الصف مُحمَّل فعلًا؟ */
@@ -423,7 +481,7 @@ T('ربط نوافذ المعلومات والتوزيع والتقارير', ()
     const st = me(), click = document._ev.click.find(fn => String(fn).includes("const stop = e.target.closest"));
     if (!click) return { __fail: 'معالج النقر غير مسجل' };
     const act = (name, data) => click({ target: { closest: selector => selector === '[data-act]' ? { dataset: Object.assign({ act: name }, data || {}) } : null } });
-    const old = { view: S.view, stack: S.stack, popup: S.popup, reportHtml: S.reportHtml, weekMode: st.weekMode, dayPlan: st.dayPlan, autoWeek: st.autoWeek, weekFill: st.weekFill };
+    const old = { view: S.view, stack: S.stack, popup: S.popup, reportHtml: S.reportHtml, weekMode: st.weekMode, dayPlan: st.dayPlan, autoWeek: st.autoWeek, weekFill: st.weekFill, weekPickTopic: S.weekPickTopic, weekAutoAnimating: S.weekAutoAnimating, weekFlowTimer: S.weekFlowTimer };
     try {
       act('aboutInfo', { info: 'how', title: 'كيف يعمل دَرْب' });
       if (!S.popup || S.popup.title !== 'كيف يعمل دَرْب' || !String(S.popup.body).includes('لماذا ندرسه')) return { __fail: 'زر معلومات التطبيق لم يفتح النافذة' };
@@ -431,13 +489,22 @@ T('ربط نوافذ المعلومات والتوزيع والتقارير', ()
       act('closePopup');
       if (S.popup) return { __fail: 'زر إغلاق النافذة لم يغلقها' };
       act('weekSetManual');
-      if (S.view !== 'weekplan' || st.weekMode !== 'manual' || !String(VIEWS.weekplan()).includes('اسحب الموضوع إلى اليوم')) return { __fail: 'اختيار الترتيب اليدوي لا يفتح مواضيع السحب والإفلات' };
+      if (S.view !== 'weekplan' || st.weekMode !== 'manual' || !String(VIEWS.weekplan()).includes('wpOpenTopics') || String(VIEWS.weekplan()).includes('dnd-pool')) return { __fail: 'اختيار الترتيب اليدوي لا يعرض خطة الأسبوع بالنافذة الجديدة' };
+      act('wpOpenTopics');
+      if (!S.popup || S.popup.title !== 'مواضيع حصة الأسبوع' || !String(vPopup()).includes('wpPickTopic')) return { __fail: 'زر إضافة موضوع لم يفتح قائمة المواضيع' };
+      const topicId = (String(vPopup()).match(/data-act="wpPickTopic" data-tid="([^"]+)"/) || [])[1];
+      if (!topicId) return { __fail: 'نافذة الموضوع لا تعرض مواضيع للاختيار' };
+      act('wpPickTopic', { tid: topicId });
+      if (!String(vPopup()).includes('wpModalAssign') || !String(vPopup()).includes('data-tid="' + topicId + '"')) return { __fail: 'اختيار الموضوع لم يعرض اختيار اليوم' };
+      act('wpTopicsBack');
+      if (!String(vPopup()).includes('wpPickTopic')) return { __fail: 'زر الرجوع لا يعيد قائمة المواضيع' };
+      act('closePopup');
       act('weekSetAuto');
       if (st.weekMode !== 'auto' || !st.autoWeek || !st.autoWeek.days.flat().length) return { __fail: 'التوزيع العشوائي لم ينشئ خطة أسبوعية' };
       act('genReport', { type: 'weekly' });
       if (!S.popup || !String(S.reportHtml).includes('تقرير أسبوعي') || !String(S.popup.body).includes('reportPrint')) return { __fail: 'إنشاء التقرير لا يفتح المعاينة وأدوات PDF' };
       return true;
-    } finally { S.view = old.view; S.stack = old.stack; S.popup = old.popup; S.reportHtml = old.reportHtml; st.weekMode = old.weekMode; st.dayPlan = old.dayPlan; st.autoWeek = old.autoWeek; st.weekFill = old.weekFill; }
+    } finally { S.view = old.view; S.stack = old.stack; S.popup = old.popup; S.reportHtml = old.reportHtml; S.weekPickTopic = old.weekPickTopic; S.weekAutoAnimating = old.weekAutoAnimating; S.weekFlowTimer = old.weekFlowTimer; st.weekMode = old.weekMode; st.dayPlan = old.dayPlan; st.autoWeek = old.autoWeek; st.weekFill = old.weekFill; }
   } catch(e){ return { __fail: e.message }; } })()`);
   if (out && out.__fail) return out;
   return true;
@@ -775,6 +842,9 @@ T('ألوان المواد وترتيب مواضيع الخطة', () => {
     const rank = new Map(subs.map((y, i) => [y.subject, i]));
     const sample = weeklyTopicList(me(), 'manual').slice(0, 24);
     const sorted = sortTopicsByMaterial(sample);
+    const orderKey = me().grade + ':' + (me().branch || '-'), cachedOrder = TOPIC_ORDER_CACHE.get(orderKey);
+    sortTopicsByMaterial(sample);
+    if (!cachedOrder || TOPIC_ORDER_CACHE.get(orderKey) !== cachedOrder) return { __fail: 'ترتيب المواد يُعاد بناؤه في كل رسم' };
     for (let i = 1; i < sorted.length; i++) {
       if (rank.get(sorted[i - 1].subject) > rank.get(sorted[i].subject)) return { __fail: 'مواضيع الخطة لا تُجمع حسب ترتيب المواد' };
     }
@@ -876,7 +946,19 @@ T('الخطة اليدوية والمسائل في يوم الموضوع', () =>
       st.weekMode = 'manual'; st.weekFill = { wk, days: Array.from({ length: n }, () => []) };
       st.weekFill.days[di].push(x.t.id); st.dayPlan = null;
       const week = String(VIEWS.weekplan());
-      if (!/اسحب الموضوع إلى اليوم/.test(week) || !week.includes('class="dnd-day" data-day="' + di + '"')) return { __fail: 'أيام السحب والإفلات غير ظاهرة' };
+      if (!week.includes('اختر المواضيع وحدد أيامها') || !week.includes('class="dnd-day" data-day="' + di + '"') ||
+          !week.includes('wpOpenTopics') || week.includes('dnd-pool')) return { __fail: 'مخطط الأيام أو نافذة اختيار المواضيع غير ظاهرة' };
+      const picker = String(weekTopicPickerHTML());
+      const scheduled = new Set(autoWeek(st).days.flat());
+      const nextTopic = weeklyTopicList(st, 'manual').find(topic => !scheduled.has(topic.t.id));
+      if (!nextTopic || !picker.includes('wpPickTopic') || !picker.includes(nextTopic.t.id)) return { __fail: 'قائمة اختيار الموضوع لا تعرض موضوعًا غير مجدول' };
+      S.weekPickTopic = nextTopic.t.id;
+      const chooseDay = String(weekTopicPickerHTML());
+      if (!chooseDay.includes('wpModalAssign') || !chooseDay.includes('data-day="' + di + '"') ||
+          !chooseDay.includes('data-tid="' + nextTopic.t.id + '"')) return { __fail: 'اختيار اليوم لا يظهر بعد تحديد الموضوع' };
+      const assigned = wpAssign(nextTopic.t.id, di, false);
+      S.weekPickTopic = null;
+      if (!assigned || !String(weekTopicPickerHTML()).includes('wpPickTopic')) return { __fail: 'لم تعد قائمة المواضيع بعد تعيين اليوم' };
       const weekSection = String(weekSectionHTML(st));
       if (weekSection.includes('data-act="weekSetAuto"') || weekSection.includes('data-act="weekSetManual"') || !weekSection.includes('افتح مساحة ترتيب الأيام')) return { __fail: 'الصفحة الرئيسية ما زالت تعرض أزرار الوضع المكررة أو أخفت مساحة الترتيب' };
       if (!planToday().picks.some(p => p.t.id === x.t.id)) return { __fail: 'لم يصل موضوع اليوم اليدوي إلى خطة اليوم' };
@@ -900,16 +982,17 @@ T('تمرير خطة الأسبوع والاختيار باللمس على ال�
     const previous = matchMedia;
     try {
       matchMedia = () => ({ matches: true });
-      return JSON.stringify(String(VIEWS.weekplan()).includes('اضغط موضوعًا ثم اليوم لإضافته'));
+      return JSON.stringify(String(VIEWS.weekplan()).includes('أضف موضوعًا إلى أسبوعك'));
     } finally { matchMedia = previous; }
   })()`));
   const touchStyles = /\.dnd-item\{[^}]*touch-action:pan-y/.test(html) &&
     /html,body\{height:auto;min-height:100%/.test(html) &&
     /e\.pointerType === 'touch'/.test(html);
-  const itemClick = /if \(item\) \{ S\.pickT = S\.pickT === item\.dataset\.tid \? null : item\.dataset\.tid; render\(\); return; \}/.test(html);
-  const storyCard = /class="onb-body' \+ \(story \? ' story' : ''\)/.test(html);
-  return touchHint && touchStyles && itemClick && storyCard
-    ? null : { __fail: JSON.stringify({ touchHint, touchStyles, itemClick, storyCard }) };
+  const itemClick = /case 'wpModalAssign'/.test(html) && /function weekTopicPickerHTML/.test(html);
+  const storyCard = /class="onb-body' \+ \(story \? ' story' : map \? ' map' : ''\)/.test(html);
+  const randomFlow = /class="dnd-item' \+ \(S\.weekAutoAnimating/.test(html) && /case 'wpAuto': refillWeekRandom\(st\)/.test(html);
+  return touchHint && touchStyles && itemClick && storyCard && randomFlow
+    ? null : { __fail: JSON.stringify({ touchHint, touchStyles, itemClick, storyCard, randomFlow }) };
 });
 
 /* فروع الشاشة الواحدة: كل مصدر سجل له رسم مستقل، وأعيدنا بناء واحدة منها كاملة */

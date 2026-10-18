@@ -59,6 +59,7 @@ const doc = {
   documentElement: { style: { setProperty() { } }, classList: { add() { }, remove() { }, toggle() { }, contains: () => false }, setAttribute() { }, getAttribute: () => null, removeAttribute() { }, appendChild() { }, insertBefore() { }, children: [], querySelector: () => null, querySelectorAll: () => [], addEventListener() { } },
   visibilityState: 'visible',
 };
+doc._fields = fields;
 const store = {};
 const win = {
   document: doc,
@@ -128,19 +129,21 @@ T('١-١ تظهر قصة الترحيب', () => {
   return must(has(h, 'يسهر على الكتاب') || has(h, 'يحفظ الصفحات') || has(h, 'العلم فهم'), 'القصة لا تعرض نصّها المتوقع');
 });
 T('١-٢ يرفض الاسم الفارغ', () => {
-  run(`document._realGet = document._realGet || document.getElementById.bind(document);
-       document.getElementById = function(id){ return id === 'oName' ? { value: '   ', focus(){}, setSelectionRange(){} } : document._realGet(id); };
-       S.onb.step = STORY.length; S.onb.name = ''; onbNext();`);
+  const map = run(`S.onb.step = STORY.length; String(vOnb()).includes('خريطة محتوى دَرْب') &&
+       String(vOnb()).includes('مكتمل في هذه النسخة')`);
+  if (!map) return must(false, 'خريطة الصفوف ومحتوى السادس لا تظهر بعد القصة');
+  run(`document._fields.oName = { value: '   ', focus(){} };
+       S.onb.step = STORY.length + 1; S.onb.name = ''; onbNext();
+       delete document._fields.oName;`);
   return must(run('S.onb.err') && run('S.onb.err').length > 4, 'لم يرفض الاسم الفارغ رسالةً واضحة');
 });
 T('١-٣ يقبل الاسم ثم يختار الصف ١٢ علمي', () => {
-  run(`document.getElementById = function(id){ return id === 'oName' ? { value: 'طالب الاختبار', focus(){}, setSelectionRange(){} } : document._realGet(id); };
-       onbNext(); S.onb.grade = 12; S.onb.branch = 'sci';`);
+  run(`document._fields.oName = { value: 'طالب الاختبار', focus(){} };
+       onbNext(); delete document._fields.oName; S.onb.grade = 12; S.onb.branch = 'sci';`);
   return must(run('S.onb.name') === 'طالب الاختبار', 'الاسم لم يُحفظ');
 });
 T('١-٤ يكمل التهيئة فينشأ الطالب وتظهر خطة اليوم', () => {
-  run(`if (document._realGet) document.getElementById = document._realGet;
-       while (S.onb && S.onb.step < STORY.length + 5) { S.onb.step++; } onbDone();`);
+  run(`while (S.onb && S.onb.step < STORY.length + 5) { S.onb.step++; } onbDone();`);
   const st = run('JSON.stringify({ n: me() && me().name, g: me() && me().grade, b: me() && me().branch, v: S.view })');
   const o = JSON.parse(st);
   return must(o.n === 'طالب الاختبار' && o.g === 12 && o.b === 'sci', 'الطالب لم يُنشأ كما هو متوقع: ' + st);

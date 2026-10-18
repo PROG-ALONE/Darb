@@ -76,7 +76,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{min-height:100%;height:auto}
 body{margin:0;direction:rtl;text-align:right;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.8;-webkit-tap-highlight-color:transparent}
 button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{margin:0;line-height:1.35;text-wrap:balance}
@@ -821,8 +821,8 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
    ولا تمدّد يتجاوز عرض الشاشة، مع استجابة كاملة لكل المقاسات والأوضاع. */
 
 /* ١) منع التحريك الأفقي وتمدّد الصفحة، ومنع تكبير النص تلقائيًا في iOS */
-html,body{height:auto;min-height:100%;max-width:100%;overflow-x:hidden}
-body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none;overflow-wrap:anywhere}
+html,body{min-height:100%;height:auto;max-width:100%;overflow-x:clip}
+body{min-height:100vh;min-height:100dvh;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none;overflow-wrap:anywhere}
 /* معامل الاستجابة: يُضرب في --fs (حجم الخط الذي يختاره الطالب من الإعدادات) */
 body{font-size:calc(var(--fs) * var(--fsk,1))}
 img,svg,video,canvas,iframe{max-width:100%}
@@ -1505,7 +1505,7 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v64';
+const APP_RELEASE_ID = 'darb-v65';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const SCHEMA = 1;
 const KEY = 'study-app-v1';
@@ -2968,6 +2968,7 @@ const goalLine = g => g >= 95 ? 'هدف عالٍ: نتقن الأساس كامل
 const SET_TABS = [['acc', 'الحساب'], ['study', 'هدف الدراسة والوقت'], ['ai', 'الذكاء الاصطناعي'], ['look', 'المظهر'], ['data', 'البيانات'], ['reports', 'التقارير'], ['rate', 'التقييم'], ['about', 'عن التطبيق']];
 const APP_UPDATED = '١٨ تشرين الأول ٢٠٢٦';
 const APP_RELEASE_NOTES = [
+  'أُصلح تمرير الصفحة كاملة على الهاتف وسطح المكتب.',
   'أصبحت خطة الدروس فارغة افتراضيًا؛ اختر دروسك بنفسك من «رتّب أسبوعك».',
   'تظهر قصة دَرْب ومعلومات الطالب عند إنشاء ملف جديد، ويمكن إعادة مشاهدة القصة من «أنا» ← «عن دَرْب».',
   'حُفظ تقدم الملفات الحالية؛ أُفرغت الخطة التلقائية القديمة فقط لتختار دروسك.',

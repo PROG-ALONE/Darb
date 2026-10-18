@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>فحص الاستجابة العميق</title>
+<style>
+  body{margin:0;font:13px/1.5 system-ui;background:#111;color:#eee}
+  .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:8px}
+  figure{margin:0;background:#1c1c1c;border:1px solid #333;border-radius:8px;padding:4px}
+  iframe{border:1px solid #555;display:block}
+  figcaption{font-size:11px;color:#9ad;padding-top:3px}
+  #out{white-space:pre-wrap;padding:10px;font-family:ui-monospace,monospace;font-size:11px;background:#001b00;color:#9f9}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap"></div>
+<pre id="out">جارٍ الفحص…</pre>
+<script>
+const SIZES = [[320,640],[390,844],[768,1024],[1024,768]];
+const wrap = document.getElementById('wrap');
+const results = [];
+let done = 0;
+
+function overflowOf(d, w2) {
+  const de = d.documentElement, sc = d.scrollingElement;
+  const vw = w2.innerWidth;
+  const over = Math.max(de.scrollWidth, sc ? sc.scrollWidth : 0) - vw;
+  const bad = [];
+  d.querySelectorAll('body *').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (!r.width && !r.height) return;
+    if (r.right > vw + 1.5 || r.left < -1.5) {
+      let p = el.parentElement, inner = false;
+      while (p && p !== d.body) {
+        const pc = w2.getComputedStyle(p);
+        if (['auto', 'scroll', 'hidden'].indexOf(pc.overflowX) >= 0) { inner = true; break; }
+        p = p.parentElement;
+      }
+      if (!inner) bad.push(el.tagName.toLowerCase() + '.' + String(el.className || '').slice(0, 40) + '@' + Math.round(r.right));
+    }
+  });
+  return { over, bad: [...new Set(bad)] };
+}
+
+function step(f, w2, d, label, acc) {
+  const o = overflowOf(d, w2);
+  acc.push({ label, over: o.over, bad: o.bad.slice(0, 5), n: o.bad.length });
+}
+
+function click(d, sel) {
+  const el = d.querySelector(sel);
+  if (!el) return false;
+  el.click();
+  return true;
+}
+
+SIZES.forEach(([w, h]) => {
+  const fig = document.createElement('figure');
+  const f = document.createElement('iframe');
+  f.width = w; f.height = h; f.src = 'index.html?ui2=1';
+  const cap = document.createElement('figcaption');
+  cap.textContent = w + '×' + h;
+  fig.append(f, cap); wrap.append(fig);
+  f.addEventListener('load', () => {
+    const d = f.contentDocument, w2 = f.contentWindow;
+    const acc = [];
+    const go = (fn, ms) => new Promise(r => { fn(); setTimeout(r, ms || 450); });
+    (async () => {
+      await go(() => {}, 900);
+      step(f, w2, d, 'الرئيسية', acc);
+      await go(() => click(d, '[data-act="tab"][data-v="path"]'), 600); step(f, w2, d, 'مساري', acc);
+      await go(() => click(d, '[data-act="subject"]'), 600); step(f, w2, d, 'مادة', acc);
+      await go(() => click(d, '[data-act="chapter"]'), 600); step(f, w2, d, 'فصل', acc);
+      await go(() => click(d, '[data-act="topic"]'), 700); step(f, w2, d, 'موضوع', acc);
+      await go(() => { const b = d.querySelector('[data-act="tseg"]'); if (b) b.click(); }, 600); step(f, w2, d, 'شريحة موضوع', acc);
+      await go(() => click(d, '[data-act="prob"]'), 800); step(f, w2, d, 'مسألة', acc);
+      await go(() => { try { w2.back(); } catch (e) {} }, 500); step(f, w2, d, 'رجوع', acc);
+      await go(() => click(d, '[data-act="back"]'), 500);
+      await go(() => click(d, '[data-act="back"]'), 500);
+      await go(() => click(d, '[data-act="back"]'), 500);
+      await go(() => click(d, '[data-act="switch"]'), 700); step(f, w2, d, 'الإعدادات', acc);
+      await go(() => click(d, '[data-act="tab"][data-v="tests"]'), 700); step(f, w2, d, 'الاختبارات', acc);
+      await go(() => click(d, '[data-act="tab"][data-v="library"]'), 700); step(f, w2, d, 'المكتبة', acc);
+      await go(() => click(d, '[data-act="tab"][data-v="groups"]'), 700); step(f, w2, d, 'مجموعتي', acc);
+      await go(() => click(d, '[data-act="tab"][data-v="review"]'), 700); step(f, w2, d, 'المراجعة', acc);
+      results.push({ size: w + '×' + h, acc });
+      if (++done === SIZES.length) report();
+    })();
+  });
+});
+
+function report() {
+  const lines = [];
+  let worst = 0, anyFail = false;
+  results.forEach(r => {
+    lines.push('▣ ' + r.size);
+    r.acc.forEach(a => {
+      if (a.over > 1) { anyFail = true; worst = Math.max(worst, a.over); }
+      lines.push('   ' + a.label.padEnd(12) + ' over=' + String(a.over).padStart(4) + (a.n ? '  ⛔ ' + a.n + ': ' + a.bad.join(' , ') : '  ✓'));
+    });
+  });
+  document.getElementById('out').textContent =
+    (anyFail ? '❌ تحرك أفقي (أسوأ حالة ' + worst + 'px)' : '✅ لا تحرك أفقي في كل المقاسات والشاشات') + '\n\n' + lines.join('\n');
+}
+</script>
+</body>
+</html>

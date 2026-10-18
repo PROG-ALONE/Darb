@@ -1,0 +1,167 @@
+{
+ "part": "part-12-fix",
+ "subjects": "اللغة الإنكليزية, الكيمياء",
+ "count": 10,
+ "items": [
+  {
+   "id": "e12u2t6-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Match the beginnings and endings.\n1) You shouldn’t have any trouble doing the work\n2) It shouldn’t take me more than 15 minutes to drive there\n3) They should be very comfortable …\n4) I can speak English and Arabic, …\n5) If he’s used computers before, …\n6) If you send the letter today, …",
+   "ans": "1 – b (because it’s very easy)\n2 – d (because there isn’t much traffic)\n3 – e (because it’s a very nice hotel)\n4 – f (so I should be able to talk to most of the visitors)\n5 – c (he should know how to use this software)\n6 – a (she should get it by Monday)",
+   "steps": [
+    "Each completion must contain should or shouldn’t to express an expectation.",
+    "The cause after each sentence is the reason for the expectation."
+   ],
+   "ref": "AB p35"
+  },
+  {
+   "id": "e12u2t6:e0",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "example",
+   "text": "Rewrite the abbreviations without them.",
+   "ans": "office buildings; 18 years; speak English and Arabic; available at weekends; driving licence.",
+   "steps": [
+    "office bldgs.",
+    "18 yrs.",
+    "spk. Engl. and Arab.",
+    "avail. at wknds.",
+    "driving lic."
+   ],
+   "title": "Reading an advert"
+  },
+  {
+   "id": "e12u2t7-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Rewrite the sentences with should or shouldn’t, as in the example.\nExample: You have always wanted to fly. I think you will like the Air Force. → You have always wanted to fly. You should like the Air Force.\n1) I’ve studied hard for the test, so I think I’ll pass.\n2) You like exercising, so I don’t think you’ll have trouble getting fit.\n3) They learnt a lot in the military, so I don’t think they’ll have trouble getting a job.\n4) This is a new computer, so I think it is faster than the other one.",
+   "ans": "1) You should pass.\n2) You shouldn’t have trouble getting fit.\n3) They shouldn’t have trouble getting a job.\n4) It should be faster than the other one.",
+   "steps": [
+    "should = positive expectation (will happen).",
+    "shouldn’t = negative expectation (won’t happen)."
+   ],
+   "ref": "AB p37"
+  },
+  {
+   "id": "e12u2t8-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Rewrite the sentences with the correct form of have, get or make.\nExample: Somebody stole my television. → I had my television stolen.\n1) I asked somebody to cut my hair.\n2) Someone is repairing my computer. Can I borrow yours?\n3) He looked outside because he heard a noise.\n4) The leaves fell because of the wind.\n5) A photographer took a picture of the witness.",
+   "ans": "1) I had my hair cut.\n2) I’m getting my computer repaired. Can I borrow yours?\n3) The noise made him look outside.\n4) The wind made the leaves fall.\n5) The witness had a picture taken.",
+   "steps": [
+    "Sentences 1, 2 and 5: the person receives the action → have / get + object + past participle.",
+    "Sentences 3 and 4: something causes something to happen → make + object + infinitive."
+   ],
+   "ref": "AB p39"
+  },
+  {
+   "id": "e12u2t9-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Find a word or phrase in the brochure that means the following.\n1) expensive items like gold rings and necklaces =\n2) how you feel about an object =\n3) things you do for a specific reason =\n4) thieves who break into homes =\n5) extremely, so much that you can’t believe it =\n6) very important =",
+   "ans": "1) jewellery\n2) sentimental value\n3) measures\n4) burglars\n5) unbelievably\n6) essential",
+   "steps": [
+    "Scan the paragraphs for a noun phrase that matches each definition, not for a single word only."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u2t10-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "You are going to write a leaflet about road safety for new drivers. Complete the advice and give a reason for each one, using the topics in the box: brakes, driving licence, keys, lights, parking, speeding, valuables.\nExample: You shouldn’t leave your keys in the ignition. — Someone could take them and steal your car.",
+   "ans": "See the table above: each topic must appear once with an advice phrase from the box (shouldn’t / have to / ought to / It’s always better to) and a supporting reason.",
+   "steps": [
+    "Every advice must be followed by a reason or example — that is what the right-hand column requires.",
+    "Use at least three different recommendation phrases so the leaflet does not repeat itself."
+   ],
+   "ref": "AB p42"
+  },
+  {
+   "id": "e12u2t11-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u2",
+   "chName": "Unit 2: Law and order",
+   "kind": "problem",
+   "text": "Complete the dialogues with the words from the box: could / got / if / let’s / shall / should / shouldn’t / sure.\n1) … we take the train to the airport? — No, we’ve got too many bags. Let’s get a taxi.\n2) … you get me something to eat? — It’s easier if you go and see the menu. I’ll stay here with the bags if you want.\n3) We … be there in about two hours. — Really? The roads are empty, so it shouldn’t take that long. I’d say about an hour and a half at most.\n4) You’ve … to get the car checked before the trip on Sunday. — I will. But make sure you check our insurance, too, OK?",
+   "ans": "1) Shall / let’s / sure\n2) Could / if\n3) should / shouldn’t\n4) got",
+   "steps": [
+    "Each box word is used once only.",
+    "Shall is used to make a joint suggestion; Could to ask a favour; should / shouldn’t for expectation; got to for obligation."
+   ],
+   "ref": "AB p46"
+  },
+  {
+   "id": "k12c6-p1",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "أكمل التفاعلات الآتية مع ذكر صفات النواتج: 1- Hg2^2+ + HCl (مخفف). 2- Bi3+ + H2S (بوجود HCl مخفف). 3- Al3+ + NH4OH (بوجود NH4Cl). 4- Mn2+ + H2S (بوجود NH4OH).",
+   "ans": "1- راسب أبيض Hg2Cl2. 2- راسب أسود Bi2S3. 3- راسب أبيض Al(OH)3. 4- راسب وردي فاتح MnS.",
+   "steps": [
+    "1- Hg2^2+ + 2Cl- → Hg2Cl2 (راسب أبيض من كلوريد الزئبق (I)).",
+    "2- 2Bi3+ + 3H2S → Bi2S3 (راسب أسود) + 6H+.",
+    "3- Al3+ + 3NH4OH → Al(OH)3 (راسب أبيض) + 3NH4+.",
+    "4- Mn2+ + H2S + 2NH4OH → MnS (راسب وردي فاتح) + 2NH4+ + 2H2O."
+   ],
+   "ref": "تمرين 1-6"
+  },
+  {
+   "id": "k12c6-q1",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "كيف يمكن الفصل بين الأيونات الموجبة الأكثر شيوعًا؟",
+   "ans": "تُقسم الأيونات الموجبة الأكثر شيوعًا إلى خمس مجاميع لكل منها عامل مرسب واحد، ويُفصل بينها بالإضافة النظامية للعوامل المرسبة ابتداءً من المجموعة الأولى، ثم مجموعة ثانية، ثم ثالثة A و B، ثم رابعة، وتبقى أيونات المجموعة الخامسة في المحلول النهائي بدون ترسيب (هذا الجواب غير مطبوع في الكتاب وحُلَّ من نص الموضوع 2-6 والجدول 1-6).",
+   "steps": [
+    "تضاف العوامل المرسبة للمجاميع حسب الترتيب ابتداءً من الأولى (I) إلى الرابعة (IV).",
+    "I: حامض HCl المخفف فيرسب AgCl و Hg2Cl2 و PbCl2.",
+    "II: كبريتيد الهيدروجين بوجود HCl المخفف فيرسب كبريتيدات المجموعة الثانية على شكل راسب.",
+    "IIIA و IIIB: هيدروكسيد الأمونيوم مع كلوريد الأمونيوم ثم H2S بوجودهما.",
+    "IV: (NH4)2CO3 بوجود NH4OH و NH4Cl، وتبقى أيونات المجموعة V (Mg2+، Na+، K+، NH4+) ذائبة بدون ترسيب.",
+    "يفصل راسب كل مجموعة بعملية الترشيح عن الراشح ثم يُكشف عن كل أيون على حدة."
+   ],
+   "ref": "أسئلة الفصل 1-6"
+  },
+  {
+   "id": "k12c6-q2",
+   "subj": "الكيمياء",
+   "key": "12:sci:الكيمياء",
+   "ch": "k12c6",
+   "chName": "الفصل السادس: طرائق التحليل الكيميائي",
+   "kind": "problem",
+   "text": "عدد الأيونات الموجبة المصنفة ضمن المجموعة الثانية مع ذكر العامل المرسب لها، ثم بيّن كيف يمكن فصل أيون النحاس عن أيون الحديديك عند وجودهما في نفس المحلول.",
+   "ans": "أيونات المجموعة الثانية هي: Hg2+، Cu2+، Bi3+، Cd2+، Pb2+، As3+، Sb3+، Sn2+، وعاملها المرسب كبريتيد الهيدروجين بوجود HCl المخفف. ويُفصل أيون النحاس Cu2+ عن أيون الحديديك Fe3+ بإمرار غاز H2S بوجود HCl المخفف فيترسب النحاس على هيئة CuS (راسب أسود) ويفصل بالترشيح، بينما يبقى أيون الحديد (III) في المحلول لأنه يصنف ضمن المجموعة الثالثة A (هذا الجواب غير مطبوع وحُلَّ من نص الموضوع 2-6).",
+   "steps": [
+    "العامل المرسب للمجموعة الثانية هو كبريتيد الهيدروجين بوجود حامض HCl المخفف.",
+    "أيونات المجموعة الثانية ثمانية كما في الجدول (1-6).",
+    "في محلول يحوي Cu2+ و Fe3+: يُمرر غاز H2S في وسط HCl مخفف فيترسب CuS (أسود) ويُفصل بالترشيح.",
+    "يبقى Fe3+ في الراشح (المجموعة IIIA) ويمكن ترسيبه لاحقًا على هيئة Fe(OH)3 بهيدروكسيد الأمونيوم وكلوريد الأمونيوم."
+   ],
+   "ref": "أسئلة الفصل 2-6"
+  }
+ ]
+}

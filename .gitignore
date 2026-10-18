@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+
+# مؤقتات العمل والمعاينات
+_preview/
+_ocr/
+
+# كتب المناهج المصدريّة (PDF كبيرة، غير منشورة)
+السادس الاعدادي/
+الثالث المتوسط/
+السادس الابتدائي/
+*.pdf
+
+# صور الصفحات المحمّلة من iraqedu.net — كاش قابل لإعادة التوليد
+# (official-exams/download-pages.cjs و download-series.cjs يعيدان تنزيلها)
+official-exams/pages/
+
+# استثناء: ملفات حلول أرشيف الوزاري (PDF ننشرها عمدًا داخل official-exams)
+!official-exams/
+!official-exams/solutions/
+!official-exams/solutions/**
+!official-exams/solutions/**/*.pdf
+official-exams/year-sim/sim_out.json
+graphify-out/

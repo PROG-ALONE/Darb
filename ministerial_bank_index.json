@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "title": "بنك الأسئلة الوزاري - سادس إعدادي علمي",
+    "source": ["yudrik.com", "iraqedu.net", "wizarati.app", "moedu.gov.iq"],
+    "collected": "2026-10-12",
+    "totalQuestions": 41,
+    "version": "1.0.0"
+  },
+  "subjects": {
+    "physics": {
+      "key": "12:sci:الفيزياء",
+      "totalInBank": 30,
+      "chapterDistribution": {
+        "p12c1": 5, "p12c2": 4, "p12c3": 5, "p12c4": 3, "p12c5": 2,
+        "p12c6": 4, "p12c7": 2, "p12c8": 3, "p12c9": 2
+      },
+      "exams": [
+        {
+          "year": 2024,
+          "round": "التمهيدي",
+          "source": "yudrik.com",
+          "questions": 6,
+          "fullSolutions": true
+        }
+      ],
+      "questions": []
+    },
+    "chemistry": {
+      "key": "12:sci:الكيمياء",
+      "totalInBank": 4,
+      "chapterDistribution": {
+        "k12c1": 1, "k12c2": 1, "k12c3": 0, "k12c4": 1, "k12c5": 0, "k12c6": 0, "k12c7": 0, "k12c8": 0
+      },
+      "exams": [],
+      "questions": []
+    },
+    "biology": {
+      "key": "12:sci:الأحياء",
+      "totalInBank": 3,
+      "chapterDistribution": {
+        "b12c1": 1, "b12c2": 0, "b12c3": 1, "b12c4": 0, "b12c5": 1
+      },
+      "exams": [],
+      "questions": []
+    },
+    "mathematics": {
+      "key": "12:sci:الرياضيات",
+      "totalInBank": 4,
+      "chapterDistribution": {
+        "a12c1": 1, "a12c2": 0, "a12c3": 1, "a12c4": 1, "a12c5": 1, "a12c6": 0
+      },
+      "exams": [],
+      "questions": []
+    }
+  },
+  "questionFormat": {
+    "Q": { "q": "السؤال", "o": ["خيار1","خيار2","خيار3","خيار4"], "c": 0, "why": "السبب" },
+    "TF": { "q": "عبارة صح/خطأ", "o": ["صح","خطأ"], "c": 0, "why": "السبب" },
+    "B": { "id": "p12c1t1-p1", "ref": "صXX", "sec": "1-1", "text": "نص المسألة", "ans": "الجواب", "steps": ["خطوة1","خطوة2"] },
+    "E": { "title": "مثال محلول", "page": "صXX", "text": "نص", "steps": ["..."], "ans": "جواب" }
+  },
+  "notes": {
+    "expansionPlan": "تحميل PDFs من iraqedu.net → استخراج → تحويل → إضافة لكل فصل",
+    "wizaratiCounts": "الفيزياء 257 سؤال، الكيمياء 257، الأحياء ~276، الرياضيات ~57",
+    "integration": "node wire.mjs content/ministerial-*.js → يحدث index.html + sw.js"
+  }
+}

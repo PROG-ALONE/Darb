@@ -1,0 +1,17 @@
+{
+  "name": "دَرْب",
+  "short_name": "دَرْب",
+  "description": "تطبيق دراسي مجاني من الأول الابتدائي إلى السادس الإعدادي، أساسه الفهم لا الحفظ.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F5F6FB",
+  "theme_color": "#4B46E0",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

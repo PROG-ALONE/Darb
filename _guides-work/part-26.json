@@ -1,0 +1,654 @@
+{
+ "part": "part-26",
+ "subjects": "الفيزياء, الرياضيات",
+ "count": 40,
+ "items": [
+  {
+   "id": "p12c8t11:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "اذكر تطبيقات الليزر في الطب",
+   "ans": "العمليات الجراحية وتصحيح النظر وعلاج الجلد",
+   "steps": [
+    "العمليات الجراحية",
+    "تصحيح النظر",
+    "علاج الجلد"
+   ],
+   "title": "تطبيقات الليزر في الطب"
+  },
+  {
+   "id": "p12c8-p12",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "اذكر أهم الاختلافات بين الماسر والليزر.",
+   "ans": "يختلفان في منطقة الطيف الكهرومغناطيسي",
+   "steps": [
+    "الماسر: موجات ميكروية",
+    "الليزر: ضوء مرئي",
+    "كلاهما: انبعاث محفز"
+   ],
+   "ref": "ص ٢٥٠"
+  },
+  {
+   "id": "p12c8t12:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "قارن بينهما",
+   "ans": "الماسر يعمل في الموجات الميكروية والليزر في الضوء المرئي",
+   "steps": [
+    "الماسر: موجات ميكروية",
+    "الليزر: ضوء مرئي",
+    "كلاهما: انبعاث محفز"
+   ],
+   "title": "مقارنة بين الماسر والليزر"
+  },
+  {
+   "id": "p12c8-p13",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "احسب الزاوية الحرجة للانعكاس الكلي الداخلي في ألياف ضوئية معامل انكسار قلبها ١.٦ وغلافها ١.٥٥.",
+   "ans": "θc = ٧٥.٨ درجة",
+   "steps": [
+    "θc = sin⁻¹(n₂/n₁)",
+    "θc = sin⁻¹(١.٥٥/١.٦)",
+    "θc = ٧٥.٨ درجة"
+   ],
+   "ref": "ص ٢٥٢"
+  },
+  {
+   "id": "p12c8t13:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "احسب الزاوية الحرجة للانعكاس الكلي الداخلي في ألياف ضوئية معامل انكسار قلبها ١.٥ وغلافها ١.٤٥",
+   "ans": "θc = ٧٥.٢ درجة",
+   "steps": [
+    "θc = sin⁻¹(n₂/n₁)",
+    "θc = sin⁻¹(١.٤٥/١.٥)",
+    "θc = ٧٥.٢ درجة"
+   ],
+   "title": "حساب الزاوية الحرجة"
+  },
+  {
+   "id": "p12c8-p14",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "اذكر أهم مميزات الاتصالات الضوئية.",
+   "ans": "سرعات عالية وسعة نقل كبيرة وكفاءة عالية",
+   "steps": [
+    "سرعات عالية",
+    "سعة نقل كبيرة",
+    "كفاءة عالية"
+   ],
+   "ref": "ص ٢٥٤"
+  },
+  {
+   "id": "p12c8t14:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "اذكر مميزات الاتصالات الضوئية",
+   "ans": "سرعات عالية وسعة نقل كبيرة وكفاءة عالية",
+   "steps": [
+    "سرعات عالية",
+    "سعة نقل كبيرة",
+    "كفاءة عالية"
+   ],
+   "title": "مميزات الاتصالات الضوئية"
+  },
+  {
+   "id": "p12c8-p15",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "problem",
+   "text": "لخص أهم مفاهيم الفصل الثامن.",
+   "ans": "الأطياف والليزر والألياف الضوئية",
+   "steps": [
+    "الأطياف الذرية",
+    "الليزر",
+    "الألياف الضوئية"
+   ],
+   "ref": "ص ٢٥٤"
+  },
+  {
+   "id": "p12c8t15:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c8",
+   "chName": "الفصل الثامن: الأطياف الذرية والليزر",
+   "kind": "example",
+   "text": "لخص أهم مفاهيم الفصل",
+   "ans": "الأطياف والليزر والألياف الضوئية",
+   "steps": [
+    "الأطياف الذرية",
+    "الليزر",
+    "الألياف الضوئية"
+   ],
+   "title": "ملخص الفصل"
+  },
+  {
+   "id": "p12c9t1-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Why is nuclear physics important?",
+   "ans": "Nuclear physics is essential for understanding nuclear energy, nuclear medicine, and the fundamental structure of matter. It enables the development of nuclear power reactors and radioactive diagnostic techniques.",
+   "steps": [
+    "Nuclear energy production",
+    "Nuclear medicine and diagnostics",
+    "Fundamental structure of matter"
+   ],
+   "ref": "Page 255"
+  },
+  {
+   "id": "p12c9t1:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Introduce the branch of physics that studies the nucleus and its interactions.",
+   "ans": "Nuclear physics is the branch of physics that deals with the study of the atomic nucleus and its constituent particles and interactions.",
+   "steps": [
+    "Studies nucleus",
+    "Covers nuclear interactions",
+    "Important for energy applications"
+   ],
+   "title": "Introduction to Nuclear Physics"
+  },
+  {
+   "id": "p12c9t2-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If a nucleus has 26 protons and 30 neutrons, what is its mass number and element?",
+   "ans": "A = Z + N = 26 + 30 = 56, Element: Iron (Fe)",
+   "steps": [
+    "Z = 26",
+    "N = 30",
+    "A = 56",
+    "Iron (Fe)"
+   ],
+   "ref": "Page 257"
+  },
+  {
+   "id": "p12c9t2-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Compare the number of protons and neutrons in a stable nucleus for light elements.",
+   "ans": "For light elements, the number of neutrons is approximately equal to the number of protons (N ≈ Z). The ratio N/Z increases for heavier stable nuclei.",
+   "steps": [
+    "N ≈ Z for light elements",
+    "N/Z increases for heavier nuclei",
+    "Ratio reaches ~1.5 for heavy stable nuclei"
+   ],
+   "ref": "Page 257"
+  },
+  {
+   "id": "p12c9t2:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the composition of the atomic nucleus.",
+   "ans": "The atomic nucleus consists of protons and neutrons, collectively called nucleons. The number of protons defines the element.",
+   "steps": [
+    "Protons and neutrons",
+    "Nucleons",
+    "Defines element identity"
+   ],
+   "title": "Nuclear Composition"
+  },
+  {
+   "id": "p12c9t3-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "How many protons are in the nucleus of a carbon-14 atom?",
+   "ans": "Carbon has Z = 6, so a carbon-14 atom has 6 protons. The mass number 14 includes 6 protons and 8 neutrons.",
+   "steps": [
+    "Z = 6 for carbon",
+    "Carbon-14 has 6 protons and 8 neutrons",
+    "N = 14 - 6 = 8"
+   ],
+   "ref": "Page 259"
+  },
+  {
+   "id": "p12c9t3-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If an element has atomic number 92, how many protons and electrons does a neutral atom have?",
+   "ans": "A neutral atom has equal numbers of protons and electrons. Therefore, 92 protons and 92 electrons.",
+   "steps": [
+    "Z = 92",
+    "Protons = 92",
+    "Electrons = 92 in neutral atom"
+   ],
+   "ref": "Page 259"
+  },
+  {
+   "id": "p12c9t3:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the concept of atomic number and its significance.",
+   "ans": "The atomic number Z equals the number of protons in the nucleus, which uniquely identifies the chemical element and determines its chemical properties.",
+   "steps": [
+    "Z = number of protons",
+    "Identifies the element",
+    "Determines chemical properties"
+   ],
+   "title": "Atomic Number"
+  },
+  {
+   "id": "p12c9t4-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Uranium has atomic number 92. Name two isotopes of uranium and their mass numbers.",
+   "ans": "Uranium-235 and Uranium-238, both have Z = 92 but A = 235 and A = 238 respectively.",
+   "steps": [
+    "U-235: Z=92, A=235",
+    "U-238: Z=92, A=238",
+    "Same protons, different neutrons"
+   ],
+   "ref": "Page 261"
+  },
+  {
+   "id": "p12c9t4-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If an element has 35 protons and 44 neutrons, and another isotope of the same element has 35 protons and 48 neutrons, compare their mass numbers.",
+   "ans": "First isotope: A = 35 + 44 = 79. Second isotope: A = 35 + 48 = 83. The second has a larger mass number.",
+   "steps": [
+    "A₁ = 79",
+    "A₂ = 83",
+    "ΔA = 4",
+    "Same Z, different N"
+   ],
+   "ref": "Page 261"
+  },
+  {
+   "id": "p12c9t4:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the concept of isotopes and their significance.",
+   "ans": "Isotopes are atoms of the same element (same number of protons) but with different numbers of neutrons, resulting in different mass numbers. They have nearly identical chemical properties but different physical properties.",
+   "steps": [
+    "Same Z, different A",
+    "Same element, different mass",
+    "Different physical properties"
+   ],
+   "title": "Isotopes"
+  },
+  {
+   "id": "p12c9t5-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Calculate the binding energy per nucleon for a nucleus with mass defect Δm = 0.008 u.",
+   "ans": "E = Δm × c² = 0.008 × (931.5 MeV/u) = 7.452 MeV per nucleon",
+   "steps": [
+    "Δm = 0.008 u",
+    "1 u = 931.5 MeV/c²",
+    "E = 0.008 × 931.5 = 7.452 MeV"
+   ],
+   "ref": "Page 263"
+  },
+  {
+   "id": "p12c9t5-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If the total binding energy of a nucleus is 1800 MeV and it has 60 nucleons, what is the binding energy per nucleon?",
+   "ans": "E/A = 1800/60 = 30 MeV per nucleon",
+   "steps": [
+    "Total E = 1800 MeV",
+    "A = 60 nucleons",
+    "E/A = 1800/60 = 30 MeV/nucleon"
+   ],
+   "ref": "Page 263"
+  },
+  {
+   "id": "p12c9t5:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Calculate the binding energy given the mass defect.",
+   "ans": "The nuclear binding energy is calculated using Einstein's equation E = Δm × c², where Δm is the mass defect (difference between the mass of individual nucleons and the actual nucleus mass).",
+   "steps": [
+    "E = Δm × c²",
+    "Mass defect → energy",
+    "MeV to joules conversion"
+   ],
+   "title": "Nuclear Binding Energy"
+  },
+  {
+   "id": "p12c9t6-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If a source has an activity of 500 Bq, how many decays occur in 10 seconds?",
+   "ans": "Decays = activity × time = 500 × 10 = 5000 decays",
+   "steps": [
+    "A = 500 Bq",
+    "t = 10 s",
+    "Decays = 500 × 10 = 5000"
+   ],
+   "ref": "Page 265"
+  },
+  {
+   "id": "p12c9t6-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Explain the difference between alpha, beta, and gamma radiation.",
+   "ans": "Alpha: 2 protons + 2 neutrons, low penetration. Beta: high-energy electron/positron, moderate penetration. Gamma: high-energy photon, high penetration.",
+   "steps": [
+    "Alpha: heavy, short range",
+    "Beta: light, medium range",
+    "Gamma: photon, long range"
+   ],
+   "ref": "Page 265"
+  },
+  {
+   "id": "p12c9t6:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the concept of radioactive activity and its measurement.",
+   "ans": "Radioactive activity is the spontaneous nuclear decay that emits radiation. It is measured in becquerel (Bq), where 1 Bq = 1 decay per second.",
+   "steps": [
+    "Spontaneous decay",
+    "Emits radiation",
+    "Measured in Becquerel"
+   ],
+   "title": "Radioactive Activity"
+  },
+  {
+   "id": "p12c9t7-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Complete the nuclear reaction: ^{238}_{92}U + ^{1}_{0}n → ^{239}_{92}U → ?",
+   "ans": "^{239}_{92}U → ^{235}_{90}Th + ^{4}_{2}He (alpha decay)",
+   "steps": [
+    "^{238}_{92}U captures neutron",
+    "^{239}_{92}U",
+    "Alpha decay to ^{235}_{90}Th + alpha particle"
+   ],
+   "ref": "Page 269"
+  },
+  {
+   "id": "p12c9t7-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Write the nuclear reaction for beta decay of ^{14}_{6}C.",
+   "ans": "^{14}_{6}C → ^{14}_{7}N + e^{-} + anti-neutrino",
+   "steps": [
+    "^{14}_{6}C",
+    "^{14}_{7}N",
+    "beta particle (e⁻)"
+   ],
+   "ref": "Page 269"
+  },
+  {
+   "id": "p12c9t7:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain a nuclear reaction with an example.",
+   "ans": "A nuclear reaction involves changes in the nucleus composition, where the number of nucleons and charge are conserved. Example: alpha decay where a nucleus emits an alpha particle.",
+   "steps": [
+    "Reactants → Products",
+    "Conservation of mass number and charge",
+    "Example: alpha decay"
+   ],
+   "title": "Nuclear Reaction"
+  },
+  {
+   "id": "p12c9t8-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "If a U-235 nucleus captures a neutron and fissions into Ba-141 and Kr-92, how many neutrons are released?",
+   "ans": "U-236 → Ba-141 + Kr-92 + 3n, so 3 neutrons are released",
+   "steps": [
+    "^{236}_{92}U",
+    "^{141}_{56}Ba",
+    "^{92}_{36}Kr",
+    "3 neutrons released",
+    "236 = 141 + 92 + 3 × 1"
+   ],
+   "ref": "Page 271"
+  },
+  {
+   "id": "p12c9t8-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Calculate the energy released in the fission of 1 kg of U-235, given that each fission releases about 200 MeV.",
+   "ans": "Number of U-235 atoms in 1 kg = (1000 g)/(235 g/mol) × Avogadro's number ≈ 2.56×10^{24}. Total energy = 2.56×10^{24} × 200 MeV ≈ 5.12×10^{26} MeV ≈ 8.2×10^{13} J",
+   "steps": [
+    "1 fission = 200 MeV",
+    "Atoms in 1 kg ≈ 2.56×10^{24}",
+    "Total ≈ 8.2×10^{13} J"
+   ],
+   "ref": "Page 271"
+  },
+  {
+   "id": "p12c9t8:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the nuclear fission process.",
+   "ans": "Nuclear fission is the process where a heavy nucleus (like U-235) splits into two medium-mass nuclei when bombarded by a slow neutron, releasing additional neutrons and large amounts of energy.",
+   "steps": [
+    "Heavy nucleus + neutron → fission products + neutrons + energy",
+    "U-235 example"
+   ],
+   "title": "Nuclear Fission"
+  },
+  {
+   "id": "p12c9t9-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "In the Sun's proton-proton chain, four protons fuse to form helium-2. If 10^38 fusions occur per second, what is the total energy released per second?",
+   "ans": "Energy per fusion ≈ 26.7 MeV. Total power = 10^38 × 26.7 MeV/s ≈ 4.27×10^{39} MeV/s ≈ 6.8×10^{26} W",
+   "steps": [
+    "10^38 fusions/s",
+    "≈26.7 MeV per fusion",
+    "≈6.8×10^{26} W (solar luminosity)"
+   ],
+   "ref": "Page 273"
+  },
+  {
+   "id": "p12c9t9-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Compare the energy released per unit mass in fission vs fusion.",
+   "ans": "Fusion of light elements releases significantly more energy per unit mass than fission of heavy elements (about 3-4 times more).",
+   "steps": [
+    "Fusion ~3-4× energy per mass of fission",
+    "Mass difference per nucleon is larger for light nuclei"
+   ],
+   "ref": "Page 273"
+  },
+  {
+   "id": "p12c9t9:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the nuclear fusion process.",
+   "ans": "Nuclear fusion is the process where two light nuclei combine to form a heavier nucleus, releasing large amounts of energy. This is the process that powers the Sun (proton-proton chain reaction).",
+   "steps": [
+    "Light nuclei → heavier nucleus + energy",
+    "Sun example: proton-proton chain"
+   ],
+   "title": "Nuclear Fusion"
+  },
+  {
+   "id": "p12c9t10-p1",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "What are the main sources of natural background radiation?",
+   "ans": "Main sources: cosmic radiation from space, terrestrial radiation from soil and rocks (especially radon), and internal radiation from potassium-40 in the body.",
+   "steps": [
+    "Cosmic radiation",
+    "Radon gas from soil",
+    "Potassium-40 in body",
+    "Internal radiation"
+   ],
+   "ref": "Page 275"
+  },
+  {
+   "id": "p12c9t10-p2",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "problem",
+   "text": "Explain the ALARA principle for radiation protection.",
+   "ans": "ALARA = As Low As Reasonably Achievable. The principle states that radiation exposure should be kept as low as reasonably achievable, using time, distance, and shielding to minimize dose.",
+   "steps": [
+    "ALARA principle",
+    "Time: minimize exposure time",
+    "Distance: maximize distance from source",
+    "Shielding: use protective materials"
+   ],
+   "ref": "Page 275"
+  },
+  {
+   "id": "p12c9t10:e0",
+   "subj": "الفيزياء",
+   "key": "12:sci:الفيزياء",
+   "ch": "p12c9",
+   "chName": "الفصل التاسع: الفيزياء النووية",
+   "kind": "example",
+   "text": "Explain the dual nature of nuclear radiation.",
+   "ans": "Nuclear radiation has dual nature: significant benefits in medicine (diagnosis and treatment), energy production, and industry, but also risks including increased cancer risk, genetic damage, and environmental contamination if not properly managed.",
+   "steps": [
+    "Benefits: medicine, energy",
+    "Risks: cancer, environmental damage"
+   ],
+   "title": "Radiation Hazards and Benefits"
+  },
+  {
+   "id": "m12c3-p1",
+   "subj": "الرياضيات",
+   "key": "12:sci:الرياضيات",
+   "ch": "a12c3",
+   "chName": "الفصل الثالث: تطبيقات التفاضل",
+   "kind": "problem",
+   "text": "سلم طوله 10m يستند طرفه الأسفل على أرض أفقية وطرفه الأعلى على حائط رأسي، فإذا انزلق الطرف الأسفل مبتعداً عن الحائط بمعدل 2m/s، جد معدل انزلاق الطرف العلوي عندما يكون قياس الزاوية بين السلم والأرض تساوي π/3.",
+   "ans": "الطرف العلوي ينزلق بمعدل 2/√3 m/s",
+   "steps": [
+    "x² + y² = 100",
+    "cos θ = x/10 و sin θ = y/10",
+    "θ = π/3  ⇒  x = 10 × (1/2) = 5  و  y = 10 × (√3/2) = 5√3",
+    "2x · dx/dt + 2y · dy/dt = 0",
+    "2(5)(2) + 2(5√3) · dy/dt = 0",
+    "20 = −10√3 · dy/dt  ⇒  dy/dt = −2/√3 m/s"
+   ],
+   "ref": "94–95"
+  },
+  {
+   "id": "m12c3-p2",
+   "subj": "الرياضيات",
+   "key": "12:sci:الرياضيات",
+   "ch": "a12c3",
+   "chName": "الفصل الثالث: تطبيقات التفاضل",
+   "kind": "problem",
+   "text": "في مسألة السلم السابقة جد سرعة تغيّر الزاوية بين السلم والأرض عندما يكون الطرف الأسفل على بعد 6m عن الحائط.",
+   "ans": "dθ/dt = −1/4 rad/s",
+   "steps": [
+    "x = 6 ⇒ y = 8 (لأن 6² + 8² = 100)",
+    "2(6)(2) + 2(8) · dy/dt = 0  ⇒  dy/dt = −3/2 m/s",
+    "sin θ = y/10  ⇒  cos θ · dθ/dt = (1/10)(dy/dt)",
+    "cos θ = 6/10 = 3/5",
+    "dθ/dt = [(1/10)(−3/2)] / (3/5) = (−3/20)(5/3) = −1/4 rad/s"
+   ],
+   "ref": "94–95"
+  }
+ ]
+}

@@ -1,0 +1,629 @@
+{
+ "part": "part-33-fix",
+ "subjects": "الأحياء, اللغة العربية, اللغة الإنكليزية",
+ "count": 40,
+ "items": [
+  {
+   "id": "b12c3-p54",
+   "subj": "الأحياء",
+   "key": "12:sci:الأحياء",
+   "ch": "b12c3",
+   "chName": "الفصل الثالث: التكاثر",
+   "kind": "problem",
+   "text": "سؤال الفصل (4-1): أكمل: تتكون النطف في ... التي تتألف من أعداد كبيرة من ...",
+   "ans": "الخصية، النبيبات المنوية",
+   "steps": [
+    "النطف تتكون في الخصية (Testis)",
+    "وهي تتألف من أعداد كبيرة من النبيبات المنوية الملتوية"
+   ],
+   "ref": "138"
+  },
+  {
+   "id": "b12c3-q18",
+   "subj": "الأحياء",
+   "key": "12:sci:الأحياء",
+   "ch": "b12c3",
+   "chName": "الفصل الثالث: التكاثر",
+   "kind": "problem",
+   "text": "اذكر أمثلة على الحيوانات الخنثية.",
+   "ans": "دودة الأرض، الدودة الشريطية، بعض الديدان المسطحة والحلقية والقشريات",
+   "steps": [
+    "تندرج تحت اللافقريات",
+    "وتظهر الخنثية فيها بوضوح"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "b12c3-q19",
+   "subj": "الأحياء",
+   "key": "12:sci:الأحياء",
+   "ch": "b12c3",
+   "chName": "الفصل الثالث: التكاثر",
+   "kind": "problem",
+   "text": "لماذا تتحاشى الحيوانات الخنثية الإخصاب الذاتي؟",
+   "ans": "لأنه يقلل التنوع الوراثي بين الذرية",
+   "steps": [
+    "تبادل الخلايا التناسسية مع فرد آخر يزيد التباين الوراثي",
+    "والنضج في أوقات متباينة يمنع التلاقح الذاتي"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "b12c3t11:e0",
+   "subj": "الأحياء",
+   "key": "12:sci:الأحياء",
+   "ch": "b12c3",
+   "chName": "الفصل الثالث: التكاثر",
+   "kind": "example",
+   "text": "اذكر طريقتين لتجنب الإخصاب الذاتي في الحيوانات الخنثية.",
+   "ans": "التبادل بين الأفراد، أو النضج في أوقات مختلفة",
+   "steps": [
+    "تبادل الخلايا التناسلية مع الفرد المفترن به (كما في دودة الأرض)",
+    "نمو ونضج البيض والنطف في أوقات متباينة"
+   ],
+   "title": "مثال 11-3-1"
+  },
+  {
+   "id": "b12c3t11:e1",
+   "subj": "الأحياء",
+   "key": "12:sci:الأحياء",
+   "ch": "b12c3",
+   "chName": "الفصل الثالث: التكاثر",
+   "kind": "example",
+   "text": "قارن بين دودة الأرض والدودة الشريطية من حيث الإخصاب.",
+   "ans": "الأولى تتبادل مع فرد آخر، والثانية تخصب نفسها",
+   "steps": [
+    "دودة الأرض: لا تستطيع الإخصاب الذاتي؛ بيوضها تخصب من الفرد المفترن بها",
+    "الدودة الشريطية: لها القابلية على الإخصاب الذاتي؛ نطفها هي التي تخصب بيوضها"
+   ],
+   "title": "مثال 11-3-2"
+  },
+  {
+   "id": "r12u2t2-p1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u2",
+   "chName": "الوحدة 2: التضحية طريق النصر",
+   "kind": "problem",
+   "text": "نص التمرين",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة"
+   ],
+   "ref": "صX"
+  },
+  {
+   "id": "r12u2t2:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u2",
+   "chName": "الوحدة 2: التضحية طريق النصر",
+   "kind": "example",
+   "text": "نص المثال",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة 1"
+   ],
+   "title": "مثال محلول"
+  },
+  {
+   "id": "r12u2t5-x1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u2",
+   "chName": "الوحدة 2: التضحية طريق النصر",
+   "kind": "problem",
+   "text": "اكتب فقرة عن...",
+   "ans": "نموذج إجابة",
+   "steps": [
+    "عنصر 1",
+    "عنصر 2"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "r12u3t2:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "المبتدأ: القلم",
+    "الخبر: فوق المنضدة (شبه جملة)",
+    "التقديم: جوازًا لمعنى من المعاني"
+   ],
+   "title": "مثال محلول: حدد الخبر والمبتدأ في (القلم فوق المنضدة)"
+  },
+  {
+   "id": "r12u3t3:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "الخبر: في المزرعة (جار ومجرور) مقدم وجوبًا",
+    "المبتدأ: فلاحوها (اسم مرفوع اتصل به ضمير يعود على بعض الخبر)",
+    "السبب: اتصال المبتدأ بضمير يعود على بعض الخبر المقدم"
+   ],
+   "title": "مثال محلول: أعرب (في المزرعة فلاحوها)"
+  },
+  {
+   "id": "r12u3t3:e1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "الخبر: فيه (جار ومجرور) مقدم وجوبًا",
+    "المبتدأ: شر (نكرة غير مضافة وغير موصوفة)",
+    "السبب: كون الخبر شبه جملة والمبتدأ نكرة"
+   ],
+   "title": "مثال محلول: أعرب (فيه شر)"
+  },
+  {
+   "id": "r12u3t4:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "الخبر: كيف (اسم استفهام مبني على الفتح في محل رفع خبر مقدم وجوبًا)",
+    "المبتدأ: التعايش (اسم مرفوع)",
+    "السبب: كون الخبر من الألفاظ التي لها الصدارة"
+   ],
+   "title": "مثال محلول: أعرب (كيف التعايش مع الآخرين؟)"
+  },
+  {
+   "id": "r12u3t4:e1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "الخبر: الشاعر (اسم مرفوع خبر مقدم وجوبًا)",
+    "المبتدأ: المتنبي (اسم مرفوع)",
+    "السبب: كون المبتدأ محصورًا بالنفي والاستثناء"
+   ],
+   "title": "مثال محلول: أعرب (ما الشاعر إلا المتنبي)"
+  },
+  {
+   "id": "r12u3t5:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "المفعول به: أصدقاء (منصوب وعلامة نصبه الفتحة الظاهرة) مقدم وجوبًا",
+    "الفعل: تجنب (فعل أمر مبني على السكون)",
+    "الفاء: رابطة لجواب الشرط",
+    "السبب: وقوع المفعول به بعد (أما) الشرطية مباشرة"
+   ],
+   "title": "مثال محلول: أعرب (أما أصدقاء السوء فتجنب)"
+  },
+  {
+   "id": "r12u3t5:e1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "المفعول به: التشاؤم (منصوب وعلامة نصبه الفتحة الظاهرة) مقدم وجوبًا",
+    "الفعل: تجنب (فعل أمر مبني على السكون)",
+    "الفاء: رابطة لجواب الشرط",
+    "السبب: كون فعله أمرًا مقترنًا بالفاء"
+   ],
+   "title": "مثال محلول: أعرب (التشاؤم فتجنب)"
+  },
+  {
+   "id": "r12u3t6:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "المفعول به: ما (اسم استفهام مبني على السكون في محل نصب مفعول به مقدم وجوبًا)",
+    "الفعل: نفعل (فعل مضارع مرفوع)",
+    "السبب: كون المفعول به من الألفاظ التي لها الصدارة",
+    "الغرض: العموم"
+   ],
+   "title": "مثال محلول: أعرب (ما نفعل من أجل أن يبقى الأمل حيًّا؟)"
+  },
+  {
+   "id": "r12u3t6:e1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "example",
+   "text": "",
+   "ans": "انظر الخطوات",
+   "steps": [
+    "المفعول به: إياك (ضمير منفصل مبني على الفتح في محل نصب مفعول به مقدم وجوبًا)",
+    "الفعل: نعبد (فعل مضارع مرفوع)",
+    "السبب: كون المفعول به ضميرًا منفصلًا",
+    "الغرض: الاختصاص"
+   ],
+   "title": "مثال محلول: أعرب (إياك نعبد وإياك نستعين)"
+  },
+  {
+   "id": "r12u3t7-p1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "في النصوص التالية تقديم، دلّ عليه مبينًا حكمه: ﴿وَلِكُلِّ أُمَّةٍ أَجَلٌ فَإِذَا جَاءَ أَجَلُهُمْ لَا يَسْتَأْخِرُونَ سَاعَةً وَلَا يَسْتَقْدِمُونَ﴾ (الأعراف: ٣٤)",
+   "ans": "الخبر (لكل أمة أجل) مقدم وجوبًا على المبتدأ؛ لأنّ الخبر شبه جملة والمبتدأ نكرة.",
+   "steps": [
+    "الخبر: لكل أمة أجل (جار ومجرور) مقدم وجوبًا",
+    "المبتدأ: أجل (نكرة غير مضافة وغير موصوفة)",
+    "السبب: كون الخبر شبه جملة والمبتدأ نكرة"
+   ],
+   "ref": "التمرين ١"
+  },
+  {
+   "id": "r12u3t7-p2",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "﴿وَيَقُولُونَ مَتَىٰ هَٰذَا الْوَعْدُ إِنْ كُنْتُمْ صَادِقِينَ﴾ (يونس: ٤٨)",
+   "ans": "الخبر (متى) مقدم وجوبًا على المبتدأ؛ لأنّ (متى) من أسماء الاستفهام الدالة على الزمان، وهي من الألفاظ التي لها الصدارة.",
+   "steps": [
+    "الخبر: متى (اسم استفهام مبني على السكون في محل رفع خبر مقدم وجوبًا)",
+    "المبتدأ: هذا الوعد (اسم مرفوع)",
+    "السبب: كون الخبر من الألفاظ التي لها الصدارة"
+   ],
+   "ref": "التمرين ١"
+  },
+  {
+   "id": "r12u3t7-p3",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "أعرب ما تحته خط: ﴿لَهُم مِّن جَهَنَّمَ مِهَادٌ وَمِن فَوْقِهِمْ غَوَاشٍ﴾ (الأعراف: ٤١)",
+   "ans": "الخبر (لهم من جهنم) مقدم وجوبًا على المبتدأ (مهاد)؛ لأنّ الخبر شبه جملة والمبتدأ نكرة.",
+   "steps": [
+    "الخبر: لهم من جهنم (جار ومجرور) مقدم وجوبًا",
+    "المبتدأ: مهاد (نكرة غير مضافة وغير موصوفة)",
+    "السبب: كون الخبر شبه جملة والمبتدأ نكرة"
+   ],
+   "ref": "التمرين ٩"
+  },
+  {
+   "id": "r12u3t7-p4",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "عين الخبر والمفعول المقدم وجوبًا، واذكر الغرض من تقديم المفعول به: ﴿يَا أَيُّهَا الْمُدَّثِّرُ قُمْ فَأَنذِرْ وَرَبَّكَ فَكَبِّرْ وَثِيَابَكَ فَطَهِّرْ﴾ (المدثر: ١-٤)",
+   "ans": "المفعول به (ربك) مقدم وجوبًا على فعله (فكبر)؛ لأنّ فعله أمر مقترن بالفاء، والغرض العناية والاهتمام. والمفعول به (ثيابك) مقدم وجوبًا على فعله (فطهر)؛ لأنّ فعله أمر مقترن بالفاء.",
+   "steps": [
+    "المفعول به: ربك (منصوب وعلامة نصبه الفتحة) مقدم وجوبًا",
+    "الفعل: فكبر (فعل أمر مبني على السكون)",
+    "الفاء: رابطة لجواب الشرط",
+    "الغرض: العناية والاهتمام",
+    "المفعول به: ثيابك (منصوب وعلامة نصبه الفتحة) مقدم وجوبًا",
+    "الفعل: فطهر (فعل أمر مبني على السكون)",
+    "الغرض: العناية والاهتمام"
+   ],
+   "ref": "التمرين ١١"
+  },
+  {
+   "id": "r12u3t10-x1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "تحدث عن موقف أو قصة حدثت لك أو سمعت بها عن الأمل.",
+   "ans": "نموذج: موقف طالب رسب في امتحان ثم اجتهد ونجح بفضل الأمل والعمل.",
+   "steps": [
+    "مقدمة: الأمل مفتاح النجاح",
+    "عرض: موقف الطالب الذي رسب ثم نجح",
+    "خاتمة: الأمل وحده لا يكفي بل لا بد من السعي والعمل"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "r12u3t10-x2",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u3",
+   "chName": "الوحدة 3: الأمل مفتاح النجاح",
+   "kind": "problem",
+   "text": "اكتب فقرة عن أثر الأمل في حياة الإنسان.",
+   "ans": "نموذج: فقرة عن الأمل وأثره في الحياة.",
+   "steps": [
+    "مقدمة: الأمل شعور يجعل للحياة معنى",
+    "عرض: الأمل يحفّز الإنسان إلى التغيير والتقدّم",
+    "خاتمة: علينا أن نختار الأمل المحمود"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "r12u4t9-x1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u4",
+   "chName": "الوحدة 4: نِعمة المطر",
+   "kind": "problem",
+   "text": "اكتب موضوعًا عن نعمة الماء وضرورة الحفاظ عليها موظِّفًا أساليب التوكيد.",
+   "ans": "نموذج: موضوع يبيّن أن الماء أساس الحياة، وأن المطر مصدر المياه الجوفية، ووجوب ترشيد الاستهلاك وتجنّب التلويث.",
+   "steps": [
+    "مقدمة: نعمة الماء وأثرها في الحياة",
+    "عرض: منافع المطر والأنهار والمياه الجوفية",
+    "خاتمة: واجبنا في الحفاظ على الماء"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "r12u5t2-p1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u5",
+   "chName": "الوحدة 5: فلسطين",
+   "kind": "problem",
+   "text": "نص التمرين",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة"
+   ],
+   "ref": "صX"
+  },
+  {
+   "id": "r12u5t2:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u5",
+   "chName": "الوحدة 5: فلسطين",
+   "kind": "example",
+   "text": "نص المثال",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة 1"
+   ],
+   "title": "مثال محلول"
+  },
+  {
+   "id": "r12u5t5-x1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u5",
+   "chName": "الوحدة 5: فلسطين",
+   "kind": "problem",
+   "text": "اكتب فقرة عن...",
+   "ans": "نموذج إجابة",
+   "steps": [
+    "عنصر 1",
+    "عنصر 2"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "r12u6t2-p1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u6",
+   "chName": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "kind": "problem",
+   "text": "نص التمرين",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة"
+   ],
+   "ref": "صX"
+  },
+  {
+   "id": "r12u6t2:e0",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u6",
+   "chName": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "kind": "example",
+   "text": "نص المثال",
+   "ans": "الجواب",
+   "steps": [
+    "خطوة 1"
+   ],
+   "title": "مثال محلول"
+  },
+  {
+   "id": "r12u6t5-x1",
+   "subj": "اللغة العربية",
+   "key": "12:sci:اللغة العربية",
+   "ch": "r12u6",
+   "chName": "الوحدة 6: بالإصلاح تنهض الأمة",
+   "kind": "problem",
+   "text": "اكتب فقرة عن...",
+   "ans": "نموذج إجابة",
+   "steps": [
+    "عنصر 1",
+    "عنصر 2"
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u3t1-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Ask and answer questions using the job list and the duties list.\nExample: What do you call a person who designs buildings? → An architect. What’s an architect? → It’s someone who designs buildings.\n1) What do you call a person who flies a plane?\n2) What’s a journalist?\n3) What do you call a person who looks after passengers on a plane?\n4) What’s a plumber?",
+   "ans": "1) A pilot.\n2) It’s someone who writes articles for newspapers and magazines.\n3) A flight attendant.\n4) It’s someone who fixes and installs pipes for water.",
+   "steps": [
+    "The first question uses the pattern What do you call a person who …? + job; the second uses What’s a …? + It’s someone who ….",
+    "Answer only with jobs and duties from the two lists."
+   ],
+   "ref": "AB p52"
+  },
+  {
+   "id": "e12u3t2-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Write these sentences using the correct form of the verbs in brackets.\nExample: If I (not pass) the high school exam this year, I (take) it again next year. → If I don’t pass the high school exam this year, I’ll take it again next year.\n1) If anyone (need) advice about their application forms, I (be) here tomorrow to help.\n2) If they (not leave) soon, they (not catch) the train.\n3) If you (want) to do a degree in Britain, you (have to) do a one-year foundation course first.\n4) Unless he (make) a big effort this term, he (not get through) the end-of-year exams.\n5) If you are offered a place at Carnegie University, (you accept) it?",
+   "ans": "1) If anyone needs advice about their application forms, I’ll be here tomorrow to help.\n2) If they don’t leave soon, they won’t catch the train.\n3) If you want to do a degree in Britain, you’ll have to do a one-year foundation course first.\n4) Unless he makes a big effort this term, he won’t get through the end-of-year exams.\n5) If you are offered a place at Carnegie University, will you accept it?",
+   "steps": [
+    "The if clause never takes will → present simple (needs / don’t leave / want / makes).",
+    "The main clause takes will/won’t or an auxiliary (I’ll be / won’t catch / you’ll have to / will you accept?).",
+    "Sentence 4 uses unless, which replaces if not; the result is still negative → won’t."
+   ],
+   "ref": "AB p54"
+  },
+  {
+   "id": "e12u3t3-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Write sentences in the second conditional using the verbs in brackets.\nExample: If I (have) had lots of money, I (buy) would buy a racehorse.\n1) I (not have) … to spend so long on my homework if I (have) … a computer of my own.\n2) Where (you choose) … to live if you (can) … live anywhere in the world?\n3) I (learn) … to parachute if my friend (say) … she would do it with me.\n4) If I (be) … you, I (not ask) … his advice about anything.\n5) She (look) … much nicer if she (wear) … contact lenses instead of glasses.\n6) He (be) … more attractive if he (shave) … his beard off.\n7) I (not marry) … him even if he (be) … the last man on earth!",
+   "ans": "1) I wouldn’t have to spend so long on my homework if I had a computer of my own.\n2) Where would you choose to live if you could live anywhere in the world?\n3) I would learn to parachute if my friend said she would do it with me.\n4) If I were you, I wouldn’t ask for his advice about anything.\n5) She would look much nicer if she wore contact lenses instead of glasses.\n6) He would be more attractive if he shaved his beard off.\n7) I wouldn’t marry him even if he were the last man on earth!",
+   "steps": [
+    "The if clause takes the past simple (had / could / said / were / wore / shaved / were) with no auxiliary.",
+    "The main clause takes would / wouldn’t + verb stem.",
+    "In 1 the if clause is not first, so it becomes an if clause; the inversion wouldn’t … if I had … shows the emphasis."
+   ],
+   "ref": "AB p56"
+  },
+  {
+   "id": "e12u3t4-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Report the following parts of the interview to a friend.\n1) “It has been my dream since childhood.”\n2) “I moved to London and studied architecture.”\n3) “I was the first woman ever to win the Pritzker Prize.”\n4) “Any Iraqi woman can succeed in her chosen career if she works hard enough.”",
+   "ans": "1) Zaha said it had been her dream since childhood.\n2) Zaha said she had moved to London and studied architecture.\n3) Zaha said she was the first woman ever to win the Pritzker Prize.\n4) Zaha said any Iraqi woman could succeed in her chosen career if she worked hard enough.",
+   "steps": [
+    "Present perfect → past perfect (has been → had been).",
+    "Past simple in the original stays past simple only when it is not moved back: was stays was.",
+    "Modal can → could."
+   ],
+   "ref": "AB p58"
+  },
+  {
+   "id": "e12u3t4:e0",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "example",
+   "text": "Latifa asked Zaha when she had decided to be an architect.",
+   "ans": "Latifa asked Zaha when she had decided to be an architect.",
+   "steps": [
+    "The direct question is: When did you decide to be an architect?",
+    "In reported speech the question word stays (when) but the verb form changes.",
+    "The auxiliary did disappears and the main verb moves back one tense: decide → had decided."
+   ],
+   "title": "Turning a question into reported speech"
+  },
+  {
+   "id": "e12u3t5-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Rewrite the sentences using one of the reporting verbs in the box: advise / agree / promise / refuse / suggest.\n1) Hazem: “Why don’t you apply for the job?”\n2) Layla: “I’ll help with the project tomorrow, OK?”\n3) Malik: “I think it’s not a good idea to speak to the manager now.”\n4) Maryam: “I’m not going to stay late to finish the report.”\n5) Saeed: “OK, I’ll sign the contract.”",
+   "ans": "1) Hazem suggested that Samir apply for the job.\n2) Layla promised to help with the project tomorrow.\n3) Malik advised (me) not to speak to the manager now.\n4) Maryam refused to stay late to finish the report.\n5) Saeed agreed to sign the contract.",
+   "steps": [
+    "Each box word is used once only.",
+    "suggest is followed by -ing or by that + subject + base verb; promise / refuse / agree are followed by to + infinitive; advise is followed by an object then (not) to + infinitive."
+   ],
+   "ref": "AB p59"
+  },
+  {
+   "id": "e12u3t6-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Write regrets starting If only or I wish for the situations below.\nExample: Unfortunately, I ate three bars of chocolate. That’s why I felt sick. → If only I hadn’t eaten three bars of chocolate.\n1) Unfortunately, he fell over during the race. That’s why he didn’t win.\n2) Unfortunately, you were rude to your brother. Now he won’t give us a lift to the cinema.\n3) Unfortunately, I spent all my money at the weekend. That’s why I can’t buy those shoes.\n4) Unfortunately, they didn’t train every day. That’s why they lost the match.\n5) Unfortunately, I left my camera at Faten’s house. That’s why I couldn’t get a picture of the dolphin.\n6) Unfortunately, she lost their address. That’s why she couldn’t write to them.",
+   "ans": "1) If only he hadn’t fallen over during the race.\n2) If only you hadn’t been rude to your brother.\n3) If only I hadn’t spent all my money at the weekend.\n4) If only they had trained every day.\n5) If only I hadn’t left my camera at Faten’s house.\n6) If only she hadn’t lost their address.",
+   "steps": [
+    "Use I wish + had + past participle, or If only + had + past participle.",
+    "The tense is past perfect because the action is finished; the result is mentioned in the second sentence (that’s why …)."
+   ],
+   "ref": "AB p60"
+  },
+  {
+   "id": "e12u3t7-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Complete the sentences with the third conditional form of the verbs in brackets.\nExample: If I (know) had known about her problems, I would have lent her some money.\n1) If we (leave) … a little earlier, we wouldn’t have missed the bus.\n2) We (not eat) … at that restaurant if we had known it was so expensive.\n3) I would have studied medicine if my parents (have) … enough money to pay for the course.\n4) What would you have done if nobody (come) … to rescue you?\n5) We (die) … of thirst in the desert if Adam and Ali hadn’t come for us in their truck.\n6) If Salwa hadn’t told me about the new time for the class, I (be) … really late.",
+   "ans": "1) If we had left a little earlier, we wouldn’t have missed the bus.\n2) We wouldn’t have eaten at that restaurant if we had known it was so expensive.\n3) I would have studied medicine if my parents had had enough money to pay for the course.\n4) What would you have done if nobody had come to rescue you?\n5) We would have died of thirst in the desert if Adam and Ali hadn’t come for us in their truck.\n6) If Salwa hadn’t told me about the new time for the class, I would have been really late.",
+   "steps": [
+    "Every verb in the if clause takes had + past participle (had left, had known, had had, had come, had died).",
+    "Every verb in the main clause takes would have / wouldn’t have + past participle.",
+    "In 3 notice the double had: had had enough money."
+   ],
+   "ref": "AB p62"
+  },
+  {
+   "id": "e12u3t8-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Complete the advertisement with the correct words from the box: accommodation / advice / canteen / courses / experience / experienced / hostels / level / locations / staff / suit / return.",
+   "ans": "1 locations — 2 experienced — 3 level — 4 staff — 5 advice — 6 courses — 7 suit — 8 experience — 9 hostels — 10 accommodation — 11 canteen — 12 return",
+   "steps": [
+    "Every box word is used exactly once, so a word already printed in the advert cannot be an answer.",
+    "Nouns take their base form; only “experienced” takes the -ed suffix because it describes the teachers."
+   ],
+   "ref": ""
+  },
+  {
+   "id": "e12u3t10-p1",
+   "subj": "اللغة الإنكليزية",
+   "key": "12:sci:اللغة الإنكليزية",
+   "ch": "e12u3",
+   "chName": "Unit 3: I’d like to work in the tourist industry",
+   "kind": "problem",
+   "text": "Use the words you found in Exercise D to complete the sentences.\n1) Skilled nurses and doctors are always … at hospitals.\n2) The production team was … to finish the project before the deadline so that the books could be printed.\n3) I am on … leave at the moment.\n4) After the company closed down, many employees found themselves … .\n5) I always have my … when I am on public transport.",
+   "ans": "1) in demand\n2) under pressure\n3) annual\n4) out of a job\n5) headphones",
+   "steps": [
+    "Each word is used once and must fit the grammar of the sentence (e.g. on … leave needs an adjective; found themselves … needs an adjective phrase)."
+   ],
+   "ref": "AB p69"
+  }
+ ]
+}

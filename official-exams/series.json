@@ -1,0 +1,39 @@
+[
+  {
+    "name": "إنكليزي — الأجوبة النموذجية (المناهج الرسمي)",
+    "prefix": "https://iraqedu.net/wp-content/uploads/2026/06/الاجوبة_النموذجية_لمادة_اللغة_الإنجليزية_",
+    "ext": ".jpg",
+    "max": 40,
+    "out": "pages/series/إنكليزي-أجوبة-نموذجية"
+  },
+  {
+    "name": "إنكليزي — أسئلة وأجوبة تمهيدي 2025",
+    "prefix": "https://iraqedu.net/wp-content/uploads/2025/02/اسئلة-واجوبة-الانكليزي-تمهيدي-2025_",
+    "ext": ".png",
+    "max": 40,
+    "out": "pages/series/إنكليزي-تمهيدي-2025-أسئلة-وأجوبة"
+  },
+  {
+    "name": "إسلامية — أسئلة 2016–2023",
+    "prefix": "https://iraqedu.net/wp-content/uploads/2024/06/اسئلة_الاسلامية_من_2016_الى_2023_السادس_الاعدادي_",
+    "ext": ".png",
+    "max": 60,
+    "out": "pages/series/إسلامية-2016-2023"
+  },
+  {
+    "name": "وقاص الطائي — المنهج القديم 2026",
+    "prefix": "https://iraqedu.net/wp-content/uploads/وقاص-الطائي-المنهج-القديم-2026_",
+    "ext": ".jpg",
+    "max": 240,
+    "start": 170,
+    "out": "pages/series/وقاص-الطائي-القديم"
+  },
+  {
+    "name": "وقاص الطائي — المنهج الحديث 2026",
+    "prefix": "https://iraqedu.net/wp-content/uploads/وقاص-الطائي-المنهج-الحديث-2026_",
+    "ext": ".png",
+    "max": 140,
+    "start": 90,
+    "out": "pages/series/وقاص-الطائي-الحديث"
+  }
+]

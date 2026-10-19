@@ -98,9 +98,10 @@ const GLOBALS = new Set(['window', 'document', 'Math', 'JSON', 'Object', 'Array'
   'localStorage', 'sessionStorage', 'navigator', 'location', 'history', 'fetch', 'setTimeout',
   'clearTimeout', 'setInterval', 'clearInterval', 'requestAnimationFrame', 'cancelAnimationFrame',
   'parseInt', 'parseFloat', 'isNaN', 'encodeURIComponent', 'decodeURIComponent', 'alert',
-  'confirm', 'Blob', 'File', 'FileReader', 'URL', 'indexedDB', 'crypto', 'structuredClone',
+  'confirm', 'Blob', 'File', 'FileReader', 'URL', 'indexedDB', 'crypto', 'structuredClone', 'DataView',
   'FormData', 'Headers', 'Request', 'AbortController', 'Image', 'MutationObserver', 'Event',
   'CustomEvent', 'getComputedStyle', 'matchMedia', 'performance', 'atob', 'btoa',
+  'TextEncoder', 'Uint8Array',
   'addEventListener', 'removeEventListener', 'scrollTo', 'scrollIntoView', 'isFinite',
   'queueMicrotask', 'isNaN', 'require', 'module', 'process', '__dirname', 'fetch']);
 const defined = new Set(defs.keys());
@@ -152,7 +153,10 @@ const KEYWORDS = new Set(['if', 'for', 'while', 'switch', 'catch', 'return', 'ty
   'new', 'do', 'else', 'await', 'throw', 'in', 'of', 'case', 'delete', 'void', 'yield', 'as', 'var',
   'async', 'get', 'set']);
 const missing = [...called].filter(c => !defined.has(c) && !GLOBALS.has(c) && !KEYWORDS.has(c));
-if (missing.length) bad('استدعاء غير معرّف', missing.slice(0, 25).join('، ') + (missing.length > 25 ? ' …' : ''));
+/* translate is CSS embedded in the pointer-drag template, not a JavaScript call. */
+const knownFalsePositives = new Set(['translate']);
+const actualMissing = missing.filter(c => !knownFalsePositives.has(c));
+if (actualMissing.length) bad('استدعاء غير معرّف', actualMissing.slice(0, 25).join('، ') + (actualMissing.length > 25 ? ' …' : ''));
 else ok('الاستدعاءات', 'كل دالة معرّفة');
 
 console.log('\n' + '─'.repeat(52));

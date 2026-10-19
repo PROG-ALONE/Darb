@@ -10,7 +10,7 @@
  *   1. الملف يُحمَّل كـ JS صالح ويحوي جزءًا واحدًا على الأقل.
  *   2. المفتاح بصيغة <grade>:<branch>:<subject>.
  *   3. لكل سؤال: نص سؤال مفيد، وإجابة تفصيلية (why) لا تقل عن 30 حرفًا.
- *   4. الربط بموضوع الكتاب (tid) موجود فعليًّا في topics-index-full.json.
+ *   4. الربط بموضوع الكتاب (tid) موجود فعليًّا في محتوى index.html المحمّل.
  *   5. تناسق الاختيار من متعدد: خيارات 2–5 ومؤشّر c داخل المدى.
  *   6. الأسئلة المفتوحة بلا خيارات: يجب أن يكون c = null/-1/غير موجود.
  *   7. totalQuestions و byChapter يطابقان المحتوى الفعلي.
@@ -25,7 +25,21 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const DIR = path.join(ROOT, 'content');
-const TOPICS = JSON.parse(fs.readFileSync(path.join(ROOT, 'official-exams', 'topics-index-full.json'), 'utf8'));
+const INDEX = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const contentScripts = [...INDEX.matchAll(/<script src="(content\/[^"]+\.js)"\s*><\/script>/g)].map((m) => m[1]);
+global.window = {};
+require(path.join(DIR, 'h.js'));
+for (const rel of contentScripts) {
+  const file = path.basename(rel);
+  if (file === 'h.js' || /^figs|^ministerial-|^guides|^explainers/.test(file)) continue;
+  try { require(path.join(ROOT, rel)); }
+  catch (e) { throw new Error(file + ': تعذّر تحميل فهرس المحتوى — ' + e.message); }
+}
+const TOPICS = {};
+(global.window.CONTENT_PARTS || []).forEach((part) => {
+  if (!part || !part.key || !part.chapter || !Array.isArray(part.chapter.topics)) return;
+  (TOPICS[part.key] = TOPICS[part.key] || []).push({ ch: part.chapter.id, topics: part.chapter.topics });
+});
 
 const args = process.argv.slice(2);
 const ALL = args.includes('--all');
@@ -72,7 +86,7 @@ for (const f of files) {
     if (!/^\d+:(sci|lit|-):/.test(key)) errors.push(tag + ': المفتاح غير صالح');
 
     const tmap = topicMap(key);
-    if (!tmap.size) warns.push(tag + ': المفتاح غير موجود في topics-index-full.json (لن تظهر الإحالات)');
+    if (!tmap.size) warns.push(tag + ': المفتاح غير موجود في محتوى المنهج الحالي (لن تظهر الإحالات)');
 
     const qs = part.questions;
     if (part.totalQuestions !== qs.length) errors.push(tag + ': totalQuestions=' + part.totalQuestions + ' بينما العدد الفعلي ' + qs.length);
@@ -91,7 +105,7 @@ for (const f of files) {
       else if (why.length < 60) warns.push(at + ': إجابة قصيرة نسبيًّا (' + why.length + ' حرفًا)');
 
       if (!q.tid) errors.push(at + ': لا يحوي tid');
-      else if (tmap.size && !tmap.has(q.tid)) errors.push(at + ': tid="' + q.tid + '" غير موجود في فهرس المواضيع');
+      else if (tmap.size && !tmap.has(q.tid)) errors.push(at + ': tid="' + q.tid + '" غير موجود في محتوى المنهج الحالي');
       else if (tmap.has(q.tid)) {
         const ch = tmap.get(q.tid);
         realCh[ch] = (realCh[ch] || 0) + 1;

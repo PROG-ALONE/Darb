@@ -20,7 +20,8 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const CONTENT = path.join(ROOT, 'content');
-const TOPICS = JSON.parse(fs.readFileSync(path.join(ROOT, 'official-exams', 'topics-index-full.json'), 'utf8'));
+const INDEX = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const contentScripts = [...INDEX.matchAll(/<script src="(content\/[^"]+\.js)"\s*><\/script>/g)].map((m) => m[1]);
 
 const KNOWN_SUBJ = new Set([
   'الفيزياء', 'الكيمياء', 'الأحياء', 'الرياضيات',
@@ -30,16 +31,29 @@ const KNOWN_SUBJ = new Set([
 const errors = [];
 const warns = [];
 
-/* ── تحميل كل ملفات الرسوم ── */
-const figFiles = fs.readdirSync(CONTENT).filter((f) => /^figs.*\.js$/.test(f));
+/* ── تحميل المحتوى والرسوم بترتيب index.html نفسه ── */
+const figFiles = contentScripts.filter((f) => /^content\/figs.*\.js$/.test(f));
+const availableFigFiles = fs.readdirSync(CONTENT).filter((f) => /^figs.*\.js$/.test(f));
+const loadedFigNames = new Set(figFiles.map((f) => path.basename(f)));
+availableFigFiles.filter((f) => !loadedFigNames.has(f)).forEach((f) => errors.push(f + ': ملف رسوم غير محمّل في index.html'));
 global.window = {};
 for (const k of Object.keys(require.cache)) delete require.cache[k];
-for (const f of figFiles) {
-  try { require(path.join(CONTENT, f)); }
+for (const rel of contentScripts) {
+  const f = path.basename(rel);
+  if (/^ministerial-|^guides|^explainers/.test(f)) continue;
+  try { require(path.join(ROOT, rel)); }
   catch (e) { errors.push(f + ': تعذّر التحميل — ' + e.message); }
 }
 const FIGS = global.window.FIGS || {};
 const FIG_SUBJ = global.window.FIG_SUBJ || {};
+const TOPICS = {};
+(global.window.CONTENT_PARTS || []).forEach((part) => {
+  if (!part || !part.key || !part.chapter || !Array.isArray(part.chapter.topics)) return;
+  (TOPICS[part.key] = TOPICS[part.key] || []).push({
+    ch: part.chapter.id,
+    topics: part.chapter.topics.map((topic) => ({ id: topic.id, title: topic.title }))
+  });
+});
 
 const figKeys = Object.keys(FIGS);
 if (!figKeys.length) errors.push('لا يوجد أي رسم في content/figs*.js');
@@ -116,7 +130,7 @@ for (const k of grade12Subj) {
 }
 
 console.log('فحص الرسوم التفاعلية');
-console.log('  ملفات: ' + figFiles.join(' · '));
+console.log('  ملفات: ' + figFiles.map((f) => path.basename(f)).join(' · '));
 console.log('  رسوم: ' + figKeys.length + ' · إحالات من المحتوى: ' + refs);
 for (const s of Object.keys(bySubj)) console.log('  ' + s + ': ' + bySubj[s].length + ' رسمًا');
 console.log('');

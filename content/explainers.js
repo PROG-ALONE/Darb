@@ -13,58 +13,108 @@ window.EXPLAINERS = window.EXPLAINERS || {};
 
   /* ───────── ١) الفيزياء: المتسعة ذات الصفيحتين المتوازيتين ───────── */
   E.p12c1t2 = {
-    title: 'كيف تُشحن المتسعة، ومِمَّ تتكوّن سعتها؟',
-    vb: [95, 0, 190, 250],
+    title: 'المتسعة: أين تختزن الطاقة؟',
+    vb: [0, 0, 360, 250],
     params: {
       V: { label: 'فرق جهد البطارية V', min: 2, max: 12, step: 1, val: 6, unit: 'فولت' },
       d: { label: 'البعد بين الصفيحتين d', min: 1, max: 5, step: 0.5, val: 3, unit: 'ملم' },
       S: { label: 'مساحة الصفيحة A', min: 1, max: 4, step: 0.5, val: 2, unit: '× ١٠٠ سم²' }
     },
+    pick: { val: '', opts: [['field', 'في المجال بين الصفيحتين'], ['battery', 'داخل البطارية'], ['wire', 'في الأسلاك نفسها']] },
     steps: [
-      { say: 'المتسعة صفيحتان موصلتان متقابلتان بينهما عازل (هواء هنا). قبل التوصيل كل صفيحة متعادلة: شحناتها الموجبة والسالبة متساوية.', params: [] },
-      { say: 'نغلق المفتاح: البطارية تسحب إلكترونات من الصفيحة المتصلة بقطبها الموجب وتدفعها إلى الصفيحة الأخرى. التيار يبدأ كبيرًا ثم يضعف.', params: [] },
-      { say: 'تتراكم شحنة موجبة على صفيحة وسالبة مساوية لها على الأخرى، وينشأ بينهما مجال كهربائي منتظم (خطوط متوازية متساوية البعد) — فيه تُخزَّن الطاقة.', params: [] },
-      { say: 'يتوقف الشحن حين يصبح فرق جهد المتسعة مساويًا لجهد البطارية. حرّك V: الشحنة تتضاعف بتضاعف الجهد، أي Q = C × V.', params: ['V'], task: 'ضاعف الجهد من ٦ إلى ١٢ فولت، وراقب عدد الشحنات وقيمة Q.' },
-      { say: 'السعة C صفة للمتسعة نفسها: تكبر بتكبير مساحة الصفيحتين وتصغر بإبعادهما، C = ε₀ × A ÷ d.', params: ['S', 'd', 'V'], task: 'قرّب الصفيحتين إلى النصف: هل تتضاعف السعة؟' }
+      { say: 'تخيّل تجربة بسيطة: ورقتا ألمنيوم وبينهما غلاف بلاستيكي رقيق، ثم يومض مصباح صغير بعد فصل البطارية. أين كانت الطاقة؟ توقّع قبل أن نكشف الفكرة.', params: [], pick: true },
+      { say: 'هذا نموذج قريب من الواقع: رقاقتا الألمنيوم هما الصفيحتان الموصلتان، والغلاف البلاستيكي عازل يفصل بينهما. حرّك البعد والمساحة ولاحظ شكل المتسعة.', params: ['S', 'd'], pick: false },
+      { say: 'عند غلق المفتاح، تسحب البطارية إلكترونات من إحدى الصفيحتين وتدفعها إلى الأخرى. راقب الإلكترونات وهي تتحرك؛ ثم غيّر جهد البطارية لترى أثره في الشحنة.', params: ['V'], pick: false },
+      { say: 'تتراكم شحنتان متساويتان مقدارًا ومتعاكستان إشارةً. ينشأ بين الصفيحتين مجال كهربائي؛ حرّك الجهد أو البعد ولاحظ تغير شدة المجال.', params: ['V', 'd'], pick: false },
+      { say: 'نفصل البطارية ونوصل المصباح: تتحرك الشحنات في الدائرة، فيضيء المصباح ثم يخفت. المتسعة لا تصنع الطاقة؛ إنها تخزنها في المجال وتعيدها عند التفريغ.', params: ['V'], pick: false },
+      { say: 'السعة C تقيس مقدار الشحنة التي تخزنها المتسعة لكل فولت: C = Q ÷ V. هندسيًا تكبر بزيادة المساحة A، وتكبر بتقليل البعد d: C = ε₀A ÷ d.', params: ['V', 'S', 'd'], task: 'توقّع أولًا: إذا تضاعفت A ونصفنا d، كم مرة تكبر C؟ حرّك المتغيرين وتحقق.', pick: false }
     ],
     calc(P) { const eps = 8.85e-12, Am = P.S * 0.01, dm = P.d * 1e-3; const C = eps * Am / dm; return { C, Q: C * P.V }; },
-    read(P, s) { if (s < 3) return ''; const { C, Q } = this.calc(P); return '<span>C = ' + fmt(C * 1e12, 1) + ' بيكوفاراد</span><span>Q = ' + fmt(Q * 1e9, 2) + ' نانوكولوم</span><span>V = ' + A(P.V) + ' فولت</span>'; },
-    draw(P, s, t) {
-      const cx = 180, gap = 20 + (s >= 4 ? P.d : 3) * 12, h = 60 + (s >= 4 ? P.S : 2) * 22;
-      const xl = cx - gap / 2 - 8, xr = cx + gap / 2, top = 100 - h / 2;
-      const closed = s >= 1;
-      const charge = s === 0 ? 0 : s === 1 ? 1 - Math.exp(-t / 1.6) : 1;
-      const Vf = s >= 3 ? P.V / 12 : 0.5, Cf = s >= 4 ? (P.S / P.d) / (2 / 3) : 1;
-      const nQ = Math.round(cl(charge * Vf * Cf, 0, 2.2) * 6);
-      let g = '';
-      /* أسلاك */
-      g += '<path d="M' + (xl + 4) + ' ' + (top + h) + ' V 215 H 150 M 210 215 H ' + (xr + 4) + ' V ' + (top + h) + '" fill="none" stroke="var(--muted)" stroke-width="2.5"/>';
-      /* بطارية: القطب الموجب (الخط الطويل) يسار */
-      g += '<line x1="150" y1="200" x2="150" y2="230" stroke="var(--ink)" stroke-width="3"/><line x1="162" y1="207" x2="162" y2="223" stroke="var(--ink)" stroke-width="5"/>' +
-        '<line x1="198" y1="200" x2="198" y2="230" stroke="var(--ink)" stroke-width="3"/><line x1="210" y1="207" x2="210" y2="223" stroke="var(--ink)" stroke-width="5"/>' +
-        T(140, 205, '+', { fs: 14, w: 700, c: 'var(--bad)' }) + T(222, 205, '−', { fs: 14, w: 700, c: 'var(--acc)' }) + T(180, 246, 'البطارية', { fs: 11, c: 'var(--muted)' });
-      /* مفتاح */
-      g += closed ? '<line x1="240" y1="215" x2="262" y2="215" stroke="var(--ok)" stroke-width="3"/>' : '<line x1="240" y1="215" x2="258" y2="200" stroke="var(--bad)" stroke-width="3"/>';
-      g += '<circle cx="240" cy="215" r="3" fill="var(--ink)"/><circle cx="262" cy="215" r="3" fill="var(--ink)"/>' + T(251, 236, closed ? 'مغلق' : 'مفتوح', { fs: 10, c: 'var(--muted)' });
-      /* المجال */
-      if (s >= 2) { const n = 5; for (let i = 0; i < n; i++) { const y = top + (i + 0.5) * h / n; g += '<line x1="' + (xl + 12) + '" y1="' + y + '" x2="' + (xr - 6) + '" y2="' + y + '" stroke="var(--gold)" stroke-width="1.8" marker-end="url(#xg)" opacity="' + (0.35 + 0.65 * charge) + '"/>'; } g += T(cx, top - 10, 'مجال منتظم E', { fs: 11, c: 'var(--gold)', w: 700 }); }
-      /* الصفيحتان */
-      g += '<rect x="' + xl + '" y="' + top + '" width="8" height="' + h + '" rx="2" fill="' + (nQ ? 'rgba(200,64,46,.25)' : 'var(--soft)') + '" stroke="' + (nQ ? 'var(--bad)' : 'var(--muted)') + '" stroke-width="1.5"/>';
-      g += '<rect x="' + xr + '" y="' + top + '" width="8" height="' + h + '" rx="2" fill="' + (nQ ? 'rgba(69,82,216,.22)' : 'var(--soft)') + '" stroke="' + (nQ ? 'var(--acc)' : 'var(--muted)') + '" stroke-width="1.5"/>';
-      /* الشحنات */
-      if (!nQ) { for (let i = 0; i < 4; i++) { const y = top + 12 + i * (h - 24) / 3; g += T(xl - 10, y + 4, i % 2 ? '−' : '+', { fs: 11, c: 'var(--muted)' }) + T(xr + 18, y + 4, i % 2 ? '+' : '−', { fs: 11, c: 'var(--muted)' }); } }
-      for (let i = 0; i < nQ; i++) { const y = top + 8 + (i + 0.5) * (h - 16) / nQ; g += T(xl - 9, y + 4, '+', { fs: 14, w: 800, c: 'var(--bad)' }) + T(xr + 18, y + 4, '−', { fs: 16, w: 800, c: 'var(--acc)' }); }
-      /* إلكترونات تتحرك (التيار يضعف) */
-      if (s === 1) {
-        const I = Math.exp(-t / 1.6), k = Math.round(6 * I);
-        const pathL = [[xl + 4, top + h], [xl + 4, 215], [150, 215]], pathR = [[210, 215], [xr + 4, 215], [xr + 4, top + h]];
-        const along = (p, u) => { const L = []; let tot = 0; for (let i = 1; i < p.length; i++) { const d = Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]); L.push(d); tot += d; } let r = u * tot; for (let i = 0; i < L.length; i++) { if (r <= L[i]) { const q = r / L[i]; return [p[i][0] + (p[i + 1][0] - p[i][0]) * q, p[i][1] + (p[i + 1][1] - p[i][1]) * q]; } r -= L[i]; } return p[p.length - 1]; };
-        for (let i = 0; i < k; i++) { const u = ((t * 0.6 + i / k) % 1); const a = along(pathL, u), b = along(pathR, u); g += '<circle cx="' + a[0] + '" cy="' + a[1] + '" r="3.2" fill="var(--acc)"/><circle cx="' + b[0] + '" cy="' + b[1] + '" r="3.2" fill="var(--acc)"/>'; }
-        g += T(cx, 30, 'التيار: ' + (I > 0.6 ? 'كبير' : I > 0.2 ? 'يضعف' : 'يكاد يتوقف'), { fs: 12, w: 700, c: 'var(--acc)' });
-        g += '<rect x="110" y="38" width="140" height="7" rx="3.5" fill="var(--soft)"/><rect x="110" y="38" width="' + (140 * I) + '" height="7" rx="3.5" fill="var(--acc)"/>';
+    read(P, s, t, pick) {
+      if (s === 0) {
+        if (!pick) return '<span>سؤال البداية: أين تختزن المتسعة الطاقة؟</span>';
+        const answer = pick === 'field';
+        return '<span>' + (answer ? 'توقّعك صحيح.' : 'قريب، لكن ليس هذا موضع التخزين.') + '</span><span>الطاقة تختزن في المجال الكهربائي بين الصفيحتين، ثم تتحول إلى ضوء في المصباح.</span>';
       }
-      if (s === 0) g += T(cx, 28, 'متعادلة: لا شحنة صافية', { fs: 12, c: 'var(--muted)', w: 700 });
-      if (s >= 4) { g += '<line x1="' + (xl + 8) + '" y1="' + (top + h + 12) + '" x2="' + xr + '" y2="' + (top + h + 12) + '" stroke="var(--ink)" stroke-width="1"/>' + T(cx, top + h + 25, 'd', { fs: 12, w: 700, f: 'serif' }); }
+      if (s === 1) return '<span>الألمنيوم موصل يصنع الصفيحتين.</span><span>البلاستيك عازل يحفظ الفصل بينهما.</span>';
+      if (s === 3) return '<span>شدة المجال تزداد بزيادة V.</span><span>وتقل بزيادة d: E ∝ V ÷ d</span>';
+      if (s < 3) return '';
+      const { C, Q } = this.calc(P);
+      return '<span>C = ' + fmt(C * 1e12, 1) + ' بيكوفاراد</span><span>Q = ' + fmt(Q * 1e9, 2) + ' نانوكولوم</span><span>V = ' + A(P.V) + ' فولت</span>' +
+        (s === 5 ? '<span>C = Q ÷ V = ε₀A ÷ d</span>' : '');
+    },
+    draw(P, s, t, pick) {
+      const cx = 170, gap = 22 + (s === 5 ? P.d : 3) * 10, h = 74 + (s === 5 ? P.S : 2) * 18;
+      const xl = cx - gap / 2 - 8, xr = cx + gap / 2, top = 105 - h / 2;
+      const charge = s === 2 ? 1 - Math.exp(-t / 1.7) : s === 4 ? P.V / 6 * Math.exp(-t / 3.2) : s === 0 || s >= 3 ? 1 : 0;
+      const Vf = s >= 2 ? P.V / 6 : 1, Cf = s === 5 ? (P.S / P.d) / (2 / 3) : 1;
+      const nQ = Math.round(cl(charge * Vf * Cf, 0, 2) * 6);
+      let g = '';
+      if (s === 0 || s === 1) {
+        const fw = 112 + P.S * 18, fx = 160 - fw / 2, foilH = 9, sep = s === 1 ? 5 + P.d * 2 : 12, y1 = 54, y2 = y1 + foilH + sep;
+        const pulse = 0.25 + 0.35 * (0.5 + 0.5 * Math.sin(t * 2));
+        g += T(cx, 27, s === 0 ? 'تجربة منزلية: ألمنيوم + بلاستيك' : 'من ماذا صُنعت المتسعة؟', { fs: 13, w: 700, c: 'var(--ink)' });
+        g += '<rect x="' + fx + '" y="' + y1 + '" width="' + fw + '" height="' + foilH + '" rx="2" fill="var(--bad-soft)" stroke="var(--bad)" stroke-width="2"/>' +
+          '<path d="M' + (fx + 8) + ' ' + (y1 + 3) + 'h' + (fw - 16) + '" stroke="var(--bad)" stroke-width="1" opacity=".5"/>' +
+          '<rect x="' + (fx + 9) + '" y="' + (y1 + foilH) + '" width="' + (fw - 18) + '" height="' + sep + '" rx="2" fill="var(--acc-soft)" stroke="var(--acc)" stroke-dasharray="3 2" opacity=".9"/>' +
+          '<rect x="' + fx + '" y="' + y2 + '" width="' + fw + '" height="' + foilH + '" rx="2" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>' +
+          '<path d="M' + (fx + 8) + ' ' + (y2 + 3) + 'h' + (fw - 16) + '" stroke="var(--acc)" stroke-width="1" opacity=".5"/>';
+        g += T(fx + 15, y1 + 8, '+', { fs: 9, w: 800, c: 'var(--bad)' }) + T(fx + fw - 15, y2 + 8, '−', { fs: 10, w: 800, c: 'var(--acc)' });
+        g += T(280, y1 + 8, 'رقاقة ألمنيوم', { fs: 9, c: 'var(--bad)' }) +
+          T(280, y1 + foilH + sep / 2 + 3, 'بلاستيك عازل', { fs: 9, c: 'var(--acc)' }) +
+          T(280, y2 + 8, 'رقاقة ألمنيوم', { fs: 9, c: 'var(--acc)' });
+        g += '<path d="M' + fx + ' ' + (y1 + 4) + ' H 62 V 190 H 155 M ' + (fx + fw) + ' ' + (y2 + 4) + ' H 244 V 190 H 185" fill="none" stroke="var(--muted)" stroke-width="2.5"/>';
+        if (s === 0) {
+          const glow = 0.2 + 0.8 * Math.exp(-t / 2.8);
+          g += '<circle cx="170" cy="190" r="14" fill="var(--gold-soft)" stroke="var(--gold)" stroke-width="3" opacity="' + glow + '"/>' +
+            '<path d="M164 190h12m-6-6v12M151 181l-5-4m43 4 5-4m-18-8v-6" stroke="var(--gold)" stroke-width="2" opacity="' + glow + '"/>' +
+            T(170, 220, 'مصباح صغير', { fs: 10, c: 'var(--muted)' }) +
+            T(cx, 244, 'رقاقتا ألمنيوم يفصل بينهما البلاستيك', { fs: 9, c: 'var(--muted)' });
+          if (pick === 'field') g += '<circle cx="170" cy="190" r="19" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity="' + pulse + '"/>';
+        } else {
+          g += '<path d="M' + (fx + 18) + ' ' + (y2 + 14) + ' H ' + (fx + fw - 18) + '" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4 5" opacity="' + pulse + '"/>' +
+            T(cx, 207, 'الصفيحتان لا تلمسان بعضهما', { fs: 10, w: 700, c: 'var(--ink)' }) +
+            T(cx, 232, 'غيّر d لتلاحظ أثر المسافة بينهما', { fs: 9, c: 'var(--muted)' });
+        }
+        return g;
+      }
+      g += T(cx, 26, s === 4 ? 'تفريغ: الشحنة والتيار يتناقصان' : s === 2 ? 'شحن: التيار يبدأ ثم يضعف' : s === 5 ? 'غيّر A و d و V ولاحظ الأثر' : 'نموذج الصفيحتين المتوازيتين', { fs: 12, w: 700, c: 'var(--ink)' });
+      g += '<rect x="' + (xl + 8) + '" y="' + (top + 4) + '" width="' + Math.max(2, xr - xl - 8) + '" height="' + (h - 8) + '" rx="2" fill="var(--soft)" stroke="var(--line)" stroke-dasharray="4 3" opacity=".8"/>';
+      g += '<rect x="' + xl + '" y="' + top + '" width="8" height="' + h + '" rx="2" fill="var(--bad-soft)" stroke="var(--bad)" stroke-width="2"/>' +
+        '<rect x="' + xr + '" y="' + top + '" width="8" height="' + h + '" rx="2" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>';
+      if (s >= 3) {
+        const fieldLines = s === 3 ? Math.round(cl((P.V / P.d) * 2, 2, 7)) : 5;
+        const fieldStrength = cl(P.V / P.d / 2, 0.25, 1);
+        for (let i = 0; i < fieldLines; i++) {
+          const y = top + (i + 0.5) * h / fieldLines;
+          g += '<line x1="' + (xl + 12) + '" y1="' + y + '" x2="' + (xr - 6) + '" y2="' + y + '" stroke="var(--gold)" stroke-width="' + (1.2 + fieldStrength) + '" marker-end="url(#xg)" opacity="' + (0.35 + 0.65 * charge) + '"/>';
+        }
+      }
+      for (let i = 0; i < nQ; i++) { const y = top + 8 + (i + 0.5) * (h - 16) / nQ; g += T(xl - 11, y + 4, '+', { fs: 14, w: 800, c: 'var(--bad)' }) + T(xr + 19, y + 4, '−', { fs: 15, w: 800, c: 'var(--acc)' }); }
+      g += T(cx, top - 10, 'عازل بين الصفيحتين', { fs: 10, c: 'var(--muted)' });
+      if (s === 2 || s === 3) {
+        g += '<path d="M' + (xl + 4) + ' ' + (top + h) + ' V 208 H 116 M 224 208 H ' + (xr + 4) + ' V ' + (top + h) + '" fill="none" stroke="var(--muted)" stroke-width="2.5"/>' +
+          '<line x1="116" y1="195" x2="116" y2="221" stroke="var(--ink)" stroke-width="3"/><line x1="127" y1="201" x2="127" y2="215" stroke="var(--ink)" stroke-width="5"/>' +
+          '<line x1="213" y1="195" x2="213" y2="221" stroke="var(--ink)" stroke-width="3"/><line x1="224" y1="201" x2="224" y2="215" stroke="var(--ink)" stroke-width="5"/>' +
+          T(105, 196, '+', { fs: 12, w: 700, c: 'var(--bad)' }) + T(237, 196, '−', { fs: 12, w: 700, c: 'var(--acc)' }) + T(cx, 238, 'بطارية', { fs: 10, c: 'var(--muted)' });
+        if (s === 2) {
+          const travel = Math.max(0, 208 - (top + h));
+          for (let i = 0; i < 4; i++) {
+            const f = ((t * 0.45 + i / 4) % 1), yLeft = top + h + f * travel, yRight = 208 - f * travel;
+            g += '<circle cx="' + (xl + 4) + '" cy="' + yLeft + '" r="3.2" fill="var(--acc)"/><circle cx="' + (xr + 4) + '" cy="' + yRight + '" r="3.2" fill="var(--acc)"/>';
+          }
+          g += T(284, 105, 'I', { fs: 14, w: 700, c: 'var(--ok)' });
+        }
+      }
+      if (s === 4) {
+        const glow = 0.25 + 0.75 * charge;
+        g += '<path d="M' + (xl + 4) + ' ' + (top + h) + ' V 198 H 155 M ' + (xr + 4) + ' ' + (top + h) + ' V 198 H 185" fill="none" stroke="var(--muted)" stroke-width="2.5"/>' +
+          '<circle cx="170" cy="198" r="15" fill="var(--gold-soft)" stroke="var(--gold)" stroke-width="3" opacity="' + glow + '"/>' +
+          '<path d="M164 198h12m-6-6v12" stroke="var(--gold)" stroke-width="2" opacity="' + glow + '"/>' + T(170, 226, 'مصباح', { fs: 10, c: 'var(--muted)' }) +
+          '<rect x="282" y="88" width="7" height="30" rx="3" fill="var(--soft)"/><rect x="282" y="' + (118 - 30 * charge) + '" width="7" height="' + (30 * charge) + '" rx="3" fill="var(--ok)"/>' + T(286, 133, 'Q', { fs: 10, c: 'var(--muted)' });
+      }
+      if (s === 5) g += '<line x1="' + (xl + 8) + '" y1="' + (top + h + 12) + '" x2="' + xr + '" y2="' + (top + h + 12) + '" stroke="var(--ink)" stroke-width="1"/>' + T(cx, top + h + 25, 'd', { fs: 12, w: 700, f: 'serif' }) + T(cx, 238, 'C ∝ A ÷ d  |  Q = C × V', { fs: 11, w: 700, c: 'var(--acc)', ltr: true });
+      if (s === 2) { const I = Math.exp(-t / 1.7); g += '<rect x="102" y="42" width="136" height="6" rx="3" fill="var(--soft)"/><rect x="102" y="42" width="' + (136 * I) + '" height="6" rx="3" fill="var(--ok)"/>'; }
       return g;
     }
   };
@@ -145,6 +195,136 @@ window.EXPLAINERS = window.EXPLAINERS || {};
       if (s === 1) g += T(cx, 250, 'ضرب في i مرة = ٩٠° | مرتين = ١٨٠° = الضرب في −١', { fs: 11.5, w: 700, c: 'var(--ink)' });
       if (s === 2) { const k = Math.floor(t / 1.4) % 4; g += T(cx, 250, 'i<tspan baseline-shift="super" font-size="10">' + (Math.floor(t / 1.4) + 1) + '</tspan> = ' + ['i', '−1', '−i', '1'][k], { fs: 15, w: 700, ltr: true, f: 'serif' }); }
       if (s === 3) { const r = P.n % 4; [0, 1, 2, 3].forEach(i => { const a = i * Math.PI / 2; g += '<circle cx="' + (cx + R * Math.cos(a)).toFixed(1) + '" cy="' + (cy - R * Math.sin(a)).toFixed(1) + '" r="' + (i === r ? 13 : 5) + '" fill="none" stroke="' + (i === r ? 'var(--ok)' : 'var(--line)') + '" stroke-width="2.5"/>'; }); }
+      return g;
+    }
+  };
+
+  E.m12c3t1 = {
+    title: 'المعدلات المرتبطة: كيف يتغير ارتفاع الماء؟',
+    visualMode: 'derivative',
+    vb: [420, 260],
+    params: {
+      h: { label: 'ارتفاع الماء h', min: 1, max: 8, step: 1, val: 4, unit: 'م' },
+      area: { label: 'مساحة مقطع الخزان A', min: 2, max: 6, step: 1, val: 4, unit: 'م²' },
+      rate: { label: 'معدل تغير الحجم dV/dt', min: -1, max: 1, step: 0.1, val: -0.4, unit: 'م³/ث' }
+    },
+    steps: [
+      { say: 'نموذج الخزان: مساحة مقطعه ثابتة A، وارتفاع الماء h. حرّك الارتفاع لترى أن الحجم يتناسب معه.', params: ['h', 'area'] },
+      { say: 'الحجم V = A·h. بما أن A ثابتة، فإن اشتقاق العلاقة بالنسبة إلى الزمن يعطي dV/dt = A·dh/dt.', params: ['area', 'rate'] },
+      { say: 'معدل الارتفاع لا يُقرأ بالتخمين: نقسم معدل الحجم على مساحة المقطع. الإشارة السالبة تعني أن الماء ينخفض.', params: ['h', 'area', 'rate'] },
+      { say: 'مثال الكتاب: مساحة القاعدة ٤ م² والتسرّب ٠٫٤ م³/ث؛ إذن dh/dt = −٠٫٤ ÷ ٤ = −٠٫١ م/ث. غيّر القيم لترى أثر كل كمية.', params: ['h', 'area', 'rate'], task: 'ثبّت مساحة المقطع، ثم غيّر dV/dt: هل يتغير اتجاه السهم أم سرعته فقط؟' }
+    ],
+    read(P, s) {
+      const dh = P.rate / P.area, A2 = n => A(Number(n).toFixed(2));
+      if (s === 0) return '<span>V = A · h</span><span>حجم الماء = مساحة المقطع × الارتفاع</span>';
+      if (s === 1) return '<span>dV/dt = A · dh/dt</span><span>نشتق العلاقة بالنسبة إلى الزمن t</span>';
+      return '<span>dV/dt = ' + A2(P.rate) + ' م³/ث</span><span>A = ' + A2(P.area) + ' م²</span><span>dh/dt = ' + A2(dh) + ' م/ث</span>';
+    },
+    draw(P, s) {
+      const tank = { x: 38, y: 54, w: 112, h: 146 }, fillH = tank.h * P.h / 8;
+      const surface = tank.y + tank.h - fillH, rate = P.rate, dh = rate / P.area;
+      const baseY = 190 - (P.h / 8) * 120, delta = Math.max(-46, Math.min(46, dh * 260));
+      let g = '<text x="94" y="28" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">الخزان</text>' +
+        '<rect x="' + tank.x + '" y="' + surface.toFixed(1) + '" width="' + tank.w + '" height="' + fillH.toFixed(1) + '" fill="var(--acc-soft)"/>' +
+        '<path d="M' + tank.x + ' ' + tank.y + ' V' + (tank.y + tank.h) + ' H' + (tank.x + tank.w) + ' V' + tank.y + '" fill="none" stroke="var(--muted)" stroke-width="3"/>' +
+        '<line x1="' + (tank.x + 5) + '" y1="' + surface.toFixed(1) + '" x2="' + (tank.x + tank.w - 5) + '" y2="' + surface.toFixed(1) + '" stroke="var(--acc)" stroke-width="3"/>' +
+        '<line x1="166" y1="' + (surface + 5).toFixed(1) + '" x2="166" y2="' + (tank.y + tank.h).toFixed(1) + '" stroke="var(--gold)" stroke-width="2"/>' +
+        T(174, (surface + tank.y + tank.h) / 2, 'h', { fs: 15, w: 700, f: 'serif', c: 'var(--gold)', a: 'start' }) +
+        T(94, 222, 'dV/dt = A · dh/dt', { fs: 12, w: 700, ltr: true, c: 'var(--acc)' });
+      const gx = 220, gy = 45, gw = 174, gh = 154;
+      g += '<text x="' + (gx + gw / 2) + '" y="28" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">الارتفاع مع الزمن</text>' +
+        '<line x1="' + gx + '" y1="' + (gy + gh / 2) + '" x2="' + (gx + gw) + '" y2="' + (gy + gh / 2) + '" stroke="var(--line)"/>' +
+        '<line x1="' + gx + '" y1="' + gy + '" x2="' + gx + '" y2="' + (gy + gh) + '" stroke="var(--muted)" stroke-width="1.5"/>' +
+        '<line x1="' + gx + '" y1="' + baseY.toFixed(1) + '" x2="' + (gx + gw) + '" y2="' + (baseY - delta).toFixed(1) + '" stroke="' + (rate < 0 ? 'var(--bad)' : 'var(--ok)') + '" stroke-width="3" stroke-linecap="round" marker-end="url(#xa)"/>' +
+        '<circle cx="' + (gx + gw / 2) + '" cy="' + (baseY - delta / 2).toFixed(1) + '" r="5" fill="var(--gold)"/>' +
+        T(gx + gw - 8, gy + gh + 19, 't', { fs: 12, w: 700, f: 'serif', c: 'var(--muted)', a: 'end' }) +
+        T(gx + 9, gy + 15, 'h', { fs: 12, w: 700, f: 'serif', c: 'var(--muted)', a: 'start' }) +
+        T(gx + gw / 2, 232, (rate < 0 ? 'الماء ينخفض' : rate > 0 ? 'الماء يرتفع' : 'الارتفاع ثابت'), { fs: 11, w: 700, c: rate < 0 ? 'var(--bad)' : 'var(--ok)' });
+      return g;
+    }
+  };
+
+  E.m12c4t3 = {
+    title: 'التكامل المحدد: عدد تحصره المجاميع',
+    visualMode: 'integral',
+    vb: [360, 260],
+    params: { n: { label: 'عدد الفترات الجزئية n', min: 2, max: 8, step: 1, val: 4 } },
+    steps: [
+      { say: 'نبدأ بمنحنى f(x)=4−x² على الفترة [−2، 2]. المنطقة بين المنحنى والمحور تمثل التكامل المحدد.', params: [] },
+      { say: 'قسّم الفترة إلى أجزاء. المستطيلات الداخلية تعطي مجموعًا سفليًا، والمستطيلات الخارجية تعطي مجموعًا علويًا.', params: ['n'] },
+      { say: 'كلما زاد عدد الأجزاء اقترب المجموعان، وحصرا العدد الوحيد ∫ من −٢ إلى ٢ (٤−x²) dx = ٣٢/٣.', params: ['n'], task: 'زد n ولاحظ كيف يضيق الفرق بين الحدّين حول قيمة التكامل.' }
+    ],
+    bounds(n) {
+      const dx = 4 / n; let lower = 0, upper = 0;
+      for (let i = 0; i < n; i++) {
+        const a = -2 + i * dx, b = a + dx, vals = [4 - a * a, 4 - b * b];
+        if (a <= 0 && b >= 0) vals.push(4);
+        lower += Math.min(...vals) * dx; upper += Math.max(...vals) * dx;
+      }
+      return { lower, upper };
+    },
+    read(P, s) {
+      if (!s) return '<span>f(x) = ٤ − x²</span><span>الفترة: [−٢، ٢]</span>';
+      const { lower, upper } = this.bounds(P.n), f = v => A(v.toFixed(2));
+      return '<span>Lₙ = ' + f(lower) + '</span><span>∫ = ٣٢/٣ ≈ ١٠٫٦٧</span><span>Uₙ = ' + f(upper) + '</span>';
+    },
+    draw(P, s) {
+      const x0 = 42, x1 = 326, y0 = 208, y1 = 38, xmin = -2.3, xmax = 2.3, ymin = -1, ymax = 4.7;
+      const px = x => x0 + (x - xmin) / (xmax - xmin) * (x1 - x0), py = y => y0 - (y - ymin) / (ymax - ymin) * (y0 - y1);
+      const f = x => 4 - x * x, n = s ? P.n : 0, dx = 4 / Math.max(1, n);
+      let g = '<line x1="' + x0 + '" y1="' + py(0) + '" x2="' + x1 + '" y2="' + py(0) + '" stroke="var(--muted)" stroke-width="1.5"/>' +
+        '<line x1="' + px(0) + '" y1="' + y1 + '" x2="' + px(0) + '" y2="' + y0 + '" stroke="var(--muted)" stroke-width="1.5"/>';
+      let curve = '<path d="';
+      for (let i = 0; i <= 64; i++) {
+        const x = -2 + 4 * i / 64;
+        curve += (i ? 'L' : 'M') + px(x).toFixed(1) + ' ' + py(f(x)).toFixed(1);
+      }
+      curve += '" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round"/>';
+      if (n) for (let i = 0; i < n; i++) {
+        const a = -2 + i * dx, b = a + dx, vals = [f(a), f(b)];
+        if (a <= 0 && b >= 0) vals.push(4);
+        const lo = Math.min(...vals), hi = Math.max(...vals), x = px(a), w = px(b) - x;
+        g += '<rect x="' + x.toFixed(1) + '" y="' + py(lo).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (py(0) - py(lo)).toFixed(1) + '" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1"/>' +
+          '<rect x="' + x.toFixed(1) + '" y="' + py(hi).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (py(0) - py(hi)).toFixed(1) + '" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+      }
+      g += curve;
+      g += '<text x="' + px(-2) + '" y="' + (py(0) + 17) + '" text-anchor="middle" fill="var(--muted)" font-size="11">−٢</text>' +
+        '<text x="' + px(2) + '" y="' + (py(0) + 17) + '" text-anchor="middle" fill="var(--muted)" font-size="11">٢</text>' +
+        T(284, 26, 'f(x) = ٤ − x²', { fs: 12, w: 700, ltr: true, c: 'var(--acc)' });
+      return g;
+    }
+  };
+
+  E.m12c4t6 = {
+    title: 'التكامل غير المحدد: عائلة دوال',
+    visualMode: 'integral',
+    vb: [360, 260],
+    params: { C: { label: 'الثابت التكاملي C', min: -2, max: 2, step: 1, val: 0 } },
+    steps: [
+      { say: 'نبحث عن دالة مشتقتها x. إحدى الدوال المقابلة هي F(x)=x²/2؛ يظهر منحناها باللون البارز.', params: [] },
+      { say: 'إضافة ثابت C ترفع المنحنى أو تخفضه ولا تغيّر ميله؛ لذلك توجد عائلة لا نهائية من الدوال المقابلة.', params: ['C'] },
+      { say: 'التكامل غير المحدد يكتب ∫x dx = x²/2 + C. جرّب قيمًا مختلفة لـ C: تتبدل قيمة F، لكن مشتقتها تبقى x.', params: ['C'], task: 'اختر C=−٢ ثم C=٢: هل يتغير ميل المنحنى عند x=1؟' }
+    ],
+    read(P, s) {
+      if (!s) return '<span>F(x) = x²/2</span><span>F′(x) = x</span>';
+      return '<span>∫x dx = x²/2 + C</span><span>C = ' + A(P.C) + '</span><span>عند x=٢: F(٢) = ' + A(2 + P.C) + '</span><span>المشتقة F′(x)=x لا تعتمد على C</span>';
+    },
+    draw(P, s) {
+      const left = 42, right = 330, top = 34, bottom = 214, X = x => left + (x + 3) / 6 * (right - left), Y = y => bottom - (y + 3) / 10 * (bottom - top);
+      let g = '<line x1="' + left + '" y1="' + Y(0) + '" x2="' + right + '" y2="' + Y(0) + '" stroke="var(--muted)" stroke-width="1.5"/>' +
+        '<line x1="' + X(0) + '" y1="' + top + '" x2="' + X(0) + '" y2="' + bottom + '" stroke="var(--muted)" stroke-width="1.5"/>';
+      const offsets = s === 0 ? [P.C] : [-2, 0, 2], colors = ['var(--gold)', 'var(--acc)', 'var(--ok)'];
+      offsets.forEach((c, ci) => {
+        let d = '';
+        for (let i = 0; i <= 60; i++) {
+          const x = -3 + i / 10, y = x * x / 2 + c;
+          d += (i ? 'L' : 'M') + X(x).toFixed(1) + ' ' + Y(y).toFixed(1);
+        }
+        const selected = offsets.length === 1 || c === P.C;
+        g += '<path d="' + d + '" fill="none" stroke="' + (selected ? 'var(--acc)' : colors[ci]) + '" stroke-width="' + (selected ? 3.5 : 2) + '" opacity="' + (selected ? 1 : 0.72) + '"/>';
+        if (s > 0) g += T(X(2.35), Y(2.35 * 2.35 / 2 + c) - 4, 'C=' + A(c), { fs: 10, w: 700, c: colors[ci], a: 'end', ltr: true });
+      });
+      g += T(280, 24, 'F(x) = x²/2 + C', { fs: 12, w: 700, ltr: true, c: 'var(--ink)' });
       return g;
     }
   };

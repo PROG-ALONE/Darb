@@ -168,6 +168,34 @@
       ]
     }),
 
+    conicClassification: F({
+      title: 'تمييز القطوع المخروطية من معاملات المعادلة',
+      teaches: 'في الصورة ax² + cy² + dx + ey + f = 0 (من دون حد xy)، تكشف قيمتا a و c نوع القطع: المعاملان المتساويان يعطيان دائرة، والمتشابها الإشارة وغير المتساويين قطعًا ناقصًا، والمختلفا الإشارة قطعًا زائدًا، وانعدام أحدهما قطعًا مكافئًا.',
+      svg: '<svg viewBox="0 0 360 242" role="img" aria-label="أمثلة رقمية لمعاملات المعادلات التي تحدد الدائرة والقطع الناقص والزائد والمكافئ">' + DEFS3 +
+        '<rect x="8" y="8" width="168" height="82" rx="10" fill="var(--soft)" stroke="var(--line)"/>' +
+        '<rect x="184" y="8" width="168" height="82" rx="10" fill="var(--soft)" stroke="var(--line)"/>' +
+        '<rect x="8" y="98" width="168" height="82" rx="10" fill="var(--soft)" stroke="var(--line)"/>' +
+        '<rect x="184" y="98" width="168" height="82" rx="10" fill="var(--soft)" stroke="var(--line)"/>' +
+        txt(92, 27, 'دائرة', 12, 'var(--ink)') + txt(92, 49, '2x² + 2y² = 8', 11, 'var(--acc)') + txt(92, 70, 'a = c = 2', 11, 'var(--muted)') +
+        txt(268, 27, 'قطع ناقص', 12, 'var(--ink)') + txt(268, 49, '4x² + 9y² = 36', 11, 'var(--ok)') + txt(268, 70, 'a = 4 ، c = 9', 11, 'var(--muted)') +
+        txt(92, 117, 'قطع زائد', 12, 'var(--ink)') + txt(92, 139, 'x² − 4y² = 4', 11, 'var(--bad)') + txt(92, 160, 'a = 1 ، c = −4', 11, 'var(--muted)') +
+        txt(268, 117, 'قطع مكافئ', 12, 'var(--ink)') + txt(268, 139, 'y² − 4x = 0', 11, 'var(--gold)') + txt(268, 160, 'a = 0 ، c = 1', 11, 'var(--muted)') +
+        txt(180, 203, 'نفس الإشارة ومختلفان: ناقص  |  إشارتان مختلفتان: زائد', 11, 'var(--ink)') +
+        txt(180, 225, 'a = c: دائرة  |  a = 0 أو c = 0: مكافئ', 11, 'var(--ink)') + '</svg>',
+      parts: [
+        { x: 92, y: 49, label: 'الدائرة: a = c = 2', note: 'في 2x² + 2y² = 8 معاملا x² و y² متساويان وموجبان؛ لذلك يكون القطع دائرة.' },
+        { x: 268, y: 49, label: 'القطع الناقص: a = 4 و c = 9', note: 'في 4x² + 9y² = 36 المعاملان موجبان لكنهما غير متساويين؛ لذلك يكون القطع ناقصًا.' },
+        { x: 92, y: 139, label: 'القطع الزائد: a = 1 و c = −4', note: 'في x² − 4y² = 4 المعاملان مختلفا الإشارة؛ لذلك يكون القطع زائدًا.' },
+        { x: 268, y: 139, label: 'القطع المكافئ: a = 0 و c = 1', note: 'في y² − 4x = 0 لا يوجد حد x²، أي إن a = 0؛ لذلك يكون القطع مكافئًا.' }
+      ],
+      steps: [
+        txt(180, 60, 'اكتب المعادلة بالصورة ax² + cy² + dx + ey + f = 0', 12, 'var(--ink)') + txt(180, 82, 'مع حذف الحد xy أولًا', 11, 'var(--muted)'),
+        '<rect x="18" y="28" width="324" height="108" rx="10" fill="var(--soft)" stroke="var(--line)"/>' + txt(180, 63, 'حدّد معاملي x² و y²: a و c', 13, 'var(--acc)') + txt(180, 91, 'مثال: 4x² + 9y² = 36  ←  a = 4 ، c = 9', 11, 'var(--ink)'),
+        '<rect x="18" y="28" width="324" height="108" rx="10" fill="var(--soft)" stroke="var(--line)"/>' + txt(180, 63, 'قارن الإشارتين، ثم تحقّق هل a = c', 13, 'var(--acc)') + txt(180, 91, 'متساويان: دائرة  |  مختلفان: ناقص أو زائد', 11, 'var(--ink)'),
+        '<rect x="18" y="28" width="324" height="108" rx="10" fill="var(--soft)" stroke="var(--line)"/>' + txt(180, 63, 'a = 0 أو c = 0: قطع مكافئ', 13, 'var(--gold)') + txt(180, 91, 'إشارتان مختلفتان: قطع زائد', 11, 'var(--bad)')
+      ]
+    }),
+
     /* ══════ الرياضيات: تطبيقات التفاضل ══════ */
     extremaLocal: F({
       title: 'النهاية العظمى والنهاية الصغرى المحلية',
@@ -481,7 +509,7 @@
   /* مادة كل رسم — ليُعرض في مكتبة التطبيق مجمّعًا بحسب المادة */
   const SUBJ = {
     complexPlane: 'الرياضيات', complexConjugate: 'الرياضيات', complexSqrt: 'الرياضيات',
-    parabolaFocus: 'الرياضيات', conicChart: 'الرياضيات', extremaLocal: 'الرياضيات',
+    parabolaFocus: 'الرياضيات', conicChart: 'الرياضيات', conicClassification: 'الرياضيات', extremaLocal: 'الرياضيات',
     riemannSums: 'الرياضيات', areaUnderCurve: 'الرياضيات', diffEquation: 'الرياضيات', orthoProjection: 'الرياضيات',
     energyProfile: 'الكيمياء', equilK: 'الكيمياء', leChatelier: 'الكيمياء',
     phScale: 'الكيمياء', danielCell: 'الكيمياء', hBond: 'الكيمياء'

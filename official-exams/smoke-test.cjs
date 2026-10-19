@@ -181,6 +181,78 @@ T('ترحيل الخطة التلقائية إلى فارغة دون مسح ال
   return result.migrated ? null : { __fail: JSON.stringify(result) };
 });
 
+T('الهدف اليومي يتغير مع الوقت المتبقي ويعيد بناء خطة اليوم', () => {
+  const result = JSON.parse(run(`(function(){
+    const oldStudents = DB.students, oldActive = DB.activeId;
+    const st = newStudent({
+      name: 'اختبار الخطة', grade: 12, branch: 'sci', start: isoD(today0()),
+      examDate: isoD(new Date(today0().getTime() + 48 * 864e5)), minutes: 30, rest: [], holidays: []
+    });
+    st.weekMode = 'auto';
+    DB.students = [st]; DB.activeId = st.id;
+    try {
+      const moreTimeGoal = dailyLessonGoal(st);
+      st.dayPlan = { d: isoD(today0()), goal: moreTimeGoal, settings: dailyPlanSettings(st), ids: [] };
+      st.examDate = isoD(new Date(today0().getTime() + 18 * 864e5));
+      const fewerDaysGoal = dailyLessonGoal(st);
+      const plan = planToday();
+      return JSON.stringify({
+        adjusts: fewerDaysGoal > moreTimeGoal,
+        refreshed: st.dayPlan.settings === dailyPlanSettings(st) && st.dayPlan.goal === fewerDaysGoal,
+        planMatchesGoal: plan.picks.length <= fewerDaysGoal
+      });
+    } finally { DB.students = oldStudents; DB.activeId = oldActive; }
+  })()`));
+  return result.adjusts && result.refreshed && result.planMatchesGoal
+    ? null : { __fail: JSON.stringify(result) };
+});
+
+T('المراجعة الوزارية تعرض خطة الفصل والتثبيت وتنسيق الحلول', () => {
+  const result = JSON.parse(run(`(function(){
+    const oldStudents = DB.students, oldActive = DB.activeId;
+    const oldReviewTab = S.reviewTab, oldSetTab = S.setTab;
+    const st = newStudent({
+      name: 'اختبار المراجعة', grade: 12, branch: 'sci',
+      examDate: isoD(new Date(today0().getTime() + 48 * 864e5))
+    });
+    DB.students = [st]; DB.activeId = st.id;
+    try {
+      S.reviewTab = 'ministerial';
+      const review = vReview();
+      const chapters = gradeContents(st.grade).flatMap(y => y.c.chapters.map(ch => ({
+        subject: y.subject, chapter: ch, questions: bankOfChapter(y.subject, ch.id)
+      }))).find(x => x.questions.length && x.chapter.topics.some(t => !isHidden(t.id)));
+      if (!chapters) return JSON.stringify({ chapterFound: false });
+      const chapterKey = 'data-id="' + esc(chapters.chapter.id) + '"';
+      const studyAvailable = review.includes('reviewStudyChapter') && review.includes(chapterKey);
+      const testInitiallyLocked = !review.includes('data-act="chMinExam"');
+      chapters.chapter.topics.filter(t => !isHidden(t.id)).forEach(t => {
+        st.progress[t.id] = { seen: { explain: 1 } };
+      });
+      const unlocked = ministerialReviewHTML().includes('data-act="chMinExam"');
+      S.setTab = 'study';
+      const installButton = vSettings().includes('data-act="installApp"');
+      const solution = solutionContentHTML('المعطيات: أ | المطلوب: ب');
+      return JSON.stringify({
+        chapterFound: true,
+        shows47Days: review.includes(ar(47) + ' يومًا'),
+        reviewTabs: review.includes('مراجعتي') && review.includes('تهيئة وزارية'),
+        studyAvailable,
+        testInitiallyLocked,
+        unlocked,
+        installButton,
+        solutionLines: solution.includes('<b>المعطيات</b>') && solution.includes('<b>المطلوب</b>')
+      });
+    } finally {
+      DB.students = oldStudents; DB.activeId = oldActive;
+      S.reviewTab = oldReviewTab; S.setTab = oldSetTab;
+    }
+  })()`));
+  return result.chapterFound && result.shows47Days && result.reviewTabs && result.studyAvailable &&
+    result.testInitiallyLocked && result.unlocked && result.installButton && result.solutionLines
+    ? null : { __fail: JSON.stringify(result) };
+});
+
 T('إضافة طالب تعرض القصة ثم حقول المعلومات', () => {
   const result = JSON.parse(run(`(function(){
     startOnb('add');
@@ -293,14 +365,14 @@ T('ملخص التحديث يظهر مرة واحدة للمستخدم الحا�
 });
 
 T('إشعار التحديث لا يعيد المستخدم إلى إعداد القصة', () => {
-  const cacheMatches = /const CACHE = 'darb-v64'/.test(fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8'));
+  const cacheMatches = /const CACHE = 'darb-v67'/.test(fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8'));
   const out = run(`(function(){
     const notice = releaseNotesHTML();
     const student = aboutHTML();
     return JSON.stringify({
       noSetupAction: !notice.includes('releaseSetup') && !notice.includes('أدخل معلومات طالب جديد'),
       replayInSettings: student.includes('data-act="storyReplay"') && student.includes('شاهد قصة دَرْب من جديد'),
-      releaseMatches: APP_RELEASE_ID === 'darb-v64'
+      releaseMatches: APP_RELEASE_ID === 'darb-v67'
     });
   })()`);
   const result = JSON.parse(out);

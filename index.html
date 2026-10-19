@@ -821,7 +821,7 @@ input.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
    ولا تمدّد يتجاوز عرض الشاشة، مع استجابة كاملة لكل المقاسات والأوضاع. */
 
 /* ١) منع التحريك الأفقي وتمدّد الصفحة، ومنع تكبير النص تلقائيًا في iOS */
-html,body{min-height:100%;height:auto;max-width:100%;overflow-x:clip}
+html,body{height:auto;min-height:100%;max-width:100%;overflow-x:clip}
 body{min-height:100vh;min-height:100dvh;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none;overflow-wrap:anywhere}
 /* معامل الاستجابة: يُضرب في --fs (حجم الخط الذي يختاره الطالب من الإعدادات) */
 body{font-size:calc(var(--fs) * var(--fsk,1))}
@@ -1505,7 +1505,7 @@ document.documentElement.setAttribute('lang', 'ar');
 /* =================== الإعدادات العامة =================== */
 const APP = 'دَرْب';
 const APP_VER = '١';
-const APP_RELEASE_ID = 'darb-v66';
+const APP_RELEASE_ID = 'darb-v67';
 const RELEASE_NOTICE_KEY = 'darb-release-notice';
 const BACKUP_REMINDER_KEY = 'darb-backup-reminder';
 const SCHEMA = 1;
@@ -2324,15 +2324,56 @@ function pctBar(label, val, cls) {
     '<span class="strack"><i class="' + (cls || '') + '" style="width:' + Math.max(2, Math.min(100, val)) + '%"></i></span>' +
     '<b class="sval num">' + ar(Math.round(val)) + '٪</b></div>';
 }
+function ministerialReviewHTML() {
+  const st = me(), exam = parseD(examDateOf(st)), daysLeft = Math.max(0, Math.ceil((exam - today0()) / 864e5) - 1);
+  const first = Math.ceil(daysLeft * .5), second = Math.round(daysLeft * .35), third = Math.max(0, daysLeft - first - second);
+  const subjects = gradeContents(st.grade).filter(y => ministerialPool(y.subject).length);
+  let h = '<section class="card"><h2>خطة المراجعة حتى الامتحان</h2>' +
+    (daysLeft ? '<p class="small muted">بقي ' + ar(daysLeft) + ' يومًا حتى ' + fmtD(exam) + '. لا حاجة إلى إعادة قراءة كل درس بالتفصيل؛ ركّز على استرجاع الأفكار، والفصول التي تحتاج تثبيتًا، ثم أسئلة الوزاري.</p>' +
+      '<div class="list">' +
+        '<div class="row2 static"><span class="st">١</span><span class="r-tx"><b>تثبيت الفصول</b><small>' + ar(first) + ' يومًا | راجع الملخصات، وافتح شرح الموضوعات التي نسيتها أو لم تتقنها.</small></span><span class="r-end">٥٠٪</span></div>' +
+        '<div class="row2 static"><span class="st">٢</span><span class="r-tx"><b>اختبار كل فصل وزاريًا</b><small>' + ar(second) + ' يومًا | بعد دراسة موضوعات الفصل، حلّ أسئلته الوزارية وراجع أخطاءك.</small></span><span class="r-end">٣٥٪</span></div>' +
+        '<div class="row2 static"><span class="st">٣</span><span class="r-tx"><b>محاكاة ومراجعة الأخطاء</b><small>' + ar(third) + ' أيام | تدرب على نماذج شاملة، ثم راجع نقاط ضعفك مراجعة خفيفة قبل الامتحان.</small></span><span class="r-end">١٥٪</span></div>' +
+      '</div>'
+      : '<p class="small muted">موعد الامتحان المحدد قد مضى. حدّثه من «أنا ← هدف الدراسة والوقت» لتظهر خطة مراجعة مناسبة.</p>') +
+    '</section>';
+  if (!subjects.length) return h + empty('star', 'لا توجد أسئلة وزارية مرتبطة بمواد صفك بعد', 'تظهر هنا الفصول التي لها أسئلة وزارية، ثم تدرس موضوعاتها قبل أن تختبر نفسك.');
+  h += '<section class="card"><h2>ادرس الفصل، ثم اختبر نفسك</h2>' +
+    '<p class="small muted">افتح كل موضوع في الفصل وراجع شرحه. بعد فتح شروح جميع الموضوعات يظهر اختبار الفصل من أسئلته الوزارية فقط.</p></section>';
+  subjects.forEach(y => {
+    const chapters = y.c.chapters.map(ch => {
+      const questions = bankOfChapter(y.subject, ch.id);
+      if (!questions.length) return null;
+      const topics = ch.topics.filter(t => !isHidden(t.id));
+      const studied = topics.filter(t => st.progress && st.progress[t.id] && st.progress[t.id].seen && st.progress[t.id].seen.explain).length;
+      const ready = topics.length > 0 && studied === topics.length;
+      const best = ministerialChapterBest(y.subject, ch.id);
+      return '<div class="row2 static" style="align-items:flex-start"><span class="r-ic" style="--c:' + scol(y.subject) + '">' + ico('book', 1.9) + '</span>' +
+        '<span class="r-tx"><b>' + esc(ch.title) + '</b><small>' + ar(studied) + ' من ' + ar(topics.length) + ' موضوعًا | ' + ar(questions.length) + ' سؤال وزاري' + (best ? ' | أفضل نتيجة ' + ar(best) + '٪' : '') + '</small>' +
+        '<span style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
+        '<button class="btn quiet" data-act="reviewStudyChapter" data-id="' + esc(ch.id) + '">ادرس موضوعات الفصل</button>' +
+        (ready
+          ? '<button class="btn" data-act="chMinExam" data-s="' + esc(y.subject) + '" data-id="' + esc(ch.id) + '">اختبرني بالوزاري</button>'
+          : '<span class="small muted" style="align-self:center">يظهر الاختبار بعد فتح شرح كل موضوع.</span>') +
+        '</span></span></div>';
+    }).filter(Boolean);
+    h += '<section class="card"><h2>' + esc(y.subject) + '</h2><div class="list">' +
+      (chapters.length ? chapters.join('') : '<p class="small muted">لا توجد أسئلة وزارية مرتبطة بفصول هذه المادة بعد.</p>') + '</div></section>';
+  });
+  return h;
+}
 function vReview() {
   const S2 = revStats();
   const { items, over, soon, avg } = S2;
   const total = items.length || 1;
   const overPct = Math.round(over.length / total * 100);
   const strong = S2.band('strong'), mid = S2.band('mid'), weak = S2.band('weak');
+  const tab = S.reviewTab || 'spaced';
 
   let h = topBar('المراجعة', { log: 'review' }) + '<main class="page">' +
-    '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — والتقييم هنا نِسَب لا أرقام.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>';
+    segCtl('reviewTab', [['spaced', 'مراجعتي'], ['ministerial', 'تهيئة وزارية']], tab);
+  if (tab === 'ministerial') return h + ministerialReviewHTML() + '</main>';
+  h += '<div class="strip"><span>كل موضوع تدرسه يعود بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — والتقييم هنا نِسَب لا أرقام.</span><b class="num">' + ar(over.length) + ' بسبب اليوم</b></div>';
 
   if (!items.length) {
     h += '<div class="empty">' + ico('review', 1.4) + '<b>ابدأ دراستك لتظهر المراجعة</b><p>كل موضوع تدرسه وتبدأ اختباره يدخل جدول المراجعة: يعود إليك بعد يوم، ثم ثلاثة أيام، ثم أسبوع، ثم شهر — مجزأً حسب المواد.</p><button class="btn" data-act="tab" data-v="path">اذهب إلى مساري</button></div>';
@@ -3065,6 +3106,7 @@ function vSettings() {
       '<div class="field"><label for="sExam">موعد الامتحان (تقديري)</label><input id="sExam" class="input" type="date" value="' + examDateOf(st) + '"></div></div>' +
       '<div class="field"><label for="sMin">الدقائق اليومية: <span class="num">' + ar(st.minutes) + '</span></label><input id="sMin" type="range" min="30" max="300" step="15" value="' + st.minutes + '" style="accent-color:var(--acc);min-height:44px"></div>' +
       '<div class="field"><span style="font-weight:600;font-size:.92em">أيام الراحة</span><div class="chips">' + DAYS.map((d, i) => '<button class="chip" data-act="rest" data-i="' + i + '" aria-pressed="' + st.rest.includes(i) + '">' + d + '</button>').join('') + '</div></div></section>' +
+    '<section class="card"><h2>تثبيت دَرْب</h2><p class="small muted">ثبّت التطبيق على الشاشة الرئيسية للوصول إليه بسهولة. على أندرويد، افتح دَرْب في Chrome واضغط الزر.</p><button class="btn wide" data-act="installApp">ثبّت التطبيق</button></section>' +
     '<section class="card"><h2>المسائل</h2><div class="field"><label for="sProb">وقت المسائل اليومي: <span class="num">' + ar(st.probMinutes || 60) + '</span> دقيقة</label><input id="sProb" type="range" min="15" max="180" step="15" value="' + (st.probMinutes || 60) + '" style="accent-color:var(--acc);min-height:44px"><span class="note">جزء من وقتك اليومي يُخصَّص لحل المسائل في دفتر كل مادة، والأولوية للمواد التي فيها مسائل لم تُحل.</span></div></section>' +
     '<section class="card"><h2>العطل</h2>' + st.holidays.map((h, i) => '<div class="row"><span class="small">' + esc(h.name) + '، ' + fmtD(parseD(h.from)) + ' – ' + fmtD(parseD(h.to)) + '</span><button class="btn quiet" style="min-height:40px;padding:0 12px" data-act="delHoliday" data-i="' + i + '">حذف</button></div>').join('') +
       '<div class="grid2"><input id="hFrom" class="input" type="date" aria-label="بداية العطلة"><input id="hTo" class="input" type="date" aria-label="نهاية العطلة"></div><input id="hName" class="input" placeholder="اسم العطلة، مثلًا: عيد الفطر"><button class="btn quiet" data-act="addHoliday">أضف عطلة</button></section>' +
@@ -3198,6 +3240,7 @@ const brIn = h => h.replace(/([\[(])<span class="(math[^"]*|lt)"( dir="ltr")?>([
 const fe = t => '<span class="math eq" dir="ltr">' + subs(esc(t)) + '</span>';
 /* خطوات الحل الوزاري (المعطيات/المطلوب/القانون/التبسيط/الناتج) كلٌّ منها على سطره — لا سطر طويل متلاصق */
 const solLines = s => String(s == null ? '' : s)
+  .replace(/\s+\|\s+/g, '\n')
   .replace(/([.،؛]\s+|\s+)(المعطيات|المطلوب|القوانين|القانون|التبسيط|التعويض|الناتج|الخلاصة)\s*[:：]/g, '\n$2:');
 const SOL_LABELS = { 'المعطيات': 'المعطيات', 'المطلوب': 'المطلوب', 'القانون': 'القانون', 'القوانين': 'القوانين', 'التبسيط': 'التبسيط', 'التعويض': 'التعويض', 'الناتج': 'الناتج', 'النتيجة': 'الناتج', 'الخلاصة': 'الخلاصة' };
 function solutionContentHTML(value) {
@@ -4874,11 +4917,12 @@ function autoWeek(st) {
   /* توزيع الأسبوع: «عشوائي» يخلط حصة الأسبوع ويوزعها بحيث لا تتكرر المادة في اليوم نفسه،
      و«يدوي» يأخذ ما سحبه الطالب بنفسه إلى كل يوم (st.weekFill). المسائل تتبع موضوعها دائمًا. */
   const g = weeklyGoals(st), n = studyDaysCount(st), wk = isoD(weekStart0());
+  const settings = JSON.stringify([dailyPlanSettings(st), g.perDay, g.perWeek]);
   if (st.weekMode === 'manual') {
     const f = st.weekFill && st.weekFill.wk === wk && Array.isArray(st.weekFill.days) && st.weekFill.days.length === n ? st.weekFill : (st.weekFill = { wk, days: Array.from({ length: n }, () => []) });
     return { wk, weekNo: g.weekNo, days: f.days, manual: true };
   }
-  if (st.autoWeek && st.autoWeek.wk === wk && st.autoWeek.days && st.autoWeek.days.length === n && st.autoWeek.v === 2) return st.autoWeek;
+  if (st.autoWeek && st.autoWeek.wk === wk && st.autoWeek.days && st.autoWeek.days.length === n && st.autoWeek.v === 3 && st.autoWeek.settings === settings) return st.autoWeek;
   const L = shuffleSeeded(weeklyTopicList(st, 'manual'), parseD(wk).getTime() / 864e5 | 0).slice(0, n * g.perDay), days = Array.from({ length: n }, () => []), subjOf = id => findTopic(id).subject;
   L.forEach(x => {
     const id = x.t.id, sj = x.subject;
@@ -4888,34 +4932,60 @@ function autoWeek(st) {
     if (best < 0) return;
     days[best].push(id);
   });
-  st.autoWeek = { v: 2, wk, weekNo: g.weekNo, days }; save();
+  st.autoWeek = { v: 3, wk, weekNo: g.weekNo, settings, days }; save();
   return st.autoWeek;
 }
-function dailyLessonGoal(st) { return Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40))); }
+function dailyPlanSettings(st) {
+  return JSON.stringify([st.grade, st.branch, st.minutes || 120, st.start, examDateOf(st),
+    (st.rest || []).slice().sort(), (st.holidays || []).map(h => [h.from, h.to])]);
+}
+function dailyLessonGoal(st) {
+  const timeGoal = Math.max(1, Math.min(4, Math.round((st.minutes || 120) / 40)));
+  const ti = timeInfo(st);
+  if (!ti.daysLeft || !ti.weeksLeft) return timeGoal;
+  let left = 0;
+  gradeContents(st.grade).forEach(y => {
+    if (!y.c) return;
+    y.c.chapters.forEach(ch => ch.topics.forEach(t => {
+      if (!isHidden(t.id) && topicPct(t) < 90) left++;
+    }));
+  });
+  const revWeeks = Math.min(4, Math.floor(ti.weeksLeft / 5));
+  const contentWeeks = Math.max(1, ti.weeksLeft - revWeeks);
+  const contentDays = Math.max(1, Math.round(ti.daysLeft * contentWeeks / ti.weeksLeft));
+  const deadlineGoal = Math.ceil(left / contentDays);
+  const dp = st.dayPlan, today = isoD(new Date());
+  return dp && dp.d === today && dp.goal && dp.settings === dailyPlanSettings(st)
+    ? dp.goal : Math.max(timeGoal, deadlineGoal);
+}
 function planToday(extra) {
   /* قائمة اليوم ثابتة طوال اليوم (st.dayPlan): ما تُنجزه يُعلَّم «تم» ولا يختفي،
      وتُبنى أول مرة في اليوم من رفّ اليوم في خطة الأسبوع */
   const st = me(), line = studyLine(), today = isoD(new Date());
   const K = dailyLessonGoal(st);
+  const settings = dailyPlanSettings(st);
   const ok = tid => { const f = findTopic(tid); return !!f && !isHidden(tid); };
   const notDone = tid => { const f = findTopic(tid); return f && !isHidden(tid) && topicPct(f.t) < 90; };
   const asItem = tid => { const f = findTopic(tid); return { subject: f.subject, ch: f.ch, t: f.t, done: topicPct(f.t) >= 90 }; };
   const t0 = today0();
   if (st.rest.includes(t0.getDay()) || inHoliday(t0, st.holidays)) { const reviews = revAll().filter(x => revOver(x.r)).slice(0, 6); return { picks: [], reviews, left: line.length, total: line.length, rest: true }; }
   let dp = st.dayPlan && st.dayPlan.d === today ? st.dayPlan : null;
+  const goalChanged = !!dp && dp.settings != null && dp.settings !== settings;
+  if (goalChanged) dp = null;
+  else if (dp && (dp.goal == null || dp.settings == null)) { dp.goal = K; dp.settings = settings; save(); }
   if (!dp) {
     const di = studyDayIndex(st), ids = [], seen = new Set();
     const aw = autoWeek(st), slot = aw.days[Math.min(di, aw.days.length - 1)] || [];
-    const cap = aw.manual ? Math.max(K, slot.length) : K;
+    const cap = goalChanged ? K : aw.manual ? Math.max(K, slot.length) : K;
     const add = tid => { if (ids.length < cap && !seen.has(tid) && notDone(tid)) { seen.add(tid); ids.push(tid); } };
     slot.forEach(add);
-    if (ids.length < K && !aw.manual) {
+    if (ids.length < K && (!aw.manual || goalChanged)) {
       const rest = weeklyTopicList(st, 'manual').map(x => x.t.id).concat(line.map(x => x.t.id));
       const subjToday = new Set(ids.map(id => findTopic(id).subject));
       rest.filter(tid => { const f = findTopic(tid); return f && !subjToday.has(f.subject); }).forEach(add);
       rest.forEach(add);
     }
-    dp = st.dayPlan = { d: today, ids }; save();
+    dp = st.dayPlan = { d: today, goal: K, settings, ids }; save();
   }
   if (extra) { const nx = line.map(x => x.t.id).find(id => !dp.ids.includes(id)); if (nx) { dp.ids.push(nx); save(); } }
   const picks = dp.ids.filter(ok).map(asItem);
@@ -8166,6 +8236,7 @@ document.addEventListener('click', e => {
   if (stop && el.dataset.act === 'closeDialog' && el.classList.contains('dialog-back')) return;
   const a = el.dataset.act, st = me();
   switch (a) {
+    case 'installApp': requestPWAInstall(); break;
     case 'tab': tabTo(el.dataset.v); break;
     case 'go': if (el.dataset.v === 'settings') S.setTab = el.dataset.t || 'acc';
       if (el.dataset.v === 'bank' && el.dataset.s) S.bankSubject = el.dataset.s;
@@ -8340,6 +8411,12 @@ document.addEventListener('click', e => {
       break;
     }
     case 'chapter': go('chapter', { viewChapter: el.dataset.id }); break;
+    case 'reviewStudyChapter': {
+      const f = findChapter(el.dataset.id);
+      if (!f) { toast('تعذّر العثور على هذا الفصل.'); break; }
+      go('chapter', { viewGrade: me().grade, viewSubject: f.key.split(':')[2], viewChapter: f.ch.id });
+      break;
+    }
     case 'soon': toast('يُبنى في المراحل القادمة من الكتاب الرسمي'); break;
     case 'playPath': playPath(el); break;
     case 'tQuiz': { const t = findTopic(el.dataset.id).t, n = quizPool('t:' + t.id).length; S.dialog = { title: 'اختبار: ' + t.title, text: 'اختبار بعد الموضوع. كم سؤالًا تريد؟', choices: [5, 10].concat([n]).filter((v, i, a) => v <= n && a.indexOf(v) === i), src: 't:' + t.id }; render(); break; }
@@ -8801,6 +8878,37 @@ function doImport(text) {
 }
 
 /* =================== التشغيل =================== */
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  toast('ثُبّت دَرْب على جهازك.');
+});
+async function requestPWAInstall() {
+  if (matchMedia('(display-mode: standalone)').matches) {
+    toast('دَرْب مثبّت بالفعل على جهازك.');
+    return;
+  }
+  if (!deferredInstallPrompt) {
+    toast(location.protocol === 'https:'
+      ? 'افتح قائمة Chrome ⋮ واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».'
+      : 'يلزم فتح دَرْب عبر اتصال آمن HTTPS ثم اختيار «تثبيت التطبيق» من قائمة Chrome.');
+    return;
+  }
+  const prompt = deferredInstallPrompt;
+  deferredInstallPrompt = null;
+  try {
+    await prompt.prompt();
+    const choice = await prompt.userChoice;
+    toast(choice.outcome === 'accepted' ? 'بدأ تثبيت دَرْب.' : 'أُلغِي تثبيت دَرْب.');
+  } catch (e) {
+    console.error('تعذّر فتح نافذة تثبيت دَرْب:', e);
+    toast('تعذّر فتح نافذة التثبيت. جرّب قائمة Chrome ⋮ ثم «تثبيت التطبيق».');
+  }
+}
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   const hadController = !!navigator.serviceWorker.controller;
   let reloadingForUpdate = false;

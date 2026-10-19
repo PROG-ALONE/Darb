@@ -223,10 +223,10 @@ T('المراجعة الوزارية تعرض خطة الفصل والتثبيت
         subject: y.subject, chapter: ch, questions: bankOfChapter(y.subject, ch.id)
       }))).find(x => x.questions.length && x.chapter.topics.some(t => !isHidden(t.id)));
       if (!chapters) return JSON.stringify({ chapterFound: false });
-      S.acc = { ['ministerial-subject:' + chapters.subject]: true };
       const review = vReview();
-      const chapterKey = 'data-id="' + esc(chapters.chapter.id) + '"';
-      const studyAvailable = review.includes('reviewStudyChapter') && review.includes(chapterKey);
+      const topic = chapters.chapter.topics.find(t => !isHidden(t.id));
+      const topicKey = 'data-id="' + esc(topic.id) + '"';
+      const studyAvailable = review.includes('data-act="topic"') && review.includes(topicKey);
       const testInitiallyLocked = !review.includes('data-act="chMinExam"');
       chapters.chapter.topics.filter(t => !isHidden(t.id)).forEach(t => {
         st.progress[t.id] = { seen: { explain: 1 } };
@@ -237,7 +237,7 @@ T('المراجعة الوزارية تعرض خطة الفصل والتثبيت
       const solution = solutionContentHTML('المعطيات: أ | المطلوب: ب');
       return JSON.stringify({
         chapterFound: true,
-        shows47Days: review.includes(ar(47) + ' يومًا'),
+        shows48Days: review.includes(ar(48) + ' يومًا'),
         reviewTabs: review.includes('مراجعتي') && review.includes('تهيئة وزارية'),
         studyAvailable,
         testInitiallyLocked,
@@ -250,55 +250,65 @@ T('المراجعة الوزارية تعرض خطة الفصل والتثبيت
       S.reviewTab = oldReviewTab; S.setTab = oldSetTab;
     }
   })()`));
-  return result.chapterFound && result.shows47Days && result.reviewTabs && result.studyAvailable &&
+  return result.chapterFound && result.shows48Days && result.reviewTabs && result.studyAvailable &&
     result.testInitiallyLocked && result.unlocked && result.installButton && result.solutionLines
     ? null : { __fail: JSON.stringify(result) };
 });
 
-T('تهيئة الوزاري تختار بدايتها وتفتح المادة والفصول عند الطلب', () => {
+T('خطة التهيئة الوزارية تختار الموعدين وتوزّع المواضيع والاختبارات يوميًا', () => {
   const result = JSON.parse(run(`(function(){
     const oldStudents = DB.students, oldActive = DB.activeId, oldAcc = S.acc, oldReviewTab = S.reviewTab;
-    const today = today0(), exam = new Date(today.getTime() + 48 * 864e5);
+    const today = today0(), initialExam = new Date(today.getTime() + 48 * 864e5);
     const st = newStudent({
       name: 'اختبار التهيئة', grade: 12, branch: 'sci',
-      examDate: isoD(exam), rest: [], holidays: []
+      examDate: isoD(initialExam), rest: [], holidays: []
     });
-    DB.students = [st]; DB.activeId = st.id; S.acc = {}; S.reviewTab = 'ministerial';
+    DB.students = [st]; DB.activeId = st.id; S.reviewTab = 'ministerial';
     try {
       const subjects = gradeContents(st.grade).filter(y => ministerialPool(y.subject).length);
       if (!subjects.length) return JSON.stringify({ found: false });
-      const first = subjects.find(y => y.c.chapters.some(ch => bankOfChapter(y.subject, ch.id).length));
+      const first = subjects.find(y => y.c.chapters.some(ch =>
+        bankOfChapter(y.subject, ch.id).length && ch.topics.some(t => !isHidden(t.id))));
       if (!first) return JSON.stringify({ found: false });
-      const chapter = first.c.chapters.find(ch => bankOfChapter(first.subject, ch.id).length);
-      const key = 'ministerial-subject:' + first.subject;
-      const unset = ministerialReviewHTML();
-      const startsUnset = !unset.includes('تقسيم وقتك') && unset.includes('اختر موعد البدء');
-      const collapsed = unset.includes('data-k="' + key + '"') && !unset.includes('data-id="' + chapter.id + '"');
-      const startDate = isoD(today);
-      const dateInput = { target: { id: 'ministerialReviewStart', value: startDate, dataset: {}, hasAttribute: () => false } };
-      document._ev.change.forEach(handler => handler(dateInput));
-      const dateSaved = st.ministerialReviewStart === startDate;
-      st.ministerialReviewStart = isoD(new Date(today.getTime() + 5 * 864e5));
-      const futureSchedule = ministerialReviewHTML();
-      const futureStartShown = futureSchedule.includes('تبدأ بعد ' + ar(5) + ' يومًا') &&
-        futureSchedule.includes(ar(42) + ' يومًا للمراجعة');
-      const invalidInput = { target: { id: 'ministerialReviewStart', value: isoD(exam), dataset: {}, hasAttribute: () => false } };
-      document._ev.change.forEach(handler => handler(invalidInput));
-      const invalidRejected = st.ministerialReviewStart === isoD(new Date(today.getTime() + 5 * 864e5));
-      st.ministerialReviewStart = startDate;
+      const chapter = first.c.chapters.find(ch =>
+        bankOfChapter(first.subject, ch.id).length && ch.topics.some(t => !isHidden(t.id)));
+      const topic = chapter.topics.find(t => !isHidden(t.id));
+      const initial = ministerialReviewHTML();
+      const june = new Date(today.getFullYear() + 1, 5, 15);
+      const examInput = { target: { id: 'ministerialReviewExam', value: isoD(june), dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(examInput));
+      const examSaved = st.examDate === isoD(june);
+      const start = new Date(today.getTime() + 5 * 864e5), startDate = isoD(start);
+      const startInput = { target: { id: 'ministerialReviewStart', value: startDate, dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(startInput));
+      const startSaved = st.ministerialReviewStart === startDate;
       const scheduled = ministerialReviewHTML();
-      const timeline = scheduled.includes(ar(47) + ' يومًا') &&
-        scheduled.includes(ar(24) + ' يومًا') && scheduled.includes(ar(16) + ' يومًا') &&
-        scheduled.includes(ar(7) + ' أيام');
-      S.acc[key] = true;
-      const expanded = ministerialReviewHTML().includes('data-id="' + chapter.id + '"');
-      return JSON.stringify({ found: true, startsUnset, collapsed, dateSaved, futureStartShown, invalidRejected, timeline, expanded });
+      const expectedDays = Math.round((june - start) / 864e5);
+      const dayCount = scheduled.includes(ar(expectedDays) + ' يومًا');
+      const planVisible = scheduled.includes('خطتك اليومية') && scheduled.includes('data-act="topic"') &&
+        scheduled.includes('data-id="' + esc(topic.id) + '"') && scheduled.includes('حزيران');
+      const examDateHasNoMonthCap = !scheduled.includes('id="ministerialReviewExam" class="input" type="date" min="' +
+        isoD(new Date(start.getTime() + 864e5)) + '" max=');
+      const invalidStart = { target: { id: 'ministerialReviewStart', value: isoD(june), dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(invalidStart));
+      const invalidStartRejected = st.ministerialReviewStart === startDate;
+      const invalidExam = { target: { id: 'ministerialReviewExam', value: isoD(new Date(today.getTime() + 2 * 864e5)), dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(invalidExam));
+      const invalidExamRejected = st.examDate === isoD(june);
+      return JSON.stringify({
+        found: true,
+        simpleSetup: initial.includes('id="ministerialReviewStart"') &&
+          initial.includes('id="ministerialReviewExam"') && !initial.includes('تقسيم وقتك'),
+        examSaved, startSaved, dayCount, planVisible, examDateHasNoMonthCap,
+        invalidStartRejected, invalidExamRejected
+      });
     } finally {
       DB.students = oldStudents; DB.activeId = oldActive; S.acc = oldAcc; S.reviewTab = oldReviewTab;
     }
   })()`));
-  return result.found && result.startsUnset && result.collapsed && result.dateSaved &&
-    result.futureStartShown && result.invalidRejected && result.timeline && result.expanded
+  return result.found && result.simpleSetup && result.examSaved && result.startSaved &&
+    result.dayCount && result.planVisible && result.examDateHasNoMonthCap &&
+    result.invalidStartRejected && result.invalidExamRejected
     ? null : { __fail: JSON.stringify(result) };
 });
 
@@ -414,14 +424,14 @@ T('ملخص التحديث يظهر مرة واحدة للمستخدم الحا�
 });
 
 T('إشعار التحديث لا يعيد المستخدم إلى إعداد القصة', () => {
-  const cacheMatches = /const CACHE = 'darb-v67'/.test(fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8'));
+  const cacheMatches = /const CACHE = 'darb-v68'/.test(fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8'));
   const out = run(`(function(){
     const notice = releaseNotesHTML();
     const student = aboutHTML();
     return JSON.stringify({
       noSetupAction: !notice.includes('releaseSetup') && !notice.includes('أدخل معلومات طالب جديد'),
       replayInSettings: student.includes('data-act="storyReplay"') && student.includes('شاهد قصة دَرْب من جديد'),
-      releaseMatches: APP_RELEASE_ID === 'darb-v67'
+      releaseMatches: APP_RELEASE_ID === 'darb-v68'
     });
   })()`);
   const result = JSON.parse(out);

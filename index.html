@@ -2274,21 +2274,33 @@ function pctBar(label, val, cls) {
     '<b class="sval num">' + ar(Math.round(val)) + '٪</b></div>';
 }
 function ministerialReviewHTML() {
-  const st = me(), exam = parseD(examDateOf(st)), daysLeft = Math.max(0, Math.ceil((exam - today0()) / 864e5) - 1);
+  const st = me(), today = today0(), examDate = examDateOf(st), exam = parseD(examDate);
+  const selectedStart = st.ministerialReviewStart || '', requestedStart = selectedStart ? parseD(selectedStart) : null;
+  const validStart = requestedStart && requestedStart < exam;
+  const start = validStart && requestedStart > today ? requestedStart : today;
+  const daysLeft = validStart ? Math.max(0, Math.ceil((exam - start) / 864e5) - 1) : 0;
+  const startsIn = validStart && requestedStart > today ? Math.ceil((requestedStart - today) / 864e5) : 0;
   const first = Math.ceil(daysLeft * .5), second = Math.round(daysLeft * .35), third = Math.max(0, daysLeft - first - second);
+  const examMinusOne = isoD(new Date(exam.getTime() - 864e5));
   const subjects = gradeContents(st.grade).filter(y => ministerialPool(y.subject).length);
-  let h = '<section class="card"><h2>خطة المراجعة حتى الامتحان</h2>' +
-    (daysLeft ? '<p class="small muted">بقي ' + ar(daysLeft) + ' يومًا حتى ' + fmtD(exam) + '. لا حاجة إلى إعادة قراءة كل درس بالتفصيل؛ ركّز على استرجاع الأفكار، والفصول التي تحتاج تثبيتًا، ثم أسئلة الوزاري.</p>' +
+  let h = '<section class="card"><h2>موعد بدء المراجعة الوزارية</h2>' +
+    '<p class="small muted">حدّد اليوم الذي تريد أن تبدأ فيه. تُقسَّم الأيام من ذلك الموعد حتى الامتحان تلقائيًا إلى دراسة الفصول، ثم اختبارها وزاريًا، ثم محاكاة ومراجعة الأخطاء.</p>' +
+    '<div class="field"><label for="ministerialReviewStart">أبدأ المراجعة الوزارية في</label><input id="ministerialReviewStart" class="input" type="date" min="' + isoD(today) + '" max="' + examMinusOne + '" value="' + esc(selectedStart) + '"></div>' +
+    (!selectedStart ? '<p class="note">اختر موعد البدء لتظهر لك مدة المراجعة وتقسيمها.</p>' : !validStart
+      ? '<p class="note">موعد البدء يجب أن يكون قبل موعد الامتحان (' + fmtD(exam) + '). اختر تاريخًا آخر.</p>'
+      : '<p class="small muted">' + (startsIn ? 'تبدأ بعد ' + ar(startsIn) + ' يومًا (' + fmtD(requestedStart) + '). '
+        : requestedStart < today ? 'تجاوز موعد البدء الذي اخترته؛ حُسبت المدة المتبقية ابتداءً من اليوم. ' : 'بدأت المراجعة اليوم. ') +
+        'لديك ' + ar(daysLeft) + ' يومًا للمراجعة حتى امتحان ' + fmtD(exam) + '، وقد قُسّمت المدة تلقائيًا.</p>') +
+    (validStart ? '<h3 style="margin-top:16px">تقسيم وقتك</h3>' +
       '<div class="list">' +
-        '<div class="row2 static"><span class="st">١</span><span class="r-tx"><b>تثبيت الفصول</b><small>' + ar(first) + ' يومًا | راجع الملخصات، وافتح شرح الموضوعات التي نسيتها أو لم تتقنها.</small></span><span class="r-end">٥٠٪</span></div>' +
-        '<div class="row2 static"><span class="st">٢</span><span class="r-tx"><b>اختبار كل فصل وزاريًا</b><small>' + ar(second) + ' يومًا | بعد دراسة موضوعات الفصل، حلّ أسئلته الوزارية وراجع أخطاءك.</small></span><span class="r-end">٣٥٪</span></div>' +
-        '<div class="row2 static"><span class="st">٣</span><span class="r-tx"><b>محاكاة ومراجعة الأخطاء</b><small>' + ar(third) + ' أيام | تدرب على نماذج شاملة، ثم راجع نقاط ضعفك مراجعة خفيفة قبل الامتحان.</small></span><span class="r-end">١٥٪</span></div>' +
-      '</div>'
-      : '<p class="small muted">موعد الامتحان المحدد قد مضى. حدّثه من «أنا ← هدف الدراسة والوقت» لتظهر خطة مراجعة مناسبة.</p>') +
+        '<div class="row2 static"><span class="st">١</span><span class="r-tx"><b>دراسة وتثبيت الفصول</b><small>' + ar(first) + ' يومًا — راجع الملخصات وافتح شرح ما يحتاج تثبيتًا.</small></span><span class="r-end">٥٠٪</span></div>' +
+        '<div class="row2 static"><span class="st">٢</span><span class="r-tx"><b>اختبار كل فصل وزاريًا</b><small>' + ar(second) + ' يومًا — بعد دراسة الفصل، حلّ أسئلته الوزارية وراجع أخطاءك.</small></span><span class="r-end">٣٥٪</span></div>' +
+        '<div class="row2 static"><span class="st">٣</span><span class="r-tx"><b>محاكاة ومراجعة الأخطاء</b><small>' + ar(third) + ' أيام — تدرب على نماذج شاملة وراجع نقاط ضعفك قبل امتحان ' + fmtD(parseD(examMinusOne)) + '.</small></span><span class="r-end">١٥٪</span></div>' +
+      '</div>' : '') +
     '</section>';
   if (!subjects.length) return h + empty('star', 'لا توجد أسئلة وزارية مرتبطة بمواد صفك بعد', 'تظهر هنا الفصول التي لها أسئلة وزارية، ثم تدرس موضوعاتها قبل أن تختبر نفسك.');
-  h += '<section class="card"><h2>ادرس الفصل، ثم اختبر نفسك</h2>' +
-    '<p class="small muted">افتح كل موضوع في الفصل وراجع شرحه. بعد فتح شروح جميع الموضوعات يظهر اختبار الفصل من أسئلته الوزارية فقط.</p></section>';
+  h += '<section class="card"><h2>اختر المادة والفصل</h2>' +
+    '<p class="small muted">اضغط اسم المادة لفتح فصولها، ثم اختر الفصل الذي تريد دراسته. بعد فتح شرح كل موضوع في الفصل يتاح اختباره الوزاري.</p></section>';
   subjects.forEach(y => {
     const chapters = y.c.chapters.map(ch => {
       const questions = bankOfChapter(y.subject, ch.id);
@@ -2297,17 +2309,22 @@ function ministerialReviewHTML() {
       const studied = topics.filter(t => st.progress && st.progress[t.id] && st.progress[t.id].seen && st.progress[t.id].seen.explain).length;
       const ready = topics.length > 0 && studied === topics.length;
       const best = ministerialChapterBest(y.subject, ch.id);
-      return '<div class="row2 static" style="align-items:flex-start"><span class="r-ic" style="--c:' + scol(y.subject) + '">' + ico('book', 1.9) + '</span>' +
-        '<span class="r-tx"><b>' + esc(ch.title) + '</b><small>' + ar(studied) + ' من ' + ar(topics.length) + ' موضوعًا | ' + ar(questions.length) + ' سؤال وزاري' + (best ? ' | أفضل نتيجة ' + ar(best) + '٪' : '') + '</small>' +
-        '<span style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
-        '<button class="btn quiet" data-act="reviewStudyChapter" data-id="' + esc(ch.id) + '">ادرس موضوعات الفصل</button>' +
+      return '<div class="acc ministerial-chapter"><div class="acc-h" style="cursor:default">' +
+        '<span class="acc-ico">•</span><span class="acc-t"><b>' + esc(ch.title) + '</b><span class="small muted">' + ar(studied) + ' من ' + ar(topics.length) + ' موضوعًا | ' + ar(questions.length) + ' سؤال وزاري' + (best ? ' | أفضل نتيجة ' + ar(best) + '٪' : '') + '</span></span></div>' +
+        '<div class="acc-b" style="max-height:none;opacity:1"><div class="acc-b-in"><div class="grid2">' +
+        '<button class="btn quiet" data-act="reviewStudyChapter" data-id="' + esc(ch.id) + '">ادرس هذا الفصل</button>' +
         (ready
           ? '<button class="btn" data-act="chMinExam" data-s="' + esc(y.subject) + '" data-id="' + esc(ch.id) + '">اختبرني بالوزاري</button>'
           : '<span class="small muted" style="align-self:center">يظهر الاختبار بعد فتح شرح كل موضوع.</span>') +
-        '</span></span></div>';
+        '</div></div></div></div>';
     }).filter(Boolean);
-    h += '<section class="card"><h2>' + esc(y.subject) + '</h2><div class="list">' +
-      (chapters.length ? chapters.join('') : '<p class="small muted">لا توجد أسئلة وزارية مرتبطة بفصول هذه المادة بعد.</p>') + '</div></section>';
+    const key = 'ministerial-subject:' + y.subject, open = !!(S.acc && S.acc[key]);
+    h += '<section class="card ministerial-subject"><div class="acc' + (open ? ' open' : '') + '">' +
+      '<button class="acc-h" style="width:100%;border:0;background:transparent;color:inherit;text-align:right;font:inherit" data-act="acc" data-k="' + esc(key) + '" aria-expanded="' + open + '">' +
+      '<span class="acc-ico">▼</span><span class="acc-t"><b>' + esc(y.subject) + '</b><span class="small muted">' + ar(chapters.length) + ' فصول متاحة</span></span></button>' +
+      (open ? '<div class="acc-b" style="max-height:none;opacity:1"><div class="acc-b-in">' +
+        (chapters.length ? chapters.join('') : '<p class="small muted">لا توجد أسئلة وزارية مرتبطة بفصول هذه المادة بعد.</p>') +
+      '</div></div>' : '') + '</div></section>';
   });
   return h;
 }
@@ -8711,6 +8728,19 @@ document.addEventListener('change', e => {
     render(); return;
   }
   const id = e.target.id, st = me(), v = e.target.value;
+  if (id === 'ministerialReviewStart') {
+    if (!v) {
+      delete st.ministerialReviewStart;
+      save(); render(); return;
+    }
+    const exam = examDateOf(st), today = isoD(today0());
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(v) || isoD(parseD(v)) !== v || v < today || v >= exam) {
+      toast('اختر تاريخ بدء اليوم أو بعده، على أن يسبق موعد الامتحان.');
+      render(); return;
+    }
+    st.ministerialReviewStart = v;
+    save(); render(); return;
+  }
   if (id === 'oStart' && S.onb && v) { S.onb.start = v; render(); }
   if (id === 'fs') render();
   if (id === 'evGoal' || id === 'evMin') render();

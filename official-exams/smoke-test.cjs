@@ -180,6 +180,53 @@ T('ترحيل الخطة التلقائية إلى فارغة دون مسح ال
   return result.migrated ? null : { __fail: JSON.stringify(result) };
 });
 
+T('تهيئة الوزاري تختار بدايتها وتفتح المادة والفصول عند الطلب', () => {
+  const result = JSON.parse(run(`(function(){
+    const oldStudents = DB.students, oldActive = DB.activeId, oldAcc = S.acc, oldReviewTab = S.reviewTab;
+    const today = today0(), exam = new Date(today.getTime() + 48 * 864e5);
+    const st = newStudent({
+      name: 'اختبار التهيئة', grade: 12, branch: 'sci',
+      examDate: isoD(exam), rest: [], holidays: []
+    });
+    DB.students = [st]; DB.activeId = st.id; S.acc = {}; S.reviewTab = 'ministerial';
+    try {
+      const subjects = gradeContents(st.grade).filter(y => ministerialPool(y.subject).length);
+      if (!subjects.length) return JSON.stringify({ found: false });
+      const first = subjects.find(y => y.c.chapters.some(ch => bankOfChapter(y.subject, ch.id).length));
+      if (!first) return JSON.stringify({ found: false });
+      const chapter = first.c.chapters.find(ch => bankOfChapter(first.subject, ch.id).length);
+      const key = 'ministerial-subject:' + first.subject;
+      const unset = ministerialReviewHTML();
+      const startsUnset = !unset.includes('تقسيم وقتك') && unset.includes('اختر موعد البدء');
+      const collapsed = unset.includes('data-k="' + key + '"') && !unset.includes('data-id="' + chapter.id + '"');
+      const startDate = isoD(today);
+      const dateInput = { target: { id: 'ministerialReviewStart', value: startDate, dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(dateInput));
+      const dateSaved = st.ministerialReviewStart === startDate;
+      st.ministerialReviewStart = isoD(new Date(today.getTime() + 5 * 864e5));
+      const futureSchedule = ministerialReviewHTML();
+      const futureStartShown = futureSchedule.includes('تبدأ بعد ' + ar(5) + ' يومًا') &&
+        futureSchedule.includes(ar(42) + ' يومًا للمراجعة');
+      const invalidInput = { target: { id: 'ministerialReviewStart', value: isoD(exam), dataset: {}, hasAttribute: () => false } };
+      document._ev.change.forEach(handler => handler(invalidInput));
+      const invalidRejected = st.ministerialReviewStart === isoD(new Date(today.getTime() + 5 * 864e5));
+      st.ministerialReviewStart = startDate;
+      const scheduled = ministerialReviewHTML();
+      const timeline = scheduled.includes(ar(47) + ' يومًا') &&
+        scheduled.includes(ar(24) + ' يومًا') && scheduled.includes(ar(16) + ' يومًا') &&
+        scheduled.includes(ar(7) + ' أيام');
+      S.acc[key] = true;
+      const expanded = ministerialReviewHTML().includes('data-id="' + chapter.id + '"');
+      return JSON.stringify({ found: true, startsUnset, collapsed, dateSaved, futureStartShown, invalidRejected, timeline, expanded });
+    } finally {
+      DB.students = oldStudents; DB.activeId = oldActive; S.acc = oldAcc; S.reviewTab = oldReviewTab;
+    }
+  })()`));
+  return result.found && result.startsUnset && result.collapsed && result.dateSaved &&
+    result.futureStartShown && result.invalidRejected && result.timeline && result.expanded
+    ? null : { __fail: JSON.stringify(result) };
+});
+
 T('إضافة طالب تعرض القصة ثم حقول المعلومات', () => {
   const result = JSON.parse(run(`(function(){
     startOnb('add');
